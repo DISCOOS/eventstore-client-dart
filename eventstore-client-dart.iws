@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b1bfe063-9b1e-49e6-a23c-233f3c768db4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/eventstore_client_dart.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/client_base.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/constants.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/enums.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/event_data.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/event_record.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/exceptions/access_denied_exception.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/exceptions/exceptions.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/exceptions/not_leader_exception.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/helpers.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/interceptors/connection_name_interceptor.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/interceptors/interseptors.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/interceptors/report_leader_interceptor.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/interceptors/typed_exception_interceptor.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/log_position.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/resolved_event.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/settings.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/stream_position.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/stream_revision.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/stream_state.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/typedefs.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/streams/read_results.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/streams/streams_client.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/streams/write_results.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/docker-compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/harness.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/streams_client_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis_options.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_options.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/esdb-client-dart.iml" beforeDir="false" afterPath="$PROJECT_DIR$/eventstore-client-dart.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/esdb-client-dart.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/esdb-client-dart.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/esdb-client-dart.iws" beforeDir="false" afterPath="$PROJECT_DIR$/esdb-client-dart.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/esdb_client_dart_example.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/esdb_client_dart_example.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/esdb_client_dart.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/esdb_client_dart_base.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/esdb_client_dart_test.dart" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="KubernetesApiPersistence">
+    <option name="context" value="do-lon1-k8s" />
+    <option name="namespace" value="default" />
+  </component>
+  <component name="ProjectId" id="1tgQ3Xn6AhxnLRtXBm2xYy2c7n7" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/protos" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Dart" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/protos" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/src/core" />
+      <recent name="$PROJECT_DIR$/lib/src/core/interceptors" />
+      <recent name="$PROJECT_DIR$/protos" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Dart Test.Tests in streams_client_test.dart">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Tests in streams_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/streams_client_test.dart" />
+      <method v="2" />
+    </configuration>
+    <configuration name="When working on non-existing stream with streams client in streams_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/streams_client_test.dart" />
+      <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
+      <option name="testName" value="When working on non-existing stream with streams client" />
+      <method v="2" />
+    </configuration>
+    <configuration name="appends zero events when expected state is any in streams_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/streams_client_test.dart" />
+      <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
+      <option name="testName" value="appends zero events when expected state is any" />
+      <method v="2" />
+    </configuration>
+    <configuration name="create stream with expected version on first write if does not exist in streams_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/streams_client_test.dart" />
+      <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
+      <option name="testName" value="create stream with expected version on first write if does not exist" />
+      <method v="2" />
+    </configuration>
+    <configuration name="returns empty if reading all from start backwards in streams_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/streams_client_test.dart" />
+      <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
+      <option name="testName" value="returns empty if reading all from start backwards" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="eventstore-client-dart" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="eventstore-client-dart" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="eventstore-client-dart" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="eventstore-client-dart" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Dart Test.Tests in streams_client_test.dart" />
+      <item itemvalue="Dart Test.appends zero events when expected state is any in streams_client_test.dart" />
+      <item itemvalue="Dart Test.When working on non-existing stream with streams client in streams_client_test.dart" />
+      <item itemvalue="Dart Test.create stream with expected version on first write if does not exist in streams_client_test.dart" />
+      <item itemvalue="Dart Test.returns empty if reading all from start backwards in streams_client_test.dart" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Dart Test.Tests in streams_client_test.dart" />
+        <item itemvalue="Dart Test.returns empty if reading all from start backwards in streams_client_test.dart" />
+        <item itemvalue="Dart Test.create stream with expected version on first write if does not exist in streams_client_test.dart" />
+        <item itemvalue="Dart Test.When working on non-existing stream with streams client in streams_client_test.dart" />
+        <item itemvalue="Dart Test.appends zero events when expected state is any in streams_client_test.dart" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b1bfe063-9b1e-49e6-a23c-233f3c768db4" name="Default Changelist" comment="" />
+      <created>1623188053464</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1623188053464</updated>
+      <workItem from="1623188055036" duration="4611000" />
+      <workItem from="1623910917752" duration="19769000" />
+      <workItem from="1624481166558" duration="3106000" />
+      <workItem from="1624881877841" duration="8840000" />
+      <workItem from="1625144012679" duration="98615000" />
+    </task>
+    <task id="LOCAL-00001" summary="Generated dart code from protos">
+      <created>1623190618615</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1623190618616</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Generated dart code from protos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Generated dart code from protos" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="dart-exception" />
+        <breakpoint type="DlvErrorBreakpoint" />
+      </default-breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="DartTestRunConfigurationType">
+        <watch expression="all.length" language="Dart" />
+        <watch expression="utf8.decode(events[0].data)" language="Dart" />
+        <watch expression="e.isResolved" language="Dart" />
+        <watch expression="state.getStreamPosition(offset)" language="Dart" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

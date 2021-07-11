@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  eventstore:
+    image: docker.pkg.github.com/eventstore/eventstore-client-grpc-testdata/eventstore-client-grpc-testdata:20.6.1-buster-slim
+    ports:
+      - 1113:1113/tcp
+      - 1114:1114/tcp
+      - 2113:2113/tcp
+      - 2114:2114/tcp
+    healthcheck:
+      interval: 1s
+      timeout: 1s
+      retries: 10
+    environment:
+      EVENTSTORE_INSECURE: "true"
+      EVENTSTORE_DB: /data/integration-tests
+      EVENTSTORE_CERTIFICATE_PASSWORD: changeit

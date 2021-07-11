@@ -1,4 +1,4 @@
-name: esdb_client_dart
+name: eventstore_client_dart
 description: A starting point for Dart libraries or applications.
 version: 1.0.0
 # homepage: https://www.example.com
@@ -7,10 +7,20 @@ environment:
   sdk: '>=2.13.0 <3.0.0'
 
 dependencies:
+  uuid: ^3.0.4
   grpc: ^3.0.0
   protobuf: ^2.0.0
+  universal_io: ^2.0.4
+  fixnum: ^1.0.0
 
+
+dependency_overrides:
+  grpc:
+    git:
+      url: git@github.com:DISCOOS/grpc-dart.git
+      ref: issues/135_add_trailers_to_grpc_error
 
 dev_dependencies:
   pedantic: ^1.10.0
   test: ^1.16.0
+  docker_process: ^1.3.0

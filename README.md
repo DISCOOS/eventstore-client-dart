@@ -5,7 +5,7 @@ A gRPC client library for EventStoreDB.
 A simple usage example:
 
 ```dart
-import 'package:esdb_client_dart/esdb_client_dart.dart';
+import 'package:eventstore_client_dart/eventstore_client_dart.dart';
 
 main() {
   var awesome = new Awesome();
