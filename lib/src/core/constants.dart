@@ -1,3 +1,8 @@
+class Defaults {
+  static const GrpcPort = 2113;
+  static const GossipPort = 2114;
+}
+
 class Exceptions {
   static const String ExceptionKey = 'exception';
 

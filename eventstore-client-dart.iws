@@ -2,43 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1bfe063-9b1e-49e6-a23c-233f3c768db4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/eventstore_client_dart.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/client_base.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/constants.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/enums.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/event_data.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/event_record.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/exceptions/access_denied_exception.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/exceptions/exceptions.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/exceptions/not_leader_exception.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/helpers.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/interceptors/connection_name_interceptor.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/interceptors/interseptors.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/interceptors/report_leader_interceptor.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/interceptors/typed_exception_interceptor.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/log_position.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/resolved_event.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/settings.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/stream_position.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/stream_revision.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/stream_state.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/typedefs.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/streams/read_results.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/streams/streams_client.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/streams/write_results.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/docker-compose.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/harness.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/streams_client_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis_options.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_options.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/esdb-client-dart.iml" beforeDir="false" afterPath="$PROJECT_DIR$/eventstore-client-dart.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/esdb-client-dart.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/esdb-client-dart.ipr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/esdb-client-dart.iws" beforeDir="false" afterPath="$PROJECT_DIR$/esdb-client-dart.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/esdb_client_dart_example.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/esdb_client_dart_example.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/esdb_client_dart.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/esdb_client_dart_base.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/esdb_client_dart_test.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/eventstore-client-dart.iws" beforeDir="false" afterPath="$PROJECT_DIR$/eventstore-client-dart.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/eventstore_client_dart_example.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/read_all_events_example.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/eventstore_client_dart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/eventstore_client_dart.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,13 +76,15 @@
     </key>
   </component>
   <component name="RunManager" selected="Dart Test.Tests in streams_client_test.dart">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -149,38 +117,6 @@
       <option name="testName" value="returns empty if reading all from start backwards" />
       <method v="2" />
     </configuration>
-    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
-      <module name="eventstore-client-dart" />
-      <working_directory value="$PROJECT_DIR$" />
-      <go_parameters value="-i" />
-      <kind value="FILE" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
-      <module name="eventstore-client-dart" />
-      <working_directory value="$PROJECT_DIR$" />
-      <go_parameters value="-i" />
-      <kind value="DIRECTORY" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="eventstore-client-dart" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="eventstore-client-dart" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Dart Test.Tests in streams_client_test.dart" />
       <item itemvalue="Dart Test.appends zero events when expected state is any in streams_client_test.dart" />
@@ -211,6 +147,7 @@
       <workItem from="1624481166558" duration="3106000" />
       <workItem from="1624881877841" duration="8840000" />
       <workItem from="1625144012679" duration="98615000" />
+      <workItem from="1625995761335" duration="1241000" />
     </task>
     <task id="LOCAL-00001" summary="Generated dart code from protos">
       <created>1623190618615</created>
