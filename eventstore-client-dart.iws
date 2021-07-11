@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b1bfe063-9b1e-49e6-a23c-233f3c768db4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/eventstore-client-dart.iws" beforeDir="false" afterPath="$PROJECT_DIR$/eventstore-client-dart.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/eventstore_client_dart_example.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/read_all_events_example.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/eventstore_client_dart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/eventstore_client_dart.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/read_all_events_example.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/read_all_events_example.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/streams/read_results.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/streams/read_results.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/streams_client_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/streams_client_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +148,7 @@
       <workItem from="1624481166558" duration="3106000" />
       <workItem from="1624881877841" duration="8840000" />
       <workItem from="1625144012679" duration="98615000" />
-      <workItem from="1625995761335" duration="1241000" />
+      <workItem from="1625995761335" duration="1698000" />
     </task>
     <task id="LOCAL-00001" summary="Generated dart code from protos">
       <created>1623190618615</created>

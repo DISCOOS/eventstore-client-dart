@@ -153,11 +153,15 @@ class ReadEventsSuccessResult extends ReadEventsResult {
     this._actualState,
   );
 
-  /// Get resolved events
-  Stream<ResolvedEvent> get events {
+  /// Get resolved events as stream
+  Stream<ResolvedEvent> get stream {
     return _controller.stream;
   }
 
+  /// Get resolved events as list
+  Future<Iterable<ResolvedEvent>> get events => stream.toList();
+
+  // Internal stream controller for events from streams client
   final StreamController<ResolvedEvent> _controller =
       StreamController<ResolvedEvent>();
 

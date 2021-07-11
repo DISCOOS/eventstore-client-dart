@@ -158,7 +158,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      final events = await success.events.toList();
+      final events = await success.stream.toList();
       expect(events.length, 1);
       expect(
         events.last.originalEvent.eventId,
@@ -179,7 +179,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      expect(await success.events.length, PageCount);
+      expect(await success.stream.length, PageCount);
     });
 
     test('returns all events as default if reading stream from end backwards',
@@ -194,7 +194,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      expect(await success.events.length, exists.length);
+      expect(await success.stream.length, exists.length);
     });
 
     test(
@@ -211,7 +211,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      expect(await success.events.length, lessThan(exists.length * 2));
+      expect(await success.stream.length, lessThan(exists.length * 2));
     });
 
     test('returns in reverse order if reading stream backwards', () async {
@@ -226,7 +226,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      final events = await success.events.toList();
+      final events = await success.stream.toList();
       expect(events.length, PageCount);
       expect(
         events.map((e) => e.originalEvent.eventNumber),
@@ -276,7 +276,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      expect(await success.events.length, exists.length);
+      expect(await success.stream.length, exists.length);
     });
 
     test('returns given count if reading stream from start forwards', () async {
@@ -291,7 +291,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      expect(await success.events.length, PageCount);
+      expect(await success.stream.length, PageCount);
     });
 
     test(
@@ -308,7 +308,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      expect(await success.events.length, lessThan(exists.length * 2));
+      expect(await success.stream.length, lessThan(exists.length * 2));
     });
 
     test('returns in correct order if reading stream forwards', () async {
@@ -323,7 +323,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      final events = await success.events.toList();
+      final events = await success.stream.toList();
       expect(events.length, PageCount);
       expect(
         events.map((e) => e.originalEvent.eventNumber),
@@ -480,7 +480,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      expect(await success.events.toList(), isEmpty);
+      expect(await success.stream.toList(), isEmpty);
     });
 
     test('returns given count if reading all from end backwards', () async {
@@ -494,7 +494,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      expect(await success.events.length, PageCount);
+      expect(await success.stream.length, PageCount);
     });
 
     test('returns all events as default if reading all from end backwards',
@@ -508,7 +508,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      expect(await success.events.length, greaterThan(exists.length));
+      expect(await success.stream.length, greaterThan(exists.length));
     });
 
     test(
@@ -524,7 +524,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      expect(await success.events.length, lessThan(exists.length * 2));
+      expect(await success.stream.length, lessThan(exists.length * 2));
     });
 
     test('returns in reverse order if reading all backwards', () async {
@@ -538,7 +538,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      final events = await success.events.toList();
+      final events = await success.stream.toList();
       expect(events.length, PageCount);
       final resolved = events.where((e) => e.isResolved);
       expect(
@@ -567,7 +567,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      expect(await success.events.toList(), isEmpty);
+      expect(await success.stream.toList(), isEmpty);
     });
 
     test('returns given count if reading all from start forwards', () async {
@@ -581,7 +581,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      expect(await success.events.length, PageCount);
+      expect(await success.stream.length, PageCount);
     });
 
     test('returns all events as default if reading all from start forwards',
@@ -595,7 +595,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      expect(await success.events.length, greaterThan(exists.length));
+      expect(await success.stream.length, greaterThan(exists.length));
     });
 
     test(
@@ -611,7 +611,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      expect(await success.events.length, lessThan(exists.length * 2));
+      expect(await success.stream.length, lessThan(exists.length * 2));
     });
 
     test('returns in correct order if reading all forwards', () async {
@@ -625,7 +625,7 @@ void main() {
       // Assert
       expect(result, isA<ReadEventsSuccessResult>());
       final success = result as ReadEventsSuccessResult;
-      final events = await success.events.toList();
+      final events = await success.stream.toList();
       expect(events.length, PageCount);
       final resolved = events.where((e) => e.isResolved);
       expect(
@@ -719,7 +719,7 @@ Future<void> _testClientAppendsEvents(
   );
   expect(readResult, isA<ReadEventsSuccessResult>());
   expect(readResult.streamName, state.name);
-  final actual = await (readResult as ReadEventsSuccessResult).events.toList();
+  final actual = await (readResult as ReadEventsSuccessResult).stream.toList();
   expectStreamEvents(
     harness,
     state,

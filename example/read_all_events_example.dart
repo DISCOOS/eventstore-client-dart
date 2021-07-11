@@ -27,7 +27,7 @@ void main() async {
     resolveLinks: true,
   );
   if (result is ReadEventsSuccessResult) {
-    await for (var event in result.events) {
+    await for (var event in result.stream) {
       print(event);
     }
   }
