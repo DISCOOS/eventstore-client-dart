@@ -37,6 +37,12 @@ class StreamRevision implements Comparable<StreamRevision> {
   /// A [StreamRevision] value
   final Int64 value;
 
+  /// Get value as [int]
+  int toInt() => value.toInt();
+
+  /// Get [StreamPosition] from this [StreamRevision]
+  StreamPosition toPosition() => StreamPosition.fromRevision(this);
+
   @override
   int compareTo(StreamRevision other) => other.value.compareTo(value);
 

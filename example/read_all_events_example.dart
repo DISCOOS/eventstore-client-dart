@@ -1,7 +1,4 @@
 import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/log_position.dart';
-import 'package:eventstore_client_dart/src/streams/read_results.dart';
-import 'package:grpc/grpc.dart';
 import 'package:universal_io/io.dart';
 
 void main() async {
@@ -15,7 +12,7 @@ void main() async {
   );
 
   // Create client on streams
-  final client = EventStoreDBStreamsClient(
+  final client = EventStoreStreamsClient(
     'some-channel-name',
     channel,
   );
@@ -26,7 +23,7 @@ void main() async {
     forward: true,
     resolveLinks: true,
   );
-  if (result is ReadEventsSuccessResult) {
+  if (result.isOK) {
     await for (var event in result.stream) {
       print(event);
     }

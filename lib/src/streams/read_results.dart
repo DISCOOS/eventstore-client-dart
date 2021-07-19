@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:grpc/grpc.dart';
-import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:eventstore_client_dart/src/core/event_record.dart';
@@ -14,25 +13,77 @@ import 'package:eventstore_client_dart/src/core/log_position.dart';
 import 'package:eventstore_client_dart/src/core/stream_revision.dart';
 import 'package:eventstore_client_dart/src/core/stream_state.dart';
 
+enum ReadState {
+  ok,
+  stream_not_found,
+}
+
 /// An interface representing the result of a read operation.
-abstract class ReadEventsResult {
-  ReadEventsResult();
+class ReadEventsResult {
+  ReadEventsResult._(
+    this.state,
+    this._streamState,
+    this._responseStream,
+  );
 
   /// The [StreamState] after the operation.
-  StreamState get actualState;
+  final ReadState state;
+
+  /// Check if read result is OK
+  bool get isOK => state == ReadState.ok;
+
+  /// Check if stream was not found
+  bool get isStreamNotFound => state == ReadState.stream_not_found;
+
+  /// Internal [ResponseStream] for cancelling
+  final ResponseStream<ReadResp> _responseStream;
+
+  /// Internal [StreamState] tracking progress
+  StreamState _streamState;
 
   /// The name of the stream.
-  String get streamName => actualState.name;
+  String get streamName => _streamState.name;
 
   /// The [StreamStateType] after the operation.
-  StreamStateType get actualType => actualState.type;
+  StreamStateType get type => _streamState.type;
 
   /// The [LogPosition] after the operation.
-  LogPosition get actualPosition => actualState.position ?? LogPosition.start;
+  LogPosition get position => _streamState.position ?? LogPosition.start;
 
   /// The expected [StreamRevision] on next write operation.
   StreamRevision get nextExpectedStreamRevision =>
-      actualState.revision ?? StreamRevision.none;
+      _streamState.revision ?? StreamRevision.none;
+
+  /// Get resolved events as stream
+  Stream<ResolvedEvent> get stream {
+    return _controller.stream;
+  }
+
+  // Internal stream controller for events from streams client
+  final StreamController<ResolvedEvent> _controller =
+      StreamController<ResolvedEvent>();
+
+  void _add(ResolvedEvent event) {
+    _streamState = StreamState.exists(
+      event.originalStreamId,
+      position: event.originalPosition,
+      revision: event.originalEventNumber.toRevision(),
+    );
+    _controller.add(event);
+  }
+
+  void _addError(Object error, StackTrace stackTrace) {
+    _controller.addError(error, stackTrace);
+  }
+
+  /// Cancel call to server
+  Future<void> cancel() async {
+    await _controller.close();
+    return _responseStream.cancel();
+  }
+
+  /// Get resolved events as list
+  Future<Iterable<ResolvedEvent>> get events => stream.toList();
 
   /// Create appropriate [ReadEventsResult] from given [ResponseStream]
   static Future<ReadEventsResult> from(
@@ -40,7 +91,7 @@ abstract class ReadEventsResult {
     ResponseStream<ReadResp> stream,
   ) {
     final completer = Completer<ReadEventsResult>();
-    ReadEventsSuccessResult? success;
+    ReadEventsResult? success;
 
     // Forward responses to result
     stream.listen(
@@ -48,13 +99,18 @@ abstract class ReadEventsResult {
         if (resp.hasStreamNotFound()) {
           if (!completer.isCompleted) {
             completer.complete(
-              ReadEventsStreamNotFoundResult._(expected),
+              ReadEventsResult._(
+                ReadState.stream_not_found,
+                expected,
+                stream,
+              ),
             );
           }
         } else if (resp.hasEvent()) {
-          success ??= ReadEventsSuccessResult._(
-            stream,
+          success ??= ReadEventsResult._(
+            ReadState.ok,
             expected,
+            stream,
           );
           if (!completer.isCompleted) {
             completer.complete(
@@ -67,9 +123,10 @@ abstract class ReadEventsResult {
         }
       },
       onDone: () {
-        success ??= ReadEventsSuccessResult._(
-          stream,
+        success ??= ReadEventsResult._(
+          ReadState.ok,
           expected,
+          stream,
         );
         if (!completer.isCompleted) {
           completer.complete(
@@ -144,61 +201,4 @@ abstract class ReadEventsResult {
 
   */
 
-}
-
-@sealed
-class ReadEventsSuccessResult extends ReadEventsResult {
-  ReadEventsSuccessResult._(
-    this._resp,
-    this._actualState,
-  );
-
-  /// Get resolved events as stream
-  Stream<ResolvedEvent> get stream {
-    return _controller.stream;
-  }
-
-  /// Get resolved events as list
-  Future<Iterable<ResolvedEvent>> get events => stream.toList();
-
-  // Internal stream controller for events from streams client
-  final StreamController<ResolvedEvent> _controller =
-      StreamController<ResolvedEvent>();
-
-  @override
-  StreamState get actualState => _actualState;
-  StreamState _actualState;
-
-  void _add(ResolvedEvent event) {
-    _actualState = StreamState.exists(
-      event.originalStreamId,
-      position: event.originalPosition,
-      revision: event.originalEventNumber.toRevision(),
-    );
-    _controller.add(event);
-  }
-
-  void _addError(Object error, StackTrace stackTrace) {
-    _controller.addError(error, stackTrace);
-  }
-
-  /// Cancel call to server
-  Future<void> cancel() async {
-    await _controller.close();
-    return _resp.cancel();
-  }
-
-  final ResponseStream<ReadResp> _resp;
-}
-
-@sealed
-@immutable
-class ReadEventsStreamNotFoundResult extends ReadEventsResult {
-  ReadEventsStreamNotFoundResult._(
-    this._actualState,
-  );
-
-  @override
-  StreamState get actualState => _actualState;
-  final StreamState _actualState;
 }

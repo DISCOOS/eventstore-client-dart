@@ -157,6 +157,50 @@ class StreamState {
     return AppendReq()..options = options;
   }
 
+  TombstoneReq toTombstoneReq() {
+    final options = TombstoneReq_Options()
+      ..streamIdentifier = toStreamIdentifier();
+
+    if (revision != null) {
+      options.revision = revision!.value;
+    } else {
+      switch (type) {
+        case StreamStateType.any:
+          options.any = Empty();
+          break;
+        case StreamStateType.no_stream:
+          options.noStream = Empty();
+          break;
+        case StreamStateType.stream_exists:
+          options.streamExists = Empty();
+          break;
+      }
+    }
+    return TombstoneReq()..options = options;
+  }
+
+  DeleteReq toDeleteReq() {
+    final options = DeleteReq_Options()
+      ..streamIdentifier = toStreamIdentifier();
+
+    if (revision != null) {
+      options.revision = revision!.value;
+    } else {
+      switch (type) {
+        case StreamStateType.any:
+          options.any = Empty();
+          break;
+        case StreamStateType.no_stream:
+          options.noStream = Empty();
+          break;
+        case StreamStateType.stream_exists:
+          options.streamExists = Empty();
+          break;
+      }
+    }
+    return DeleteReq()..options = options;
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

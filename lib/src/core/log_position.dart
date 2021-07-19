@@ -88,4 +88,9 @@ class LogPosition {
 
   @override
   int get hashCode => commitPosition.hashCode ^ preparePosition.hashCode;
+
+  @override
+  String toString() {
+    return '$runtimeType{commitPosition: $commitPosition, preparePosition: $preparePosition}';
+  }
 }

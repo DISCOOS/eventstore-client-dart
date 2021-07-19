@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b1bfe063-9b1e-49e6-a23c-233f3c768db4" name="Default Changelist" comment="">
+    <list default="true" id="b1bfe063-9b1e-49e6-a23c-233f3c768db4" name="Default Changelist" comment="Added operations for hard and soft delete">
+      <change afterPath="$PROJECT_DIR$/lib/src/core/exceptions/stream_deleted_exception.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/exceptions/stream_not_found_exception.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/exceptions/wrong_expected_version_exception.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/streams/delete_results.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eventstore-client-dart.iws" beforeDir="false" afterPath="$PROJECT_DIR$/eventstore-client-dart.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/read_all_events_example.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/read_all_events_example.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/eventstore_client_dart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/eventstore_client_dart.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/client_base.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/client_base.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/exceptions/access_denied_exception.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/exceptions/access_denied_exception.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/exceptions/exceptions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/exceptions/exceptions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/exceptions/not_leader_exception.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/exceptions/not_leader_exception.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/interceptors/interseptors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/interceptors/interseptors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/interceptors/report_leader_interceptor.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/interceptors/typed_exception_interceptor.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/log_position.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/log_position.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/stream_revision.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/stream_revision.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/stream_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/stream_state.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/streams/read_results.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/streams/read_results.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/streams/streams_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/streams/streams_client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/harness.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/harness.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/streams_client_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/streams_client_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -92,46 +109,47 @@
     </configuration>
     <configuration name="Tests in streams_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/test/streams_client_test.dart" />
+      <option name="testName" value="streams_client_test.dart" />
       <method v="2" />
     </configuration>
-    <configuration name="When working on non-existing stream with streams client in streams_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+    <configuration name="When working on existing stream, streams client in streams_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/test/streams_client_test.dart" />
       <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
-      <option name="testName" value="When working on non-existing stream with streams client" />
+      <option name="testName" value="When working on existing stream, streams client" />
       <method v="2" />
     </configuration>
-    <configuration name="appends zero events when expected state is any in streams_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+    <configuration name="performs a soft delete on deleted stream does not throws in streams_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/test/streams_client_test.dart" />
       <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
-      <option name="testName" value="appends zero events when expected state is any" />
+      <option name="testName" value="performs a soft delete on deleted stream does not throws" />
       <method v="2" />
     </configuration>
-    <configuration name="create stream with expected version on first write if does not exist in streams_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+    <configuration name="returns stream not found in streams_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/test/streams_client_test.dart" />
       <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
-      <option name="testName" value="create stream with expected version on first write if does not exist" />
+      <option name="testName" value="returns stream not found" />
       <method v="2" />
     </configuration>
-    <configuration name="returns empty if reading all from start backwards in streams_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+    <configuration name="returns stream not found on deleted stream in streams_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/test/streams_client_test.dart" />
       <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
-      <option name="testName" value="returns empty if reading all from start backwards" />
+      <option name="testName" value="returns stream not found on deleted stream" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Dart Test.Tests in streams_client_test.dart" />
-      <item itemvalue="Dart Test.appends zero events when expected state is any in streams_client_test.dart" />
-      <item itemvalue="Dart Test.When working on non-existing stream with streams client in streams_client_test.dart" />
-      <item itemvalue="Dart Test.create stream with expected version on first write if does not exist in streams_client_test.dart" />
-      <item itemvalue="Dart Test.returns empty if reading all from start backwards in streams_client_test.dart" />
+      <item itemvalue="Dart Test.returns stream not found in streams_client_test.dart" />
+      <item itemvalue="Dart Test.returns stream not found on deleted stream in streams_client_test.dart" />
+      <item itemvalue="Dart Test.When working on existing stream, streams client in streams_client_test.dart" />
+      <item itemvalue="Dart Test.performs a soft delete on deleted stream does not throws in streams_client_test.dart" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Dart Test.Tests in streams_client_test.dart" />
-        <item itemvalue="Dart Test.returns empty if reading all from start backwards in streams_client_test.dart" />
-        <item itemvalue="Dart Test.create stream with expected version on first write if does not exist in streams_client_test.dart" />
-        <item itemvalue="Dart Test.When working on non-existing stream with streams client in streams_client_test.dart" />
-        <item itemvalue="Dart Test.appends zero events when expected state is any in streams_client_test.dart" />
+        <item itemvalue="Dart Test.When working on existing stream, streams client in streams_client_test.dart" />
+        <item itemvalue="Dart Test.performs a soft delete on deleted stream does not throws in streams_client_test.dart" />
+        <item itemvalue="Dart Test.returns stream not found on deleted stream in streams_client_test.dart" />
+        <item itemvalue="Dart Test.returns stream not found in streams_client_test.dart" />
       </list>
     </recent_temporary>
   </component>
@@ -148,7 +166,7 @@
       <workItem from="1624481166558" duration="3106000" />
       <workItem from="1624881877841" duration="8840000" />
       <workItem from="1625144012679" duration="98615000" />
-      <workItem from="1625995761335" duration="1698000" />
+      <workItem from="1625995761335" duration="22515000" />
     </task>
     <task id="LOCAL-00001" summary="Generated dart code from protos">
       <created>1623190618615</created>
@@ -166,10 +184,18 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Generated dart code from protos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Generated dart code from protos" />
+    <MESSAGE value="Added operations for hard and soft delete" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added operations for hard and soft delete" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/src/core/client_base.dart</url>
+          <line>48</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="dart-exception" />
         <breakpoint type="DlvErrorBreakpoint" />

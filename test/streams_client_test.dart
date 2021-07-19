@@ -1,38 +1,60 @@
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/enums.dart';
-import 'package:eventstore_client_dart/src/core/log_position.dart';
-import 'package:eventstore_client_dart/src/streams/read_results.dart';
-import 'package:eventstore_client_dart/src/streams/write_results.dart';
-import 'package:grpc/grpc.dart';
 import 'package:test/test.dart';
+
+import 'package:eventstore_client_dart/eventstore_client_dart.dart';
 
 import 'harness.dart';
 
 void main() {
   const PageCount = 20;
 
-  group('When working on non-existing stream with streams client', () {
+  group('When working on non-existing stream, streams client', () {
     final harness = EventStoreDBClientHarness()
       ..withLogger()
       ..withStreamsClient()
       ..install();
 
+    // ---------------------------------------
+    // Test read operations
+    // ---------------------------------------
+
+    test('returns stream not found', () async {
+      // Arrange
+      final client = harness.client<EventStoreStreamsClient>();
+      final expected = harness.streamState<EventStoreStreamsClient>(
+        StreamStateType.any,
+        revision: StreamRevision.empty,
+      );
+
+      // Act
+      final result = await client.readFromStream(
+        expected.name,
+        expected.revision!.toPosition(),
+      );
+
+      // Assert result
+      expect(result.isStreamNotFound, isTrue);
+    });
+
+    // ---------------------------------------
+    // Test append operations
+    // ---------------------------------------
+
     test('appends zero events when expected state is any', () async {
-      final state = harness.streamState<EventStoreDBStreamsClient>(
+      final state = harness.streamState<EventStoreStreamsClient>(
         StreamStateType.any,
       );
       await _testClientAppendsZeroEvents(harness, state);
     });
 
     test('appends zero events when expected state is no stream', () async {
-      final state = harness.streamState<EventStoreDBStreamsClient>(
+      final state = harness.streamState<EventStoreStreamsClient>(
         StreamStateType.no_stream,
       );
       await _testClientAppendsZeroEvents(harness, state);
     });
 
     test('appends zero events when expected state is stream exists', () async {
-      final state = harness.streamState<EventStoreDBStreamsClient>(
+      final state = harness.streamState<EventStoreStreamsClient>(
         StreamStateType.stream_exists,
       );
       await _testClientAppendsZeroEvents(harness, state);
@@ -40,7 +62,7 @@ void main() {
 
     test('create stream with expected version on first write if does not exist',
         () async {
-      final state = harness.streamState<EventStoreDBStreamsClient>(
+      final state = harness.streamState<EventStoreStreamsClient>(
         StreamStateType.no_stream,
       );
       final events = harness.createTestEvents(count: 1);
@@ -50,7 +72,7 @@ void main() {
     test('create stream on first write with repeated idempotent writes',
         () async {
       // Arrange
-      final state = harness.streamState<EventStoreDBStreamsClient>(
+      final state = harness.streamState<EventStoreStreamsClient>(
         StreamStateType.any,
       );
       final events = harness.createTestEvents(count: 4);
@@ -66,7 +88,7 @@ void main() {
         'bug case: create stream with multiple idempotent writes '
         'with same event id', () async {
       // Arrange
-      final state = harness.streamState<EventStoreDBStreamsClient>(
+      final state = harness.streamState<EventStoreStreamsClient>(
         StreamStateType.any,
       );
       final event = harness.createTestEvent(0);
@@ -75,13 +97,71 @@ void main() {
       await _testClientAppendsEvents(harness, state, events);
     });
 
+    // ---------------------------------------
+    // Test Tombstone operations (hard delete)
+    // ---------------------------------------
+
+    test('performs a hard delete with expected version any does not throw',
+        () async {
+      // Arrange
+      final client = harness.client<EventStoreStreamsClient>();
+      final expected = harness.streamState<EventStoreStreamsClient>(
+        StreamStateType.any,
+      );
+
+      // Act
+      final result = await client.tombstone(expected);
+
+      // Assert result
+      expect(result.streamName, expected.name);
+      expect(result.deletedAtPosition, isNotNull);
+      expect(result.deletedAtRevision, isNull);
+    });
+
+    test(
+        'performs a hard delete with expected version no stream does not throw',
+        () async {
+      // Arrange
+      final client = harness.client<EventStoreStreamsClient>();
+      final expected = harness.streamState<EventStoreStreamsClient>(
+        StreamStateType.no_stream,
+      );
+
+      // Act
+      final result = await client.tombstone(expected);
+
+      // Assert result
+      expect(result.streamName, expected.name);
+      expect(result.deletedAtPosition, isNotNull);
+      expect(result.deletedAtRevision, isNull);
+    });
+
+    test('performs a hard delete with wrong expected version throws', () async {
+      // Arrange
+      final client = harness.client<EventStoreStreamsClient>();
+      final expected = harness.streamState<EventStoreStreamsClient>(
+        StreamStateType.stream_exists,
+        revision: StreamRevision.checked(0),
+      );
+
+      // Act
+      final result = client.tombstone(StreamState.exists(expected.name));
+
+      // Assert result
+      await expectLater(result, throwsA(isA<GrpcError>()));
+    });
+
+    // ---------------------------------------
+    // Test bug cases
+    // ---------------------------------------
+
     test(
         'bug case: create stream with repeated multiple idempotent writes '
         'with same event id using expected version any '
         'then next expected version is unreliable', () async {
       // Arrange
-      final client = harness.client<EventStoreDBStreamsClient>();
-      final state = harness.streamState<EventStoreDBStreamsClient>(
+      final client = harness.client<EventStoreStreamsClient>();
+      final state = harness.streamState<EventStoreStreamsClient>(
         StreamStateType.any,
       );
       final event = harness.createTestEvent(0);
@@ -107,7 +187,7 @@ void main() {
         'with same event id using expected version no stream '
         'then next expected version is correct', () async {
       // Arrange
-      final state = harness.streamState<EventStoreDBStreamsClient>(
+      final state = harness.streamState<EventStoreStreamsClient>(
         StreamStateType.no_stream,
       );
       final event = harness.createTestEvent(0);
@@ -121,7 +201,7 @@ void main() {
     });
   });
 
-  group('When working on existing stream with streams client', () {
+  group('When working on existing stream, streams client', () {
     final harness = EventStoreDBClientHarness()
       ..withLogger()
       ..withStreamsClient()
@@ -129,11 +209,11 @@ void main() {
 
     late StreamState state;
     late Iterable<EventData> exists;
-    late EventStoreDBStreamsClient client;
+    late EventStoreStreamsClient client;
 
     setUp(() async {
-      client = harness.client<EventStoreDBStreamsClient>();
-      state = harness.streamState<EventStoreDBStreamsClient>(
+      client = harness.client<EventStoreStreamsClient>();
+      state = harness.streamState<EventStoreStreamsClient>(
         StreamStateType.any,
       );
       exists = harness.createTestEvents(count: 25);
@@ -156,9 +236,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      final events = await success.stream.toList();
+      expect(result.isOK, isTrue);
+      final events = await result.stream.toList();
       expect(events.length, 1);
       expect(
         events.last.originalEvent.eventId,
@@ -177,9 +256,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      expect(await success.stream.length, PageCount);
+      expect(result.isOK, isTrue);
+      expect(await result.stream.length, PageCount);
     });
 
     test('returns all events as default if reading stream from end backwards',
@@ -192,9 +270,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      expect(await success.stream.length, exists.length);
+      expect(result.isOK, isTrue);
+      expect(await result.stream.length, exists.length);
     });
 
     test(
@@ -209,9 +286,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      expect(await success.stream.length, lessThan(exists.length * 2));
+      expect(result.isOK, isTrue);
+      expect(await result.stream.length, lessThan(exists.length * 2));
     });
 
     test('returns in reverse order if reading stream backwards', () async {
@@ -224,9 +300,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      final events = await success.stream.toList();
+      expect(result.isOK, isTrue);
+      final events = await result.stream.toList();
       expect(events.length, PageCount);
       expect(
         events.map((e) => e.originalEvent.eventNumber),
@@ -274,9 +349,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      expect(await success.stream.length, exists.length);
+      expect(result.isOK, isTrue);
+      expect(await result.stream.length, exists.length);
     });
 
     test('returns given count if reading stream from start forwards', () async {
@@ -289,9 +363,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      expect(await success.stream.length, PageCount);
+      expect(result.isOK, isTrue);
+      expect(await result.stream.length, PageCount);
     });
 
     test(
@@ -306,9 +379,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      expect(await success.stream.length, lessThan(exists.length * 2));
+      expect(result.isOK, isTrue);
+      expect(await result.stream.length, lessThan(exists.length * 2));
     });
 
     test('returns in correct order if reading stream forwards', () async {
@@ -321,9 +393,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      final events = await success.stream.toList();
+      expect(result.isOK, isTrue);
+      final events = await result.stream.toList();
       expect(events.length, PageCount);
       expect(
         events.map((e) => e.originalEvent.eventNumber),
@@ -362,6 +433,141 @@ void main() {
         events,
         exists: exists,
       );
+    });
+
+    // ---------------------------------------
+    // Test Tombstone operations (hard delete)
+    // ---------------------------------------
+
+    test('performs a hard delete with any', () async {
+      // Act
+      final result = await client.tombstone(
+        StreamState.any(state.name),
+      );
+
+      // Assert result
+      expect(result.streamName, state.name);
+      expect(result.deletedAtPosition, isNotNull);
+      expect(result.deletedAtRevision, state.revision);
+    });
+
+    test('performs a hard delete with expected revision', () async {
+      // Act
+      final result = await client.tombstone(state);
+
+      // Assert result
+      expect(result.streamName, state.name);
+      expect(result.deletedAtPosition, isNotNull);
+      expect(result.deletedAtRevision, state.revision);
+    });
+
+    test('performs a hard delete with no stream throws', () async {
+      // Act
+      final result = client.tombstone(StreamState.noStream(state.name));
+
+      // Assert result
+      await expectLater(result, throwsA(isA<WrongExpectedVersionException>()));
+    });
+
+    test('performs a hard delete with stream exists throws', () async {
+      // Act
+      final result = client.tombstone(StreamState.exists(state.name));
+
+      // Assert result
+      await expectLater(result, throwsA(isA<GrpcError>()));
+    });
+
+    test('performs a hard delete on deleted stream throws', () async {
+      // Act
+      await client.tombstone(state);
+      final result = client.tombstone(state);
+
+      // Assert result
+      await expectLater(result, throwsA(isA<StreamDeletedException>()));
+    });
+
+    test('read from hard deleted stream throws', () async {
+      // Act
+      await client.tombstone(state);
+      final result = client.readFromStream(
+        state.name,
+        state.getStreamPosition(),
+      );
+
+      // Assert result
+      await expectLater(result, throwsA(isA<StreamDeletedException>()));
+    });
+
+    // ---------------------------------------
+    // Test Truncate operations (soft delete)
+    // ---------------------------------------
+
+    test('performs a soft delete with any', () async {
+      // Act
+      final result = await client.delete(
+        StreamState.any(state.name),
+      );
+
+      // Assert result
+      expect(result.streamName, state.name);
+      expect(result.deletedAtPosition, isNotNull);
+      expect(result.deletedAtRevision, state.revision);
+    });
+
+    test('performs a soft delete with expected revision', () async {
+      // Act
+      final result = await client.delete(state);
+
+      // Assert result
+      expect(result.streamName, state.name);
+      expect(result.deletedAtPosition, isNotNull);
+      expect(result.deletedAtRevision, state.revision);
+    });
+
+    test('performs a soft delete with no stream throws', () async {
+      // Act
+      final result = client.delete(StreamState.noStream(state.name));
+
+      // Assert result
+      await expectLater(result, throwsA(isA<WrongExpectedVersionException>()));
+    });
+
+    test('performs a soft delete with stream exists throws', () async {
+      // Act
+      final result = client.delete(StreamState.exists(state.name));
+
+      // Assert result
+      await expectLater(result, throwsA(isA<GrpcError>()));
+    });
+
+    test('performs a soft delete on deleted stream does not throw', () async {
+      // Arrange
+      final deleted = await client.delete(state);
+
+      // Act
+      final result = await client.delete(state);
+
+      // Assert result
+      expect(result, isA<DeleteResult>());
+      expect(result.deletedAtRevision, deleted.deletedAtRevision);
+      expect(
+        result.deletedAtPosition,
+        isNot(equals(deleted.deletedAtPosition)),
+      );
+    });
+
+    test('read from delete deleted stream throws', () async {
+      // Arrange
+      await client.delete(state);
+
+      // Act
+      final result = await client.readFromStream(
+        state.name,
+        state.getStreamPosition(),
+      );
+
+      // Assert
+      expect(result.isStreamNotFound, isTrue);
     });
 
     // ----------------------------------
@@ -445,7 +651,7 @@ void main() {
     });
   });
 
-  group('When working on \$all stream with streams client', () {
+  group('When working on \$all stream, streams client', () {
     final harness = EventStoreDBClientHarness()
       ..withLogger()
       ..withStreamsClient()
@@ -453,11 +659,11 @@ void main() {
 
     late StreamState state;
     late Iterable<EventData> exists;
-    late EventStoreDBStreamsClient client;
+    late EventStoreStreamsClient client;
 
     setUpAll(() async {
-      client = harness.client<EventStoreDBStreamsClient>();
-      state = harness.streamState<EventStoreDBStreamsClient>(
+      client = harness.client<EventStoreStreamsClient>();
+      state = harness.streamState<EventStoreStreamsClient>(
         StreamStateType.any,
       );
       exists = harness.createTestEvents(count: 25);
@@ -478,9 +684,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      expect(await success.stream.toList(), isEmpty);
+      expect(result.isOK, isTrue);
+      expect(await result.stream.toList(), isEmpty);
     });
 
     test('returns given count if reading all from end backwards', () async {
@@ -492,9 +697,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      expect(await success.stream.length, PageCount);
+      expect(result.isOK, isTrue);
+      expect(await result.stream.length, PageCount);
     });
 
     test('returns all events as default if reading all from end backwards',
@@ -506,9 +710,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      expect(await success.stream.length, greaterThan(exists.length));
+      expect(result.isOK, isTrue);
+      expect(await result.stream.length, greaterThan(exists.length));
     });
 
     test(
@@ -522,9 +725,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      expect(await success.stream.length, lessThan(exists.length * 2));
+      expect(result.isOK, isTrue);
+      expect(await result.stream.length, lessThan(exists.length * 2));
     });
 
     test('returns in reverse order if reading all backwards', () async {
@@ -536,9 +738,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      final events = await success.stream.toList();
+      expect(result.isOK, isTrue);
+      final events = await result.stream.toList();
       expect(events.length, PageCount);
       final resolved = events.where((e) => e.isResolved);
       expect(
@@ -565,9 +766,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      expect(await success.stream.toList(), isEmpty);
+      expect(result.isOK, isTrue);
+      expect(await result.stream.toList(), isEmpty);
     });
 
     test('returns given count if reading all from start forwards', () async {
@@ -579,9 +779,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      expect(await success.stream.length, PageCount);
+      expect(result.isOK, isTrue);
+      expect(await result.stream.length, PageCount);
     });
 
     test('returns all events as default if reading all from start forwards',
@@ -593,9 +792,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      expect(await success.stream.length, greaterThan(exists.length));
+      expect(result.isOK, isTrue);
+      expect(await result.stream.length, greaterThan(exists.length));
     });
 
     test(
@@ -609,9 +807,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      expect(await success.stream.length, lessThan(exists.length * 2));
+      expect(result.isOK, isTrue);
+      expect(await result.stream.length, lessThan(exists.length * 2));
     });
 
     test('returns in correct order if reading all forwards', () async {
@@ -623,9 +820,8 @@ void main() {
       );
 
       // Assert
-      expect(result, isA<ReadEventsSuccessResult>());
-      final success = result as ReadEventsSuccessResult;
-      final events = await success.stream.toList();
+      expect(result.isOK, isTrue);
+      final events = await result.stream.toList();
       expect(events.length, PageCount);
       final resolved = events.where((e) => e.isResolved);
       expect(
@@ -645,8 +841,8 @@ Future<void> _testClientAppendsZeroEvents(
   StreamState state,
 ) async {
   // Arrange
-  final client = harness.client<EventStoreDBStreamsClient>();
-  expect(client, isA<EventStoreDBStreamsClient>());
+  final client = harness.client<EventStoreStreamsClient>();
+  expect(client, isA<EventStoreStreamsClient>());
 
   // Apply empty list of events
   final iterations = 2;
@@ -682,7 +878,7 @@ Future<void> _testClientAppendsZeroEvents(
       state.name,
       state.getStreamPosition(),
     );
-    expect(readResult, isA<ReadEventsStreamNotFoundResult>());
+    expect(readResult.isStreamNotFound, isTrue);
   }
 }
 
@@ -693,8 +889,8 @@ Future<void> _testClientAppendsEvents(
   Iterable<EventData> exists = const [],
 }) async {
   // Arrange
-  final client = harness.client<EventStoreDBStreamsClient>();
-  expect(client, isA<EventStoreDBStreamsClient>());
+  final client = harness.client<EventStoreStreamsClient>();
+  expect(client, isA<EventStoreStreamsClient>());
   final count = append.length;
   final offset = state.isStreamExists
       ? (state.revision?.value.toInt() ?? 0) + 1
@@ -717,9 +913,9 @@ Future<void> _testClientAppendsEvents(
     state.name,
     StreamPosition.checked(offset),
   );
-  expect(readResult, isA<ReadEventsSuccessResult>());
+  expect(readResult.isOK, isTrue);
   expect(readResult.streamName, state.name);
-  final actual = await (readResult as ReadEventsSuccessResult).stream.toList();
+  final actual = await readResult.stream.toList();
   expectStreamEvents(
     harness,
     state,

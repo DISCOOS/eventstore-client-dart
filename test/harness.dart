@@ -12,7 +12,7 @@ import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 import 'package:uuid/uuid.dart';
 
-typedef ClientCreator = EventStoreDBClientBase Function(ClientChannel);
+typedef ClientCreator = EventStoreClientBase Function(ClientChannel);
 
 class EventStoreDBClientHarness {
   EventStoreDBClientHarness._();
@@ -43,14 +43,14 @@ class EventStoreDBClientHarness {
 
   Stream<LogRecord>? get onRecord => _logger?.onRecord;
 
-  String streamName<T extends EventStoreDBClientBase>({
+  String streamName<T extends EventStoreClientBase>({
     String? suffix,
     int port = PORT_2113,
   }) =>
       (_clients[port]?[T] as T).connectionName +
       '_${suffix ?? DateTime.now().millisecondsSinceEpoch}';
 
-  StreamState streamState<T extends EventStoreDBClientBase>(
+  StreamState streamState<T extends EventStoreClientBase>(
     StreamStateType type, {
     int port = PORT_2113,
     String? suffix,
@@ -59,7 +59,7 @@ class EventStoreDBClientHarness {
   }) {
     return StreamState(
       streamName<T>(
-        suffix: '_${enumName(type)}'
+        suffix: '${enumName(type)}'
             '_${suffix ?? DateTime.now().millisecondsSinceEpoch}',
       ),
       type,
@@ -68,12 +68,12 @@ class EventStoreDBClientHarness {
     );
   }
 
-  T client<T extends EventStoreDBClientBase>({int port = PORT_2113}) =>
+  T client<T extends EventStoreClientBase>({int port = PORT_2113}) =>
       _clients[port]?[T] as T;
 
   final Map<int, ClientChannel> _channels = {};
   final Map<int, Map<Type, ClientCreator>> _creators = {};
-  final Map<int, Map<Type, EventStoreDBClientBase>> _clients = {};
+  final Map<int, Map<Type, EventStoreClientBase>> _clients = {};
 
   EventStoreDBClientHarness withStreamsClient({
     int port = PORT_2113,
@@ -82,8 +82,8 @@ class EventStoreDBClientHarness {
     _register(
       port,
       (ClientChannel channel) {
-        return EventStoreDBStreamsClient(
-          connectionName ?? '$EventStoreDBStreamsClient',
+        return EventStoreStreamsClient(
+          connectionName ?? '$EventStoreStreamsClient',
           channel,
         );
       },
@@ -96,11 +96,11 @@ class EventStoreDBClientHarness {
       port,
       (creators) => creators
         ..putIfAbsent(
-          EventStoreDBStreamsClient,
+          EventStoreStreamsClient,
           () => creator,
         ),
       ifAbsent: () => {
-        EventStoreDBStreamsClient: creator,
+        EventStoreStreamsClient: creator,
       },
     );
   }
@@ -175,7 +175,7 @@ class EventStoreDBClientHarness {
     });
   }
 
-  T _open<T extends EventStoreDBClientBase>(
+  T _open<T extends EventStoreClientBase>(
     int port,
     T Function(ClientChannel) create,
   ) {

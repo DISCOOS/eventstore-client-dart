@@ -5,16 +5,18 @@ import 'package:universal_io/io.dart';
 
 /// This exception is thrown when an operation requiring a leader node is made on a follower node.
 class NotLeaderException implements Exception {
-  NotLeaderException(String host, int port, this.cause)
+  /// Constructs a new instance of [NotLeaderException] from given [error]
+  NotLeaderException(String host, int port, {this.cause})
       : leader = EndPoint()
           ..address = host
           ..port = port;
 
-  factory NotLeaderException.from(GrpcError error) => NotLeaderException(
+  /// Constructs a new instance of [NotLeaderException] from given [error]
+  factory NotLeaderException.fromCause(GrpcError error) => NotLeaderException(
         error.trailers?[Exceptions.LeaderEndpointHost] ??
             InternetAddress.anyIPv4.address,
         int.parse(error.trailers?[Exceptions.LeaderEndpointPort] ?? '0'),
-        error,
+        cause: error,
       );
 
   final EndPoint leader;
@@ -25,6 +27,6 @@ class NotLeaderException implements Exception {
 
   @override
   String toString() {
-    return '$this{address: $address, port: $port, cause: $cause}';
+    return '$runtimeType{address: $address, port: $port, cause: $cause}';
   }
 }
