@@ -1,11 +1,9 @@
 A client library for EventStoreDB 20.x and above
 
 ## Getting started
-* Create a cluster in [EventStore Cloud](https://developers.eventstore.com/cloud/intro/) (or [deploy your own](https://developers.eventstore.com/server/v21.6/docs/installation/#quick-start-preview) cluster)
+* Create a cluster in [EventStore Cloud](https://developers.eventstore.com/cloud/intro/) (or [deploy your own](https://developers.eventstore.com/server/v21.6/docs/installation/#quick-start-preview))
 * Create an appropriate [connection string](https://developers.eventstore.com/clients/grpc/getting-started/#connection-details)
 * Create an instance of EventStoreClient with given connection string
-
-## Usage
 
 A simple usage example of reading from a _self-hosted single-node_:
 
