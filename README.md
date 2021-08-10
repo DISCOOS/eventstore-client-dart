@@ -1,16 +1,9 @@
 A client library for EventStoreDB 20.x and above
 
-## Features
-This package supports the following EventStoreDB client APIs  
-
-- [x] Streams gRPC API
-- [ ] Projections gRPC API
-- [ ] Persistent Streams gRPC API
-- [ ] Operations gRPC API
-- [ ] Monitoring gRPC API
-- [ ] Gossip gRPC API (open source version of EventstoreDB)
-- [ ] Cluster gRPC API (commercial version of EventstoreDB)
-
+## Getting started
+* Create a cluster in [EventStore Cloud](https://developers.eventstore.com/cloud/intro/) (or [deploy your own](https://developers.eventstore.com/server/v21.6/docs/installation/#quick-start-preview) cluster)
+* Create an appropriate [connection string](https://developers.eventstore.com/clients/grpc/getting-started/#connection-details)
+* Create an instance of EventStoreClient with given connection string
 
 ## Usage
 
@@ -43,7 +36,18 @@ void main() async {
 }
 ```
 
+
 ## Features and bugs
+
+This package supports the following EventStoreDB client APIs
+
+- [x] Streams gRPC API
+- [ ] Projections gRPC API
+- [ ] Persistent Streams gRPC API
+- [ ] Operations gRPC API
+- [ ] Monitoring gRPC API
+- [ ] Gossip gRPC API (open source version of EventstoreDB)
+- [ ] Cluster gRPC API (commercial version of EventstoreDB)
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 

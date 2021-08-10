@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1bfe063-9b1e-49e6-a23c-233f3c768db4" name="Default Changelist" comment="">
+    <list default="true" id="b1bfe063-9b1e-49e6-a23c-233f3c768db4" name="Default Changelist" comment="Updated README.md and example">
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eventstore-client-dart.iws" beforeDir="false" afterPath="$PROJECT_DIR$/eventstore-client-dart.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/single_node/read_all_events_example.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/single_node/read_all_events_example.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +188,7 @@
       <workItem from="1627550637844" duration="26202000" />
       <workItem from="1628278499289" duration="164000" />
       <workItem from="1628278813746" duration="3087000" />
-      <workItem from="1628495988799" duration="37705000" />
+      <workItem from="1628495988799" duration="38245000" />
     </task>
     <task id="LOCAL-00001" summary="Generated dart code from protos">
       <created>1623190618615</created>
@@ -219,7 +218,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628634879819</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Updated README.md and example">
+      <created>1628635015182</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1628635015182</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,7 +247,8 @@
     <MESSAGE value="Generated dart code from protos" />
     <MESSAGE value="Added operations for hard and soft delete" />
     <MESSAGE value="* Added stream metadata operations&#10;* Refactored tests int multiple files&#10;* Updated README.md&#10;* Added tool for updating proto files from EventStore repo&#10;* Added connection string support" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Added stream metadata operations&#10;* Refactored tests int multiple files&#10;* Updated README.md&#10;* Added tool for updating proto files from EventStore repo&#10;* Added connection string support" />
+    <MESSAGE value="Updated README.md and example" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated README.md and example" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
