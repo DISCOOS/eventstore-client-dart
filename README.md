@@ -33,6 +33,8 @@ void main() async {
     forward: true,
     resolveLinks: true,
   );
+
+  // Only print if read was successful
   if (result.isOK) {
     await for (var event in result.stream) {
       print(event);
