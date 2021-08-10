@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1bfe063-9b1e-49e6-a23c-233f3c768db4" name="Default Changelist" comment="Updated README.md and example">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="b1bfe063-9b1e-49e6-a23c-233f3c768db4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/eventstore-client-dart.iws" beforeDir="false" afterPath="$PROJECT_DIR$/eventstore-client-dart.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/eventstore_client_dart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/eventstore_client_dart.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +99,7 @@
       <recent name="$PROJECT_DIR$/lib/src/core/interceptors" />
     </key>
   </component>
-  <component name="RunManager" selected="Dart Test.Tests in settings_test.dart">
+  <component name="RunManager" selected="Dart Test.Tests in read_from_stream_test.dart">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -118,12 +119,6 @@
       <option name="testName" value="ConnectionString with all schema parts parsed OK" />
       <method v="2" />
     </configuration>
-    <configuration name="ConnectionString with keepAlive parsed OK in settings_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/test/core/settings_test.dart" />
-      <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
-      <option name="testName" value="ConnectionString with keepAlive parsed OK" />
-      <method v="2" />
-    </configuration>
     <configuration name="ConnectionString with single host parsed OK in settings_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/test/core/settings_test.dart" />
       <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
@@ -141,6 +136,11 @@
       <option name="testName" value="append_to_stream_test.dart" />
       <method v="2" />
     </configuration>
+    <configuration name="Tests in read_from_stream_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/streams/read_from_stream_test.dart" />
+      <option name="testName" value="read_from_stream_test.dart" />
+      <method v="2" />
+    </configuration>
     <configuration name="Tests in settings_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/test/core/settings_test.dart" />
       <option name="testName" value="settings_test.dart" />
@@ -155,18 +155,18 @@
       <item itemvalue="Dart Test.Tests in append_to_stream_test.dart" />
       <item itemvalue="Dart Test.Tests in soft_delete_stream_test.dart" />
       <item itemvalue="Dart Test.Tests in settings_test.dart" />
-      <item itemvalue="Dart Test.ConnectionString with keepAlive parsed OK in settings_test.dart" />
       <item itemvalue="Dart Test.ConnectionString with all schema parts parsed OK in settings_test.dart" />
       <item itemvalue="Dart Test.ConnectionString with single host parsed OK in settings_test.dart" />
       <item itemvalue="Dart Test.ConnectionString with single ip-address parsed OK in settings_test.dart" />
+      <item itemvalue="Dart Test.Tests in read_from_stream_test.dart" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Dart Test.Tests in read_from_stream_test.dart" />
         <item itemvalue="Dart Test.Tests in settings_test.dart" />
         <item itemvalue="Dart Test.ConnectionString with single ip-address parsed OK in settings_test.dart" />
         <item itemvalue="Dart Test.ConnectionString with single host parsed OK in settings_test.dart" />
         <item itemvalue="Dart Test.ConnectionString with all schema parts parsed OK in settings_test.dart" />
-        <item itemvalue="Dart Test.ConnectionString with keepAlive parsed OK in settings_test.dart" />
       </list>
     </recent_temporary>
   </component>
@@ -224,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628635015182</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Updated README.md">
+      <created>1628636127091</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1628636127091</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -248,15 +255,16 @@
     <MESSAGE value="Added operations for hard and soft delete" />
     <MESSAGE value="* Added stream metadata operations&#10;* Refactored tests int multiple files&#10;* Updated README.md&#10;* Added tool for updating proto files from EventStore repo&#10;* Added connection string support" />
     <MESSAGE value="Updated README.md and example" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated README.md and example" />
+    <MESSAGE value="Updated README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated README.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/test/harness.dart</url>
-          <line>114</line>
-          <option name="timeStamp" value="52" />
+          <url>file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/grpc-3.0.1/lib/src/client/http2_connection.dart</url>
+          <line>330</line>
+          <option name="timeStamp" value="67" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

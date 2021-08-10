@@ -35,7 +35,8 @@ class EventStoreClient extends EventStoreClientBase
       : super(
           settings: settings,
           channel: ClientChannel(
-            _assertSingleNode(settings),
+            _assertSingleNode(settings).address,
+            port: _assertSingleNode(settings).port,
             options: const ChannelOptions(
               credentials: ChannelCredentials.insecure(),
             ),
