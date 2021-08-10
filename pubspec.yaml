@@ -1,24 +1,26 @@
 name: eventstore_client_dart
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
-# homepage: https://www.example.com
+version: 0.0.1
+description: A client library for EventStoreDB 20.x and above
+authors:
+  - Kenneth Gulbrandsøy
+homepage: https://github.com/DISCOOS/eventstore-client-dart
+repository: https://github.com/DISCOOS/eventstore-client-dart
 
 environment:
   sdk: '>=2.13.0 <3.0.0'
 
 dependencies:
   uuid: ^3.0.4
-  grpc: ^3.0.0
+  grpc: ^3.0.1
+  fixnum: ^1.0.0
   protobuf: ^2.0.0
   universal_io: ^2.0.4
-  fixnum: ^1.0.0
 
-
-dependency_overrides:
-  grpc:
-    git:
-      url: git@github.com:DISCOOS/grpc-dart.git
-      ref: issues/135_add_trailers_to_grpc_error
+#dependency_overrides:
+#  grpc:
+#    git:
+#      url: git@github.com:DISCOOS/grpc-dart.git
+#      ref: master
 
 dev_dependencies:
   pedantic: ^1.10.0

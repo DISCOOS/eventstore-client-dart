@@ -11,11 +11,11 @@ class StreamPosition {
   const StreamPosition._(this.value);
 
   /// The beginning (i.e., the first event) of a stream.
-  static const StreamPosition start = StreamPosition._(Int64.ZERO);
+  static StreamPosition start = StreamPosition._(Int64.ZERO);
 
   /// The end of a stream. Use this when reading a stream backwards,
   /// or subscribing live to a stream.
-  static const StreamPosition end = StreamPosition._(Int64.MAX_VALUE);
+  static StreamPosition end = StreamPosition._(Int64(-1));
 
   /// Creates a [StreamPosition] from a [StreamRevision].
   factory StreamPosition.fromRevision(StreamRevision revision) {
@@ -24,7 +24,10 @@ class StreamPosition {
 
   /// Creates a [StreamPosition] from a [Int64].
   factory StreamPosition.fromInt64(Int64 value) {
-    return StreamPosition._(value);
+    if (value == Int64.ZERO) {
+      return start;
+    }
+    return value.toInt() == -1 ? end : StreamPosition._(value);
   }
 
   /// Constructs a new [StreamPosition] from given value.
@@ -44,6 +47,9 @@ class StreamPosition {
   /// The commit position of the record
   final Int64 value;
 
+  /// Get value as [int]
+  int toInt() => value.toInt();
+
   /// Get [StreamRevision] from this [StreamPosition]
   StreamRevision toRevision() => StreamRevision.fromPosition(this);
 
@@ -58,6 +64,12 @@ class StreamPosition {
 
   /// Compares whether this &lt;= p2.
   bool operator <=(StreamPosition p2) => this < p2 || this == p2;
+
+  StreamPosition operator -(int delta) =>
+      StreamPosition.checked(toInt() - delta);
+
+  StreamPosition operator +(int delta) =>
+      StreamPosition.checked(toInt() + delta);
 
   /// Compare this to other [StreamPosition]
   int compareTo(StreamPosition other) => this == other

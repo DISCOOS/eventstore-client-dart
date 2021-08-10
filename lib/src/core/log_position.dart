@@ -14,11 +14,10 @@ class LogPosition {
   const LogPosition._(this.commitPosition, this.preparePosition);
 
   /// Position representing the start of the transaction file
-  static const LogPosition start = LogPosition._(Int64.ZERO, Int64.ZERO);
+  static LogPosition start = LogPosition._(Int64.ZERO, Int64.ZERO);
 
   /// Position representing the end of the transaction file
-  static const LogPosition end =
-      LogPosition._(Int64.MAX_VALUE, Int64.MAX_VALUE);
+  static LogPosition end = LogPosition._(Int64(-1), Int64(-1));
 
   /// Constructs a position with the given commit and prepare positions.
   /// It is not guaranteed that the position is actually the start of a

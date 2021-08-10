@@ -1,4 +1,11 @@
 export 'access_denied_exception.dart';
+export 'connection_string_parse_exception.dart';
+export 'no_scheme_exception.dart';
+export 'duplicate_key_exception.dart';
+export 'invalid_host_exception.dart';
+export 'invalid_key_value_pair_exception.dart';
+export 'invalid_scheme_exception.dart';
+export 'invalid_user_credentials_exception.dart';
 export 'not_leader_exception.dart';
 export 'stream_deleted_exception.dart';
 export 'wrong_expected_version_exception.dart';

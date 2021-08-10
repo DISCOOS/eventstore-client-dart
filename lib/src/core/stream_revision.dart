@@ -8,10 +8,10 @@ class StreamRevision implements Comparable<StreamRevision> {
   const StreamRevision._(this.value);
 
   /// Represents no [StreamRevision], i.e., when a stream does not exist.
-  static const StreamRevision none = StreamRevision._(Int64.MAX_VALUE);
+  static StreamRevision none = StreamRevision._(Int64(-1));
 
   /// Represents an empty [StreamRevision], i.e., when a stream exist but contains no events.
-  static const StreamRevision empty = StreamRevision._(Int64.ZERO);
+  static StreamRevision empty = StreamRevision._(Int64.ZERO);
 
   /// Creates a new [StreamRevision] from the given [Int64].
   factory StreamRevision.fromInt64(Int64 value) => StreamRevision._(value);
@@ -45,6 +45,12 @@ class StreamRevision implements Comparable<StreamRevision> {
 
   @override
   int compareTo(StreamRevision other) => other.value.compareTo(value);
+
+  StreamRevision operator -(int delta) =>
+      StreamRevision.checked(toInt() - delta);
+
+  StreamRevision operator +(int delta) =>
+      StreamRevision.checked(toInt() + delta);
 
   @override
   bool operator ==(Object other) =>

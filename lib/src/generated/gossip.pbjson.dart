@@ -48,7 +48,7 @@ const MemberInfo$json = const {
       '3': 1,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.UUID',
+      '6': '.event_store.client.UUID',
       '10': 'instanceId'
     },
     const {'1': 'time_stamp', '3': 2, '4': 1, '5': 3, '10': 'timeStamp'},
@@ -98,4 +98,4 @@ const MemberInfo_VNodeState$json = const {
 
 /// Descriptor for `MemberInfo`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List memberInfoDescriptor = $convert.base64Decode(
-    'CgpNZW1iZXJJbmZvEkAKC2luc3RhbmNlX2lkGAEgASgLMh8uZXZlbnRfc3RvcmUuY2xpZW50LnNoYXJlZC5VVUlEUgppbnN0YW5jZUlkEh0KCnRpbWVfc3RhbXAYAiABKANSCXRpbWVTdGFtcBJGCgVzdGF0ZRgDIAEoDjIwLmV2ZW50X3N0b3JlLmNsaWVudC5nb3NzaXAuTWVtYmVySW5mby5WTm9kZVN0YXRlUgVzdGF0ZRIZCghpc19hbGl2ZRgEIAEoCFIHaXNBbGl2ZRJJCg5odHRwX2VuZF9wb2ludBgFIAEoCzIjLmV2ZW50X3N0b3JlLmNsaWVudC5nb3NzaXAuRW5kUG9pbnRSDGh0dHBFbmRQb2ludCKaAgoKVk5vZGVTdGF0ZRIQCgxJbml0aWFsaXppbmcQABISCg5EaXNjb3ZlckxlYWRlchABEgsKB1Vua25vd24QAhIOCgpQcmVSZXBsaWNhEAMSDgoKQ2F0Y2hpbmdVcBAEEgkKBUNsb25lEAUSDAoIRm9sbG93ZXIQBhINCglQcmVMZWFkZXIQBxIKCgZMZWFkZXIQCBILCgdNYW5hZ2VyEAkSEAoMU2h1dHRpbmdEb3duEAoSDAoIU2h1dGRvd24QCxIWChJSZWFkT25seUxlYWRlcmxlc3MQDBIWChJQcmVSZWFkT25seVJlcGxpY2EQDRITCg9SZWFkT25seVJlcGxpY2EQDhITCg9SZXNpZ25pbmdMZWFkZXIQDw==');
+    'CgpNZW1iZXJJbmZvEjkKC2luc3RhbmNlX2lkGAEgASgLMhguZXZlbnRfc3RvcmUuY2xpZW50LlVVSURSCmluc3RhbmNlSWQSHQoKdGltZV9zdGFtcBgCIAEoA1IJdGltZVN0YW1wEkYKBXN0YXRlGAMgASgOMjAuZXZlbnRfc3RvcmUuY2xpZW50Lmdvc3NpcC5NZW1iZXJJbmZvLlZOb2RlU3RhdGVSBXN0YXRlEhkKCGlzX2FsaXZlGAQgASgIUgdpc0FsaXZlEkkKDmh0dHBfZW5kX3BvaW50GAUgASgLMiMuZXZlbnRfc3RvcmUuY2xpZW50Lmdvc3NpcC5FbmRQb2ludFIMaHR0cEVuZFBvaW50IpoCCgpWTm9kZVN0YXRlEhAKDEluaXRpYWxpemluZxAAEhIKDkRpc2NvdmVyTGVhZGVyEAESCwoHVW5rbm93bhACEg4KClByZVJlcGxpY2EQAxIOCgpDYXRjaGluZ1VwEAQSCQoFQ2xvbmUQBRIMCghGb2xsb3dlchAGEg0KCVByZUxlYWRlchAHEgoKBkxlYWRlchAIEgsKB01hbmFnZXIQCRIQCgxTaHV0dGluZ0Rvd24QChIMCghTaHV0ZG93bhALEhYKElJlYWRPbmx5TGVhZGVybGVzcxAMEhYKElByZVJlYWRPbmx5UmVwbGljYRANEhMKD1JlYWRPbmx5UmVwbGljYRAOEhMKD1Jlc2lnbmluZ0xlYWRlchAP');

@@ -80,7 +80,7 @@ const ReadReq_Options$json = const {
       '3': 8,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 2,
       '10': 'noFilter'
     },
@@ -118,7 +118,7 @@ const ReadReq_Options_StreamOptions$json = const {
       '3': 1,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.StreamIdentifier',
+      '6': '.event_store.client.StreamIdentifier',
       '10': 'streamIdentifier'
     },
     const {'1': 'revision', '3': 2, '4': 1, '5': 4, '9': 0, '10': 'revision'},
@@ -127,7 +127,7 @@ const ReadReq_Options_StreamOptions$json = const {
       '3': 3,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'start'
     },
@@ -136,7 +136,7 @@ const ReadReq_Options_StreamOptions$json = const {
       '3': 4,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'end'
     },
@@ -164,7 +164,7 @@ const ReadReq_Options_AllOptions$json = const {
       '3': 2,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'start'
     },
@@ -173,7 +173,7 @@ const ReadReq_Options_AllOptions$json = const {
       '3': 3,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'end'
     },
@@ -239,7 +239,7 @@ const ReadReq_Options_FilterOptions$json = const {
       '3': 4,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 1,
       '10': 'count'
     },
@@ -276,7 +276,7 @@ const ReadReq_Options_UUIDOption$json = const {
       '3': 1,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'structured'
     },
@@ -285,7 +285,7 @@ const ReadReq_Options_UUIDOption$json = const {
       '3': 2,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'string'
     },
@@ -306,7 +306,7 @@ const ReadReq_Options_ReadDirection$json = const {
 
 /// Descriptor for `ReadReq`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List readReqDescriptor = $convert.base64Decode(
-    'CgdSZWFkUmVxEkUKB29wdGlvbnMYASABKAsyKy5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5SZWFkUmVxLk9wdGlvbnNSB29wdGlvbnMazg8KB09wdGlvbnMSUwoGc3RyZWFtGAEgASgLMjkuZXZlbnRfc3RvcmUuY2xpZW50LnN0cmVhbXMuUmVhZFJlcS5PcHRpb25zLlN0cmVhbU9wdGlvbnNIAFIGc3RyZWFtEkoKA2FsbBgCIAEoCzI2LmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXEuT3B0aW9ucy5BbGxPcHRpb25zSABSA2FsbBJgCg5yZWFkX2RpcmVjdGlvbhgDIAEoDjI5LmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXEuT3B0aW9ucy5SZWFkRGlyZWN0aW9uUg1yZWFkRGlyZWN0aW9uEiMKDXJlc29sdmVfbGlua3MYBCABKAhSDHJlc29sdmVMaW5rcxIWCgVjb3VudBgFIAEoBEgBUgVjb3VudBJlCgxzdWJzY3JpcHRpb24YBiABKAsyPy5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5SZWFkUmVxLk9wdGlvbnMuU3Vic2NyaXB0aW9uT3B0aW9uc0gBUgxzdWJzY3JpcHRpb24SUwoGZmlsdGVyGAcgASgLMjkuZXZlbnRfc3RvcmUuY2xpZW50LnN0cmVhbXMuUmVhZFJlcS5PcHRpb25zLkZpbHRlck9wdGlvbnNIAlIGZmlsdGVyEj8KCW5vX2ZpbHRlchgIIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIAlIIbm9GaWx0ZXISVwoLdXVpZF9vcHRpb24YCSABKAsyNi5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5SZWFkUmVxLk9wdGlvbnMuVVVJRE9wdGlvblIKdXVpZE9wdGlvbhqKAgoNU3RyZWFtT3B0aW9ucxJYChFzdHJlYW1faWRlbnRpZmllchgBIAEoCzIrLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuU3RyZWFtSWRlbnRpZmllclIQc3RyZWFtSWRlbnRpZmllchIcCghyZXZpc2lvbhgCIAEoBEgAUghyZXZpc2lvbhI4CgVzdGFydBgDIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIAFIFc3RhcnQSNAoDZW5kGAQgASgLMiAuZXZlbnRfc3RvcmUuY2xpZW50LnNoYXJlZC5FbXB0eUgAUgNlbmRCEQoPcmV2aXNpb25fb3B0aW9uGt4BCgpBbGxPcHRpb25zElIKCHBvc2l0aW9uGAEgASgLMjQuZXZlbnRfc3RvcmUuY2xpZW50LnN0cmVhbXMuUmVhZFJlcS5PcHRpb25zLlBvc2l0aW9uSABSCHBvc2l0aW9uEjgKBXN0YXJ0GAIgASgLMiAuZXZlbnRfc3RvcmUuY2xpZW50LnNoYXJlZC5FbXB0eUgAUgVzdGFydBI0CgNlbmQYAyABKAsyIC5ldmVudF9zdG9yZS5jbGllbnQuc2hhcmVkLkVtcHR5SABSA2VuZEIMCgphbGxfb3B0aW9uGhUKE1N1YnNjcmlwdGlvbk9wdGlvbnMaXgoIUG9zaXRpb24SJwoPY29tbWl0X3Bvc2l0aW9uGAEgASgEUg5jb21taXRQb3NpdGlvbhIpChBwcmVwYXJlX3Bvc2l0aW9uGAIgASgEUg9wcmVwYXJlUG9zaXRpb24azQMKDUZpbHRlck9wdGlvbnMScwoRc3RyZWFtX2lkZW50aWZpZXIYASABKAsyRC5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5SZWFkUmVxLk9wdGlvbnMuRmlsdGVyT3B0aW9ucy5FeHByZXNzaW9uSABSEHN0cmVhbUlkZW50aWZpZXISZQoKZXZlbnRfdHlwZRgCIAEoCzJELmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXEuT3B0aW9ucy5GaWx0ZXJPcHRpb25zLkV4cHJlc3Npb25IAFIJZXZlbnRUeXBlEhIKA21heBgDIAEoDUgBUgNtYXgSOAoFY291bnQYBCABKAsyIC5ldmVudF9zdG9yZS5jbGllbnQuc2hhcmVkLkVtcHR5SAFSBWNvdW50EkIKHGNoZWNrcG9pbnRJbnRlcnZhbE11bHRpcGxpZXIYBSABKA1SHGNoZWNrcG9pbnRJbnRlcnZhbE11bHRpcGxpZXIaOgoKRXhwcmVzc2lvbhIUCgVyZWdleBgBIAEoCVIFcmVnZXgSFgoGcHJlZml4GAIgAygJUgZwcmVmaXhCCAoGZmlsdGVyQggKBndpbmRvdxqXAQoKVVVJRE9wdGlvbhJCCgpzdHJ1Y3R1cmVkGAEgASgLMiAuZXZlbnRfc3RvcmUuY2xpZW50LnNoYXJlZC5FbXB0eUgAUgpzdHJ1Y3R1cmVkEjoKBnN0cmluZxgCIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIAFIGc3RyaW5nQgkKB2NvbnRlbnQiLAoNUmVhZERpcmVjdGlvbhIMCghGb3J3YXJkcxAAEg0KCUJhY2t3YXJkcxABQg8KDXN0cmVhbV9vcHRpb25CDgoMY291bnRfb3B0aW9uQg8KDWZpbHRlcl9vcHRpb24=');
+    'CgdSZWFkUmVxEkUKB29wdGlvbnMYASABKAsyKy5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5SZWFkUmVxLk9wdGlvbnNSB29wdGlvbnMajw8KB09wdGlvbnMSUwoGc3RyZWFtGAEgASgLMjkuZXZlbnRfc3RvcmUuY2xpZW50LnN0cmVhbXMuUmVhZFJlcS5PcHRpb25zLlN0cmVhbU9wdGlvbnNIAFIGc3RyZWFtEkoKA2FsbBgCIAEoCzI2LmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXEuT3B0aW9ucy5BbGxPcHRpb25zSABSA2FsbBJgCg5yZWFkX2RpcmVjdGlvbhgDIAEoDjI5LmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXEuT3B0aW9ucy5SZWFkRGlyZWN0aW9uUg1yZWFkRGlyZWN0aW9uEiMKDXJlc29sdmVfbGlua3MYBCABKAhSDHJlc29sdmVMaW5rcxIWCgVjb3VudBgFIAEoBEgBUgVjb3VudBJlCgxzdWJzY3JpcHRpb24YBiABKAsyPy5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5SZWFkUmVxLk9wdGlvbnMuU3Vic2NyaXB0aW9uT3B0aW9uc0gBUgxzdWJzY3JpcHRpb24SUwoGZmlsdGVyGAcgASgLMjkuZXZlbnRfc3RvcmUuY2xpZW50LnN0cmVhbXMuUmVhZFJlcS5PcHRpb25zLkZpbHRlck9wdGlvbnNIAlIGZmlsdGVyEjgKCW5vX2ZpbHRlchgIIAEoCzIZLmV2ZW50X3N0b3JlLmNsaWVudC5FbXB0eUgCUghub0ZpbHRlchJXCgt1dWlkX29wdGlvbhgJIAEoCzI2LmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXEuT3B0aW9ucy5VVUlET3B0aW9uUgp1dWlkT3B0aW9uGvUBCg1TdHJlYW1PcHRpb25zElEKEXN0cmVhbV9pZGVudGlmaWVyGAEgASgLMiQuZXZlbnRfc3RvcmUuY2xpZW50LlN0cmVhbUlkZW50aWZpZXJSEHN0cmVhbUlkZW50aWZpZXISHAoIcmV2aXNpb24YAiABKARIAFIIcmV2aXNpb24SMQoFc3RhcnQYAyABKAsyGS5ldmVudF9zdG9yZS5jbGllbnQuRW1wdHlIAFIFc3RhcnQSLQoDZW5kGAQgASgLMhkuZXZlbnRfc3RvcmUuY2xpZW50LkVtcHR5SABSA2VuZEIRCg9yZXZpc2lvbl9vcHRpb24a0AEKCkFsbE9wdGlvbnMSUgoIcG9zaXRpb24YASABKAsyNC5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5SZWFkUmVxLk9wdGlvbnMuUG9zaXRpb25IAFIIcG9zaXRpb24SMQoFc3RhcnQYAiABKAsyGS5ldmVudF9zdG9yZS5jbGllbnQuRW1wdHlIAFIFc3RhcnQSLQoDZW5kGAMgASgLMhkuZXZlbnRfc3RvcmUuY2xpZW50LkVtcHR5SABSA2VuZEIMCgphbGxfb3B0aW9uGhUKE1N1YnNjcmlwdGlvbk9wdGlvbnMaXgoIUG9zaXRpb24SJwoPY29tbWl0X3Bvc2l0aW9uGAEgASgEUg5jb21taXRQb3NpdGlvbhIpChBwcmVwYXJlX3Bvc2l0aW9uGAIgASgEUg9wcmVwYXJlUG9zaXRpb24axgMKDUZpbHRlck9wdGlvbnMScwoRc3RyZWFtX2lkZW50aWZpZXIYASABKAsyRC5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5SZWFkUmVxLk9wdGlvbnMuRmlsdGVyT3B0aW9ucy5FeHByZXNzaW9uSABSEHN0cmVhbUlkZW50aWZpZXISZQoKZXZlbnRfdHlwZRgCIAEoCzJELmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXEuT3B0aW9ucy5GaWx0ZXJPcHRpb25zLkV4cHJlc3Npb25IAFIJZXZlbnRUeXBlEhIKA21heBgDIAEoDUgBUgNtYXgSMQoFY291bnQYBCABKAsyGS5ldmVudF9zdG9yZS5jbGllbnQuRW1wdHlIAVIFY291bnQSQgocY2hlY2twb2ludEludGVydmFsTXVsdGlwbGllchgFIAEoDVIcY2hlY2twb2ludEludGVydmFsTXVsdGlwbGllcho6CgpFeHByZXNzaW9uEhQKBXJlZ2V4GAEgASgJUgVyZWdleBIWCgZwcmVmaXgYAiADKAlSBnByZWZpeEIICgZmaWx0ZXJCCAoGd2luZG93GokBCgpVVUlET3B0aW9uEjsKCnN0cnVjdHVyZWQYASABKAsyGS5ldmVudF9zdG9yZS5jbGllbnQuRW1wdHlIAFIKc3RydWN0dXJlZBIzCgZzdHJpbmcYAiABKAsyGS5ldmVudF9zdG9yZS5jbGllbnQuRW1wdHlIAFIGc3RyaW5nQgkKB2NvbnRlbnQiLAoNUmVhZERpcmVjdGlvbhIMCghGb3J3YXJkcxAAEg0KCUJhY2t3YXJkcxABQg8KDXN0cmVhbV9vcHRpb25CDgoMY291bnRfb3B0aW9uQg8KDWZpbHRlcl9vcHRpb24=');
 @$core.Deprecated('Use readRespDescriptor instead')
 const ReadResp$json = const {
   '1': 'ReadResp',
@@ -392,7 +392,7 @@ const ReadResp_ReadEvent$json = const {
       '3': 4,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'noPosition'
     },
@@ -412,7 +412,7 @@ const ReadResp_ReadEvent_RecordedEvent$json = const {
       '3': 1,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.UUID',
+      '6': '.event_store.client.UUID',
       '10': 'id'
     },
     const {
@@ -420,7 +420,7 @@ const ReadResp_ReadEvent_RecordedEvent$json = const {
       '3': 2,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.StreamIdentifier',
+      '6': '.event_store.client.StreamIdentifier',
       '10': 'streamIdentifier'
     },
     const {
@@ -519,7 +519,7 @@ const ReadResp_StreamNotFound$json = const {
       '3': 1,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.StreamIdentifier',
+      '6': '.event_store.client.StreamIdentifier',
       '10': 'streamIdentifier'
     },
   ],
@@ -527,7 +527,7 @@ const ReadResp_StreamNotFound$json = const {
 
 /// Descriptor for `ReadResp`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List readRespDescriptor = $convert.base64Decode(
-    'CghSZWFkUmVzcBJGCgVldmVudBgBIAEoCzIuLmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXNwLlJlYWRFdmVudEgAUgVldmVudBJjCgxjb25maXJtYXRpb24YAiABKAsyPS5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5SZWFkUmVzcC5TdWJzY3JpcHRpb25Db25maXJtYXRpb25IAFIMY29uZmlybWF0aW9uElEKCmNoZWNrcG9pbnQYAyABKAsyLy5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5SZWFkUmVzcC5DaGVja3BvaW50SABSCmNoZWNrcG9pbnQSXwoQc3RyZWFtX25vdF9mb3VuZBgEIAEoCzIzLmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXNwLlN0cmVhbU5vdEZvdW5kSABSDnN0cmVhbU5vdEZvdW5kGqkGCglSZWFkRXZlbnQSUgoFZXZlbnQYASABKAsyPC5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5SZWFkUmVzcC5SZWFkRXZlbnQuUmVjb3JkZWRFdmVudFIFZXZlbnQSUAoEbGluaxgCIAEoCzI8LmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXNwLlJlYWRFdmVudC5SZWNvcmRlZEV2ZW50UgRsaW5rEikKD2NvbW1pdF9wb3NpdGlvbhgDIAEoBEgAUg5jb21taXRQb3NpdGlvbhJDCgtub19wb3NpdGlvbhgEIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIAFIKbm9Qb3NpdGlvbhr5AwoNUmVjb3JkZWRFdmVudBIvCgJpZBgBIAEoCzIfLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuVVVJRFICaWQSWAoRc3RyZWFtX2lkZW50aWZpZXIYAiABKAsyKy5ldmVudF9zdG9yZS5jbGllbnQuc2hhcmVkLlN0cmVhbUlkZW50aWZpZXJSEHN0cmVhbUlkZW50aWZpZXISJwoPc3RyZWFtX3JldmlzaW9uGAMgASgEUg5zdHJlYW1SZXZpc2lvbhIpChBwcmVwYXJlX3Bvc2l0aW9uGAQgASgEUg9wcmVwYXJlUG9zaXRpb24SJwoPY29tbWl0X3Bvc2l0aW9uGAUgASgEUg5jb21taXRQb3NpdGlvbhJmCghtZXRhZGF0YRgGIAMoCzJKLmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXNwLlJlYWRFdmVudC5SZWNvcmRlZEV2ZW50Lk1ldGFkYXRhRW50cnlSCG1ldGFkYXRhEicKD2N1c3RvbV9tZXRhZGF0YRgHIAEoDFIOY3VzdG9tTWV0YWRhdGESEgoEZGF0YRgIIAEoDFIEZGF0YRo7Cg1NZXRhZGF0YUVudHJ5EhAKA2tleRgBIAEoCVIDa2V5EhQKBXZhbHVlGAIgASgJUgV2YWx1ZToCOAFCCgoIcG9zaXRpb24aQwoYU3Vic2NyaXB0aW9uQ29uZmlybWF0aW9uEicKD3N1YnNjcmlwdGlvbl9pZBgBIAEoCVIOc3Vic2NyaXB0aW9uSWQaYAoKQ2hlY2twb2ludBInCg9jb21taXRfcG9zaXRpb24YASABKARSDmNvbW1pdFBvc2l0aW9uEikKEHByZXBhcmVfcG9zaXRpb24YAiABKARSD3ByZXBhcmVQb3NpdGlvbhpqCg5TdHJlYW1Ob3RGb3VuZBJYChFzdHJlYW1faWRlbnRpZmllchgBIAEoCzIrLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuU3RyZWFtSWRlbnRpZmllclIQc3RyZWFtSWRlbnRpZmllckIJCgdjb250ZW50');
+    'CghSZWFkUmVzcBJGCgVldmVudBgBIAEoCzIuLmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXNwLlJlYWRFdmVudEgAUgVldmVudBJjCgxjb25maXJtYXRpb24YAiABKAsyPS5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5SZWFkUmVzcC5TdWJzY3JpcHRpb25Db25maXJtYXRpb25IAFIMY29uZmlybWF0aW9uElEKCmNoZWNrcG9pbnQYAyABKAsyLy5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5SZWFkUmVzcC5DaGVja3BvaW50SABSCmNoZWNrcG9pbnQSXwoQc3RyZWFtX25vdF9mb3VuZBgEIAEoCzIzLmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXNwLlN0cmVhbU5vdEZvdW5kSABSDnN0cmVhbU5vdEZvdW5kGpQGCglSZWFkRXZlbnQSUgoFZXZlbnQYASABKAsyPC5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5SZWFkUmVzcC5SZWFkRXZlbnQuUmVjb3JkZWRFdmVudFIFZXZlbnQSUAoEbGluaxgCIAEoCzI8LmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXNwLlJlYWRFdmVudC5SZWNvcmRlZEV2ZW50UgRsaW5rEikKD2NvbW1pdF9wb3NpdGlvbhgDIAEoBEgAUg5jb21taXRQb3NpdGlvbhI8Cgtub19wb3NpdGlvbhgEIAEoCzIZLmV2ZW50X3N0b3JlLmNsaWVudC5FbXB0eUgAUgpub1Bvc2l0aW9uGusDCg1SZWNvcmRlZEV2ZW50EigKAmlkGAEgASgLMhguZXZlbnRfc3RvcmUuY2xpZW50LlVVSURSAmlkElEKEXN0cmVhbV9pZGVudGlmaWVyGAIgASgLMiQuZXZlbnRfc3RvcmUuY2xpZW50LlN0cmVhbUlkZW50aWZpZXJSEHN0cmVhbUlkZW50aWZpZXISJwoPc3RyZWFtX3JldmlzaW9uGAMgASgEUg5zdHJlYW1SZXZpc2lvbhIpChBwcmVwYXJlX3Bvc2l0aW9uGAQgASgEUg9wcmVwYXJlUG9zaXRpb24SJwoPY29tbWl0X3Bvc2l0aW9uGAUgASgEUg5jb21taXRQb3NpdGlvbhJmCghtZXRhZGF0YRgGIAMoCzJKLmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlJlYWRSZXNwLlJlYWRFdmVudC5SZWNvcmRlZEV2ZW50Lk1ldGFkYXRhRW50cnlSCG1ldGFkYXRhEicKD2N1c3RvbV9tZXRhZGF0YRgHIAEoDFIOY3VzdG9tTWV0YWRhdGESEgoEZGF0YRgIIAEoDFIEZGF0YRo7Cg1NZXRhZGF0YUVudHJ5EhAKA2tleRgBIAEoCVIDa2V5EhQKBXZhbHVlGAIgASgJUgV2YWx1ZToCOAFCCgoIcG9zaXRpb24aQwoYU3Vic2NyaXB0aW9uQ29uZmlybWF0aW9uEicKD3N1YnNjcmlwdGlvbl9pZBgBIAEoCVIOc3Vic2NyaXB0aW9uSWQaYAoKQ2hlY2twb2ludBInCg9jb21taXRfcG9zaXRpb24YASABKARSDmNvbW1pdFBvc2l0aW9uEikKEHByZXBhcmVfcG9zaXRpb24YAiABKARSD3ByZXBhcmVQb3NpdGlvbhpjCg5TdHJlYW1Ob3RGb3VuZBJRChFzdHJlYW1faWRlbnRpZmllchgBIAEoCzIkLmV2ZW50X3N0b3JlLmNsaWVudC5TdHJlYW1JZGVudGlmaWVyUhBzdHJlYW1JZGVudGlmaWVyQgkKB2NvbnRlbnQ=');
 @$core.Deprecated('Use appendReqDescriptor instead')
 const AppendReq$json = const {
   '1': 'AppendReq',
@@ -566,7 +566,7 @@ const AppendReq_Options$json = const {
       '3': 1,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.StreamIdentifier',
+      '6': '.event_store.client.StreamIdentifier',
       '10': 'streamIdentifier'
     },
     const {'1': 'revision', '3': 2, '4': 1, '5': 4, '9': 0, '10': 'revision'},
@@ -575,7 +575,7 @@ const AppendReq_Options$json = const {
       '3': 3,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'noStream'
     },
@@ -584,7 +584,7 @@ const AppendReq_Options$json = const {
       '3': 4,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'any'
     },
@@ -593,7 +593,7 @@ const AppendReq_Options$json = const {
       '3': 5,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'streamExists'
     },
@@ -612,7 +612,7 @@ const AppendReq_ProposedMessage$json = const {
       '3': 1,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.UUID',
+      '6': '.event_store.client.UUID',
       '10': 'id'
     },
     const {
@@ -648,7 +648,7 @@ const AppendReq_ProposedMessage_MetadataEntry$json = const {
 
 /// Descriptor for `AppendReq`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List appendReqDescriptor = $convert.base64Decode(
-    'CglBcHBlbmRSZXESSQoHb3B0aW9ucxgBIAEoCzItLmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLkFwcGVuZFJlcS5PcHRpb25zSABSB29wdGlvbnMSYgoQcHJvcG9zZWRfbWVzc2FnZRgCIAEoCzI1LmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLkFwcGVuZFJlcS5Qcm9wb3NlZE1lc3NhZ2VIAFIPcHJvcG9zZWRNZXNzYWdlGt0CCgdPcHRpb25zElgKEXN0cmVhbV9pZGVudGlmaWVyGAEgASgLMisuZXZlbnRfc3RvcmUuY2xpZW50LnNoYXJlZC5TdHJlYW1JZGVudGlmaWVyUhBzdHJlYW1JZGVudGlmaWVyEhwKCHJldmlzaW9uGAIgASgESABSCHJldmlzaW9uEj8KCW5vX3N0cmVhbRgDIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIAFIIbm9TdHJlYW0SNAoDYW55GAQgASgLMiAuZXZlbnRfc3RvcmUuY2xpZW50LnNoYXJlZC5FbXB0eUgAUgNhbnkSRwoNc3RyZWFtX2V4aXN0cxgFIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIAFIMc3RyZWFtRXhpc3RzQhoKGGV4cGVjdGVkX3N0cmVhbV9yZXZpc2lvbhqdAgoPUHJvcG9zZWRNZXNzYWdlEi8KAmlkGAEgASgLMh8uZXZlbnRfc3RvcmUuY2xpZW50LnNoYXJlZC5VVUlEUgJpZBJfCghtZXRhZGF0YRgCIAMoCzJDLmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLkFwcGVuZFJlcS5Qcm9wb3NlZE1lc3NhZ2UuTWV0YWRhdGFFbnRyeVIIbWV0YWRhdGESJwoPY3VzdG9tX21ldGFkYXRhGAMgASgMUg5jdXN0b21NZXRhZGF0YRISCgRkYXRhGAQgASgMUgRkYXRhGjsKDU1ldGFkYXRhRW50cnkSEAoDa2V5GAEgASgJUgNrZXkSFAoFdmFsdWUYAiABKAlSBXZhbHVlOgI4AUIJCgdjb250ZW50');
+    'CglBcHBlbmRSZXESSQoHb3B0aW9ucxgBIAEoCzItLmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLkFwcGVuZFJlcS5PcHRpb25zSABSB29wdGlvbnMSYgoQcHJvcG9zZWRfbWVzc2FnZRgCIAEoCzI1LmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLkFwcGVuZFJlcS5Qcm9wb3NlZE1lc3NhZ2VIAFIPcHJvcG9zZWRNZXNzYWdlGsECCgdPcHRpb25zElEKEXN0cmVhbV9pZGVudGlmaWVyGAEgASgLMiQuZXZlbnRfc3RvcmUuY2xpZW50LlN0cmVhbUlkZW50aWZpZXJSEHN0cmVhbUlkZW50aWZpZXISHAoIcmV2aXNpb24YAiABKARIAFIIcmV2aXNpb24SOAoJbm9fc3RyZWFtGAMgASgLMhkuZXZlbnRfc3RvcmUuY2xpZW50LkVtcHR5SABSCG5vU3RyZWFtEi0KA2FueRgEIAEoCzIZLmV2ZW50X3N0b3JlLmNsaWVudC5FbXB0eUgAUgNhbnkSQAoNc3RyZWFtX2V4aXN0cxgFIAEoCzIZLmV2ZW50X3N0b3JlLmNsaWVudC5FbXB0eUgAUgxzdHJlYW1FeGlzdHNCGgoYZXhwZWN0ZWRfc3RyZWFtX3JldmlzaW9uGpYCCg9Qcm9wb3NlZE1lc3NhZ2USKAoCaWQYASABKAsyGC5ldmVudF9zdG9yZS5jbGllbnQuVVVJRFICaWQSXwoIbWV0YWRhdGEYAiADKAsyQy5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5BcHBlbmRSZXEuUHJvcG9zZWRNZXNzYWdlLk1ldGFkYXRhRW50cnlSCG1ldGFkYXRhEicKD2N1c3RvbV9tZXRhZGF0YRgDIAEoDFIOY3VzdG9tTWV0YWRhdGESEgoEZGF0YRgEIAEoDFIEZGF0YRo7Cg1NZXRhZGF0YUVudHJ5EhAKA2tleRgBIAEoCVIDa2V5EhQKBXZhbHVlGAIgASgJUgV2YWx1ZToCOAFCCQoHY29udGVudA==');
 @$core.Deprecated('Use appendRespDescriptor instead')
 const AppendResp$json = const {
   '1': 'AppendResp',
@@ -720,7 +720,7 @@ const AppendResp_Success$json = const {
       '3': 2,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'noStream'
     },
@@ -738,7 +738,7 @@ const AppendResp_Success$json = const {
       '3': 4,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 1,
       '10': 'noPosition'
     },
@@ -766,7 +766,7 @@ const AppendResp_WrongExpectedVersion$json = const {
       '3': 2,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'noStream2060'
     },
@@ -783,7 +783,7 @@ const AppendResp_WrongExpectedVersion$json = const {
       '3': 4,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 1,
       '10': 'any2060'
     },
@@ -792,7 +792,7 @@ const AppendResp_WrongExpectedVersion$json = const {
       '3': 5,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 1,
       '10': 'streamExists2060'
     },
@@ -809,7 +809,7 @@ const AppendResp_WrongExpectedVersion$json = const {
       '3': 7,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 2,
       '10': 'currentNoStream'
     },
@@ -826,7 +826,7 @@ const AppendResp_WrongExpectedVersion$json = const {
       '3': 9,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 3,
       '10': 'expectedAny'
     },
@@ -835,7 +835,7 @@ const AppendResp_WrongExpectedVersion$json = const {
       '3': 10,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 3,
       '10': 'expectedStreamExists'
     },
@@ -844,7 +844,7 @@ const AppendResp_WrongExpectedVersion$json = const {
       '3': 11,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 3,
       '10': 'expectedNoStream'
     },
@@ -859,7 +859,277 @@ const AppendResp_WrongExpectedVersion$json = const {
 
 /// Descriptor for `AppendResp`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List appendRespDescriptor = $convert.base64Decode(
-    'CgpBcHBlbmRSZXNwEkoKB3N1Y2Nlc3MYASABKAsyLi5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5BcHBlbmRSZXNwLlN1Y2Nlc3NIAFIHc3VjY2VzcxJzChZ3cm9uZ19leHBlY3RlZF92ZXJzaW9uGAIgASgLMjsuZXZlbnRfc3RvcmUuY2xpZW50LnN0cmVhbXMuQXBwZW5kUmVzcC5Xcm9uZ0V4cGVjdGVkVmVyc2lvbkgAUhR3cm9uZ0V4cGVjdGVkVmVyc2lvbhpeCghQb3NpdGlvbhInCg9jb21taXRfcG9zaXRpb24YASABKARSDmNvbW1pdFBvc2l0aW9uEikKEHByZXBhcmVfcG9zaXRpb24YAiABKARSD3ByZXBhcmVQb3NpdGlvbhq5AgoHU3VjY2VzcxIrChBjdXJyZW50X3JldmlzaW9uGAEgASgESABSD2N1cnJlbnRSZXZpc2lvbhI/Cglub19zdHJlYW0YAiABKAsyIC5ldmVudF9zdG9yZS5jbGllbnQuc2hhcmVkLkVtcHR5SABSCG5vU3RyZWFtEk0KCHBvc2l0aW9uGAMgASgLMi8uZXZlbnRfc3RvcmUuY2xpZW50LnN0cmVhbXMuQXBwZW5kUmVzcC5Qb3NpdGlvbkgBUghwb3NpdGlvbhJDCgtub19wb3NpdGlvbhgEIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIAVIKbm9Qb3NpdGlvbkIZChdjdXJyZW50X3JldmlzaW9uX29wdGlvbkIRCg9wb3NpdGlvbl9vcHRpb24ahAcKFFdyb25nRXhwZWN0ZWRWZXJzaW9uEjYKF2N1cnJlbnRfcmV2aXNpb25fMjBfNl8wGAEgASgESABSE2N1cnJlbnRSZXZpc2lvbjIwNjASSgoQbm9fc3RyZWFtXzIwXzZfMBgCIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIAFIMbm9TdHJlYW0yMDYwEjgKGGV4cGVjdGVkX3JldmlzaW9uXzIwXzZfMBgDIAEoBEgBUhRleHBlY3RlZFJldmlzaW9uMjA2MBI/CgphbnlfMjBfNl8wGAQgASgLMiAuZXZlbnRfc3RvcmUuY2xpZW50LnNoYXJlZC5FbXB0eUgBUgdhbnkyMDYwElIKFHN0cmVhbV9leGlzdHNfMjBfNl8wGAUgASgLMiAuZXZlbnRfc3RvcmUuY2xpZW50LnNoYXJlZC5FbXB0eUgBUhBzdHJlYW1FeGlzdHMyMDYwEisKEGN1cnJlbnRfcmV2aXNpb24YBiABKARIAlIPY3VycmVudFJldmlzaW9uEk4KEWN1cnJlbnRfbm9fc3RyZWFtGAcgASgLMiAuZXZlbnRfc3RvcmUuY2xpZW50LnNoYXJlZC5FbXB0eUgCUg9jdXJyZW50Tm9TdHJlYW0SLQoRZXhwZWN0ZWRfcmV2aXNpb24YCCABKARIA1IQZXhwZWN0ZWRSZXZpc2lvbhJFCgxleHBlY3RlZF9hbnkYCSABKAsyIC5ldmVudF9zdG9yZS5jbGllbnQuc2hhcmVkLkVtcHR5SANSC2V4cGVjdGVkQW55ElgKFmV4cGVjdGVkX3N0cmVhbV9leGlzdHMYCiABKAsyIC5ldmVudF9zdG9yZS5jbGllbnQuc2hhcmVkLkVtcHR5SANSFGV4cGVjdGVkU3RyZWFtRXhpc3RzElAKEmV4cGVjdGVkX25vX3N0cmVhbRgLIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIA1IQZXhwZWN0ZWROb1N0cmVhbUIgCh5jdXJyZW50X3JldmlzaW9uX29wdGlvbl8yMF82XzBCIQofZXhwZWN0ZWRfcmV2aXNpb25fb3B0aW9uXzIwXzZfMEIZChdjdXJyZW50X3JldmlzaW9uX29wdGlvbkIaChhleHBlY3RlZF9yZXZpc2lvbl9vcHRpb25CCAoGcmVzdWx0');
+    'CgpBcHBlbmRSZXNwEkoKB3N1Y2Nlc3MYASABKAsyLi5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5BcHBlbmRSZXNwLlN1Y2Nlc3NIAFIHc3VjY2VzcxJzChZ3cm9uZ19leHBlY3RlZF92ZXJzaW9uGAIgASgLMjsuZXZlbnRfc3RvcmUuY2xpZW50LnN0cmVhbXMuQXBwZW5kUmVzcC5Xcm9uZ0V4cGVjdGVkVmVyc2lvbkgAUhR3cm9uZ0V4cGVjdGVkVmVyc2lvbhpeCghQb3NpdGlvbhInCg9jb21taXRfcG9zaXRpb24YASABKARSDmNvbW1pdFBvc2l0aW9uEikKEHByZXBhcmVfcG9zaXRpb24YAiABKARSD3ByZXBhcmVQb3NpdGlvbhqrAgoHU3VjY2VzcxIrChBjdXJyZW50X3JldmlzaW9uGAEgASgESABSD2N1cnJlbnRSZXZpc2lvbhI4Cglub19zdHJlYW0YAiABKAsyGS5ldmVudF9zdG9yZS5jbGllbnQuRW1wdHlIAFIIbm9TdHJlYW0STQoIcG9zaXRpb24YAyABKAsyLy5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5BcHBlbmRSZXNwLlBvc2l0aW9uSAFSCHBvc2l0aW9uEjwKC25vX3Bvc2l0aW9uGAQgASgLMhkuZXZlbnRfc3RvcmUuY2xpZW50LkVtcHR5SAFSCm5vUG9zaXRpb25CGQoXY3VycmVudF9yZXZpc2lvbl9vcHRpb25CEQoPcG9zaXRpb25fb3B0aW9uGtMGChRXcm9uZ0V4cGVjdGVkVmVyc2lvbhI2ChdjdXJyZW50X3JldmlzaW9uXzIwXzZfMBgBIAEoBEgAUhNjdXJyZW50UmV2aXNpb24yMDYwEkMKEG5vX3N0cmVhbV8yMF82XzAYAiABKAsyGS5ldmVudF9zdG9yZS5jbGllbnQuRW1wdHlIAFIMbm9TdHJlYW0yMDYwEjgKGGV4cGVjdGVkX3JldmlzaW9uXzIwXzZfMBgDIAEoBEgBUhRleHBlY3RlZFJldmlzaW9uMjA2MBI4CgphbnlfMjBfNl8wGAQgASgLMhkuZXZlbnRfc3RvcmUuY2xpZW50LkVtcHR5SAFSB2FueTIwNjASSwoUc3RyZWFtX2V4aXN0c18yMF82XzAYBSABKAsyGS5ldmVudF9zdG9yZS5jbGllbnQuRW1wdHlIAVIQc3RyZWFtRXhpc3RzMjA2MBIrChBjdXJyZW50X3JldmlzaW9uGAYgASgESAJSD2N1cnJlbnRSZXZpc2lvbhJHChFjdXJyZW50X25vX3N0cmVhbRgHIAEoCzIZLmV2ZW50X3N0b3JlLmNsaWVudC5FbXB0eUgCUg9jdXJyZW50Tm9TdHJlYW0SLQoRZXhwZWN0ZWRfcmV2aXNpb24YCCABKARIA1IQZXhwZWN0ZWRSZXZpc2lvbhI+CgxleHBlY3RlZF9hbnkYCSABKAsyGS5ldmVudF9zdG9yZS5jbGllbnQuRW1wdHlIA1ILZXhwZWN0ZWRBbnkSUQoWZXhwZWN0ZWRfc3RyZWFtX2V4aXN0cxgKIAEoCzIZLmV2ZW50X3N0b3JlLmNsaWVudC5FbXB0eUgDUhRleHBlY3RlZFN0cmVhbUV4aXN0cxJJChJleHBlY3RlZF9ub19zdHJlYW0YCyABKAsyGS5ldmVudF9zdG9yZS5jbGllbnQuRW1wdHlIA1IQZXhwZWN0ZWROb1N0cmVhbUIgCh5jdXJyZW50X3JldmlzaW9uX29wdGlvbl8yMF82XzBCIQofZXhwZWN0ZWRfcmV2aXNpb25fb3B0aW9uXzIwXzZfMEIZChdjdXJyZW50X3JldmlzaW9uX29wdGlvbkIaChhleHBlY3RlZF9yZXZpc2lvbl9vcHRpb25CCAoGcmVzdWx0');
+@$core.Deprecated('Use batchAppendReqDescriptor instead')
+const BatchAppendReq$json = const {
+  '1': 'BatchAppendReq',
+  '2': const [
+    const {
+      '1': 'correlation_id',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.event_store.client.UUID',
+      '10': 'correlationId'
+    },
+    const {
+      '1': 'options',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.event_store.client.streams.BatchAppendReq.Options',
+      '10': 'options'
+    },
+    const {
+      '1': 'proposed_messages',
+      '3': 3,
+      '4': 3,
+      '5': 11,
+      '6': '.event_store.client.streams.BatchAppendReq.ProposedMessage',
+      '10': 'proposedMessages'
+    },
+    const {'1': 'is_final', '3': 4, '4': 1, '5': 8, '10': 'isFinal'},
+  ],
+  '3': const [BatchAppendReq_Options$json, BatchAppendReq_ProposedMessage$json],
+};
+
+@$core.Deprecated('Use batchAppendReqDescriptor instead')
+const BatchAppendReq_Options$json = const {
+  '1': 'Options',
+  '2': const [
+    const {
+      '1': 'stream_identifier',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.event_store.client.StreamIdentifier',
+      '10': 'streamIdentifier'
+    },
+    const {
+      '1': 'stream_position',
+      '3': 2,
+      '4': 1,
+      '5': 4,
+      '9': 0,
+      '10': 'streamPosition'
+    },
+    const {
+      '1': 'no_stream',
+      '3': 3,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Empty',
+      '9': 0,
+      '10': 'noStream'
+    },
+    const {
+      '1': 'any',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Empty',
+      '9': 0,
+      '10': 'any'
+    },
+    const {
+      '1': 'stream_exists',
+      '3': 5,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Empty',
+      '9': 0,
+      '10': 'streamExists'
+    },
+    const {
+      '1': 'deadline',
+      '3': 6,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'deadline'
+    },
+  ],
+  '8': const [
+    const {'1': 'expected_stream_position'},
+  ],
+};
+
+@$core.Deprecated('Use batchAppendReqDescriptor instead')
+const BatchAppendReq_ProposedMessage$json = const {
+  '1': 'ProposedMessage',
+  '2': const [
+    const {
+      '1': 'id',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.event_store.client.UUID',
+      '10': 'id'
+    },
+    const {
+      '1': 'metadata',
+      '3': 2,
+      '4': 3,
+      '5': 11,
+      '6':
+          '.event_store.client.streams.BatchAppendReq.ProposedMessage.MetadataEntry',
+      '10': 'metadata'
+    },
+    const {
+      '1': 'custom_metadata',
+      '3': 3,
+      '4': 1,
+      '5': 12,
+      '10': 'customMetadata'
+    },
+    const {'1': 'data', '3': 4, '4': 1, '5': 12, '10': 'data'},
+  ],
+  '3': const [BatchAppendReq_ProposedMessage_MetadataEntry$json],
+};
+
+@$core.Deprecated('Use batchAppendReqDescriptor instead')
+const BatchAppendReq_ProposedMessage_MetadataEntry$json = const {
+  '1': 'MetadataEntry',
+  '2': const [
+    const {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
+    const {'1': 'value', '3': 2, '4': 1, '5': 9, '10': 'value'},
+  ],
+  '7': const {'7': true},
+};
+
+/// Descriptor for `BatchAppendReq`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List batchAppendReqDescriptor = $convert.base64Decode(
+    'Cg5CYXRjaEFwcGVuZFJlcRI/Cg5jb3JyZWxhdGlvbl9pZBgBIAEoCzIYLmV2ZW50X3N0b3JlLmNsaWVudC5VVUlEUg1jb3JyZWxhdGlvbklkEkwKB29wdGlvbnMYAiABKAsyMi5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5CYXRjaEFwcGVuZFJlcS5PcHRpb25zUgdvcHRpb25zEmcKEXByb3Bvc2VkX21lc3NhZ2VzGAMgAygLMjouZXZlbnRfc3RvcmUuY2xpZW50LnN0cmVhbXMuQmF0Y2hBcHBlbmRSZXEuUHJvcG9zZWRNZXNzYWdlUhBwcm9wb3NlZE1lc3NhZ2VzEhkKCGlzX2ZpbmFsGAQgASgIUgdpc0ZpbmFsGv0CCgdPcHRpb25zElEKEXN0cmVhbV9pZGVudGlmaWVyGAEgASgLMiQuZXZlbnRfc3RvcmUuY2xpZW50LlN0cmVhbUlkZW50aWZpZXJSEHN0cmVhbUlkZW50aWZpZXISKQoPc3RyZWFtX3Bvc2l0aW9uGAIgASgESABSDnN0cmVhbVBvc2l0aW9uEjUKCW5vX3N0cmVhbRgDIAEoCzIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eUgAUghub1N0cmVhbRIqCgNhbnkYBCABKAsyFi5nb29nbGUucHJvdG9idWYuRW1wdHlIAFIDYW55Ej0KDXN0cmVhbV9leGlzdHMYBSABKAsyFi5nb29nbGUucHJvdG9idWYuRW1wdHlIAFIMc3RyZWFtRXhpc3RzEjYKCGRlYWRsaW5lGAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIIZGVhZGxpbmVCGgoYZXhwZWN0ZWRfc3RyZWFtX3Bvc2l0aW9uGpsCCg9Qcm9wb3NlZE1lc3NhZ2USKAoCaWQYASABKAsyGC5ldmVudF9zdG9yZS5jbGllbnQuVVVJRFICaWQSZAoIbWV0YWRhdGEYAiADKAsySC5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5CYXRjaEFwcGVuZFJlcS5Qcm9wb3NlZE1lc3NhZ2UuTWV0YWRhdGFFbnRyeVIIbWV0YWRhdGESJwoPY3VzdG9tX21ldGFkYXRhGAMgASgMUg5jdXN0b21NZXRhZGF0YRISCgRkYXRhGAQgASgMUgRkYXRhGjsKDU1ldGFkYXRhRW50cnkSEAoDa2V5GAEgASgJUgNrZXkSFAoFdmFsdWUYAiABKAlSBXZhbHVlOgI4AQ==');
+@$core.Deprecated('Use batchAppendRespDescriptor instead')
+const BatchAppendResp$json = const {
+  '1': 'BatchAppendResp',
+  '2': const [
+    const {
+      '1': 'correlation_id',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.event_store.client.UUID',
+      '10': 'correlationId'
+    },
+    const {
+      '1': 'error',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.google.rpc.Status',
+      '9': 0,
+      '10': 'error'
+    },
+    const {
+      '1': 'success',
+      '3': 3,
+      '4': 1,
+      '5': 11,
+      '6': '.event_store.client.streams.BatchAppendResp.Success',
+      '9': 0,
+      '10': 'success'
+    },
+    const {
+      '1': 'stream_identifier',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.event_store.client.StreamIdentifier',
+      '10': 'streamIdentifier'
+    },
+    const {
+      '1': 'stream_position',
+      '3': 5,
+      '4': 1,
+      '5': 4,
+      '9': 1,
+      '10': 'streamPosition'
+    },
+    const {
+      '1': 'no_stream',
+      '3': 6,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Empty',
+      '9': 1,
+      '10': 'noStream'
+    },
+    const {
+      '1': 'any',
+      '3': 7,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Empty',
+      '9': 1,
+      '10': 'any'
+    },
+    const {
+      '1': 'stream_exists',
+      '3': 8,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Empty',
+      '9': 1,
+      '10': 'streamExists'
+    },
+  ],
+  '3': const [BatchAppendResp_Success$json],
+  '8': const [
+    const {'1': 'result'},
+    const {'1': 'expected_stream_position'},
+  ],
+};
+
+@$core.Deprecated('Use batchAppendRespDescriptor instead')
+const BatchAppendResp_Success$json = const {
+  '1': 'Success',
+  '2': const [
+    const {
+      '1': 'current_revision',
+      '3': 1,
+      '4': 1,
+      '5': 4,
+      '9': 0,
+      '10': 'currentRevision'
+    },
+    const {
+      '1': 'no_stream',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Empty',
+      '9': 0,
+      '10': 'noStream'
+    },
+    const {
+      '1': 'position',
+      '3': 3,
+      '4': 1,
+      '5': 11,
+      '6': '.event_store.client.AllStreamPosition',
+      '9': 1,
+      '10': 'position'
+    },
+    const {
+      '1': 'no_position',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Empty',
+      '9': 1,
+      '10': 'noPosition'
+    },
+  ],
+  '8': const [
+    const {'1': 'current_revision_option'},
+    const {'1': 'position_option'},
+  ],
+};
+
+/// Descriptor for `BatchAppendResp`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List batchAppendRespDescriptor = $convert.base64Decode(
+    'Cg9CYXRjaEFwcGVuZFJlc3ASPwoOY29ycmVsYXRpb25faWQYASABKAsyGC5ldmVudF9zdG9yZS5jbGllbnQuVVVJRFINY29ycmVsYXRpb25JZBIqCgVlcnJvchgCIAEoCzISLmdvb2dsZS5ycGMuU3RhdHVzSABSBWVycm9yEk8KB3N1Y2Nlc3MYAyABKAsyMy5ldmVudF9zdG9yZS5jbGllbnQuc3RyZWFtcy5CYXRjaEFwcGVuZFJlc3AuU3VjY2Vzc0gAUgdzdWNjZXNzElEKEXN0cmVhbV9pZGVudGlmaWVyGAQgASgLMiQuZXZlbnRfc3RvcmUuY2xpZW50LlN0cmVhbUlkZW50aWZpZXJSEHN0cmVhbUlkZW50aWZpZXISKQoPc3RyZWFtX3Bvc2l0aW9uGAUgASgESAFSDnN0cmVhbVBvc2l0aW9uEjUKCW5vX3N0cmVhbRgGIAEoCzIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eUgBUghub1N0cmVhbRIqCgNhbnkYByABKAsyFi5nb29nbGUucHJvdG9idWYuRW1wdHlIAVIDYW55Ej0KDXN0cmVhbV9leGlzdHMYCCABKAsyFi5nb29nbGUucHJvdG9idWYuRW1wdHlIAVIMc3RyZWFtRXhpc3RzGpsCCgdTdWNjZXNzEisKEGN1cnJlbnRfcmV2aXNpb24YASABKARIAFIPY3VycmVudFJldmlzaW9uEjUKCW5vX3N0cmVhbRgCIAEoCzIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eUgAUghub1N0cmVhbRJDCghwb3NpdGlvbhgDIAEoCzIlLmV2ZW50X3N0b3JlLmNsaWVudC5BbGxTdHJlYW1Qb3NpdGlvbkgBUghwb3NpdGlvbhI5Cgtub19wb3NpdGlvbhgEIAEoCzIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eUgBUgpub1Bvc2l0aW9uQhkKF2N1cnJlbnRfcmV2aXNpb25fb3B0aW9uQhEKD3Bvc2l0aW9uX29wdGlvbkIICgZyZXN1bHRCGgoYZXhwZWN0ZWRfc3RyZWFtX3Bvc2l0aW9u');
 @$core.Deprecated('Use deleteReqDescriptor instead')
 const DeleteReq$json = const {
   '1': 'DeleteReq',
@@ -885,7 +1155,7 @@ const DeleteReq_Options$json = const {
       '3': 1,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.StreamIdentifier',
+      '6': '.event_store.client.StreamIdentifier',
       '10': 'streamIdentifier'
     },
     const {'1': 'revision', '3': 2, '4': 1, '5': 4, '9': 0, '10': 'revision'},
@@ -894,7 +1164,7 @@ const DeleteReq_Options$json = const {
       '3': 3,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'noStream'
     },
@@ -903,7 +1173,7 @@ const DeleteReq_Options$json = const {
       '3': 4,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'any'
     },
@@ -912,7 +1182,7 @@ const DeleteReq_Options$json = const {
       '3': 5,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'streamExists'
     },
@@ -924,7 +1194,7 @@ const DeleteReq_Options$json = const {
 
 /// Descriptor for `DeleteReq`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List deleteReqDescriptor = $convert.base64Decode(
-    'CglEZWxldGVSZXESRwoHb3B0aW9ucxgBIAEoCzItLmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLkRlbGV0ZVJlcS5PcHRpb25zUgdvcHRpb25zGt0CCgdPcHRpb25zElgKEXN0cmVhbV9pZGVudGlmaWVyGAEgASgLMisuZXZlbnRfc3RvcmUuY2xpZW50LnNoYXJlZC5TdHJlYW1JZGVudGlmaWVyUhBzdHJlYW1JZGVudGlmaWVyEhwKCHJldmlzaW9uGAIgASgESABSCHJldmlzaW9uEj8KCW5vX3N0cmVhbRgDIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIAFIIbm9TdHJlYW0SNAoDYW55GAQgASgLMiAuZXZlbnRfc3RvcmUuY2xpZW50LnNoYXJlZC5FbXB0eUgAUgNhbnkSRwoNc3RyZWFtX2V4aXN0cxgFIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIAFIMc3RyZWFtRXhpc3RzQhoKGGV4cGVjdGVkX3N0cmVhbV9yZXZpc2lvbg==');
+    'CglEZWxldGVSZXESRwoHb3B0aW9ucxgBIAEoCzItLmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLkRlbGV0ZVJlcS5PcHRpb25zUgdvcHRpb25zGsECCgdPcHRpb25zElEKEXN0cmVhbV9pZGVudGlmaWVyGAEgASgLMiQuZXZlbnRfc3RvcmUuY2xpZW50LlN0cmVhbUlkZW50aWZpZXJSEHN0cmVhbUlkZW50aWZpZXISHAoIcmV2aXNpb24YAiABKARIAFIIcmV2aXNpb24SOAoJbm9fc3RyZWFtGAMgASgLMhkuZXZlbnRfc3RvcmUuY2xpZW50LkVtcHR5SABSCG5vU3RyZWFtEi0KA2FueRgEIAEoCzIZLmV2ZW50X3N0b3JlLmNsaWVudC5FbXB0eUgAUgNhbnkSQAoNc3RyZWFtX2V4aXN0cxgFIAEoCzIZLmV2ZW50X3N0b3JlLmNsaWVudC5FbXB0eUgAUgxzdHJlYW1FeGlzdHNCGgoYZXhwZWN0ZWRfc3RyZWFtX3JldmlzaW9u');
 @$core.Deprecated('Use deleteRespDescriptor instead')
 const DeleteResp$json = const {
   '1': 'DeleteResp',
@@ -943,7 +1213,7 @@ const DeleteResp$json = const {
       '3': 2,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'noPosition'
     },
@@ -977,7 +1247,7 @@ const DeleteResp_Position$json = const {
 
 /// Descriptor for `DeleteResp`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List deleteRespDescriptor = $convert.base64Decode(
-    'CgpEZWxldGVSZXNwEk0KCHBvc2l0aW9uGAEgASgLMi8uZXZlbnRfc3RvcmUuY2xpZW50LnN0cmVhbXMuRGVsZXRlUmVzcC5Qb3NpdGlvbkgAUghwb3NpdGlvbhJDCgtub19wb3NpdGlvbhgCIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIAFIKbm9Qb3NpdGlvbhpeCghQb3NpdGlvbhInCg9jb21taXRfcG9zaXRpb24YASABKARSDmNvbW1pdFBvc2l0aW9uEikKEHByZXBhcmVfcG9zaXRpb24YAiABKARSD3ByZXBhcmVQb3NpdGlvbkIRCg9wb3NpdGlvbl9vcHRpb24=');
+    'CgpEZWxldGVSZXNwEk0KCHBvc2l0aW9uGAEgASgLMi8uZXZlbnRfc3RvcmUuY2xpZW50LnN0cmVhbXMuRGVsZXRlUmVzcC5Qb3NpdGlvbkgAUghwb3NpdGlvbhI8Cgtub19wb3NpdGlvbhgCIAEoCzIZLmV2ZW50X3N0b3JlLmNsaWVudC5FbXB0eUgAUgpub1Bvc2l0aW9uGl4KCFBvc2l0aW9uEicKD2NvbW1pdF9wb3NpdGlvbhgBIAEoBFIOY29tbWl0UG9zaXRpb24SKQoQcHJlcGFyZV9wb3NpdGlvbhgCIAEoBFIPcHJlcGFyZVBvc2l0aW9uQhEKD3Bvc2l0aW9uX29wdGlvbg==');
 @$core.Deprecated('Use tombstoneReqDescriptor instead')
 const TombstoneReq$json = const {
   '1': 'TombstoneReq',
@@ -1003,7 +1273,7 @@ const TombstoneReq_Options$json = const {
       '3': 1,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.StreamIdentifier',
+      '6': '.event_store.client.StreamIdentifier',
       '10': 'streamIdentifier'
     },
     const {'1': 'revision', '3': 2, '4': 1, '5': 4, '9': 0, '10': 'revision'},
@@ -1012,7 +1282,7 @@ const TombstoneReq_Options$json = const {
       '3': 3,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'noStream'
     },
@@ -1021,7 +1291,7 @@ const TombstoneReq_Options$json = const {
       '3': 4,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'any'
     },
@@ -1030,7 +1300,7 @@ const TombstoneReq_Options$json = const {
       '3': 5,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'streamExists'
     },
@@ -1042,7 +1312,7 @@ const TombstoneReq_Options$json = const {
 
 /// Descriptor for `TombstoneReq`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List tombstoneReqDescriptor = $convert.base64Decode(
-    'CgxUb21ic3RvbmVSZXESSgoHb3B0aW9ucxgBIAEoCzIwLmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlRvbWJzdG9uZVJlcS5PcHRpb25zUgdvcHRpb25zGt0CCgdPcHRpb25zElgKEXN0cmVhbV9pZGVudGlmaWVyGAEgASgLMisuZXZlbnRfc3RvcmUuY2xpZW50LnNoYXJlZC5TdHJlYW1JZGVudGlmaWVyUhBzdHJlYW1JZGVudGlmaWVyEhwKCHJldmlzaW9uGAIgASgESABSCHJldmlzaW9uEj8KCW5vX3N0cmVhbRgDIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIAFIIbm9TdHJlYW0SNAoDYW55GAQgASgLMiAuZXZlbnRfc3RvcmUuY2xpZW50LnNoYXJlZC5FbXB0eUgAUgNhbnkSRwoNc3RyZWFtX2V4aXN0cxgFIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIAFIMc3RyZWFtRXhpc3RzQhoKGGV4cGVjdGVkX3N0cmVhbV9yZXZpc2lvbg==');
+    'CgxUb21ic3RvbmVSZXESSgoHb3B0aW9ucxgBIAEoCzIwLmV2ZW50X3N0b3JlLmNsaWVudC5zdHJlYW1zLlRvbWJzdG9uZVJlcS5PcHRpb25zUgdvcHRpb25zGsECCgdPcHRpb25zElEKEXN0cmVhbV9pZGVudGlmaWVyGAEgASgLMiQuZXZlbnRfc3RvcmUuY2xpZW50LlN0cmVhbUlkZW50aWZpZXJSEHN0cmVhbUlkZW50aWZpZXISHAoIcmV2aXNpb24YAiABKARIAFIIcmV2aXNpb24SOAoJbm9fc3RyZWFtGAMgASgLMhkuZXZlbnRfc3RvcmUuY2xpZW50LkVtcHR5SABSCG5vU3RyZWFtEi0KA2FueRgEIAEoCzIZLmV2ZW50X3N0b3JlLmNsaWVudC5FbXB0eUgAUgNhbnkSQAoNc3RyZWFtX2V4aXN0cxgFIAEoCzIZLmV2ZW50X3N0b3JlLmNsaWVudC5FbXB0eUgAUgxzdHJlYW1FeGlzdHNCGgoYZXhwZWN0ZWRfc3RyZWFtX3JldmlzaW9u');
 @$core.Deprecated('Use tombstoneRespDescriptor instead')
 const TombstoneResp$json = const {
   '1': 'TombstoneResp',
@@ -1061,7 +1331,7 @@ const TombstoneResp$json = const {
       '3': 2,
       '4': 1,
       '5': 11,
-      '6': '.event_store.client.shared.Empty',
+      '6': '.event_store.client.Empty',
       '9': 0,
       '10': 'noPosition'
     },
@@ -1095,4 +1365,4 @@ const TombstoneResp_Position$json = const {
 
 /// Descriptor for `TombstoneResp`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List tombstoneRespDescriptor = $convert.base64Decode(
-    'Cg1Ub21ic3RvbmVSZXNwElAKCHBvc2l0aW9uGAEgASgLMjIuZXZlbnRfc3RvcmUuY2xpZW50LnN0cmVhbXMuVG9tYnN0b25lUmVzcC5Qb3NpdGlvbkgAUghwb3NpdGlvbhJDCgtub19wb3NpdGlvbhgCIAEoCzIgLmV2ZW50X3N0b3JlLmNsaWVudC5zaGFyZWQuRW1wdHlIAFIKbm9Qb3NpdGlvbhpeCghQb3NpdGlvbhInCg9jb21taXRfcG9zaXRpb24YASABKARSDmNvbW1pdFBvc2l0aW9uEikKEHByZXBhcmVfcG9zaXRpb24YAiABKARSD3ByZXBhcmVQb3NpdGlvbkIRCg9wb3NpdGlvbl9vcHRpb24=');
+    'Cg1Ub21ic3RvbmVSZXNwElAKCHBvc2l0aW9uGAEgASgLMjIuZXZlbnRfc3RvcmUuY2xpZW50LnN0cmVhbXMuVG9tYnN0b25lUmVzcC5Qb3NpdGlvbkgAUghwb3NpdGlvbhI8Cgtub19wb3NpdGlvbhgCIAEoCzIZLmV2ZW50X3N0b3JlLmNsaWVudC5FbXB0eUgAUgpub1Bvc2l0aW9uGl4KCFBvc2l0aW9uEicKD2NvbW1pdF9wb3NpdGlvbhgBIAEoBFIOY29tbWl0UG9zaXRpb24SKQoQcHJlcGFyZV9wb3NpdGlvbhgCIAEoBFIPcHJlcGFyZVBvc2l0aW9uQhEKD3Bvc2l0aW9uX29wdGlvbg==');

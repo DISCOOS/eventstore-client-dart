@@ -1,6 +1,10 @@
 class Defaults {
   static const GrpcPort = 2113;
   static const GossipPort = 2114;
+  static const Duration KeepAliveTimeout = Duration(seconds: 10);
+  static const Duration KeepAliveInterval = Duration(seconds: 10);
+  static const Duration DisableKeepAliveTimeout = Duration(milliseconds: -1);
+  static const Duration DisableKeepAliveInterval = Duration(milliseconds: -1);
 }
 
 class Exceptions {
@@ -66,4 +70,73 @@ class Headers {
 
   static const String ConnectionName = 'connection-name';
   static const String RequiresLeader = 'requires-leader';
+}
+
+/// Constants for information in stream metadata
+class SystemMetadata {
+  /// List of [StringMetadata] fields
+  static const List<String> fields = [
+    Acl,
+    MaxAge,
+    MaxCount,
+    CacheControl,
+    TruncateBefore,
+  ];
+
+  /// The definition of the MaxAge value assigned to stream metadata
+  /// Setting this allows all events older than the limit to be deleted
+  static const String MaxAge = '\$maxAge';
+
+  /// The definition of the MaxCount value assigned to stream metadata
+  /// setting this allows all events with a sequence less than current -maxcount to be deleted
+  static const String MaxCount = '\$maxCount';
+
+  ///The definition of the Truncate Before value assigned to stream metadata
+  ///setting this allows all events prior to the integer value to be deleted
+  static const String TruncateBefore = '\$tb';
+
+  /// Sets the cache control in seconds for the head of the stream.
+  static const String CacheControl = '\$cacheControl';
+
+  /// The acl definition in metadata
+  static const String Acl = '\$acl';
+
+  /// Permission to read from a stream
+  static const String AclRead = '\$r';
+
+  /// Permission to write to a stream
+  static const String AclWrite = '\$w';
+
+  /// Permission to delete a stream
+  static const String AclDelete = '\$d';
+
+  /// Permission to read metadata
+  static const String AclMetaRead = '\$mr';
+
+  /// Permission to write metadata
+  static const String AclMetaWrite = '\$mw';
+
+  /// The user default acl stream
+  static const String UserStreamAcl = '\$userStreamAcl';
+
+  /// She system stream defaults acl stream
+  static const String SystemStreamAcl = '\$systemStreamAcl';
+}
+
+/// Constants for System event types
+class SystemEventTypes {
+  /// Event type for stream deleted
+  static const String StreamDeleted = '\$streamDeleted';
+
+  /// Event type for statistics
+  static const String StatsCollection = '\$statsCollected';
+
+  /// Event type for linkTo
+  static const String LinkTo = '\$>';
+
+  /// Event type for stream metadata
+  static const String StreamMetadata = '\$metadata';
+
+  /// Event type for the system settings
+  static const String Settings = '\$settings';
 }

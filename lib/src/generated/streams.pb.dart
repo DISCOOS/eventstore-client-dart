@@ -11,6 +11,9 @@ import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'shared.pb.dart' as $1;
+import 'google/empty.pb.dart' as $9;
+import 'google/timestamp.pb.dart' as $13;
+import 'status.pb.dart' as $14;
 
 import 'streams.pbenum.dart';
 
@@ -2893,6 +2896,819 @@ class AppendResp extends $pb.GeneratedMessage {
   void clearWrongExpectedVersion() => clearField(2);
   @$pb.TagNumber(2)
   AppendResp_WrongExpectedVersion ensureWrongExpectedVersion() => $_ensure(1);
+}
+
+enum BatchAppendReq_Options_ExpectedStreamPosition {
+  streamPosition,
+  noStream,
+  any,
+  streamExists,
+  notSet
+}
+
+class BatchAppendReq_Options extends $pb.GeneratedMessage {
+  static const $core
+          .Map<$core.int, BatchAppendReq_Options_ExpectedStreamPosition>
+      _BatchAppendReq_Options_ExpectedStreamPositionByTag = {
+    2: BatchAppendReq_Options_ExpectedStreamPosition.streamPosition,
+    3: BatchAppendReq_Options_ExpectedStreamPosition.noStream,
+    4: BatchAppendReq_Options_ExpectedStreamPosition.any,
+    5: BatchAppendReq_Options_ExpectedStreamPosition.streamExists,
+    0: BatchAppendReq_Options_ExpectedStreamPosition.notSet
+  };
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'BatchAppendReq.Options',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.streams'),
+      createEmptyInstance: create)
+    ..oo(0, [2, 3, 4, 5])
+    ..aOM<$1.StreamIdentifier>(
+        1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'streamIdentifier',
+        subBuilder: $1.StreamIdentifier.create)
+    ..a<$fixnum.Int64>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'streamPosition',
+        $pb.PbFieldType.OU6,
+        defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOM<$9.Empty>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'noStream', subBuilder: $9.Empty.create)
+    ..aOM<$9.Empty>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'any', subBuilder: $9.Empty.create)
+    ..aOM<$9.Empty>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'streamExists', subBuilder: $9.Empty.create)
+    ..aOM<$13.Timestamp>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deadline', subBuilder: $13.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  BatchAppendReq_Options._() : super();
+  factory BatchAppendReq_Options({
+    $1.StreamIdentifier? streamIdentifier,
+    $fixnum.Int64? streamPosition,
+    $9.Empty? noStream,
+    $9.Empty? any,
+    $9.Empty? streamExists,
+    $13.Timestamp? deadline,
+  }) {
+    final _result = create();
+    if (streamIdentifier != null) {
+      _result.streamIdentifier = streamIdentifier;
+    }
+    if (streamPosition != null) {
+      _result.streamPosition = streamPosition;
+    }
+    if (noStream != null) {
+      _result.noStream = noStream;
+    }
+    if (any != null) {
+      _result.any = any;
+    }
+    if (streamExists != null) {
+      _result.streamExists = streamExists;
+    }
+    if (deadline != null) {
+      _result.deadline = deadline;
+    }
+    return _result;
+  }
+  factory BatchAppendReq_Options.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory BatchAppendReq_Options.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  BatchAppendReq_Options clone() =>
+      BatchAppendReq_Options()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  BatchAppendReq_Options copyWith(
+          void Function(BatchAppendReq_Options) updates) =>
+      super.copyWith((message) => updates(message as BatchAppendReq_Options))
+          as BatchAppendReq_Options; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static BatchAppendReq_Options create() => BatchAppendReq_Options._();
+  BatchAppendReq_Options createEmptyInstance() => create();
+  static $pb.PbList<BatchAppendReq_Options> createRepeated() =>
+      $pb.PbList<BatchAppendReq_Options>();
+  @$core.pragma('dart2js:noInline')
+  static BatchAppendReq_Options getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<BatchAppendReq_Options>(create);
+  static BatchAppendReq_Options? _defaultInstance;
+
+  BatchAppendReq_Options_ExpectedStreamPosition whichExpectedStreamPosition() =>
+      _BatchAppendReq_Options_ExpectedStreamPositionByTag[$_whichOneof(0)]!;
+  void clearExpectedStreamPosition() => clearField($_whichOneof(0));
+
+  @$pb.TagNumber(1)
+  $1.StreamIdentifier get streamIdentifier => $_getN(0);
+  @$pb.TagNumber(1)
+  set streamIdentifier($1.StreamIdentifier v) {
+    setField(1, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasStreamIdentifier() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearStreamIdentifier() => clearField(1);
+  @$pb.TagNumber(1)
+  $1.StreamIdentifier ensureStreamIdentifier() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $fixnum.Int64 get streamPosition => $_getI64(1);
+  @$pb.TagNumber(2)
+  set streamPosition($fixnum.Int64 v) {
+    $_setInt64(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasStreamPosition() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearStreamPosition() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $9.Empty get noStream => $_getN(2);
+  @$pb.TagNumber(3)
+  set noStream($9.Empty v) {
+    setField(3, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasNoStream() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearNoStream() => clearField(3);
+  @$pb.TagNumber(3)
+  $9.Empty ensureNoStream() => $_ensure(2);
+
+  @$pb.TagNumber(4)
+  $9.Empty get any => $_getN(3);
+  @$pb.TagNumber(4)
+  set any($9.Empty v) {
+    setField(4, v);
+  }
+
+  @$pb.TagNumber(4)
+  $core.bool hasAny() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearAny() => clearField(4);
+  @$pb.TagNumber(4)
+  $9.Empty ensureAny() => $_ensure(3);
+
+  @$pb.TagNumber(5)
+  $9.Empty get streamExists => $_getN(4);
+  @$pb.TagNumber(5)
+  set streamExists($9.Empty v) {
+    setField(5, v);
+  }
+
+  @$pb.TagNumber(5)
+  $core.bool hasStreamExists() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearStreamExists() => clearField(5);
+  @$pb.TagNumber(5)
+  $9.Empty ensureStreamExists() => $_ensure(4);
+
+  @$pb.TagNumber(6)
+  $13.Timestamp get deadline => $_getN(5);
+  @$pb.TagNumber(6)
+  set deadline($13.Timestamp v) {
+    setField(6, v);
+  }
+
+  @$pb.TagNumber(6)
+  $core.bool hasDeadline() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearDeadline() => clearField(6);
+  @$pb.TagNumber(6)
+  $13.Timestamp ensureDeadline() => $_ensure(5);
+}
+
+class BatchAppendReq_ProposedMessage extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'BatchAppendReq.ProposedMessage',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.streams'),
+      createEmptyInstance: create)
+    ..aOM<$1.UUID>(
+        1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id',
+        subBuilder: $1.UUID.create)
+    ..m<$core.String, $core.String>(
+        2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'metadata',
+        entryClassName: 'BatchAppendReq.ProposedMessage.MetadataEntry',
+        keyFieldType: $pb.PbFieldType.OS,
+        valueFieldType: $pb.PbFieldType.OS,
+        packageName: const $pb.PackageName('event_store.client.streams'))
+    ..a<$core.List<$core.int>>(
+        3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'customMetadata', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'data', $pb.PbFieldType.OY)
+    ..hasRequiredFields = false;
+
+  BatchAppendReq_ProposedMessage._() : super();
+  factory BatchAppendReq_ProposedMessage({
+    $1.UUID? id,
+    $core.Map<$core.String, $core.String>? metadata,
+    $core.List<$core.int>? customMetadata,
+    $core.List<$core.int>? data,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    if (metadata != null) {
+      _result.metadata.addAll(metadata);
+    }
+    if (customMetadata != null) {
+      _result.customMetadata = customMetadata;
+    }
+    if (data != null) {
+      _result.data = data;
+    }
+    return _result;
+  }
+  factory BatchAppendReq_ProposedMessage.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory BatchAppendReq_ProposedMessage.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  BatchAppendReq_ProposedMessage clone() =>
+      BatchAppendReq_ProposedMessage()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  BatchAppendReq_ProposedMessage copyWith(
+          void Function(BatchAppendReq_ProposedMessage) updates) =>
+      super.copyWith(
+              (message) => updates(message as BatchAppendReq_ProposedMessage))
+          as BatchAppendReq_ProposedMessage; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static BatchAppendReq_ProposedMessage create() =>
+      BatchAppendReq_ProposedMessage._();
+  BatchAppendReq_ProposedMessage createEmptyInstance() => create();
+  static $pb.PbList<BatchAppendReq_ProposedMessage> createRepeated() =>
+      $pb.PbList<BatchAppendReq_ProposedMessage>();
+  @$core.pragma('dart2js:noInline')
+  static BatchAppendReq_ProposedMessage getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<BatchAppendReq_ProposedMessage>(create);
+  static BatchAppendReq_ProposedMessage? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $1.UUID get id => $_getN(0);
+  @$pb.TagNumber(1)
+  set id($1.UUID v) {
+    setField(1, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+  @$pb.TagNumber(1)
+  $1.UUID ensureId() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $core.Map<$core.String, $core.String> get metadata => $_getMap(1);
+
+  @$pb.TagNumber(3)
+  $core.List<$core.int> get customMetadata => $_getN(2);
+  @$pb.TagNumber(3)
+  set customMetadata($core.List<$core.int> v) {
+    $_setBytes(2, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasCustomMetadata() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearCustomMetadata() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.int> get data => $_getN(3);
+  @$pb.TagNumber(4)
+  set data($core.List<$core.int> v) {
+    $_setBytes(3, v);
+  }
+
+  @$pb.TagNumber(4)
+  $core.bool hasData() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearData() => clearField(4);
+}
+
+class BatchAppendReq extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'BatchAppendReq',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.streams'),
+      createEmptyInstance: create)
+    ..aOM<$1.UUID>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'correlationId',
+        subBuilder: $1.UUID.create)
+    ..aOM<BatchAppendReq_Options>(
+        2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'options',
+        subBuilder: BatchAppendReq_Options.create)
+    ..pc<BatchAppendReq_ProposedMessage>(
+        3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'proposedMessages', $pb.PbFieldType.PM,
+        subBuilder: BatchAppendReq_ProposedMessage.create)
+    ..aOB(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isFinal')
+    ..hasRequiredFields = false;
+
+  BatchAppendReq._() : super();
+  factory BatchAppendReq({
+    $1.UUID? correlationId,
+    BatchAppendReq_Options? options,
+    $core.Iterable<BatchAppendReq_ProposedMessage>? proposedMessages,
+    $core.bool? isFinal,
+  }) {
+    final _result = create();
+    if (correlationId != null) {
+      _result.correlationId = correlationId;
+    }
+    if (options != null) {
+      _result.options = options;
+    }
+    if (proposedMessages != null) {
+      _result.proposedMessages.addAll(proposedMessages);
+    }
+    if (isFinal != null) {
+      _result.isFinal = isFinal;
+    }
+    return _result;
+  }
+  factory BatchAppendReq.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory BatchAppendReq.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  BatchAppendReq clone() => BatchAppendReq()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  BatchAppendReq copyWith(void Function(BatchAppendReq) updates) =>
+      super.copyWith((message) => updates(message as BatchAppendReq))
+          as BatchAppendReq; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static BatchAppendReq create() => BatchAppendReq._();
+  BatchAppendReq createEmptyInstance() => create();
+  static $pb.PbList<BatchAppendReq> createRepeated() =>
+      $pb.PbList<BatchAppendReq>();
+  @$core.pragma('dart2js:noInline')
+  static BatchAppendReq getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<BatchAppendReq>(create);
+  static BatchAppendReq? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $1.UUID get correlationId => $_getN(0);
+  @$pb.TagNumber(1)
+  set correlationId($1.UUID v) {
+    setField(1, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasCorrelationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearCorrelationId() => clearField(1);
+  @$pb.TagNumber(1)
+  $1.UUID ensureCorrelationId() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  BatchAppendReq_Options get options => $_getN(1);
+  @$pb.TagNumber(2)
+  set options(BatchAppendReq_Options v) {
+    setField(2, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasOptions() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearOptions() => clearField(2);
+  @$pb.TagNumber(2)
+  BatchAppendReq_Options ensureOptions() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $core.List<BatchAppendReq_ProposedMessage> get proposedMessages =>
+      $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.bool get isFinal => $_getBF(3);
+  @$pb.TagNumber(4)
+  set isFinal($core.bool v) {
+    $_setBool(3, v);
+  }
+
+  @$pb.TagNumber(4)
+  $core.bool hasIsFinal() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearIsFinal() => clearField(4);
+}
+
+enum BatchAppendResp_Success_CurrentRevisionOption {
+  currentRevision,
+  noStream,
+  notSet
+}
+
+enum BatchAppendResp_Success_PositionOption { position, noPosition, notSet }
+
+class BatchAppendResp_Success extends $pb.GeneratedMessage {
+  static const $core
+          .Map<$core.int, BatchAppendResp_Success_CurrentRevisionOption>
+      _BatchAppendResp_Success_CurrentRevisionOptionByTag = {
+    1: BatchAppendResp_Success_CurrentRevisionOption.currentRevision,
+    2: BatchAppendResp_Success_CurrentRevisionOption.noStream,
+    0: BatchAppendResp_Success_CurrentRevisionOption.notSet
+  };
+  static const $core.Map<$core.int, BatchAppendResp_Success_PositionOption>
+      _BatchAppendResp_Success_PositionOptionByTag = {
+    3: BatchAppendResp_Success_PositionOption.position,
+    4: BatchAppendResp_Success_PositionOption.noPosition,
+    0: BatchAppendResp_Success_PositionOption.notSet
+  };
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'BatchAppendResp.Success',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.streams'),
+      createEmptyInstance: create)
+    ..oo(0, [1, 2])
+    ..oo(1, [3, 4])
+    ..a<$fixnum.Int64>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currentRevision', $pb.PbFieldType.OU6,
+        defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOM<$9.Empty>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'noStream',
+        subBuilder: $9.Empty.create)
+    ..aOM<$1.AllStreamPosition>(
+        3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'position',
+        subBuilder: $1.AllStreamPosition.create)
+    ..aOM<$9.Empty>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'noPosition', subBuilder: $9.Empty.create)
+    ..hasRequiredFields = false;
+
+  BatchAppendResp_Success._() : super();
+  factory BatchAppendResp_Success({
+    $fixnum.Int64? currentRevision,
+    $9.Empty? noStream,
+    $1.AllStreamPosition? position,
+    $9.Empty? noPosition,
+  }) {
+    final _result = create();
+    if (currentRevision != null) {
+      _result.currentRevision = currentRevision;
+    }
+    if (noStream != null) {
+      _result.noStream = noStream;
+    }
+    if (position != null) {
+      _result.position = position;
+    }
+    if (noPosition != null) {
+      _result.noPosition = noPosition;
+    }
+    return _result;
+  }
+  factory BatchAppendResp_Success.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory BatchAppendResp_Success.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  BatchAppendResp_Success clone() =>
+      BatchAppendResp_Success()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  BatchAppendResp_Success copyWith(
+          void Function(BatchAppendResp_Success) updates) =>
+      super.copyWith((message) => updates(message as BatchAppendResp_Success))
+          as BatchAppendResp_Success; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static BatchAppendResp_Success create() => BatchAppendResp_Success._();
+  BatchAppendResp_Success createEmptyInstance() => create();
+  static $pb.PbList<BatchAppendResp_Success> createRepeated() =>
+      $pb.PbList<BatchAppendResp_Success>();
+  @$core.pragma('dart2js:noInline')
+  static BatchAppendResp_Success getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<BatchAppendResp_Success>(create);
+  static BatchAppendResp_Success? _defaultInstance;
+
+  BatchAppendResp_Success_CurrentRevisionOption whichCurrentRevisionOption() =>
+      _BatchAppendResp_Success_CurrentRevisionOptionByTag[$_whichOneof(0)]!;
+  void clearCurrentRevisionOption() => clearField($_whichOneof(0));
+
+  BatchAppendResp_Success_PositionOption whichPositionOption() =>
+      _BatchAppendResp_Success_PositionOptionByTag[$_whichOneof(1)]!;
+  void clearPositionOption() => clearField($_whichOneof(1));
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get currentRevision => $_getI64(0);
+  @$pb.TagNumber(1)
+  set currentRevision($fixnum.Int64 v) {
+    $_setInt64(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasCurrentRevision() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearCurrentRevision() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $9.Empty get noStream => $_getN(1);
+  @$pb.TagNumber(2)
+  set noStream($9.Empty v) {
+    setField(2, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasNoStream() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearNoStream() => clearField(2);
+  @$pb.TagNumber(2)
+  $9.Empty ensureNoStream() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $1.AllStreamPosition get position => $_getN(2);
+  @$pb.TagNumber(3)
+  set position($1.AllStreamPosition v) {
+    setField(3, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasPosition() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPosition() => clearField(3);
+  @$pb.TagNumber(3)
+  $1.AllStreamPosition ensurePosition() => $_ensure(2);
+
+  @$pb.TagNumber(4)
+  $9.Empty get noPosition => $_getN(3);
+  @$pb.TagNumber(4)
+  set noPosition($9.Empty v) {
+    setField(4, v);
+  }
+
+  @$pb.TagNumber(4)
+  $core.bool hasNoPosition() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearNoPosition() => clearField(4);
+  @$pb.TagNumber(4)
+  $9.Empty ensureNoPosition() => $_ensure(3);
+}
+
+enum BatchAppendResp_Result { error, success, notSet }
+
+enum BatchAppendResp_ExpectedStreamPosition {
+  streamPosition,
+  noStream,
+  any,
+  streamExists,
+  notSet
+}
+
+class BatchAppendResp extends $pb.GeneratedMessage {
+  static const $core.Map<$core.int, BatchAppendResp_Result>
+      _BatchAppendResp_ResultByTag = {
+    2: BatchAppendResp_Result.error,
+    3: BatchAppendResp_Result.success,
+    0: BatchAppendResp_Result.notSet
+  };
+  static const $core.Map<$core.int, BatchAppendResp_ExpectedStreamPosition>
+      _BatchAppendResp_ExpectedStreamPositionByTag = {
+    5: BatchAppendResp_ExpectedStreamPosition.streamPosition,
+    6: BatchAppendResp_ExpectedStreamPosition.noStream,
+    7: BatchAppendResp_ExpectedStreamPosition.any,
+    8: BatchAppendResp_ExpectedStreamPosition.streamExists,
+    0: BatchAppendResp_ExpectedStreamPosition.notSet
+  };
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BatchAppendResp',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.streams'),
+      createEmptyInstance: create)
+    ..oo(0, [2, 3])
+    ..oo(1, [5, 6, 7, 8])
+    ..aOM<$1.UUID>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'correlationId',
+        subBuilder: $1.UUID.create)
+    ..aOM<$14.Status>(
+        2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'error',
+        subBuilder: $14.Status.create)
+    ..aOM<BatchAppendResp_Success>(
+        3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success',
+        subBuilder: BatchAppendResp_Success.create)
+    ..aOM<$1.StreamIdentifier>(
+        4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'streamIdentifier',
+        subBuilder: $1.StreamIdentifier.create)
+    ..a<$fixnum.Int64>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'streamPosition', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOM<$9.Empty>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'noStream', subBuilder: $9.Empty.create)
+    ..aOM<$9.Empty>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'any', subBuilder: $9.Empty.create)
+    ..aOM<$9.Empty>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'streamExists', subBuilder: $9.Empty.create)
+    ..hasRequiredFields = false;
+
+  BatchAppendResp._() : super();
+  factory BatchAppendResp({
+    $1.UUID? correlationId,
+    $14.Status? error,
+    BatchAppendResp_Success? success,
+    $1.StreamIdentifier? streamIdentifier,
+    $fixnum.Int64? streamPosition,
+    $9.Empty? noStream,
+    $9.Empty? any,
+    $9.Empty? streamExists,
+  }) {
+    final _result = create();
+    if (correlationId != null) {
+      _result.correlationId = correlationId;
+    }
+    if (error != null) {
+      _result.error = error;
+    }
+    if (success != null) {
+      _result.success = success;
+    }
+    if (streamIdentifier != null) {
+      _result.streamIdentifier = streamIdentifier;
+    }
+    if (streamPosition != null) {
+      _result.streamPosition = streamPosition;
+    }
+    if (noStream != null) {
+      _result.noStream = noStream;
+    }
+    if (any != null) {
+      _result.any = any;
+    }
+    if (streamExists != null) {
+      _result.streamExists = streamExists;
+    }
+    return _result;
+  }
+  factory BatchAppendResp.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory BatchAppendResp.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  BatchAppendResp clone() => BatchAppendResp()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  BatchAppendResp copyWith(void Function(BatchAppendResp) updates) =>
+      super.copyWith((message) => updates(message as BatchAppendResp))
+          as BatchAppendResp; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static BatchAppendResp create() => BatchAppendResp._();
+  BatchAppendResp createEmptyInstance() => create();
+  static $pb.PbList<BatchAppendResp> createRepeated() =>
+      $pb.PbList<BatchAppendResp>();
+  @$core.pragma('dart2js:noInline')
+  static BatchAppendResp getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<BatchAppendResp>(create);
+  static BatchAppendResp? _defaultInstance;
+
+  BatchAppendResp_Result whichResult() =>
+      _BatchAppendResp_ResultByTag[$_whichOneof(0)]!;
+  void clearResult() => clearField($_whichOneof(0));
+
+  BatchAppendResp_ExpectedStreamPosition whichExpectedStreamPosition() =>
+      _BatchAppendResp_ExpectedStreamPositionByTag[$_whichOneof(1)]!;
+  void clearExpectedStreamPosition() => clearField($_whichOneof(1));
+
+  @$pb.TagNumber(1)
+  $1.UUID get correlationId => $_getN(0);
+  @$pb.TagNumber(1)
+  set correlationId($1.UUID v) {
+    setField(1, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasCorrelationId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearCorrelationId() => clearField(1);
+  @$pb.TagNumber(1)
+  $1.UUID ensureCorrelationId() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $14.Status get error => $_getN(1);
+  @$pb.TagNumber(2)
+  set error($14.Status v) {
+    setField(2, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasError() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearError() => clearField(2);
+  @$pb.TagNumber(2)
+  $14.Status ensureError() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  BatchAppendResp_Success get success => $_getN(2);
+  @$pb.TagNumber(3)
+  set success(BatchAppendResp_Success v) {
+    setField(3, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasSuccess() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearSuccess() => clearField(3);
+  @$pb.TagNumber(3)
+  BatchAppendResp_Success ensureSuccess() => $_ensure(2);
+
+  @$pb.TagNumber(4)
+  $1.StreamIdentifier get streamIdentifier => $_getN(3);
+  @$pb.TagNumber(4)
+  set streamIdentifier($1.StreamIdentifier v) {
+    setField(4, v);
+  }
+
+  @$pb.TagNumber(4)
+  $core.bool hasStreamIdentifier() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearStreamIdentifier() => clearField(4);
+  @$pb.TagNumber(4)
+  $1.StreamIdentifier ensureStreamIdentifier() => $_ensure(3);
+
+  @$pb.TagNumber(5)
+  $fixnum.Int64 get streamPosition => $_getI64(4);
+  @$pb.TagNumber(5)
+  set streamPosition($fixnum.Int64 v) {
+    $_setInt64(4, v);
+  }
+
+  @$pb.TagNumber(5)
+  $core.bool hasStreamPosition() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearStreamPosition() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $9.Empty get noStream => $_getN(5);
+  @$pb.TagNumber(6)
+  set noStream($9.Empty v) {
+    setField(6, v);
+  }
+
+  @$pb.TagNumber(6)
+  $core.bool hasNoStream() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearNoStream() => clearField(6);
+  @$pb.TagNumber(6)
+  $9.Empty ensureNoStream() => $_ensure(5);
+
+  @$pb.TagNumber(7)
+  $9.Empty get any => $_getN(6);
+  @$pb.TagNumber(7)
+  set any($9.Empty v) {
+    setField(7, v);
+  }
+
+  @$pb.TagNumber(7)
+  $core.bool hasAny() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearAny() => clearField(7);
+  @$pb.TagNumber(7)
+  $9.Empty ensureAny() => $_ensure(6);
+
+  @$pb.TagNumber(8)
+  $9.Empty get streamExists => $_getN(7);
+  @$pb.TagNumber(8)
+  set streamExists($9.Empty v) {
+    setField(8, v);
+  }
+
+  @$pb.TagNumber(8)
+  $core.bool hasStreamExists() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearStreamExists() => clearField(8);
+  @$pb.TagNumber(8)
+  $9.Empty ensureStreamExists() => $_ensure(7);
 }
 
 enum DeleteReq_Options_ExpectedStreamRevision {

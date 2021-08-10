@@ -1,3 +1,3 @@
-## 1.0.0
+## 0.0.1
 
-- Initial version.
+- Supports EventStore 20.x Streams Client Api

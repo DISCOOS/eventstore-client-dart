@@ -31,6 +31,12 @@ class StreamsClient extends $grpc.Client {
           '/event_store.client.streams.Streams/Tombstone',
           ($7.TombstoneReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $7.TombstoneResp.fromBuffer(value));
+  static final _$batchAppend =
+      $grpc.ClientMethod<$7.BatchAppendReq, $7.BatchAppendResp>(
+          '/event_store.client.streams.Streams/BatchAppend',
+          ($7.BatchAppendReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $7.BatchAppendResp.fromBuffer(value));
 
   StreamsClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -57,6 +63,12 @@ class StreamsClient extends $grpc.Client {
   $grpc.ResponseFuture<$7.TombstoneResp> tombstone($7.TombstoneReq request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$tombstone, request, options: options);
+  }
+
+  $grpc.ResponseStream<$7.BatchAppendResp> batchAppend(
+      $async.Stream<$7.BatchAppendReq> request,
+      {$grpc.CallOptions? options}) {
+    return $createStreamingCall(_$batchAppend, request, options: options);
   }
 }
 
@@ -92,6 +104,13 @@ abstract class StreamsServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $7.TombstoneReq.fromBuffer(value),
         ($7.TombstoneResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$7.BatchAppendReq, $7.BatchAppendResp>(
+        'BatchAppend',
+        batchAppend,
+        true,
+        true,
+        ($core.List<$core.int> value) => $7.BatchAppendReq.fromBuffer(value),
+        ($7.BatchAppendResp value) => value.writeToBuffer()));
   }
 
   $async.Stream<$7.ReadResp> read_Pre(
@@ -116,4 +135,6 @@ abstract class StreamsServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $7.DeleteReq request);
   $async.Future<$7.TombstoneResp> tombstone(
       $grpc.ServiceCall call, $7.TombstoneReq request);
+  $async.Stream<$7.BatchAppendResp> batchAppend(
+      $grpc.ServiceCall call, $async.Stream<$7.BatchAppendReq> request);
 }

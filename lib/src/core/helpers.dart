@@ -17,3 +17,10 @@ DateTime fromTicksSinceEpoch(int value) {
     isUtc: true,
   );
 }
+
+extension MapX<K, V> on Map<K, V> {
+  T? mapAt<T>(K key, T? Function(V) map, [T? defaultValue]) {
+    final value = this[key];
+    return value == null ? defaultValue : map(value);
+  }
+}

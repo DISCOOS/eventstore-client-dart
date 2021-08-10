@@ -1,3 +1,4 @@
+import 'package:eventstore_client_dart/src/core/settings.dart';
 import 'package:eventstore_client_dart/src/core/typedefs.dart';
 import 'package:meta/meta.dart';
 import 'package:eventstore_client_dart/src/generated/cluster.pbgrpc.dart';
@@ -7,19 +8,27 @@ import 'constants.dart';
 import 'exceptions/exceptions.dart';
 import 'interceptors/interseptors.dart';
 
-class EventStoreClientBase {
-  EventStoreClientBase(
-    this.connectionName,
-    Map<String, GrpcErrorCallback> exceptionMap,
-  ) : _exceptionMap = {
+abstract class EventStoreClientBase {
+  EventStoreClientBase({
+    required this.settings,
+    required this.channel,
+    this.options,
+    Map<String, GrpcErrorCallback> exceptionMap = const {},
+  }) : _exceptionMap = {
           Exceptions.NotLeader: (error) => NotLeaderException.fromCause(error),
           Exceptions.AccessDenied: (error) =>
               AccessDeniedException.fromCause(error),
           ...exceptionMap,
         };
 
+  /// GRPC [ClientChannel] instance
+  final ClientChannel channel;
+
+  /// GRPC [CallOptions] instance
+  final CallOptions? options;
+
   /// Connection name supplied as metadata to server
-  final String connectionName;
+  final EventStoreClientSettings settings;
 
   /// Converts [GrpcError]s to typed [Exception]s
   final Map<String, GrpcErrorCallback> _exceptionMap;
@@ -30,9 +39,9 @@ class EventStoreClientBase {
 
   @visibleForOverriding
   List<ClientInterceptor> toInterceptors(
-    String connectionName,
-    List<ClientInterceptor> interceptors,
-  ) {
+    String connectionName, {
+    List<ClientInterceptor> interceptors = const [],
+  }) {
     return [
       ...interceptors,
       ConnectionNameInterceptor(connectionName),

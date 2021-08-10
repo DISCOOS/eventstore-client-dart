@@ -6,6 +6,7 @@ import 'package:eventstore_client_dart/src/core/log_position.dart';
 import 'package:eventstore_client_dart/src/core/stream_revision.dart';
 import 'package:eventstore_client_dart/src/generated/shared.pb.dart';
 import 'package:eventstore_client_dart/src/generated/streams.pb.dart';
+import 'package:eventstore_client_dart/src/streams/system_streams.dart';
 import 'package:fixnum/fixnum.dart';
 
 class StreamState {
@@ -107,11 +108,12 @@ class StreamState {
   }) {
     final options = ReadReq_Options()
       ..noFilter = Empty()
-      ..stream = _toStreamOptions()
       ..resolveLinks = resolveLinks
+      ..stream = _toStreamOptions(meta: false)
       ..readDirection = forward
           ? ReadReq_Options_ReadDirection.Forwards
           : ReadReq_Options_ReadDirection.Backwards
+      // Same as long.MaxValue in csharp; 9,223,372,036,854,775,807
       ..count = count == null ? Int64.MAX_VALUE : Int64(count)
       // returns uuids as strings
       ..uuidOption = (ReadReq_Options_UUIDOption()..string = Empty());
@@ -119,10 +121,28 @@ class StreamState {
     return ReadReq()..options = options;
   }
 
-  ReadReq_Options_StreamOptions _toStreamOptions() {
+  ReadReq toReadMetaReq() {
+    final options = ReadReq_Options()
+      ..count = Int64(1)
+      ..noFilter = Empty()
+      ..resolveLinks = false
+      ..stream = _toStreamOptions(meta: true)
+      ..readDirection = ReadReq_Options_ReadDirection.Backwards
+      // returns uuids as strings
+      ..uuidOption = (ReadReq_Options_UUIDOption()..string = Empty());
+
+    return ReadReq()..options = options;
+  }
+
+  ReadReq_Options_StreamOptions _toStreamOptions({
+    bool meta = false,
+  }) {
     final stream = ReadReq_Options_StreamOptions()
-      ..streamIdentifier = toStreamIdentifier();
-    if (revision == null || revision == StreamRevision.empty) {
+      ..streamIdentifier = toStreamIdentifier(meta: meta);
+    if (meta) {
+      stream.end = Empty();
+      // stream.revision = StreamRevision.none.value;
+    } else if (revision == null || revision == StreamRevision.empty) {
       stream.start = Empty();
     } else if (revision == StreamRevision.none) {
       stream.end = Empty();
@@ -132,14 +152,26 @@ class StreamState {
     return stream;
   }
 
-  StreamIdentifier toStreamIdentifier() =>
-      (StreamIdentifier()..streamName = utf8.encode(name));
+  StreamIdentifier toStreamIdentifier({bool meta = false}) {
+    return (StreamIdentifier()
+      ..streamName = utf8.encode(
+        meta ? SystemStreams.metaStreamOf(name) : name,
+      ));
+  }
 
   AppendReq toAppendReq() {
-    final options = AppendReq_Options()
-      ..streamIdentifier = toStreamIdentifier();
+    return _toAppendReq(meta: false);
+  }
 
-    if (revision != null) {
+  AppendReq toAppendMetaReq() {
+    return _toAppendReq(meta: true);
+  }
+
+  AppendReq _toAppendReq({required bool meta}) {
+    final options = AppendReq_Options()
+      ..streamIdentifier = toStreamIdentifier(meta: meta);
+
+    if (revision != null && revision != StreamRevision.none) {
       options.revision = revision!.value;
     } else {
       switch (type) {
@@ -219,4 +251,10 @@ class StreamState {
   String toString() {
     return 'StreamState{name: $name, type: $type, position: $position, revision: $revision}';
   }
+
+  StreamState toAny() => StreamState.any(name);
+  StreamState toExists() => StreamState.exists(name);
+  StreamState toNoStream() => StreamState.noStream(name);
+  StreamState toRevision(int revision) => StreamState(name,
+      StreamStateType.stream_exists, null, StreamRevision.checked(revision));
 }

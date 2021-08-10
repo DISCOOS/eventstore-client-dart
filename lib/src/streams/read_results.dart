@@ -35,6 +35,11 @@ class ReadEventsResult {
   /// Check if stream was not found
   bool get isStreamNotFound => state == ReadState.stream_not_found;
 
+  /// Check if operation has completed. Operation is completed when
+  /// all events are fetched with [events] or [stream], and after
+  /// [cancel] is called.
+  bool get isCompleted => _controller.isClosed;
+
   /// Internal [ResponseStream] for cancelling
   final ResponseStream<ReadResp> _responseStream;
 
@@ -48,11 +53,18 @@ class ReadEventsResult {
   StreamStateType get type => _streamState.type;
 
   /// The [LogPosition] after the operation.
-  LogPosition get position => _streamState.position ?? LogPosition.start;
+  LogPosition get position {
+    return isCompleted
+        ? _streamState.position ?? LogPosition.start
+        : LogPosition.start;
+  }
 
   /// The expected [StreamRevision] on next write operation.
-  StreamRevision get nextExpectedStreamRevision =>
-      _streamState.revision ?? StreamRevision.none;
+  StreamRevision get nextExpectedStreamRevision {
+    return isCompleted
+        ? (_streamState.revision ?? StreamRevision.none)
+        : StreamRevision.none;
+  }
 
   /// Get resolved events as stream
   Stream<ResolvedEvent> get stream {
@@ -97,13 +109,14 @@ class ReadEventsResult {
     stream.listen(
       (resp) {
         if (resp.hasStreamNotFound()) {
+          success ??= ReadEventsResult._(
+            ReadState.stream_not_found,
+            expected,
+            stream,
+          );
           if (!completer.isCompleted) {
             completer.complete(
-              ReadEventsResult._(
-                ReadState.stream_not_found,
-                expected,
-                stream,
-              ),
+              success,
             );
           }
         } else if (resp.hasEvent()) {

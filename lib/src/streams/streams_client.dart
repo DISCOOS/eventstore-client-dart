@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:async/async.dart';
 import 'package:eventstore_client_dart/eventstore_client_dart.dart';
 import 'package:eventstore_client_dart/src/core/client_base.dart';
@@ -9,37 +11,34 @@ import 'package:eventstore_client_dart/src/core/typedefs.dart';
 import 'package:eventstore_client_dart/src/generated/shared.pb.dart';
 import 'package:eventstore_client_dart/src/generated/streams.pbgrpc.dart';
 import 'package:eventstore_client_dart/src/streams/delete_results.dart';
+import 'package:eventstore_client_dart/src/streams/stream_metadata.dart';
+import 'package:eventstore_client_dart/src/streams/stream_metadata_result.dart';
 import 'package:eventstore_client_dart/src/streams/read_results.dart';
 import 'package:eventstore_client_dart/src/streams/write_results.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
+import 'package:uuid/uuid.dart';
 
-class EventStoreStreamsClient extends EventStoreClientBase {
-  EventStoreStreamsClient(
-    String connectionName,
-    ClientChannel channel, {
-    CallOptions? options,
-    List<ClientInterceptor> interceptors = const [],
-  }) : super(
-          connectionName,
-          <String, GrpcErrorCallback>{
-            Exceptions.WrongExpectedVersion: (e) =>
-                WrongExpectedVersionException.fromCause(e),
-            Exceptions.StreamDeleted: (ex) =>
-                StreamDeletedException.fromCause(ex)
-          },
-        ) {
-    _client = StreamsClient(
+mixin EventStoreStreamsClient on EventStoreClientBase {
+  /// Converts [GrpcError]s to typed [Exception]s
+  static Map<String, GrpcErrorCallback> ExceptionMap =
+      <String, GrpcErrorCallback>{
+    Exceptions.WrongExpectedVersion: (e) =>
+        WrongExpectedVersionException.fromCause(e),
+    Exceptions.StreamDeleted: (ex) => StreamDeletedException.fromCause(ex)
+  };
+
+  StreamsClient? _instance;
+  StreamsClient get _client {
+    _instance ??= StreamsClient(
       channel,
       options: options,
       interceptors: toInterceptors(
-        connectionName,
-        interceptors,
+        settings.connectionName,
       ),
     );
+    return _instance!;
   }
-
-  late final StreamsClient _client;
 
   /// Read all [ResolvedEvent]s in EventStore from given [position].
   /// Use [count] to limit number of events to read.
@@ -107,6 +106,23 @@ class EventStoreStreamsClient extends EventStoreClientBase {
     });
   }
 
+  /// Reads the metadata for stream given by [name]
+  Future<StreamMetadataResult> getStreamMetadata(
+    String name, {
+    CallOptions? options,
+  }) async {
+    final state = StreamState.any(name);
+    final request = state.toReadMetaReq();
+    final resultStream = _client.read(
+      request,
+      options: _toOptions(options),
+    );
+    return StreamMetadataResult.from(
+      name,
+      resultStream,
+    );
+  }
+
   /// Append [events] to stream given by [state].
   /// Returns as [WriteResult] when the operation has completed.
   /// If a concurrent write has occurred, a [WrongExpectedVersionResult]
@@ -120,6 +136,32 @@ class EventStoreStreamsClient extends EventStoreClientBase {
       final requests = StreamGroup.mergeBroadcast([
         Stream.value(state.toAppendReq()),
         events.map(_toAppendEvent),
+      ]);
+      final result = await _client.append(
+        requests,
+        options: _toOptions(options),
+      );
+      return WriteResult.from(state, result);
+    });
+  }
+
+  /// Sets the metadata for stream given by [state].
+  /// Returns as [WriteResult] when the operation has completed.
+  /// If a concurrent write has occurred, a [WrongExpectedVersionResult]
+  /// is returned. Otherwise, [WriteSuccessResult] is returned.
+  Future<WriteResult> setStreamMetadata(
+    StreamState state,
+    StreamMetadata metadata, {
+    CallOptions? options,
+  }) {
+    return runRequest<WriteResult>(() async {
+      final requests = Stream<AppendReq>.fromIterable([
+        state.toAppendMetaReq(),
+        _toAppendEvent(EventData(
+          uuid: Uuid().v4(),
+          type: SystemEventTypes.StreamMetadata,
+          data: utf8.encode(json.encode(metadata.toJson())),
+        )),
       ]);
       final result = await _client.append(
         requests,
@@ -203,6 +245,7 @@ class EventStoreStreamsClient extends EventStoreClientBase {
       ..readDirection = forward
           ? ReadReq_Options_ReadDirection.Forwards
           : ReadReq_Options_ReadDirection.Backwards
+      // Same as long.MaxValue in csharp; 9,223,372,036,854,775,807
       ..count = count == null ? Int64.MAX_VALUE : Int64(count)
       // returns uuids as strings
       ..uuidOption = (ReadReq_Options_UUIDOption()..string = Empty());

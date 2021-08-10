@@ -52,4 +52,10 @@ class EventRecord {
 
   /// The [LogPosition]  o this event in the $all stream.
   final LogPosition position;
+
+  @override
+  String toString() {
+    return '$runtimeType{eventStreamId: $eventStreamId, eventId: $eventId, '
+        'eventType: $eventType, eventNumber: $eventNumber, contentType: $contentType, data: $data, metadata: $metadata, created: $created, position: $position}';
+  }
 }

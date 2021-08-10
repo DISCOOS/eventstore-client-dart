@@ -42,4 +42,9 @@ class ResolvedEvent {
 
   /// The [StreamPosition] in the stream of the [originalEvent].
   StreamPosition get originalEventNumber => originalEvent.eventNumber;
+
+  @override
+  String toString() {
+    return '$runtimeType{event: $event, link: $link, originalPosition: $originalPosition}';
+  }
 }

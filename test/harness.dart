@@ -7,12 +7,11 @@ import 'package:eventstore_client_dart/src/core/enums.dart';
 import 'package:eventstore_client_dart/src/core/helpers.dart';
 import 'package:eventstore_client_dart/src/core/log_position.dart';
 import 'package:eventstore_client_dart/src/core/resolved_event.dart';
-import 'package:grpc/grpc.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 import 'package:uuid/uuid.dart';
 
-typedef ClientCreator = EventStoreClientBase Function(ClientChannel);
+typedef ClientCreator = EventStoreClient Function();
 
 class EventStoreDBClientHarness {
   EventStoreDBClientHarness._();
@@ -32,10 +31,13 @@ class EventStoreDBClientHarness {
   static bool get exists => _singleton != null;
 
   Logger? _logger;
+  bool _debug = false;
 
   EventStoreDBClientHarness withLogger({
     Level level = Level.INFO,
+    bool debug = false,
   }) {
+    _debug = debug;
     Logger.root.level = level;
     _logger = Logger('$runtimeType');
     return this;
@@ -43,14 +45,14 @@ class EventStoreDBClientHarness {
 
   Stream<LogRecord>? get onRecord => _logger?.onRecord;
 
-  String streamName<T extends EventStoreClientBase>({
+  String streamName({
     String? suffix,
     int port = PORT_2113,
   }) =>
-      (_clients[port]?[T] as T).connectionName +
+      _clients[port]!.settings.connectionName +
       '_${suffix ?? DateTime.now().millisecondsSinceEpoch}';
 
-  StreamState streamState<T extends EventStoreClientBase>(
+  StreamState newStreamState(
     StreamStateType type, {
     int port = PORT_2113,
     String? suffix,
@@ -58,7 +60,7 @@ class EventStoreDBClientHarness {
     StreamRevision? revision,
   }) {
     return StreamState(
-      streamName<T>(
+      streamName(
         suffix: '${enumName(type)}'
             '_${suffix ?? DateTime.now().millisecondsSinceEpoch}',
       ),
@@ -68,12 +70,11 @@ class EventStoreDBClientHarness {
     );
   }
 
-  T client<T extends EventStoreClientBase>({int port = PORT_2113}) =>
-      _clients[port]?[T] as T;
+  EventStoreClient client({int port = PORT_2113}) => _clients[port]!;
 
-  final Map<int, ClientChannel> _channels = {};
-  final Map<int, Map<Type, ClientCreator>> _creators = {};
-  final Map<int, Map<Type, EventStoreClientBase>> _clients = {};
+  // final Map<int, ClientChannel> _channels = {};
+  final Map<int, ClientCreator> _creators = {};
+  final Map<int, EventStoreClient> _clients = {};
 
   EventStoreDBClientHarness withStreamsClient({
     int port = PORT_2113,
@@ -81,10 +82,12 @@ class EventStoreDBClientHarness {
   }) {
     _register(
       port,
-      (ClientChannel channel) {
-        return EventStoreStreamsClient(
-          connectionName ?? '$EventStoreStreamsClient',
-          channel,
+      () {
+        return EventStoreClient(
+          EventStoreClientSettings(
+            singleNode: EndPoint.loopbackIPv4,
+            connectionName: connectionName ?? '$EventStoreClient',
+          ),
         );
       },
     );
@@ -94,32 +97,28 @@ class EventStoreDBClientHarness {
   void _register(int port, ClientCreator creator) {
     _creators.update(
       port,
-      (creators) => creators
-        ..putIfAbsent(
-          EventStoreStreamsClient,
-          () => creator,
-        ),
-      ifAbsent: () => {
-        EventStoreStreamsClient: creator,
-      },
+      (creators) => creator,
+      ifAbsent: () => creator,
     );
   }
 
   void install({
     bool withTestData = false,
-    String imageTag = '20.6.1-buster-slim',
+    String imageTag = '20.10.4-buster-slim',
   }) {
     DockerProcess? server;
     StreamSubscription<LogRecord>? _printer;
     setUpAll(() async {
       // _initHiveDir(hiveDir);
-      _printer = onRecord?.listen(
-        (rec) => print(rec),
-      );
+      if (_debug) {
+        _printer = onRecord?.listen(
+          (rec) => print(rec),
+        );
+      }
       _logger?.info('---setUpAll---');
       var failure = '';
       server = await DockerProcess.start(
-        name: 'esdb-client-dart-test',
+        name: 'eventstore-client-dart-test',
         image: withTestData
             ? 'docker.pkg.github.com/eventstore/'
                 'eventstore-client-grpc-testdata/'
@@ -138,7 +137,7 @@ class EventStoreDBClientHarness {
         },
         cleanup: true,
         readySignal: (line) {
-          print(line);
+          _logger?.info(line);
           if (line.contains('Error response from daemon')) {
             failure = line;
           }
@@ -148,10 +147,8 @@ class EventStoreDBClientHarness {
               );
         },
       );
-      _creators.forEach((port, creators) {
-        creators.values.forEach(
-          (creator) => _open(port, creator),
-        );
+      _creators.forEach((port, creator) {
+        _open(port, creator);
       });
       _logger?.info('---setUpAll--->ok');
       return Future<void>.value();
@@ -161,45 +158,28 @@ class EventStoreDBClientHarness {
       _logger?.info('---tearDownAll---');
       try {
         await Future.wait([
-          ..._channels.values.map(
-            (e) => e.shutdown(),
+          ..._clients.values.map(
+            (e) => e.channel.shutdown(),
           )
         ]);
         await server?.stop();
         return await _printer?.cancel();
       } finally {
         _clients.clear();
-        _channels.clear();
         _logger?.info('---tearDownAll--->ok');
       }
     });
   }
 
-  T _open<T extends EventStoreClientBase>(
+  EventStoreClient _open(
     int port,
-    T Function(ClientChannel) create,
+    EventStoreClient Function() create,
   ) {
-    final channel = _channels.putIfAbsent(
-      port,
-      () => ClientChannel(
-        '127.0.0.1',
-        port: port,
-        options: const ChannelOptions(
-          credentials: ChannelCredentials.insecure(),
-        ),
-      ),
-    );
-    final client = create(channel);
+    final client = create();
     _clients.update(
       port,
-      (clients) => clients
-        ..putIfAbsent(
-          client.runtimeType,
-          () => client,
-        ),
-      ifAbsent: () => {
-        client.runtimeType: client,
-      },
+      (_) => client,
+      ifAbsent: () => client,
     );
     return client;
   }
@@ -319,4 +299,117 @@ void expectStreamEvents(
     )),
     reason: 'Event stream id should match',
   );
+}
+
+Future<void> testClientAppendsEvents(
+  EventStoreDBClientHarness harness,
+  StreamState state,
+  Iterable<EventData> append, {
+  Iterable<EventData> exists = const [],
+}) async {
+  // Arrange
+  final client = harness.client();
+  expect(client, isA<EventStoreStreamsClient>());
+  final count = append.length;
+  final offset = state.isStreamExists
+      ? (state.revision?.value.toInt() ?? 0) + 1
+      : exists.length;
+
+  // Apply events
+  final writeResult = await client.append(
+    state,
+    Stream.fromIterable(append),
+  );
+  expect(writeResult, isA<WriteSuccessResult>());
+  expect(writeResult.actualType, equals(StreamStateType.stream_exists));
+  expect(
+    writeResult.nextExpectedStreamRevision,
+    StreamRevision.checked(offset + count - 1),
+  );
+
+  // Assert stream contains events
+  final readResult = await client.readFromStream(
+    state.name,
+    StreamPosition.checked(offset),
+  );
+  expect(readResult.isOK, isTrue);
+  expect(readResult.streamName, state.name);
+  final actual = await readResult.stream.toList();
+  expectStreamEvents(
+    harness,
+    state,
+    actual,
+    [...exists, ...append],
+    count: append.length,
+    offset: exists.length,
+  );
+  expect(
+    readResult.nextExpectedStreamRevision,
+    StreamRevision.checked(offset + count - 1),
+  );
+}
+
+Future<StreamRevision> testRecreatesSoftDeletedStreamWithGivenState(
+  EventStoreDBClientHarness harness,
+  EventStoreStreamsClient client,
+  StreamState actual,
+  StreamState expected,
+  Iterable<EventData> exists,
+) async {
+  // Arrange
+  await client.delete(actual);
+
+  // This is a workaround until github issue
+  // https://github.com/EventStore/EventStore/issues/1744
+  // is fixed
+  await Future<void>.delayed(Duration(milliseconds: 50));
+
+  // Act
+  const count = 3;
+  final events = harness.createTestEvents(count: count);
+  final expectedRevision = StreamRevision.checked(
+    exists.length + count - 1,
+  );
+  final writeResult = await client.append(
+    expected,
+    Stream.fromIterable(events),
+  );
+  expect(writeResult, isA<WriteSuccessResult>());
+  expect(writeResult.actualType, equals(StreamStateType.stream_exists));
+  expect(writeResult.nextExpectedStreamRevision, expectedRevision);
+
+  // Assert Read Operation
+  final readResult = await client.readFromStream(
+    expected.name,
+    StreamPosition.start,
+  );
+  final resolved = await readResult.events;
+  expect(readResult.isOK, isTrue);
+  expect(readResult.nextExpectedStreamRevision, expectedRevision);
+  expect(resolved.length, count);
+  expect(
+    resolved.map((e) => e.originalEvent.eventId),
+    events.map((e) => e.uuid),
+  );
+  expect(
+    resolved.map((e) => e.originalEventNumber),
+    List.generate(
+      count,
+      (index) => StreamPosition.checked(exists.length + index),
+    ),
+  );
+
+  // This is a workaround until github issue
+  // https://github.com/EventStore/EventStore/issues/1744
+  // is fixed
+  await Future<void>.delayed(Duration(milliseconds: 500));
+
+  // Assert Metadata Operation
+  final metadataResult = await client.getStreamMetadata(expected.name);
+  expect(metadataResult.isOK, isTrue);
+  expect(
+    metadataResult.metadata!.truncateBefore,
+    StreamPosition.checked(exists.length),
+  );
+  return expectedRevision;
 }

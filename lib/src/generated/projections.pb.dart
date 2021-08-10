@@ -11,7 +11,7 @@ import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'shared.pb.dart' as $1;
-import 'struct.pb.dart' as $9;
+import 'google/struct.pb.dart' as $10;
 
 class CreateReq_Options_Transient extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -1776,17 +1776,17 @@ class StateResp extends $pb.GeneratedMessage {
               ? ''
               : 'event_store.client.projections'),
       createEmptyInstance: create)
-    ..aOM<$9.Value>(
+    ..aOM<$10.Value>(
         1,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'state',
-        subBuilder: $9.Value.create)
+        subBuilder: $10.Value.create)
     ..hasRequiredFields = false;
 
   StateResp._() : super();
   factory StateResp({
-    $9.Value? state,
+    $10.Value? state,
   }) {
     final _result = create();
     if (state != null) {
@@ -1821,9 +1821,9 @@ class StateResp extends $pb.GeneratedMessage {
   static StateResp? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $9.Value get state => $_getN(0);
+  $10.Value get state => $_getN(0);
   @$pb.TagNumber(1)
-  set state($9.Value v) {
+  set state($10.Value v) {
     setField(1, v);
   }
 
@@ -1832,7 +1832,7 @@ class StateResp extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearState() => clearField(1);
   @$pb.TagNumber(1)
-  $9.Value ensureState() => $_ensure(0);
+  $10.Value ensureState() => $_ensure(0);
 }
 
 class ResultReq_Options extends $pb.GeneratedMessage {
@@ -2002,17 +2002,17 @@ class ResultResp extends $pb.GeneratedMessage {
               ? ''
               : 'event_store.client.projections'),
       createEmptyInstance: create)
-    ..aOM<$9.Value>(
+    ..aOM<$10.Value>(
         1,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'result',
-        subBuilder: $9.Value.create)
+        subBuilder: $10.Value.create)
     ..hasRequiredFields = false;
 
   ResultResp._() : super();
   factory ResultResp({
-    $9.Value? result,
+    $10.Value? result,
   }) {
     final _result = create();
     if (result != null) {
@@ -2047,9 +2047,9 @@ class ResultResp extends $pb.GeneratedMessage {
   static ResultResp? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $9.Value get result => $_getN(0);
+  $10.Value get result => $_getN(0);
   @$pb.TagNumber(1)
-  set result($9.Value v) {
+  set result($10.Value v) {
     setField(1, v);
   }
 
@@ -2058,7 +2058,7 @@ class ResultResp extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearResult() => clearField(1);
   @$pb.TagNumber(1)
-  $9.Value ensureResult() => $_ensure(0);
+  $10.Value ensureResult() => $_ensure(0);
 }
 
 class ResetReq_Options extends $pb.GeneratedMessage {
