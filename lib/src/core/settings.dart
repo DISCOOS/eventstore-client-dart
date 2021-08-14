@@ -3,19 +3,26 @@ import 'dart:math';
 import 'package:eventstore_client_dart/eventstore_client_dart.dart';
 import 'package:eventstore_client_dart/src/core/constants.dart';
 import 'package:eventstore_client_dart/src/core/endpoint.dart';
+import 'package:eventstore_client_dart/src/security/user_credentials.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:uuid/uuid.dart';
 
+import 'operation_options.dart';
+
 class EventStoreClientSettings {
   EventStoreClientSettings({
-    this.useTls = true,
-    this.username,
-    this.password,
-    String? connectionName,
     this.singleNode,
+    this.useTls = true,
+    String? connectionName,
+    this.defaultCredentials,
     this.gossipSeeds = const [],
+    this.publicKeyPath = Defaults.PublicKeyPath,
+    this.nodePreference = Defaults.NodePreferenceType,
+    this.operationTimeout = Defaults.OperationTimeout,
     this.keepAliveTimeout = Defaults.KeepAliveTimeout,
     this.keepAliveInterval = Defaults.KeepAliveInterval,
+    this.discoveryInterval = Defaults.DiscoveryInterval,
+    this.maxDiscoverAttempts = Defaults.MaxDiscoverAttempts,
   }) : connectionName = connectionName ?? 'ES-${Uuid().v4()}' {
     assert(
       singleNode != null || gossipSeeds.isNotEmpty,
@@ -23,20 +30,23 @@ class EventStoreClientSettings {
     );
   }
 
-  /// Get address to single node
-  String? get address => singleNode?.address;
+  /// Optional [UserCredentials] to use if none
+  /// have been supplied to the operation.
+  final UserCredentials? defaultCredentials;
 
-  /// Get port to single node
-  int? get port => singleNode?.port;
+  /// Path to the Certificate Authority (CA) signed certificate
+  /// (public key) used by each EventStoreDB node for secure
+  /// communication. This setting is only used if [useTls] is enabled.
+  final String publicKeyPath;
 
   /// [EndPoint] to single node
   final EndPoint? singleNode;
 
-  /// Check if connection is on a single node
-  bool get isSingleNode => gossipSeeds.isEmpty;
-
   /// An array of [EndPoint]s used to seed gossip.
   final List<EndPoint> gossipSeeds;
+
+  /// Get [NodePreferenceType]
+  final NodePreferenceType nodePreference;
 
   /// Connection name supplied as metadata to server
   final String connectionName;
@@ -44,27 +54,37 @@ class EventStoreClientSettings {
   /// True if communicating over a secure channel; otherwise false.
   final bool useTls;
 
-  /// Get credential username
-  final String? username;
-
-  /// Get credential password
-  final String? password;
-
   /// After a duration of [keepAliveInterval] (in milliseconds), if the server
   /// doesn't see any activity, it pings the client to see if the transport is
   ///  still alive.
   final Duration keepAliveInterval;
-
-  /// Check if [keepAliveInterval] is enabled
-  bool get hasKeepAliveInterval => keepAliveInterval.inMilliseconds > -1;
 
   /// After having pinged for keepalive check, the server waits for a duration
   /// of [keepAliveTimeout] (in milliseconds). If the connection doesn't have
   /// any activity even after that, it gets closed.
   final Duration keepAliveTimeout;
 
-  /// Check if [keepAliveTimeout] is enabled
-  bool get hasKeepAliveTimeout => keepAliveTimeout.inMilliseconds > -1;
+  /// The polling interval used to discover the [EndPoint]
+  final Duration discoveryInterval;
+
+  /// The maximum number of times to attempt [EndPoint] discovery.
+  final int maxDiscoverAttempts;
+
+  /// Get operation timeout
+  final Duration operationTimeout;
+
+  /// Get address to single node
+  Uri? get address => singleNode?.toUri();
+
+  /// Check if connection is on a single node
+  bool get isSingleNode => gossipSeeds.isEmpty;
+
+  /// Check if basic authentication should be used
+  bool get isBasicAuth => defaultCredentials?.isBasicAuth == true;
+
+  /// The default [EventStoreClientOperationOptions] to use.
+  EventStoreClientOperationOptions get operationOptions =>
+      EventStoreClientOperationOptions.Default;
 
   /// Parse [connectionString] into [EventStoreClientSettings].
   /// If the connectionString string is not valid as a [Uri],
@@ -167,9 +187,8 @@ class EventStoreClientConnectionString {
 
     final isSingleNode = hosts.length == 1 && scheme != UriSchemeDiscover;
     return EventStoreClientSettings(
-      username: userInfo[_Username],
-      password: userInfo[_Password],
       gossipSeeds: isSingleNode ? [] : hosts,
+      defaultCredentials: UserCredentials.from(userInfo),
       singleNode: isSingleNode ? hosts.first : null,
       useTls: _getOrDefault<bool>(
         options,

@@ -7,6 +7,10 @@ class EndPoint {
   final String address;
   final int port;
 
+  Uri toUri() {
+    return Uri(host: address, port: port);
+  }
+
   static final loopbackIPv4 = EndPoint(
     InternetAddress.loopbackIPv4.address,
     Defaults.GrpcPort,

@@ -11,8 +11,8 @@ void main() {
 
     // Assert
     expect(settings.isSingleNode, isTrue);
-    expect(settings.address, '127.0.0.1');
-    expect(settings.port, Defaults.GrpcPort);
+    expect(settings.address?.host, '127.0.0.1');
+    expect(settings.address?.port, Defaults.GrpcPort);
     expect(settings.gossipSeeds.isEmpty, isTrue);
     expect(settings.useTls, isTrue);
   });
@@ -26,8 +26,8 @@ void main() {
 
     // Assert
     expect(settings.isSingleNode, isTrue);
-    expect(settings.address, 'some.dns');
-    expect(settings.port, Defaults.GrpcPort);
+    expect(settings.address?.host, 'some.dns');
+    expect(settings.address?.port, Defaults.GrpcPort);
     expect(settings.gossipSeeds.isEmpty, isTrue);
     expect(settings.useTls, isTrue);
   });
@@ -41,8 +41,8 @@ void main() {
 
     // Assert
     expect(settings.isSingleNode, isTrue);
-    expect(settings.address, '127.0.0.1');
-    expect(settings.port, Defaults.GrpcPort);
+    expect(settings.address?.host, '127.0.0.1');
+    expect(settings.address?.port, Defaults.GrpcPort);
     expect(settings.gossipSeeds.isEmpty, isTrue);
     expect(settings.useTls, isTrue);
     expect(settings.connectionName, 'test123');
@@ -59,12 +59,12 @@ void main() {
 
     // Assert
     expect(settings.isSingleNode, isTrue);
-    expect(settings.address, '127.0.0.1');
-    expect(settings.port, Defaults.GrpcPort);
+    expect(settings.address?.host, '127.0.0.1');
+    expect(settings.address?.port, Defaults.GrpcPort);
     expect(settings.gossipSeeds.isEmpty, isTrue);
     expect(settings.useTls, isFalse);
-    expect(settings.username, 'username1');
-    expect(settings.password, 'password1');
+    expect(settings.defaultCredentials?.username, 'username1');
+    expect(settings.defaultCredentials?.password, 'password1');
     expect(settings.keepAliveTimeout, Duration(milliseconds: 5000));
     expect(settings.keepAliveInterval, Duration(milliseconds: 10000));
   });
@@ -109,8 +109,8 @@ void main() {
     expect(settings.gossipSeeds[2].port, 2113);
     expect(settings.gossipSeeds[2].address, '127.0.0.3');
     expect(settings.useTls, isFalse);
-    expect(settings.username, 'username1');
-    expect(settings.password, 'password1');
+    expect(settings.defaultCredentials?.username, 'username1');
+    expect(settings.defaultCredentials?.password, 'password1');
     expect(settings.keepAliveTimeout, Duration(milliseconds: 5000));
     expect(settings.keepAliveInterval, Duration(milliseconds: 10000));
   });
@@ -130,8 +130,8 @@ void main() {
     expect(settings.gossipSeeds[0].port, 2113);
     expect(settings.gossipSeeds[0].address, '127.0.0.1');
     expect(settings.useTls, isFalse);
-    expect(settings.username, 'username1');
-    expect(settings.password, 'password1');
+    expect(settings.defaultCredentials?.username, 'username1');
+    expect(settings.defaultCredentials?.password, 'password1');
     expect(settings.keepAliveTimeout, Duration(milliseconds: 5000));
     expect(settings.keepAliveInterval, Duration(milliseconds: 10000));
   });
@@ -155,8 +155,8 @@ void main() {
     expect(settings.gossipSeeds[2].port, 2113);
     expect(settings.gossipSeeds[2].address, '127.0.0.3');
     expect(settings.useTls, isFalse);
-    expect(settings.username, 'username1');
-    expect(settings.password, 'password1');
+    expect(settings.defaultCredentials?.username, 'username1');
+    expect(settings.defaultCredentials?.password, 'password1');
     expect(settings.keepAliveTimeout, Duration(milliseconds: 5000));
     expect(settings.keepAliveInterval, Duration(milliseconds: 10000));
   });

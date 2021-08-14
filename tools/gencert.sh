@@ -2,21 +2,34 @@
 
 if [ -z "$1" ]
   then
-    root="$PWD/certs/"
+    ROOT="$PWD/certs/"
   else
-    root="$1/certs/"
+    ROOT="$PWD/$1/certs/"
 fi
 
-mkdir -p "$root"
+if [ -d "$ROOT" ]; then
+  echo "Deleting $ROOT"
+  chmod -R 0755 "$ROOT"
+  rm -rf "$ROOT"
+fi
 
-chmod 0755 "$root"
-
-rm -rf /tmp/ca /tmp/node
+mkdir -p "$ROOT"
+chmod -R 0755 "$ROOT"
 
 docker pull eventstore/es-gencert-cli:1.0.1
+docker run --rm --volume "$ROOT:/tmp" --user "$(id -u):$(id -g)" eventstore/es-gencert-cli:1.0.1 create-ca -out /tmp/ca
+docker run --rm --volume "$ROOT:/tmp" --user "$(id -u):$(id -g)" eventstore/es-gencert-cli:1.0.1 create-node -ca-certificate /tmp/ca/ca.crt -ca-key /tmp/ca/ca.key -out /tmp/node -ip-addresses 127.0.0.1 -dns-names localhost
 
-docker run --rm --volume "$root:/tmp" --user "$(id -u):$(id -g)" eventstore/es-gencert-cli:1.0.1 create-ca -out /tmp/ca
+echo "Created Certificate Authority certificate at ${ROOT}ca"
+ls -al "${ROOT}ca"
 
-docker run --rm --volume "$root:/tmp" --user "$(id -u):$(id -g)" eventstore/es-gencert-cli:1.0.1 create-node -ca-certificate /tmp/ca/ca.crt -ca-key /tmp/ca/ca.key -out /tmp/node -ip-addresses 127.0.0.1 -dns-names localhost
+echo "Created Node certificate at ${ROOT}node"
+ls -al "${ROOT}node"
 
-chmod -R 0755 "$root"
+if [ "$2" == "--secure" ]
+  then
+    echo "Limit access to read and write for $USER only with chmod 0600"
+    chmod -R 0600 "$ROOT"
+fi
+
+echo "Certificates creation finished!"

@@ -1,10 +1,19 @@
+import 'package:eventstore_client_dart/eventstore_client_dart.dart' as $a;
+
 class Defaults {
   static const GrpcPort = 2113;
   static const GossipPort = 2114;
+  static const int MaxDiscoverAttempts = 10;
+  static const String PublicKeyPath = 'ca.crt';
+  static const int BatchAppendSize = 3 * 1024 * 1024;
+  static const Duration OperationTimeout = Duration(seconds: 30);
   static const Duration KeepAliveTimeout = Duration(seconds: 10);
   static const Duration KeepAliveInterval = Duration(seconds: 10);
+  static const Duration DiscoveryInterval = Duration(milliseconds: 100);
   static const Duration DisableKeepAliveTimeout = Duration(milliseconds: -1);
   static const Duration DisableKeepAliveInterval = Duration(milliseconds: -1);
+  static const $a.NodePreferenceType NodePreferenceType =
+      $a.NodePreferenceType.leader;
 }
 
 class Exceptions {
@@ -64,10 +73,10 @@ class ContentTypes {
 }
 
 class Headers {
-  static const String Authorization = 'authorization';
   static const String BasicScheme = 'Basic';
   static const String BearerScheme = 'Bearer';
 
+  static const String Authorization = 'authorization';
   static const String ConnectionName = 'connection-name';
   static const String RequiresLeader = 'requires-leader';
 }

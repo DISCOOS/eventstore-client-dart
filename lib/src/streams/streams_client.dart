@@ -28,16 +28,14 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
     Exceptions.StreamDeleted: (ex) => StreamDeletedException.fromCause(ex)
   };
 
-  StreamsClient? _instance;
-  StreamsClient get _client {
-    _instance ??= StreamsClient(
-      channel,
-      options: options,
-      interceptors: toInterceptors(
+  Future<StreamsClient> _createClient() async {
+    return StreamsClient(
+      await $getCurrentChannel(),
+      options: $getOptions(),
+      interceptors: $toInterceptors(
         settings.connectionName,
       ),
     );
-    return _instance!;
   }
 
   /// Read all [ResolvedEvent]s in EventStore from given [position].
@@ -50,19 +48,24 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
     LogPosition position, {
     int? count,
     bool forward = true,
-    CallOptions? options,
     bool resolveLinks = true,
+    UserCredentials? userCredentials,
+    EventStoreClientOperationOptions? operationOptions,
   }) {
-    return runRequest<ReadEventsResult>(() {
+    return $runRequest<ReadEventsResult>(() async {
       final request = _toReadAllReq(
         position,
         count: count,
         forward: forward,
         resolveLinks: resolveLinks,
       );
-      final resultStream = _client.read(
+      final client = await _createClient();
+      final resultStream = client.read(
         request,
-        options: _toOptions(options),
+        options: $getOptions(
+          userCredentials: userCredentials,
+          operationOptions: operationOptions,
+        ),
       );
       return ReadEventsResult.from(
         StreamState.all(position),
@@ -82,10 +85,11 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
     StreamPosition position, {
     int? count,
     bool forward = true,
-    CallOptions? options,
     bool resolveLinks = true,
+    UserCredentials? userCredentials,
+    EventStoreClientOperationOptions? operationOptions,
   }) {
-    return runRequest<ReadEventsResult>(() {
+    return $runRequest<ReadEventsResult>(() async {
       final state = StreamState.exists(
         name,
         revision: StreamRevision.fromPosition(position),
@@ -95,9 +99,13 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
         forward: forward,
         resolveLinks: resolveLinks,
       );
-      final resultStream = _client.read(
+      final client = await _createClient();
+      final resultStream = client.read(
         request,
-        options: _toOptions(options),
+        options: $getOptions(
+          userCredentials: userCredentials,
+          operationOptions: operationOptions,
+        ),
       );
       return ReadEventsResult.from(
         state,
@@ -109,18 +117,25 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
   /// Reads the metadata for stream given by [name]
   Future<StreamMetadataResult> getStreamMetadata(
     String name, {
-    CallOptions? options,
-  }) async {
-    final state = StreamState.any(name);
-    final request = state.toReadMetaReq();
-    final resultStream = _client.read(
-      request,
-      options: _toOptions(options),
-    );
-    return StreamMetadataResult.from(
-      name,
-      resultStream,
-    );
+    UserCredentials? userCredentials,
+    EventStoreClientOperationOptions? operationOptions,
+  }) {
+    return $runRequest<StreamMetadataResult>(() async {
+      final state = StreamState.any(name);
+      final request = state.toReadMetaReq();
+      final client = await _createClient();
+      final resultStream = client.read(
+        request,
+        options: $getOptions(
+          userCredentials: userCredentials,
+          operationOptions: operationOptions,
+        ),
+      );
+      return StreamMetadataResult.from(
+        name,
+        resultStream,
+      );
+    });
   }
 
   /// Append [events] to stream given by [state].
@@ -130,16 +145,21 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
   Future<WriteResult> append(
     StreamState state,
     Stream<EventData> events, {
-    CallOptions? options,
+    UserCredentials? userCredentials,
+    EventStoreClientOperationOptions? operationOptions,
   }) {
-    return runRequest<WriteResult>(() async {
+    return $runRequest<WriteResult>(() async {
       final requests = StreamGroup.mergeBroadcast([
         Stream.value(state.toAppendReq()),
         events.map(_toAppendEvent),
       ]);
-      final result = await _client.append(
+      final client = await _createClient();
+      final result = await client.append(
         requests,
-        options: _toOptions(options),
+        options: $getOptions(
+          userCredentials: userCredentials,
+          operationOptions: operationOptions,
+        ),
       );
       return WriteResult.from(state, result);
     });
@@ -152,9 +172,10 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
   Future<WriteResult> setStreamMetadata(
     StreamState state,
     StreamMetadata metadata, {
-    CallOptions? options,
+    UserCredentials? userCredentials,
+    EventStoreClientOperationOptions? operationOptions,
   }) {
-    return runRequest<WriteResult>(() async {
+    return $runRequest<WriteResult>(() async {
       final requests = Stream<AppendReq>.fromIterable([
         state.toAppendMetaReq(),
         _toAppendEvent(EventData(
@@ -163,9 +184,13 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
           data: utf8.encode(json.encode(metadata.toJson())),
         )),
       ]);
-      final result = await _client.append(
+      final client = await _createClient();
+      final result = await client.append(
         requests,
-        options: _toOptions(options),
+        options: $getOptions(
+          userCredentials: userCredentials,
+          operationOptions: operationOptions,
+        ),
       );
       return WriteResult.from(state, result);
     });
@@ -178,13 +203,18 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
   /// See [deleting streams and events](https://developers.eventstore.com/server/v20.10/docs/streams/deleting-streams-and-events.html)
   Future<DeleteResult> tombstone(
     StreamState state, {
-    CallOptions? options,
+    UserCredentials? userCredentials,
+    EventStoreClientOperationOptions? operationOptions,
   }) {
-    return runRequest<DeleteResult>(() async {
+    return $runRequest<DeleteResult>(() async {
       final request = state.toTombstoneReq();
-      final result = await _client.tombstone(
+      final client = await _createClient();
+      final result = await client.tombstone(
         request,
-        options: _toOptions(options),
+        options: $getOptions(
+          userCredentials: userCredentials,
+          operationOptions: operationOptions,
+        ),
       );
       return DeleteResult.fromTombstoneResp(state, result);
     });
@@ -197,24 +227,21 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
   /// See [deleting streams and events](https://developers.eventstore.com/server/v20.10/docs/streams/deleting-streams-and-events.html)
   Future<DeleteResult> delete(
     StreamState state, {
-    CallOptions? options,
+    UserCredentials? userCredentials,
+    EventStoreClientOperationOptions? operationOptions,
   }) {
-    return runRequest<DeleteResult>(() async {
+    return $runRequest<DeleteResult>(() async {
       final request = state.toDeleteReq();
-      final result = await _client.delete(
+      final client = await _createClient();
+      final result = await client.delete(
         request,
-        options: _toOptions(options),
+        options: $getOptions(
+          userCredentials: userCredentials,
+          operationOptions: operationOptions,
+        ),
       );
       return DeleteResult.fromDeleteResp(state, result);
     });
-  }
-
-  CallOptions _toOptions(CallOptions? options) {
-    // TODO: Implement connection settings
-    return (options ?? CallOptions()).mergedWith(CallOptions(metadata: {
-      Headers.RequiresLeader: 'False',
-      // Headers.Authorization: 'Basic ${base64Encode(utf8.encode('admin:changeit'))}',
-    }));
   }
 
   AppendReq _toAppendEvent(EventData event) {

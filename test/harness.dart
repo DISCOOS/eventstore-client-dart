@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:docker_process/docker_process.dart';
 import 'package:eventstore_client_dart/eventstore_client_dart.dart';
 import 'package:eventstore_client_dart/src/core/enums.dart';
 import 'package:eventstore_client_dart/src/core/helpers.dart';
@@ -10,6 +9,9 @@ import 'package:eventstore_client_dart/src/core/resolved_event.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 import 'package:uuid/uuid.dart';
+
+import 'server/eventstore_server.dart';
+import 'server/server_single_node.dart';
 
 typedef ClientCreator = EventStoreClient Function();
 
@@ -25,6 +27,10 @@ class EventStoreDBClientHarness {
   static const int PORT_2113 = 2113;
   static const int PORT_2114 = 2114;
   static const String EVENT_TYPE_TEST = '-';
+  static const UserCredentials DefaultCredentials = UserCredentials(
+    'admin',
+    'changeit',
+  );
 
   static EventStoreDBClientHarness? _singleton;
   static EventStoreDBClientHarness? get instance => _singleton;
@@ -43,26 +49,27 @@ class EventStoreDBClientHarness {
     return this;
   }
 
-  Stream<LogRecord>? get onRecord => _logger?.onRecord;
+  Stream<LogRecord>? get onRecord => Logger.root.onRecord;
 
   String streamName({
     String? suffix,
-    int port = PORT_2113,
+    String? connectionName,
   }) =>
-      _clients[port]!.settings.connectionName +
+      _clients[connectionName ?? '$EventStoreClient']!.settings.connectionName +
       '_${suffix ?? DateTime.now().millisecondsSinceEpoch}';
 
   StreamState newStreamState(
     StreamStateType type, {
-    int port = PORT_2113,
     String? suffix,
     LogPosition? position,
+    String? connectionName,
     StreamRevision? revision,
   }) {
     return StreamState(
       streamName(
         suffix: '${enumName(type)}'
             '_${suffix ?? DateTime.now().millisecondsSinceEpoch}',
+        connectionName: connectionName,
       ),
       type,
       position,
@@ -70,99 +77,101 @@ class EventStoreDBClientHarness {
     );
   }
 
-  EventStoreClient client({int port = PORT_2113}) => _clients[port]!;
+  EventStoreClient client({String? connectionName}) =>
+      _clients[connectionName ?? '$EventStoreClient']!;
 
-  // final Map<int, ClientChannel> _channels = {};
-  final Map<int, ClientCreator> _creators = {};
-  final Map<int, EventStoreClient> _clients = {};
+  final Map<String, ClientCreator> _creators = {};
+  final Map<String, EventStoreClient> _clients = {};
 
   EventStoreDBClientHarness withStreamsClient({
-    int port = PORT_2113,
+    bool secure = false,
     String? connectionName,
+    EventStoreClientSettings? settings,
+    UserCredentials? defaultCredentials,
   }) {
+    final name = connectionName ?? '$EventStoreClient';
     _register(
-      port,
+      name,
       () {
         return EventStoreClient(
-          EventStoreClientSettings(
-            singleNode: EndPoint.loopbackIPv4,
-            connectionName: connectionName ?? '$EventStoreClient',
-          ),
+          settings ??
+              EventStoreClientSettings(
+                useTls: secure,
+                connectionName: name,
+                singleNode: EndPoint.loopbackIPv4,
+                defaultCredentials: defaultCredentials,
+                publicKeyPath:
+                    secure ? 'test/certs/ca/ca.crt' : Defaults.PublicKeyPath,
+              ),
         );
       },
     );
     return this;
   }
 
-  void _register(int port, ClientCreator creator) {
+  void _register(String connectionName, ClientCreator creator) {
     _creators.update(
-      port,
+      connectionName,
       (creators) => creator,
       ifAbsent: () => creator,
     );
   }
 
   void install({
+    bool secure = false,
+    int grpcPort = PORT_2113,
+    int gossipPort = PORT_2114,
     bool withTestData = false,
     String imageTag = '20.10.4-buster-slim',
   }) {
-    DockerProcess? server;
+    Timer? _timeout;
+    final server = EventStoreServerSingleNode(
+      secure: secure,
+      imageTag: imageTag,
+      grpcPort: grpcPort,
+      gossipPort: gossipPort,
+      withTestData: withTestData,
+      hostCertificatePath: 'test/certs',
+    );
     StreamSubscription<LogRecord>? _printer;
     setUpAll(() async {
-      // _initHiveDir(hiveDir);
       if (_debug) {
         _printer = onRecord?.listen(
           (rec) => print(rec),
         );
       }
       _logger?.info('---setUpAll---');
-      var failure = '';
-      server = await DockerProcess.start(
-        name: 'eventstore-client-dart-test',
-        image: withTestData
-            ? 'docker.pkg.github.com/eventstore/'
-                'eventstore-client-grpc-testdata/'
-                'eventstore-client-grpc-testdata:$imageTag'
-            : 'docker.pkg.github.com/eventstore/eventstore/eventstore:$imageTag',
-        ports: [
-          '1113:1113/tcp',
-          '1114:1114/tcp',
-          '$PORT_2113:$PORT_2113/tcp',
-          '$PORT_2114:$PORT_2114/tcp',
-        ],
-        environment: {
-          'EVENTSTORE_INSECURE': 'True',
-          'EVENTSTORE_LOG_LEVEL': 'Verbose',
-          if (withTestData) 'EVENTSTORE_DB': '/data/integration-tests',
-        },
-        cleanup: true,
-        readySignal: (line) {
-          _logger?.info(line);
-          if (line.contains('Error response from daemon')) {
-            failure = line;
-          }
-          return failure.isNotEmpty ||
-              line.contains(
-                'No incomplete scavenges found on node "0.0.0.0:2113"',
-              );
-        },
-      );
-      _creators.forEach((port, creator) {
-        _open(port, creator);
+
+      await server.start();
+
+      _creators.forEach((name, creator) {
+        _open(name, creator);
       });
       _logger?.info('---setUpAll--->ok');
       return Future<void>.value();
     });
 
+    setUp(() async {
+      _timeout = Timer(
+        const Duration(seconds: 5),
+        () => throw Exception('Test timeout'),
+      );
+    });
+
+    tearDown(() {
+      _timeout?.cancel();
+    });
+
     tearDownAll(() async {
+      _timeout?.cancel();
       _logger?.info('---tearDownAll---');
       try {
         await Future.wait([
           ..._clients.values.map(
-            (e) => e.channel.shutdown(),
+            (e) => e.shutdown(),
           )
         ]);
-        await server?.stop();
+        await server.stop();
         return await _printer?.cancel();
       } finally {
         _clients.clear();
@@ -172,12 +181,12 @@ class EventStoreDBClientHarness {
   }
 
   EventStoreClient _open(
-    int port,
+    String connectionName,
     EventStoreClient Function() create,
   ) {
     final client = create();
     _clients.update(
-      port,
+      connectionName,
       (_) => client,
       ifAbsent: () => client,
     );

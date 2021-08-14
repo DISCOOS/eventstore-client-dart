@@ -45,8 +45,7 @@ else
 endif
 
 certs:
-	rm -rf certs
-	sh tools/gencert.sh
+	sh tools/gencert.sh . --secure
 
 protos:
 	echo "Downloading protobuf definitions from google..."
@@ -83,5 +82,6 @@ models:
 	echo "[✓] Generating models complete."
 
 test:
+	if [ ! -d test/certs ]; then . tools/gencert.sh test; fi
 	dart test -j 1
 
