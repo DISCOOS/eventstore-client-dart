@@ -40,12 +40,13 @@ void main() async {
 This package supports the following EventStoreDB client APIs
 
 - [x] Streams gRPC API
-- [ ] Projections gRPC API
-- [ ] Persistent Streams gRPC API
+- [ ] Projections Management gRPC API
+- [ ] Persistent Subscriptions Management gRPC API
+- [x] Gossip gRPC API (open source version of EventstoreDB)
+- [ ] Cluster Management gRPC API (commercial version of EventstoreDB)
 - [ ] Operations gRPC API
 - [ ] Monitoring gRPC API
-- [ ] Gossip gRPC API (open source version of EventstoreDB)
-- [ ] Cluster gRPC API (commercial version of EventstoreDB)
+- [ ] User Management gRPC API
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 
