@@ -17,6 +17,7 @@ class EventStoreClientSettings {
     this.defaultCredentials,
     this.gossipSeeds = const [],
     this.publicKeyPath = Defaults.PublicKeyPath,
+    this.gossipTimeout = Defaults.GossipTimeout,
     this.nodePreference = Defaults.NodePreferenceType,
     this.operationTimeout = Defaults.OperationTimeout,
     this.keepAliveTimeout = Defaults.KeepAliveTimeout,
@@ -45,8 +46,11 @@ class EventStoreClientSettings {
   /// An array of [EndPoint]s used to seed gossip.
   final List<EndPoint> gossipSeeds;
 
-  /// Get [NodePreferenceType]
-  final NodePreferenceType nodePreference;
+  /// The [Duration] after which an attempt to discover gossip will fail.
+  final Duration gossipTimeout;
+
+  /// Get [NodePreference]
+  final NodePreference nodePreference;
 
   /// Connection name supplied as metadata to server
   final String connectionName;
@@ -200,13 +204,13 @@ class EventStoreClientConnectionString {
       keepAliveTimeout: _getOrDefault<Duration>(
         options,
         key: 'keepAliveTimeout',
-        defaultValue: Defaults.DisableKeepAliveTimeout,
+        defaultValue: Defaults.NoneDuration,
         map: (value) => Duration(milliseconds: int.parse(value)),
       ),
       keepAliveInterval: _getOrDefault<Duration>(
         options,
         key: 'keepAliveInterval',
-        defaultValue: Defaults.DisableKeepAliveInterval,
+        defaultValue: Defaults.NoneDuration,
         map: (value) => Duration(milliseconds: int.parse(value)),
       ),
     );

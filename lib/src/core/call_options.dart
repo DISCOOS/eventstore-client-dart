@@ -17,7 +17,7 @@ class EventStoreCallOptions {
         timeout: operationOptions?.timeoutAfter ?? settings.operationTimeout,
         metadata: <String, String>{
           Headers.RequiresLeader:
-              settings.nodePreference == NodePreferenceType.leader
+              settings.nodePreference == NodePreference.leader
                   ? 'true'
                   : 'false',
           if (credentials?.isEmpty == false)

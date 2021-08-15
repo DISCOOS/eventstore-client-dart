@@ -65,4 +65,20 @@ class EndPoint {
     }
     return EndPoint(host, port);
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is EndPoint &&
+          runtimeType == other.runtimeType &&
+          address == other.address &&
+          port == other.port;
+
+  @override
+  int get hashCode => address.hashCode ^ port.hashCode;
+
+  @override
+  String toString() {
+    return '$runtimeType{address: $address, port: $port}';
+  }
 }

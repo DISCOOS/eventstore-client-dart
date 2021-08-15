@@ -10,7 +10,7 @@ void main() {
     const ExistingCount = 25;
     final harness = EventStoreDBClientHarness()
       ..withLogger()
-      ..withStreamsClient()
+      ..withClient()
       ..install();
 
     late StreamState state;

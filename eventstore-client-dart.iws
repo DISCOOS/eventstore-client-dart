@@ -5,8 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1bfe063-9b1e-49e6-a23c-233f3c768db4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/exceptions/discovery_exception.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/uuid.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/gossip/endpoint_discoverer.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/gossip/gossip_based_discovery_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/gossip/gossip_client_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eventstore-client-dart.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/eventstore-client-dart.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eventstore-client-dart.iws" beforeDir="false" afterPath="$PROJECT_DIR$/eventstore-client-dart.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/eventstore_client_dart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/eventstore_client_dart.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/cluster/member_info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/cluster/member_info.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/call_options.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/call_options.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/client_base.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/client_base.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/constants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/endpoint.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/endpoint.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/endpoint_discoverer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/endpoint_discoverer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/enums.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/enums.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/exceptions/exceptions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/exceptions/exceptions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/helpers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/helpers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/settings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/settings.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/gossip/gossip_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/gossip/gossip_client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/harness.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/harness.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/security/read_all_security_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/security/read_all_security_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/security/read_metadata_security_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/security/read_metadata_security_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/security/read_stream_security_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/security/read_stream_security_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/security/security_fixture.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/security/security_fixture.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/security/write_metadata_security_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/security/write_metadata_security_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/security/write_stream_security_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/security/write_stream_security_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/server/server_single_node.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/server/server_single_node.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/streams/append_to_stream_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/streams/append_to_stream_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/streams/hard_delete_stream_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/streams/hard_delete_stream_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/streams/read_from_all_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/streams/read_from_all_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/streams/read_from_stream_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/streams/read_from_stream_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/streams/soft_delete_stream_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/streams/soft_delete_stream_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +144,7 @@
       <recent name="$PROJECT_DIR$/protos/google" />
     </key>
   </component>
-  <component name="RunManager" selected="Dart Test.Tests in read_stream_security_test.dart">
+  <component name="RunManager" selected="Dart Test.Tests in gossip_client_test.dart">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -127,48 +158,39 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests in read_metadata_security_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/test/security/read_metadata_security_test.dart" />
-      <option name="testName" value="read_metadata_security_test.dart" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Tests in read_stream_security_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/test/security/read_stream_security_test.dart" />
-      <option name="testName" value="read_stream_security_test.dart" />
-      <method v="2" />
-    </configuration>
-    <configuration name="reads all with default credentials in read_metadata_security_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/test/security/read_metadata_security_test.dart" />
+    <configuration name="Gossip client in gossip_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/gossip/gossip_client_test.dart" />
       <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
-      <option name="testName" value="reads all with default credentials" />
+      <option name="testName" value="Gossip client" />
       <method v="2" />
     </configuration>
-    <configuration name="reads from no-acl stream with default credentials in read_stream_security_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/test/security/read_stream_security_test.dart" />
-      <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
-      <option name="testName" value="reads from no-acl stream with default credentials" />
+    <configuration name="Tests in gossip_based_discovery_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/gossip/gossip_based_discovery_test.dart" />
+      <option name="testName" value="gossip_based_discovery_test.dart" />
       <method v="2" />
     </configuration>
-    <configuration name="reads from no-acl stream with empty operation credentials in read_stream_security_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/test/security/read_stream_security_test.dart" />
+    <configuration name="Tests in gossip_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/gossip/gossip_client_test.dart" />
+      <option name="testName" value="gossip_client_test.dart" />
+      <method v="2" />
+    </configuration>
+    <configuration name="reads cluster info from end point in gossip_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/gossip/gossip_client_test.dart" />
       <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
-      <option name="testName" value="reads from no-acl stream with empty operation credentials" />
+      <option name="testName" value="reads cluster info from end point" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Dart Test.Tests in read_stream_security_test.dart" />
-      <item itemvalue="Dart Test.Tests in read_metadata_security_test.dart" />
-      <item itemvalue="Dart Test.reads all with default credentials in read_metadata_security_test.dart" />
-      <item itemvalue="Dart Test.reads from no-acl stream with default credentials in read_stream_security_test.dart" />
-      <item itemvalue="Dart Test.reads from no-acl stream with empty operation credentials in read_stream_security_test.dart" />
+      <item itemvalue="Dart Test.Tests in gossip_based_discovery_test.dart" />
+      <item itemvalue="Dart Test.reads cluster info from end point in gossip_client_test.dart" />
+      <item itemvalue="Dart Test.Gossip client in gossip_client_test.dart" />
+      <item itemvalue="Dart Test.Tests in gossip_client_test.dart" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Dart Test.Tests in read_stream_security_test.dart" />
-        <item itemvalue="Dart Test.reads from no-acl stream with empty operation credentials in read_stream_security_test.dart" />
-        <item itemvalue="Dart Test.reads from no-acl stream with default credentials in read_stream_security_test.dart" />
-        <item itemvalue="Dart Test.reads all with default credentials in read_metadata_security_test.dart" />
-        <item itemvalue="Dart Test.Tests in read_metadata_security_test.dart" />
+        <item itemvalue="Dart Test.Tests in gossip_client_test.dart" />
+        <item itemvalue="Dart Test.Gossip client in gossip_client_test.dart" />
+        <item itemvalue="Dart Test.reads cluster info from end point in gossip_client_test.dart" />
       </list>
     </recent_temporary>
   </component>
@@ -190,7 +212,7 @@
       <workItem from="1628278499289" duration="164000" />
       <workItem from="1628278813746" duration="3087000" />
       <workItem from="1628495988799" duration="38245000" />
-      <workItem from="1628793984887" duration="44714000" />
+      <workItem from="1628793984887" duration="68414000" />
     </task>
     <task id="LOCAL-00001" summary="Generated dart code from protos">
       <created>1623190618615</created>
@@ -248,7 +270,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628978496275</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Updated README.md">
+      <created>1629019540029</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1629019540030</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,13 +301,20 @@
     <MESSAGE value="Added operations for hard and soft delete" />
     <MESSAGE value="* Added stream metadata operations&#10;* Refactored tests int multiple files&#10;* Updated README.md&#10;* Added tool for updating proto files from EventStore repo&#10;* Added connection string support" />
     <MESSAGE value="Updated README.md and example" />
-    <MESSAGE value="Updated README.md" />
     <MESSAGE value="Fixed bug in EventStoreClient constructor" />
     <MESSAGE value="* Added client security w/tests&#10;* Added gossip support for cluster configurations u/testes" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Added client security w/tests&#10;* Added gossip support for cluster configurations u/testes" />
+    <MESSAGE value="Updated README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated README.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/test/security/read_metadata_security_test.dart</url>
+          <line>37</line>
+          <option name="timeStamp" value="125" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="dart-exception" />
         <breakpoint type="DlvErrorBreakpoint" />
@@ -286,12 +322,10 @@
     </breakpoint-manager>
     <watches-manager>
       <configuration name="DartTestRunConfigurationType">
-        <watch expression="userCredentials.username" language="Dart" />
-        <watch expression="$getOptions(           userCredentials: userCredentials,           operationOptions: operationOptions,         )" language="Dart" />
-        <watch expression="userCredentials.password" language="Dart" />
-        <watch expression="credentials.username" language="Dart" />
-        <watch expression="credentials.toString()" language="Dart" />
-        <watch expression="userCredentials" language="Dart" />
+        <watch expression="Uuid.unparse(lsb.toBytes() + msb.toBytes())" language="Dart" />
+        <watch expression="msb.toBytes()" language="Dart" />
+        <watch expression="lsb.toBytes()" language="Dart" />
+        <watch expression="Uuid.unparse(msb.toBytes() + lsb.toBytes())" language="Dart" />
       </configuration>
     </watches-manager>
   </component>

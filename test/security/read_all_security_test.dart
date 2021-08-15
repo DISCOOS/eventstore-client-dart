@@ -11,16 +11,16 @@ void main() {
     const DefaultCredentials = 'DefaultCredentials';
     final harness = EventStoreDBClientHarness()
       ..withLogger()
-      ..withStreamsClient(
+      ..withClient(
         secure: true,
         connectionName: NoCredentials,
       )
-      ..withStreamsClient(
+      ..withClient(
         secure: true,
         connectionName: DefaultCredentials,
         defaultCredentials: EventStoreDBClientHarness.DefaultCredentials,
       )
-      ..withStreamsClient(secure: true)
+      ..withClient(secure: true)
       ..install(secure: true);
 
     test('throws NotAuthenticatedException on bad username', () async {

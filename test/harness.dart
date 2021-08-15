@@ -10,7 +10,6 @@ import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 import 'package:uuid/uuid.dart';
 
-import 'server/eventstore_server.dart';
 import 'server/server_single_node.dart';
 
 typedef ClientCreator = EventStoreClient Function();
@@ -83,11 +82,13 @@ class EventStoreDBClientHarness {
   final Map<String, ClientCreator> _creators = {};
   final Map<String, EventStoreClient> _clients = {};
 
-  EventStoreDBClientHarness withStreamsClient({
+  EventStoreDBClientHarness withClient({
     bool secure = false,
     String? connectionName,
     EventStoreClientSettings? settings,
     UserCredentials? defaultCredentials,
+    List<EndPoint> gossipSeeds = const [],
+    NodePreference nodePreference = NodePreference.leader,
   }) {
     final name = connectionName ?? '$EventStoreClient';
     _register(
@@ -98,8 +99,10 @@ class EventStoreDBClientHarness {
               EventStoreClientSettings(
                 useTls: secure,
                 connectionName: name,
-                singleNode: EndPoint.loopbackIPv4,
+                gossipSeeds: gossipSeeds,
+                nodePreference: nodePreference,
                 defaultCredentials: defaultCredentials,
+                singleNode: gossipSeeds.isEmpty ? EndPoint.loopbackIPv4 : null,
                 publicKeyPath:
                     secure ? 'test/certs/ca/ca.crt' : Defaults.PublicKeyPath,
               ),

@@ -1,19 +1,27 @@
 import 'package:eventstore_client_dart/eventstore_client_dart.dart' as $a;
 
+// Use the largest 64-bit signed integer as infinite value
+const Infinite = 9223372036854775807;
+
 class Defaults {
   static const GrpcPort = 2113;
   static const GossipPort = 2114;
   static const int MaxDiscoverAttempts = 10;
   static const String PublicKeyPath = 'ca.crt';
   static const int BatchAppendSize = 3 * 1024 * 1024;
+  static const Duration GossipTimeout = Duration(seconds: 5);
   static const Duration OperationTimeout = Duration(seconds: 30);
   static const Duration KeepAliveTimeout = Duration(seconds: 10);
   static const Duration KeepAliveInterval = Duration(seconds: 10);
   static const Duration DiscoveryInterval = Duration(milliseconds: 100);
-  static const Duration DisableKeepAliveTimeout = Duration(milliseconds: -1);
-  static const Duration DisableKeepAliveInterval = Duration(milliseconds: -1);
-  static const $a.NodePreferenceType NodePreferenceType =
-      $a.NodePreferenceType.leader;
+  static const $a.NodePreference NodePreferenceType = $a.NodePreference.leader;
+
+  static const Duration NoneDuration = Duration(milliseconds: -1);
+  static const Duration InfiniteDuration = Duration(milliseconds: Infinite);
+
+  // From grpc-dart/options.dart file
+  static const Duration GrpcIdleTimeout = Duration(minutes: 5);
+  static const Duration GrpcConnectionTimeout = Duration(minutes: 50);
 }
 
 class Exceptions {

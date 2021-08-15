@@ -1,7 +1,7 @@
 import 'package:eventstore_client_dart/eventstore_client_dart.dart';
+import 'package:eventstore_client_dart/src/core/uuid.dart';
 import 'package:eventstore_client_dart/src/generated/gossip.pbgrpc.dart' as $a;
 import 'package:eventstore_client_dart/src/generated/shared.pb.dart';
-import 'package:uuid/uuid.dart';
 
 class EventStoreGossipClient extends EventStoreClientBase {
   EventStoreGossipClient(
@@ -22,11 +22,12 @@ class EventStoreGossipClient extends EventStoreClientBase {
     final client = _getClient(endPoint);
     final response = client.read(Empty());
     final info = await response.asStream().first;
+
     final members = info.members.map((member) => MemberInfo(
           isAlive: member.isAlive,
           state: _toState(member),
           endPoint: _toEndPoint(member),
-          uuid: UuidValue(member.instanceId.string),
+          uuid: UuidV4.fromDTO(member.instanceId).value,
         ));
     return ClusterInfo(members);
   }

@@ -46,6 +46,10 @@ class EventStoreServerSingleNode extends EventStoreServer {
       ],
       environment: {
         'EVENTSTORE_LOG_LEVEL': 'Verbose',
+        // Please note that the GossipOnSingleNode option has been deprecated
+        // will be removed in version 21.10.0. The gossip endpoint is now
+        // unconditionally available for any deployment topology.
+        'EVENTSTORE_GOSSIP_ON_SINGLE_NODE': 'True',
         'EVENTSTORE_INSECURE': secure ? 'False' : 'True',
         if (withTestData)
           'EVENTSTORE_DB': '/data/integration-tests'

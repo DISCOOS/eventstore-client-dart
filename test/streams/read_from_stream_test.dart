@@ -9,7 +9,7 @@ void main() {
   group('When reading from non-existing stream, streams client', () {
     final harness = EventStoreDBClientHarness()
       ..withLogger()
-      ..withStreamsClient()
+      ..withClient()
       ..install();
 
     // ---------------------------------------
@@ -39,7 +39,7 @@ void main() {
     const ExistingCount = 25;
     final harness = EventStoreDBClientHarness()
       ..withLogger()
-      ..withStreamsClient()
+      ..withClient()
       ..install();
 
     late StreamState state;

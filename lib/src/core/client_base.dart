@@ -9,6 +9,7 @@ import 'package:universal_io/io.dart';
 import 'call_options.dart';
 import 'constants.dart';
 import 'exceptions/exceptions.dart';
+import 'helpers.dart';
 import 'interceptors/interseptors.dart';
 import 'operation_options.dart';
 import '../security/user_credentials.dart';
@@ -62,6 +63,12 @@ abstract class EventStoreClientBase {
     return _leader!;
   }
 
+  /// Discover node [EndPoint] given current
+  /// [EventStoreClientSettings.nodePreference].
+  Future<EndPoint> discover() async {
+    return _leader = await _leaderDiscoverer.discover();
+  }
+
   /// Get current [ClientChannel] instance
   ClientChannel get channel => _channel;
 
@@ -89,7 +96,7 @@ abstract class EventStoreClientBase {
 
   @visibleForOverriding
   Future<ClientChannel> $getCurrentChannel() async {
-    _leader = await _leaderDiscoverer.discover();
+    await discover();
     return $getOrAddChannel(_leader!);
   }
 
@@ -109,6 +116,19 @@ abstract class EventStoreClientBase {
                   },
                 )
               : ChannelCredentials.insecure(),
+          // Workaround for grpc.keepalive_time_ms:
+          // > After a duration of this time the client/server pings its peer
+          // > to see if the transport is still alive.
+          idleTimeout: settings.keepAliveInterval.isNone
+              ? Defaults.GrpcIdleTimeout
+              : settings.keepAliveTimeout,
+          // Workaround for grpc.keepalive_timeout_ms:
+          // > After waiting for a duration of this time, if the keepalive
+          // > ping sender does not receive the ping ack, it will close
+          // > the transport.
+          connectionTimeout: settings.keepAliveTimeout.isNone
+              ? Defaults.GrpcConnectionTimeout
+              : settings.keepAliveTimeout,
         ),
       ),
     );

@@ -11,7 +11,7 @@ enum StreamStateType {
 }
 
 /// Indicates the preferred EventStoreDB node type to connect to.
-enum NodePreferenceType {
+enum NodePreference {
   /// When attempting connection, prefers leader node.
   leader,
 

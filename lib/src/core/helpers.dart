@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'constants.dart';
 
 /// Get enum value name
 String enumName(Object o) => o.toString().split('.').last;
@@ -18,6 +19,14 @@ DateTime fromTicksSinceEpoch(int value) {
     _unixEpoc.ticks + value,
     isUtc: true,
   );
+}
+
+extension DurationX on Duration {
+  /// See [Defaults.NoneDuration]
+  bool get isNone => this == Defaults.NoneDuration;
+
+  /// See [Defaults.InfiniteDuration]
+  bool get isInfinite => inMilliseconds == Infinite;
 }
 
 extension ListX<T> on List<T> {

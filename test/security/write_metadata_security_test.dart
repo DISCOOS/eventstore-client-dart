@@ -7,21 +7,20 @@ import 'test_credentials.dart';
 
 void main() {
   group('When writing to a stream with tls, streams client', () {
-    const AppendCount = 1;
     const NoCredentials = 'NoCredentials';
     const DefaultCredentials = 'DefaultCredentials';
     final harness = EventStoreDBClientHarness()
       ..withLogger()
-      ..withStreamsClient(
+      ..withClient(
         secure: true,
         connectionName: NoCredentials,
       )
-      ..withStreamsClient(
+      ..withClient(
         secure: true,
         connectionName: DefaultCredentials,
         defaultCredentials: EventStoreDBClientHarness.DefaultCredentials,
       )
-      ..withStreamsClient(secure: true)
+      ..withClient(secure: true)
       ..install(secure: true);
 
     test('throws NotAuthenticatedException on bad user', () async {

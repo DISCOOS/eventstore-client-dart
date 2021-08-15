@@ -7,7 +7,7 @@ void main() {
   group('When hard-deleting non-existing stream, streams client', () {
     final harness = EventStoreDBClientHarness()
       ..withLogger()
-      ..withStreamsClient()
+      ..withClient()
       ..install();
 
     // ---------------------------------------
@@ -68,7 +68,7 @@ void main() {
   group('When hard-deleting existing stream, streams client', () {
     final harness = EventStoreDBClientHarness()
       ..withLogger()
-      ..withStreamsClient()
+      ..withClient()
       ..install();
 
     late StreamState state;

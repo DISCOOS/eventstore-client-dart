@@ -16,7 +16,7 @@ class StreamsSecurityFixture {
   final EventStoreStreamsClient client;
 
   Future<void> given() async {
-    final result = await client.setStreamMetadata(
+    await client.setStreamMetadata(
       StreamState.noStream(NoAclStream),
       StreamMetadata(),
       userCredentials: TestCredentials.Root,
