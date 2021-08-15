@@ -12,8 +12,8 @@ void main() {
 
     final harness = EventStoreDBClientHarness()
       ..withLogger()
-      ..withClient()
-      ..install();
+      ..withClient(secure: true)
+      ..install(secure: true);
 
     late final EventStoreClient client;
 
@@ -49,6 +49,25 @@ void main() {
 
       // Act
       final leader = await gossipClient.discover();
+      final info = await gossipClient.read(leader);
+
+      // Assert
+      expect(leader, GossipSeed);
+      expect(leader, gossipClient.leader);
+      expect(info.members.length, 1);
+      expect(info.members.first.isAlive, isTrue);
+      expect(info.members.first.endPoint, GossipSeed);
+      expect(info.members.first.state, VNodeState.leader);
+    });
+
+    test('is used by event store client to discover leader', () async {
+      // Arrange
+      final gossipClient = EventStoreGossipClient(
+        client.settings,
+      );
+
+      // Act
+      final leader = await client.discover();
       final info = await gossipClient.read(leader);
 
       // Assert
