@@ -5,7 +5,7 @@ import '../harness.dart';
 
 void main() {
   group('When hard-deleting non-existing stream, streams client', () {
-    final harness = EventStoreDBClientHarness()
+    final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
       ..install();
@@ -66,7 +66,7 @@ void main() {
   });
 
   group('When hard-deleting existing stream, streams client', () {
-    final harness = EventStoreDBClientHarness()
+    final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
       ..install();

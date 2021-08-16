@@ -5,7 +5,7 @@ import '../harness.dart';
 
 void main() {
   group('When appending to non-existing stream, streams client', () {
-    final harness = EventStoreDBClientHarness()
+    final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
       ..install();
@@ -124,7 +124,7 @@ void main() {
 
   group('When appending to existing stream, streams client', () {
     const ExistingCount = 25;
-    final harness = EventStoreDBClientHarness()
+    final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
       ..install();
@@ -139,7 +139,10 @@ void main() {
         StreamStateType.any,
       );
       exists = harness.createTestEvents(count: 25);
-      final result = await client.append(state, Stream.fromIterable(exists));
+      final result = await client.append(
+        state,
+        Stream.fromIterable(exists),
+      );
       expect(result, isA<WriteSuccessResult>());
       expect(result.actualType, equals(StreamStateType.stream_exists));
     });
@@ -173,10 +176,54 @@ void main() {
       );
     });
   });
+
+  group('When appending to EventStoreDB v21.6.0, streams client', () {
+    const ExistingCount = 25;
+    final harness = EventStoreClientHarness()
+      ..withLogger()
+      ..withClient(
+        settings: EventStoreClientSettings.v21_6_0,
+      )
+      ..install(
+        imageTag: ImageTags.v21_6_0,
+        isReady: (line) {
+          return line.contains('IS LEADER... SPARTA!');
+        },
+      );
+    ;
+
+    // ----------------------------------
+    // Test append idempotency
+    // ----------------------------------
+
+    test('appends using batch', () async {
+      // Arrange
+      final client = harness.client();
+      final state = harness.newStreamState(
+        StreamStateType.any,
+      );
+      final exists = harness.createTestEvents(
+        count: ExistingCount,
+      );
+      final result = await client.append(
+        state,
+        Stream.fromIterable(exists),
+      );
+      expect(result, isA<BatchWriteSuccessResult>());
+      expect(
+        result.nextExpectedStreamRevision,
+        equals(StreamRevision.checked(ExistingCount - 1)),
+      );
+      expect(
+        result.actualType,
+        equals(StreamStateType.stream_exists),
+      );
+    });
+  });
 }
 
 Future<void> _testClientAppendsZeroEvents(
-  EventStoreDBClientHarness harness,
+  EventStoreClientHarness harness,
   StreamState state,
 ) async {
   // Arrange

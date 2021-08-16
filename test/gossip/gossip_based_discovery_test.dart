@@ -1,8 +1,8 @@
 import 'package:eventstore_client_dart/eventstore_client_dart.dart';
+import 'package:eventstore_client_dart/src/core/uuid.dart';
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:universal_io/io.dart';
-import 'package:uuid/uuid.dart';
 
 void main() {
   group('Gossip based endpoint discoverer', () {
@@ -214,7 +214,7 @@ MemberInfo _createMemberInfo(
     state: state,
     isAlive: isAlive,
     endPoint: endPoint,
-    uuid: UuidValue(Uuid().v4()),
+    uuid: UuidV4.newUuid().value,
   );
 }
 

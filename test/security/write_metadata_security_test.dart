@@ -9,7 +9,7 @@ void main() {
   group('When writing to a stream with tls, streams client', () {
     const NoCredentials = 'NoCredentials';
     const DefaultCredentials = 'DefaultCredentials';
-    final harness = EventStoreDBClientHarness()
+    final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient(
         secure: true,
@@ -18,7 +18,7 @@ void main() {
       ..withClient(
         secure: true,
         connectionName: DefaultCredentials,
-        defaultCredentials: EventStoreDBClientHarness.DefaultCredentials,
+        defaultCredentials: EventStoreClientHarness.DefaultCredentials,
       )
       ..withClient(secure: true)
       ..install(secure: true);

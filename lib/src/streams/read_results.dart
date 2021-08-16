@@ -108,31 +108,43 @@ class ReadEventsResult {
     // Forward responses to result
     stream.listen(
       (resp) {
-        if (resp.hasStreamNotFound()) {
-          success ??= ReadEventsResult._(
-            ReadState.stream_not_found,
-            expected,
-            stream,
-          );
-          if (!completer.isCompleted) {
-            completer.complete(
-              success,
+        switch (resp.whichContent()) {
+          case ReadResp_Content.streamNotFound:
+            success ??= ReadEventsResult._(
+              ReadState.stream_not_found,
+              expected,
+              stream,
             );
-          }
-        } else if (resp.hasEvent()) {
-          success ??= ReadEventsResult._(
-            ReadState.ok,
-            expected,
-            stream,
-          );
-          if (!completer.isCompleted) {
-            completer.complete(
-              success,
+            if (!completer.isCompleted) {
+              completer.complete(
+                success,
+              );
+            }
+            break;
+          case ReadResp_Content.event:
+            success ??= ReadEventsResult._(
+              ReadState.ok,
+              expected,
+              stream,
             );
-          }
-          success!._add(
-            convertToResolvedEvent(resp.event),
-          );
+            if (!completer.isCompleted) {
+              completer.complete(
+                success,
+              );
+            }
+            success!._add(
+              convertToResolvedEvent(resp.event),
+            );
+            break;
+          case ReadResp_Content.confirmation:
+            // TODO: Handle this case.
+            break;
+          case ReadResp_Content.checkpoint:
+            // TODO: Handle this case.
+            break;
+          case ReadResp_Content.notSet:
+            // TODO: Handle this case.
+            break;
         }
       },
       onDone: () {

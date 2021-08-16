@@ -7,10 +7,10 @@ void main() {
   group('Gossip client', () {
     final GossipSeed = EndPoint(
       '127.0.0.1',
-      EventStoreDBClientHarness.PORT_2113,
+      EventStoreClientHarness.PORT_2113,
     );
 
-    final harness = EventStoreDBClientHarness()
+    final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient(secure: true)
       ..install(secure: true);

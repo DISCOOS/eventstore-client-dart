@@ -12,7 +12,7 @@ void main() {
   };
 
   group('When soft-deleting non-existing stream, streams client', () {
-    final harness = EventStoreDBClientHarness()
+    final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
       ..install();
@@ -72,7 +72,7 @@ void main() {
 
   group('When soft-deleting existing stream, streams client', () {
     const ExistingCount = 25;
-    final harness = EventStoreDBClientHarness()
+    final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
       ..install();

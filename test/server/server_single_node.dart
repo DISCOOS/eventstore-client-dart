@@ -27,7 +27,9 @@ class EventStoreServerSingleNode extends EventStoreServer {
   late DockerProcess _server;
 
   @override
-  Future<void> start() async {
+  Future<void> start({
+    bool Function(String)? isReady,
+  }) async {
     verifyCertificatesExist();
     final failures = <String>[];
     _server = await DockerProcess.start(
@@ -75,10 +77,9 @@ class EventStoreServerSingleNode extends EventStoreServer {
         if (line.contains('Error response from daemon')) {
           failures.add(line);
         }
-        return failures.isNotEmpty ||
-            line.contains(
-              'All components started for Instance',
-            );
+        return failures.isNotEmpty || isReady == null
+            ? line.contains('All components started for Instance')
+            : isReady(line);
       },
     );
     if (failures.isNotEmpty) {

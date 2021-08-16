@@ -8,7 +8,7 @@ void main() {
 
   group('When reading from \$all stream, streams client', () {
     const ExistingCount = 25;
-    final harness = EventStoreDBClientHarness()
+    final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
       ..install();

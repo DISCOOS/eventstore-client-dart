@@ -6,15 +6,16 @@ const Infinite = 9223372036854775807;
 class Defaults {
   static const GrpcPort = 2113;
   static const GossipPort = 2114;
+  static const bool UseTls = true;
+
   static const int MaxDiscoverAttempts = 10;
   static const String PublicKeyPath = 'ca.crt';
-  static const int BatchAppendSize = 3 * 1024 * 1024;
   static const Duration GossipTimeout = Duration(seconds: 5);
   static const Duration OperationTimeout = Duration(seconds: 30);
   static const Duration KeepAliveTimeout = Duration(seconds: 10);
   static const Duration KeepAliveInterval = Duration(seconds: 10);
   static const Duration DiscoveryInterval = Duration(milliseconds: 100);
-  static const $a.NodePreference NodePreferenceType = $a.NodePreference.leader;
+  static const $a.NodePreference NodePreference = $a.NodePreference.leader;
 
   static const Duration NoneDuration = Duration(milliseconds: -1);
   static const Duration InfiniteDuration = Duration(milliseconds: Infinite);
@@ -22,6 +23,18 @@ class Defaults {
   // From grpc-dart/options.dart file
   static const Duration GrpcIdleTimeout = Duration(minutes: 5);
   static const Duration GrpcConnectionTimeout = Duration(minutes: 50);
+
+  /// Supported from EventStoreDB v21.6 (as of Aug 2021, LTS is v20.10).
+  static const BatchAppend = false;
+
+  /// Supported from EventStoreDB v21.6 (as of Aug 2021, LTS is v20.10).
+  static const int BatchAppendSize = 3 * 1024 * 1024;
+}
+
+class ImageTags {
+  static const LTS = v20_10_4;
+  static const v21_6_0 = '21.6.0-buster-slim';
+  static const v20_10_4 = '20.10.4-buster-slim';
 }
 
 class Exceptions {

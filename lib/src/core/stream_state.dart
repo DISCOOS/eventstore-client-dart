@@ -7,6 +7,8 @@ import 'package:eventstore_client_dart/src/core/stream_revision.dart';
 import 'package:eventstore_client_dart/src/generated/shared.pb.dart';
 import 'package:eventstore_client_dart/src/generated/streams.pb.dart';
 import 'package:eventstore_client_dart/src/streams/system_streams.dart';
+import 'package:eventstore_client_dart/src/generated/google/empty.pb.dart'
+    as $g;
 import 'package:fixnum/fixnum.dart';
 
 class StreamState {
@@ -31,7 +33,7 @@ class StreamState {
   bool get isNoStream => type == StreamStateType.no_stream;
   bool get isStreamExists => type == StreamStateType.stream_exists;
 
-  StreamState fromSuccess(AppendResp resp) {
+  StreamState fromAppendSuccess(AppendResp resp) {
     if (resp.hasSuccess()) {
       return StreamState(
         name,
@@ -50,7 +52,7 @@ class StreamState {
     throw UnsupportedError('AppendResp $resp is unsupported');
   }
 
-  StreamState fromWrongExpectedVersion(AppendResp resp) {
+  StreamState fromAppendWrongExpectedVersion(AppendResp resp) {
     if (resp.hasWrongExpectedVersion()) {
       return StreamState(
         name,
@@ -187,6 +189,28 @@ class StreamState {
       }
     }
     return AppendReq()..options = options;
+  }
+
+  BatchAppendReq_Options toBatchAppendReqOptions() {
+    final options = BatchAppendReq_Options()
+      ..streamIdentifier = toStreamIdentifier(meta: false);
+
+    if (revision != null && revision != StreamRevision.none) {
+      options.streamPosition = revision!.value;
+    } else {
+      switch (type) {
+        case StreamStateType.any:
+          options.any = $g.Empty();
+          break;
+        case StreamStateType.no_stream:
+          options.noStream = $g.Empty();
+          break;
+        case StreamStateType.stream_exists:
+          options.streamExists = $g.Empty();
+          break;
+      }
+    }
+    return options;
   }
 
   TombstoneReq toTombstoneReq() {

@@ -7,7 +7,7 @@ void main() {
   const PageCount = 20;
 
   group('When reading from non-existing stream, streams client', () {
-    final harness = EventStoreDBClientHarness()
+    final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
       ..install();
@@ -37,7 +37,7 @@ void main() {
 
   group('When reading from existing stream, streams client', () {
     const ExistingCount = 25;
-    final harness = EventStoreDBClientHarness()
+    final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
       ..install();

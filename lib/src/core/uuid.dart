@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:eventstore_client_dart/src/generated/shared.pb.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:uuid/uuid.dart';

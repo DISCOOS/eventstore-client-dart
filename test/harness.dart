@@ -6,23 +6,15 @@ import 'package:eventstore_client_dart/src/core/enums.dart';
 import 'package:eventstore_client_dart/src/core/helpers.dart';
 import 'package:eventstore_client_dart/src/core/log_position.dart';
 import 'package:eventstore_client_dart/src/core/resolved_event.dart';
+import 'package:eventstore_client_dart/src/core/uuid.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
-import 'package:uuid/uuid.dart';
 
 import 'server/server_single_node.dart';
 
 typedef ClientCreator = EventStoreClient Function();
 
-class EventStoreDBClientHarness {
-  EventStoreDBClientHarness._();
-  factory EventStoreDBClientHarness() {
-    if (!exists) {
-      _singleton = EventStoreDBClientHarness._();
-    }
-    return _singleton!;
-  }
-
+class EventStoreClientHarness {
   static const int PORT_2113 = 2113;
   static const int PORT_2114 = 2114;
   static const String EVENT_TYPE_TEST = '-';
@@ -31,14 +23,10 @@ class EventStoreDBClientHarness {
     'changeit',
   );
 
-  static EventStoreDBClientHarness? _singleton;
-  static EventStoreDBClientHarness? get instance => _singleton;
-  static bool get exists => _singleton != null;
-
   Logger? _logger;
   bool _debug = false;
 
-  EventStoreDBClientHarness withLogger({
+  EventStoreClientHarness withLogger({
     Level level = Level.INFO,
     bool debug = false,
   }) {
@@ -82,7 +70,7 @@ class EventStoreDBClientHarness {
   final Map<String, ClientCreator> _creators = {};
   final Map<String, EventStoreClient> _clients = {};
 
-  EventStoreDBClientHarness withClient({
+  EventStoreClientHarness withClient({
     bool secure = false,
     String? connectionName,
     EventStoreClientSettings? settings,
@@ -95,17 +83,16 @@ class EventStoreDBClientHarness {
       name,
       () {
         return EventStoreClient(
-          settings ??
-              EventStoreClientSettings(
-                useTls: secure,
-                connectionName: name,
-                gossipSeeds: gossipSeeds,
-                nodePreference: nodePreference,
-                defaultCredentials: defaultCredentials,
-                singleNode: gossipSeeds.isEmpty ? EndPoint.loopbackIPv4 : null,
-                publicKeyPath:
-                    secure ? 'test/certs/ca/ca.crt' : Defaults.PublicKeyPath,
-              ),
+          (settings ?? EventStoreClientSettings.LTS).cloneWith(
+            useTls: secure,
+            connectionName: name,
+            gossipSeeds: gossipSeeds,
+            nodePreference: nodePreference,
+            defaultCredentials: defaultCredentials,
+            publicKeyPath:
+                secure ? 'test/certs/ca/ca.crt' : Defaults.PublicKeyPath,
+            singleNode: gossipSeeds.isEmpty ? EndPoint.loopbackIPv4 : null,
+          ),
         );
       },
     );
@@ -125,7 +112,8 @@ class EventStoreDBClientHarness {
     int grpcPort = PORT_2113,
     int gossipPort = PORT_2114,
     bool withTestData = false,
-    String imageTag = '20.10.4-buster-slim',
+    bool Function(String)? isReady,
+    String imageTag = ImageTags.LTS,
   }) {
     Timer? _timeout;
     final server = EventStoreServerSingleNode(
@@ -145,7 +133,7 @@ class EventStoreDBClientHarness {
       }
       _logger?.info('---setUpAll---');
 
-      await server.start();
+      await server.start(isReady: isReady);
 
       _creators.forEach((name, creator) {
         _open(name, creator);
@@ -216,9 +204,9 @@ class EventStoreDBClientHarness {
     String? type = EVENT_TYPE_TEST,
   }) =>
       EventData(
-        uuid: Uuid().v4(),
-        type: type ?? EVENT_TYPE_TEST,
         data: createTestData(index),
+        type: type ?? EVENT_TYPE_TEST,
+        uuid: UuidV4.newUuid().value.uuid,
         metadata: createTestMetaData(metadataSize),
       );
 
@@ -229,7 +217,7 @@ class EventStoreDBClientHarness {
 }
 
 void expectEvents(
-  EventStoreDBClientHarness harness,
+  EventStoreClientHarness harness,
   Iterable<ResolvedEvent> actual,
   Iterable<EventData> all, {
   int? count,
@@ -283,7 +271,7 @@ void expectEvents(
 }
 
 void expectStreamEvents(
-  EventStoreDBClientHarness harness,
+  EventStoreClientHarness harness,
   StreamState state,
   Iterable<ResolvedEvent> actual,
   Iterable<EventData> events, {
@@ -314,7 +302,7 @@ void expectStreamEvents(
 }
 
 Future<void> testClientAppendsEvents(
-  EventStoreDBClientHarness harness,
+  EventStoreClientHarness harness,
   StreamState state,
   Iterable<EventData> append, {
   Iterable<EventData> exists = const [],
@@ -362,7 +350,7 @@ Future<void> testClientAppendsEvents(
 }
 
 Future<StreamRevision> testRecreatesSoftDeletedStreamWithGivenState(
-  EventStoreDBClientHarness harness,
+  EventStoreClientHarness harness,
   EventStoreStreamsClient client,
   StreamState actual,
   StreamState expected,
