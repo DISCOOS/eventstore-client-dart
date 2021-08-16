@@ -39,8 +39,11 @@ abstract class EventStoreClientBase {
   /// [channel] is lazily fetched or created on next get
   late ClientChannel _channel;
 
-  /// [channel] is lazily fetched or created on next get from this list
+  /// List of lazily created [ClientChannel]
   final Map<EndPoint, ClientChannel> _channels = {};
+
+  /// List of lazily created [HttpClientCredentials]
+  final Map<EndPoint, ChannelCredentials> _credentials = {};
 
   /// Connection name supplied as metadata to server
   final EventStoreClientSettings settings;
@@ -79,6 +82,7 @@ abstract class EventStoreClientBase {
       ..._channels.values.map((e) => e.shutdown()),
     ]);
     _channels.clear();
+    _credentials.clear();
   }
 
   @visibleForOverriding
@@ -101,6 +105,20 @@ abstract class EventStoreClientBase {
   }
 
   @visibleForOverriding
+  ChannelCredentials $getOrAddCredentials(EndPoint endPoint) {
+    return _credentials.putIfAbsent(
+      endPoint,
+      () => settings.useTls
+          ? ChannelCredentials.secure(
+              certificates: $readHostCertificate(),
+              onBadCertificate: (_, __) {
+                return true;
+              })
+          : ChannelCredentials.insecure(),
+    );
+  }
+
+  @visibleForOverriding
   ClientChannel $getOrAddChannel(EndPoint endPoint) {
     return _channels.putIfAbsent(
       endPoint,
@@ -108,14 +126,7 @@ abstract class EventStoreClientBase {
         endPoint.address,
         port: endPoint.port,
         options: ChannelOptions(
-          credentials: settings.useTls
-              ? ChannelCredentials.secure(
-                  certificates: $readHostCertificate(),
-                  onBadCertificate: (_, __) {
-                    return true;
-                  },
-                )
-              : ChannelCredentials.insecure(),
+          credentials: $getOrAddCredentials(endPoint),
           // Workaround for grpc.keepalive_time_ms:
           // > After a duration of this time the client/server pings its peer
           // > to see if the transport is still alive.
