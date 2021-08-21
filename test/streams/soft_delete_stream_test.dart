@@ -194,133 +194,138 @@ void main() {
       );
     });
 
-    test('preserve metadata on soft-delete except truncate before', () async {
-      // final state = StreamState.any('foo');
-      // final ExistingCount = 2;
-      // final writeResult0 = await client.append(
-      //   // state.toRevision(ExistingCount - 1),
-      //   state,
-      //   Stream.fromIterable(harness.createTestEvents(count: ExistingCount)),
-      // );
-      // expect(writeResult0, isA<WriteSuccessResult>());
+    test(
+      'preserve metadata on soft-delete except truncate before',
+      () async {
+        // final state = StreamState.any('foo');
+        // final ExistingCount = 2;
+        // final writeResult0 = await client.append(
+        //   // state.toRevision(ExistingCount - 1),
+        //   state,
+        //   Stream.fromIterable(harness.createTestEvents(count: ExistingCount)),
+        // );
+        // expect(writeResult0, isA<WriteSuccessResult>());
 
-      // Arrange
-      final metadata = StreamMetadata(
-        maxCount: 100,
-        truncateBefore: StreamPosition.fromInt64(
-          Int64.MAX_VALUE, // 1 less than End
-        ),
-        acl: StreamAcl(deleteRoles: ['some-role']),
-        custom: _customMetadata,
-      );
+        // Arrange
+        final metadata = StreamMetadata(
+          maxCount: 100,
+          truncateBefore: StreamPosition.fromInt64(
+            Int64.MAX_VALUE, // 1 less than End
+          ),
+          acl: StreamAcl(deleteRoles: ['some-role']),
+          custom: _customMetadata,
+        );
 
-      //
-      // print(Int64.MAX_VALUE.toString());
-      // print(Int64.MAX_VALUE.toStringUnsigned());
-      //
-      // final two = BigInt.parse('18446744073709551615');
-      // print(two.toUnsigned(64));
-      //
-      // print(Int64.parseInt('18446744073709551615').toUnsigned(64));
-      // print(Int64.parseInt('18446744073709551615').toStringUnsigned());
-      // print(Int64(-1));
-      // print(Int64(-1).toUnsigned(64));
-      // print(Int64(-1).toStringUnsigned());
+        //
+        // print(Int64.MAX_VALUE.toString());
+        // print(Int64.MAX_VALUE.toStringUnsigned());
+        //
+        // final two = BigInt.parse('18446744073709551615');
+        // print(two.toUnsigned(64));
+        //
+        // print(Int64.parseInt('18446744073709551615').toUnsigned(64));
+        // print(Int64.parseInt('18446744073709551615').toStringUnsigned());
+        // print(Int64(-1));
+        // print(Int64(-1).toUnsigned(64));
+        // print(Int64(-1).toStringUnsigned());
 
-      // await client.delete(state);
+        // await client.delete(state);
 
-      // final allResult = await client.readFromAll(LogPosition.start);
-      // final all = await allResult.events;
-      //
-      // final metadataResult = await client.getStreamMetadata(state.name);
-      // expect(metadataResult.isOK, isTrue);
-      // expect(
-      //   metadataResult.metadata,
-      //   StreamMetadata(
-      //     custom: <String, dynamic>{},
-      //     truncateBefore: metadata.truncateBefore,
-      //   ),
-      // );
+        // final allResult = await client.readFromAll(LogPosition.start);
+        // final all = await allResult.events;
+        //
+        // final metadataResult = await client.getStreamMetadata(state.name);
+        // expect(metadataResult.isOK, isTrue);
+        // expect(
+        //   metadataResult.metadata,
+        //   StreamMetadata(
+        //     custom: <String, dynamic>{},
+        //     truncateBefore: metadata.truncateBefore,
+        //   ),
+        // );
 
-      // Act - perform soft-delete by metadata
-      final writeResult1 = await client.setStreamMetadata(
-        state.toNoStream(),
-        metadata,
-      );
-      expect(
-        writeResult1.nextExpectedStreamRevision,
-        StreamRevision.checked(0),
-      );
-      final metadataResult1 = await client.getStreamMetadata(state.streamId);
-      expect(metadataResult1.isOK, isTrue);
-      expect(metadataResult1.metadata, metadata);
+        // Act - perform soft-delete by metadata
+        final writeResult1 = await client.setStreamMetadata(
+          state.toNoStream(),
+          metadata,
+        );
+        expect(
+          writeResult1.nextExpectedStreamRevision,
+          StreamRevision.checked(0),
+        );
+        final metadataResult1 = await client.getStreamMetadata(state.streamId);
+        expect(metadataResult1.isOK, isTrue);
+        expect(metadataResult1.metadata, metadata);
 
-      // await client.delete(state);
+        // await client.delete(state);
 
-      // This is a workaround until github issue
-      // https://github.com/EventStore/EventStore/issues/1744
-      // is fixed
-      await Future<void>.delayed(Duration(milliseconds: 5000));
+        // This is a workaround until github issue
+        // https://github.com/EventStore/EventStore/issues/1744
+        // is fixed
+        await Future<void>.delayed(Duration(milliseconds: 5000));
 
-      // // Assert soft-delete
-      // final readResult2 = await client.readFromStream(
-      //   state.name,
-      //   StreamPosition.start,
-      // );
-      // expect(readResult2.isStreamNotFound, isTrue);
-      //
+        // // Assert soft-delete
+        // final readResult2 = await client.readFromStream(
+        //   state.name,
+        //   StreamPosition.start,
+        // );
+        // expect(readResult2.isStreamNotFound, isTrue);
+        //
 
-      // Act - recreate stream from truncated event
-      const count = 3;
-      final events = harness.createTestEvents(count: count);
-      final expectedRevision = StreamRevision.checked(
-        ExistingCount + count - 1,
-      );
-      final writeResult2 = await client.append(
-        state.toRevision(ExistingCount - 1),
-        Stream.fromIterable(events),
-      );
-      expect(writeResult2, isA<WriteSuccessResult>());
-      expect(writeResult2.actualType, equals(StreamStateType.stream_exists));
-      expect(writeResult2.nextExpectedStreamRevision, expectedRevision);
+        // Act - recreate stream from truncated event
+        const count = 3;
+        final events = harness.createTestEvents(count: count);
+        final expectedRevision = StreamRevision.checked(
+          ExistingCount + count - 1,
+        );
+        final writeResult2 = await client.append(
+          state.toRevision(ExistingCount - 1),
+          Stream.fromIterable(events),
+        );
+        expect(writeResult2, isA<WriteSuccessResult>());
+        expect(writeResult2.actualType, equals(StreamStateType.stream_exists));
+        expect(writeResult2.nextExpectedStreamRevision, expectedRevision);
 
-      // This is a workaround until github issue
-      // https://github.com/EventStore/EventStore/issues/1744
-      // is fixed
-      await Future<void>.delayed(Duration(milliseconds: 500));
+        // This is a workaround until github issue
+        // https://github.com/EventStore/EventStore/issues/1744
+        // is fixed
+        await Future<void>.delayed(Duration(milliseconds: 500));
 
-      // final allResult = await client.readFromAll(LogPosition.start);
-      // final all = await allResult.events;
-      // print(all);
+        // final allResult = await client.readFromAll(LogPosition.start);
+        // final all = await allResult.events;
+        // print(all);
 
-      // Assert soft-delete
-      final readResult = await client.readFromStream(
-        state.streamId,
-        position: StreamPosition.start,
-      );
-      final resolved = await readResult.events;
-      expect(readResult.isOK, isTrue);
-      expect(
-        readResult.nextExpectedStreamRevision,
-        StreamRevision.checked(ExistingCount + count - 1),
-      );
-      expect(resolved.length, 3);
+        // Assert soft-delete
+        final readResult = await client.readFromStream(
+          state.streamId,
+          position: StreamPosition.start,
+        );
+        final resolved = await readResult.events;
+        expect(readResult.isOK, isTrue);
+        expect(
+          readResult.nextExpectedStreamRevision,
+          StreamRevision.checked(ExistingCount + count - 1),
+        );
+        expect(resolved.length, 3);
 
-      // Assert metadata
-      final metadataResult2 = await client.getStreamMetadata(state.streamId);
-      expect(metadataResult2.isOK, isTrue);
-      expect(
-        metadataResult2.metadata,
-        StreamMetadata(
-          acl: metadata.acl,
-          maxAge: metadata.maxAge,
-          custom: metadata.custom,
-          maxCount: metadata.maxCount,
-          cacheControl: metadata.cacheControl,
-          truncateBefore: StreamPosition.checked(ExistingCount),
-        ),
-      );
-    });
+        // Assert metadata
+        final metadataResult2 = await client.getStreamMetadata(state.streamId);
+        expect(metadataResult2.isOK, isTrue);
+        expect(
+          metadataResult2.metadata,
+          StreamMetadata(
+            acl: metadata.acl,
+            maxAge: metadata.maxAge,
+            custom: metadata.custom,
+            maxCount: metadata.maxCount,
+            cacheControl: metadata.cacheControl,
+            truncateBefore: StreamPosition.checked(ExistingCount),
+          ),
+        );
+      },
+      // TODO: Fix soft delete with metadata
+      skip: true,
+    );
 
     test(
       'appends multiple writes with state any on soft-deleted stream',

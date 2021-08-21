@@ -13,3 +13,5 @@ pubspec.lock
 
 # Project spesific resources
 certs/.failed_tracker
+.failed_tracker
+test/certs
