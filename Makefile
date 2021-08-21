@@ -47,6 +47,7 @@ endif
 configure:
 	dart pub global activate pub_release
 	dart pub global activate critical_test
+	pub global activate dcli
 
 certs:
 	sh tool/gencert.sh . --secure
