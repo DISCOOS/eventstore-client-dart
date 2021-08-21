@@ -1,13 +1,11 @@
 name: eventstore_client_dart
 version: 0.0.1
-description: A client library for EventStoreDB 20.x and above
 homepage: https://github.com/DISCOOS/eventstore-client-dart
+description: A client library for EventStoreDB 20.x and above
 repository: https://github.com/DISCOOS/eventstore-client-dart
-
-environment:
+environment: 
   sdk: '>=2.13.0 <3.0.0'
-
-dependencies:
+dependencies: 
   uuid: ^3.0.4
   meta: ^1.7.0
   path: ^1.8.0
@@ -19,14 +17,7 @@ dependencies:
   protobuf: ^2.0.0
   collection: ^1.15.0
   universal_io: ^2.0.4
-
-#dependency_overrides:
-#  grpc:
-#    git:
-#      url: git@github.com:DISCOOS/grpc-dart.git
-#      ref: master
-
-dev_dependencies:
+dev_dependencies: 
   pedantic: ^1.10.0
   test: ^1.16.0
   mockito: ^5.0.14
