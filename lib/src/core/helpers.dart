@@ -26,7 +26,7 @@ extension DurationX on Duration {
   bool get isNone => this == Defaults.NoneDuration;
 
   /// See [Defaults.InfiniteDuration]
-  bool get isInfinite => inMilliseconds == Infinite;
+  bool get isInfinite => inMilliseconds == Max;
 }
 
 extension ListX<T> on List<T> {

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:eventstore_client_dart/eventstore_client_dart.dart'
     hide NodePreference;
-import 'package:eventstore_client_dart/src/core/enums.dart' as $e;
+import 'package:eventstore_client_dart/src/cluster/enums.dart' as $e;
 import 'package:eventstore_client_dart/src/core/endpoint.dart';
 import 'package:eventstore_client_dart/src/core/helpers.dart';
 import 'package:eventstore_client_dart/src/core/uuid.dart';

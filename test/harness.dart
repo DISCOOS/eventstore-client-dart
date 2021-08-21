@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/enums.dart';
+import 'package:eventstore_client_dart/src/cluster/enums.dart';
 import 'package:eventstore_client_dart/src/core/helpers.dart';
 import 'package:eventstore_client_dart/src/core/log_position.dart';
 import 'package:eventstore_client_dart/src/core/resolved_event.dart';
@@ -10,7 +10,7 @@ import 'package:eventstore_client_dart/src/core/uuid.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 
-import 'server/server_single_node.dart';
+import 'fixtures/server_single_node.dart';
 
 typedef ClientCreator = EventStoreClient Function();
 
@@ -38,7 +38,7 @@ class EventStoreClientHarness {
 
   Stream<LogRecord>? get onRecord => Logger.root.onRecord;
 
-  String streamName({
+  String streamId({
     String? suffix,
     String? connectionName,
   }) =>
@@ -53,9 +53,9 @@ class EventStoreClientHarness {
     StreamRevision? revision,
   }) {
     return StreamState(
-      streamName(
+      streamId(
         suffix: '${enumName(type)}'
-            '_${suffix ?? DateTime.now().millisecondsSinceEpoch}',
+            '_${suffix ?? DateTime.now().microsecondsSinceEpoch}',
         connectionName: connectionName,
       ),
       type,
@@ -109,11 +109,14 @@ class EventStoreClientHarness {
 
   void install({
     bool secure = false,
+    bool restart = false,
     int grpcPort = PORT_2113,
     int gossipPort = PORT_2114,
     bool withTestData = false,
+    bool enableGossip = false,
     bool Function(String)? isReady,
     String imageTag = ImageTags.LTS,
+    Duration? timeoutAfter = const Duration(seconds: 5),
   }) {
     Timer? _timeout;
     final server = EventStoreServerSingleNode(
@@ -133,7 +136,12 @@ class EventStoreClientHarness {
       }
       _logger?.info('---setUpAll---');
 
-      await server.start(isReady: isReady);
+      if (!restart) {
+        await server.start(
+          isReady: isReady,
+          enableGossip: enableGossip,
+        );
+      }
 
       _creators.forEach((name, creator) {
         _open(name, creator);
@@ -143,26 +151,39 @@ class EventStoreClientHarness {
     });
 
     setUp(() async {
-      _timeout = Timer(
-        const Duration(seconds: 5),
-        () => throw Exception('Test timeout'),
-      );
+      if (restart) {
+        await server.start(
+          isReady: isReady,
+          enableGossip: enableGossip,
+        );
+      }
+      if (timeoutAfter != null) {
+        _timeout = Timer(
+          timeoutAfter,
+          () => throw Exception('Test timeout'),
+        );
+      }
     });
 
-    tearDown(() {
+    tearDown(() async {
       _timeout?.cancel();
+      if (restart) {
+        await server.stop();
+      }
     });
 
     tearDownAll(() async {
       _timeout?.cancel();
       _logger?.info('---tearDownAll---');
       try {
+        if (!restart) {
+          await server.stop();
+        }
         await Future.wait([
           ..._clients.values.map(
             (e) => e.shutdown(),
           )
         ]);
-        await server.stop();
         return await _printer?.cancel();
       } finally {
         _clients.clear();
@@ -295,7 +316,7 @@ void expectStreamEvents(
     actual.map((e) => e.originalEvent.eventStreamId),
     equals(List.generate(
       events.skip(offset).take(count).length,
-      (index) => state.name,
+      (index) => state.streamId,
     )),
     reason: 'Event stream id should match',
   );
@@ -329,11 +350,11 @@ Future<void> testClientAppendsEvents(
 
   // Assert stream contains events
   final readResult = await client.readFromStream(
-    state.name,
-    StreamPosition.checked(offset),
+    state.streamId,
+    position: StreamPosition.checked(offset),
   );
   expect(readResult.isOK, isTrue);
-  expect(readResult.streamName, state.name);
+  expect(readResult.streamId, state.streamId);
   final actual = await readResult.stream.toList();
   expectStreamEvents(
     harness,
@@ -380,8 +401,8 @@ Future<StreamRevision> testRecreatesSoftDeletedStreamWithGivenState(
 
   // Assert Read Operation
   final readResult = await client.readFromStream(
-    expected.name,
-    StreamPosition.start,
+    expected.streamId,
+    position: StreamPosition.start,
   );
   final resolved = await readResult.events;
   expect(readResult.isOK, isTrue);
@@ -405,7 +426,7 @@ Future<StreamRevision> testRecreatesSoftDeletedStreamWithGivenState(
   await Future<void>.delayed(Duration(milliseconds: 500));
 
   // Assert Metadata Operation
-  final metadataResult = await client.getStreamMetadata(expected.name);
+  final metadataResult = await client.getStreamMetadata(expected.streamId);
   expect(metadataResult.isOK, isTrue);
   expect(
     metadataResult.metadata!.truncateBefore,
@@ -413,3 +434,61 @@ Future<StreamRevision> testRecreatesSoftDeletedStreamWithGivenState(
   );
   return expectedRevision;
 }
+
+Future<Iterable<ResolvedEvent>> waitFor(
+  Stream<ResolvedEvent> broadcast, {
+  int? expectedCount,
+  Duration? timeoutAfter = const Duration(milliseconds: 100),
+}) async {
+  final list = expectedCount == null
+      ? broadcast.toList()
+      : broadcast.take(expectedCount).toList();
+  return timeoutAfter == null
+      ? list
+      : list.timeout(
+          timeoutAfter,
+          onTimeout: () => const [],
+        );
+}
+
+Iterable<ResolvedEvent> withoutSystemEvents(Iterable<ResolvedEvent> appeared) {
+  return appeared.where(
+    (e) => !SystemStreams.isSystemStream(
+      e.originalStreamId,
+    ),
+  );
+}
+
+Future<Iterable<EventData>> seed(
+  EventStoreClientHarness harness,
+  EventStoreStreamsClient client,
+  StreamState state,
+  int count, {
+  String eventType = EventStoreClientHarness.EVENT_TYPE_TEST,
+}) async {
+  final exists = harness.createTestEvents(
+    count: count,
+    type: eventType,
+  );
+  final result = await client.append(
+    state,
+    Stream.fromIterable(exists),
+  );
+  expect(result, isA<WriteSuccessResult>());
+  expect(result.actualType, equals(StreamStateType.stream_exists));
+  return exists;
+}
+
+String toResolvedEventString(ResolvedEvent e) => {
+      'type': e.originalEventType,
+      'data': utf8.decode(
+        e.originalEvent.data,
+      )
+    }.toString();
+
+String toEventDataString(EventData e) => {
+      'type': e.type,
+      'data': utf8.decode(
+        e.data,
+      )
+    }.toString();

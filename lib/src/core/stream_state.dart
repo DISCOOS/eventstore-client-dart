@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/enums.dart';
 import 'package:eventstore_client_dart/src/core/log_position.dart';
 import 'package:eventstore_client_dart/src/core/stream_revision.dart';
 import 'package:eventstore_client_dart/src/generated/shared.pb.dart';
@@ -13,30 +12,44 @@ import 'package:fixnum/fixnum.dart';
 
 class StreamState {
   const StreamState(
-    this.name,
+    this.streamId,
     this.type, [
     this.position,
     this.revision,
   ]);
 
-  final String name;
+  final String streamId;
   final StreamStateType type;
   final LogPosition? position;
   final StreamRevision? revision;
 
+  /// Check if [revision] exists and is not [StreamRevision.none]
+  bool get hasRevision => revision != null && revision != StreamRevision.none;
+
+  /// Get [StreamPosition] with optional offset from [revision].
+  /// If revision is [StreamRevision.none], position returned is
+  /// [StreamPosition.end]
   StreamPosition getStreamPosition([int? offset]) => StreamPosition.checked(
         (offset ?? 0) + (revision ?? StreamRevision.empty).value.toInt(),
       );
 
-  bool get isAll => name == '\$all';
+  /// Check if stream [streamId] is [SystemStreams.AllStream]
+  bool get isAll => streamId == SystemStreams.AllStream;
+
+  /// Check if StreamState [type] is [StreamStateType.any]
   bool get isAny => type == StreamStateType.any;
+
+  /// Check if StreamState [type] is [StreamStateType.no_stream]
   bool get isNoStream => type == StreamStateType.no_stream;
+
+  /// Check if StreamState [type] is [StreamStateType.stream_exists]
   bool get isStreamExists => type == StreamStateType.stream_exists;
 
+  /// Construct [StreamState] from [AppendResp]
   StreamState fromAppendSuccess(AppendResp resp) {
     if (resp.hasSuccess()) {
       return StreamState(
-        name,
+        streamId,
         resp.success.hasNoStream()
             ? StreamStateType.no_stream
             : StreamStateType.stream_exists,
@@ -52,10 +65,11 @@ class StreamState {
     throw UnsupportedError('AppendResp $resp is unsupported');
   }
 
+  /// Construct [StreamState] from [AppendResp]
   StreamState fromAppendWrongExpectedVersion(AppendResp resp) {
     if (resp.hasWrongExpectedVersion()) {
       return StreamState(
-        name,
+        streamId,
         resp.wrongExpectedVersion.hasCurrentNoStream()
             ? StreamStateType.no_stream
             : StreamStateType.stream_exists,
@@ -156,8 +170,8 @@ class StreamState {
 
   StreamIdentifier toStreamIdentifier({bool meta = false}) {
     return (StreamIdentifier()
-      ..streamName = utf8.encode(
-        meta ? SystemStreams.metaStreamOf(name) : name,
+      ..streamId = utf8.encode(
+        meta ? SystemStreams.metaStreamOf(streamId) : streamId,
       ));
   }
 
@@ -262,23 +276,23 @@ class StreamState {
       identical(this, other) ||
       other is StreamState &&
           runtimeType == other.runtimeType &&
-          name == other.name &&
+          streamId == other.streamId &&
           type == other.type &&
           position == other.position &&
           revision == other.revision;
 
   @override
   int get hashCode =>
-      name.hashCode ^ type.hashCode ^ position.hashCode ^ revision.hashCode;
+      streamId.hashCode ^ type.hashCode ^ position.hashCode ^ revision.hashCode;
 
   @override
   String toString() {
-    return 'StreamState{name: $name, type: $type, position: $position, revision: $revision}';
+    return 'StreamState{name: $streamId, type: $type, position: $position, revision: $revision}';
   }
 
-  StreamState toAny() => StreamState.any(name);
-  StreamState toExists() => StreamState.exists(name);
-  StreamState toNoStream() => StreamState.noStream(name);
-  StreamState toRevision(int revision) => StreamState(name,
+  StreamState toAny() => StreamState.any(streamId);
+  StreamState toExists() => StreamState.exists(streamId);
+  StreamState toNoStream() => StreamState.noStream(streamId);
+  StreamState toRevision(int revision) => StreamState(streamId,
       StreamStateType.stream_exists, null, StreamRevision.checked(revision));
 }

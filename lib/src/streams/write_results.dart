@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:eventstore_client_dart/src/generated/status.pb.dart';
 import 'package:meta/meta.dart';
 
-import 'package:eventstore_client_dart/src/core/enums.dart';
 import 'package:eventstore_client_dart/src/core/log_position.dart';
 import 'package:eventstore_client_dart/src/generated/streams.pb.dart';
 import 'package:eventstore_client_dart/eventstore_client_dart.dart';
@@ -16,7 +15,7 @@ abstract class WriteResult {
   final StreamState actualState;
 
   /// The name of the stream.
-  String get streamName => actualState.name;
+  String get streamId => actualState.streamId;
 
   /// The [StreamStateType] after the operation.
   StreamStateType get actualType => actualState.type;
@@ -143,7 +142,7 @@ abstract class BatchWriteResult extends WriteResult {
 
   void _add(BatchAppendResp_Success success) {
     _streamState = StreamState.exists(
-      super.actualState.name,
+      super.actualState.streamId,
       position: LogPosition.checked(
         success.position.commitPosition,
         success.position.preparePosition,

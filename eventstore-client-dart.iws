@@ -5,8 +5,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1bfe063-9b1e-49e6-a23c-233f3c768db4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.eventstore_client_dart.dir/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.eventstore_client_dart.dir/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.eventstore_client_dart.dir/.idea/indexLayout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.eventstore_client_dart.dir/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/system_events.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/streams/enums.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/streams/event_type_filter.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/streams/read_enumerator.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/streams/read_filter.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/streams/stream_filter.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/streams/subscription.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/streams/subscription_checkpoint.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/streams/subscription_filter_options.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/core/mixin_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fixtures/read_enumerator_mock.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/streams/read_enumerator_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/streams/subscribe_to_all_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/streams/subscribe_to_stream_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eventstore-client-dart.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/eventstore-client-dart.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eventstore-client-dart.iws" beforeDir="false" afterPath="$PROJECT_DIR$/eventstore-client-dart.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/single_node/read_all_events_example.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/single_node/read_all_events_example.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/eventstore_client_dart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/eventstore_client_dart.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/call_options.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/call_options.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/core/client_base.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/client_base.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/constants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/enums.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/cluster/enums.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/event_record.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/event_record.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/exceptions/stream_deleted_exception.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/exceptions/stream_deleted_exception.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/exceptions/stream_not_found_exception.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/exceptions/stream_not_found_exception.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/exceptions/wrong_expected_version_exception.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/exceptions/wrong_expected_version_exception.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/helpers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/helpers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/log_position.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/log_position.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/resolved_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/resolved_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/settings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/settings.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/stream_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/stream_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/generated/shared.pb.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/generated/shared.pb.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/generated/shared.pbjson.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/generated/shared.pbjson.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/gossip/endpoint_discoverer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/gossip/endpoint_discoverer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/streams/delete_results.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/streams/delete_results.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/streams/read_results.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/streams/read_results.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/streams/stream_metadata_result.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/streams/stream_metadata_result.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/streams/streams_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/streams/streams_client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/streams/write_results.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/streams/write_results.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/gossip/gossip_client_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/gossip/gossip_client_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/harness.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/harness.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/security/security_fixture.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/security/security_fixture.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/server/eventstore_server.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/fixtures/eventstore_server.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/server/server_single_node.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/fixtures/server_single_node.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/streams/append_to_stream_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/streams/append_to_stream_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/streams/hard_delete_stream_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/streams/hard_delete_stream_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/streams/read_from_all_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/streams/read_from_all_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/streams/read_from_stream_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/streams/read_from_stream_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/streams/soft_delete_stream_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/streams/soft_delete_stream_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,8 +103,8 @@
     <setting file="file://$PROJECT_DIR$/lib/src/streams/stream_metadata_result.dart" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/src/streams/streams_client.dart" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/src/core/exceptions/exceptions.dart" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/test/server/server_single_node.dart" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/test/server/eventstore_server.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/test/fixtures/server_single_node.dart" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/test/fixtures/eventstore_server.dart" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/test/streams/append_to_stream_test.dart" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/test/harness.dart" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/src/core/client_base.dart" root0="FORCE_HIGHLIGHTING" />
@@ -86,7 +139,7 @@
     <property name="go.formatter.settings.were.checked" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.modules.go.list.on.any.changes.was.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/test/security" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test/streams" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -99,21 +152,21 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test/streams" />
       <recent name="$PROJECT_DIR$/test/security" />
       <recent name="$PROJECT_DIR$/test/core" />
       <recent name="$PROJECT_DIR$/lib/src/core/exceptions" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/test/streams" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/src/cluster" />
+      <recent name="$PROJECT_DIR$/test/core" />
       <recent name="$PROJECT_DIR$/lib/src/security" />
       <recent name="$PROJECT_DIR$/test" />
-      <recent name="$PROJECT_DIR$/lib/src/cluster" />
       <recent name="$PROJECT_DIR$/example/single_node" />
-      <recent name="$PROJECT_DIR$/protos/google" />
     </key>
   </component>
-  <component name="RunManager" selected="Dart Test.Tests in gossip_client_test.dart">
+  <component name="RunManager" selected="Dart Test.Tests in subscribe_to_stream_test.dart">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -127,53 +180,54 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests in append_to_stream_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/test/streams/append_to_stream_test.dart" />
-      <option name="testName" value="append_to_stream_test.dart" />
-      <method v="2" />
-    </configuration>
     <configuration name="Tests in gossip_based_discovery_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/test/gossip/gossip_based_discovery_test.dart" />
       <option name="testName" value="gossip_based_discovery_test.dart" />
       <method v="2" />
     </configuration>
-    <configuration name="Tests in gossip_client_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/test/gossip/gossip_client_test.dart" />
-      <option name="testName" value="gossip_client_test.dart" />
+    <configuration name="Tests in subscribe_to_all_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/streams/subscribe_to_all_test.dart" />
+      <option name="testName" value="subscribe_to_all_test.dart" />
       <method v="2" />
     </configuration>
-    <configuration name="Tests in settings_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/test/core/settings_test.dart" />
-      <option name="testName" value="settings_test.dart" />
+    <configuration name="Tests in subscribe_to_stream_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/streams/subscribe_to_stream_test.dart" />
+      <option name="testName" value="subscribe_to_stream_test.dart" />
       <method v="2" />
     </configuration>
-    <configuration name="appends using batch in append_to_stream_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/test/streams/append_to_stream_test.dart" />
+    <configuration name="subscribe to non-existing stream then get events in subscribe_to_stream_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/streams/subscribe_to_stream_test.dart" />
       <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
-      <option name="testName" value="appends using batch" />
+      <option name="testName" value="subscribe to non-existing stream then get events" />
       <method v="2" />
     </configuration>
-    <configuration name="handles repeated idempotent writes in append_to_stream_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/test/streams/append_to_stream_test.dart" />
+    <configuration name="subscribe with callbacks in subscribe_to_all_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/streams/subscribe_to_all_test.dart" />
       <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
-      <option name="testName" value="handles repeated idempotent writes" />
+      <option name="testName" value="subscribe with callbacks" />
+      <method v="2" />
+    </configuration>
+    <configuration name="subscribe with callbacks in subscribe_to_stream_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/streams/subscribe_to_stream_test.dart" />
+      <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
+      <option name="testName" value="subscribe with callbacks" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Dart Test.Tests in gossip_based_discovery_test.dart" />
-      <item itemvalue="Dart Test.Tests in append_to_stream_test.dart" />
-      <item itemvalue="Dart Test.appends using batch in append_to_stream_test.dart" />
-      <item itemvalue="Dart Test.handles repeated idempotent writes in append_to_stream_test.dart" />
-      <item itemvalue="Dart Test.Tests in settings_test.dart" />
-      <item itemvalue="Dart Test.Tests in gossip_client_test.dart" />
+      <item itemvalue="Dart Test.Tests in subscribe_to_all_test.dart" />
+      <item itemvalue="Dart Test.Tests in subscribe_to_stream_test.dart" />
+      <item itemvalue="Dart Test.subscribe to non-existing stream then get events in subscribe_to_stream_test.dart" />
+      <item itemvalue="Dart Test.subscribe with callbacks in subscribe_to_all_test.dart" />
+      <item itemvalue="Dart Test.subscribe with callbacks in subscribe_to_stream_test.dart" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Dart Test.Tests in gossip_client_test.dart" />
-        <item itemvalue="Dart Test.Tests in settings_test.dart" />
-        <item itemvalue="Dart Test.Tests in append_to_stream_test.dart" />
-        <item itemvalue="Dart Test.appends using batch in append_to_stream_test.dart" />
-        <item itemvalue="Dart Test.handles repeated idempotent writes in append_to_stream_test.dart" />
+        <item itemvalue="Dart Test.Tests in subscribe_to_stream_test.dart" />
+        <item itemvalue="Dart Test.subscribe with callbacks in subscribe_to_stream_test.dart" />
+        <item itemvalue="Dart Test.subscribe with callbacks in subscribe_to_all_test.dart" />
+        <item itemvalue="Dart Test.Tests in subscribe_to_all_test.dart" />
+        <item itemvalue="Dart Test.subscribe to non-existing stream then get events in subscribe_to_stream_test.dart" />
       </list>
     </recent_temporary>
   </component>
@@ -196,7 +250,8 @@
       <workItem from="1628278813746" duration="3087000" />
       <workItem from="1628495988799" duration="38245000" />
       <workItem from="1628793984887" duration="76816000" />
-      <workItem from="1629131227430" duration="12430000" />
+      <workItem from="1629131227430" duration="20709000" />
+      <workItem from="1629194428233" duration="98379000" />
     </task>
     <task id="LOCAL-00001" summary="Generated dart code from protos">
       <created>1623190618615</created>
@@ -282,7 +337,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629140683968</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Exposed channel credentials">
+      <created>1629143750388</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1629143750390</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -312,17 +374,11 @@
     <MESSAGE value="Added gossip tests" />
     <MESSAGE value="Add test of gossip client being used by EventStoreClient" />
     <MESSAGE value="Added BatchAppend available from v21.6.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added BatchAppend available from v21.6.0" />
+    <MESSAGE value="Exposed channel credentials" />
+    <option name="LAST_COMMIT_MESSAGE" value="Exposed channel credentials" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/src/gossip/gossip_client.dart</url>
-          <line>25</line>
-          <option name="timeStamp" value="141" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="dart-exception" />
         <breakpoint type="DlvErrorBreakpoint" />
@@ -330,10 +386,7 @@
     </breakpoint-manager>
     <watches-manager>
       <configuration name="DartTestRunConfigurationType">
-        <watch expression="Uuid.unparse(lsb.toBytes() + msb.toBytes())" language="Dart" />
-        <watch expression="msb.toBytes()" language="Dart" />
-        <watch expression="lsb.toBytes()" language="Dart" />
-        <watch expression="Uuid.unparse(msb.toBytes() + lsb.toBytes())" language="Dart" />
+        <watch expression="'${state.streamId.substring(0, state.streamId.length - 1)}.*'" language="Dart" />
       </configuration>
     </watches-manager>
   </component>

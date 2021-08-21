@@ -1,14 +1,19 @@
 import 'package:eventstore_client_dart/eventstore_client_dart.dart' as $a;
 
-// Use the largest 64-bit signed integer as infinite value
-const Infinite = 9223372036854775807;
+/// Constant value for [LogPosition.end]
+const End = -1;
+
+/// Use the largest 64-bit signed integer as maximum value
+const Max = 9223372036854775807;
 
 class Defaults {
   static const GrpcPort = 2113;
   static const GossipPort = 2114;
   static const bool UseTls = true;
 
+  static const int MaxSearchWindow = 32;
   static const int MaxDiscoverAttempts = 10;
+  static const int CheckpointInterval = 1000;
   static const String PublicKeyPath = 'ca.crt';
   static const Duration GossipTimeout = Duration(seconds: 5);
   static const Duration OperationTimeout = Duration(seconds: 30);
@@ -18,7 +23,7 @@ class Defaults {
   static const $a.NodePreference NodePreference = $a.NodePreference.leader;
 
   static const Duration NoneDuration = Duration(milliseconds: -1);
-  static const Duration InfiniteDuration = Duration(milliseconds: Infinite);
+  static const Duration InfiniteDuration = Duration(microseconds: Max);
 
   // From grpc-dart/options.dart file
   static const Duration GrpcIdleTimeout = Duration(minutes: 5);
@@ -32,6 +37,7 @@ class Defaults {
 }
 
 class ImageTags {
+  static const MASTER = 'ci';
   static const LTS = v20_10_4;
   static const v21_6_0 = '21.6.0-buster-slim';
   static const v20_10_4 = '20.10.4-buster-slim';
@@ -68,7 +74,7 @@ class Exceptions {
 
   static const String ExpectedVersion = 'expected-version';
   static const String ActualVersion = 'actual-version';
-  static const String StreamName = 'stream-name';
+  static const String streamId = 'stream-name';
   static const String GroupName = 'group-name';
   static const String Reason = 'reason';
   static const String MaximumAppendSize = 'maximum-append-size';

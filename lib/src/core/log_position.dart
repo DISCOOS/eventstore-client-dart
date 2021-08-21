@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:eventstore_client_dart/eventstore_client_dart.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 
@@ -14,10 +15,10 @@ class LogPosition {
   const LogPosition._(this.commitPosition, this.preparePosition);
 
   /// Position representing the start of the transaction file
-  static LogPosition start = LogPosition._(Int64.ZERO, Int64.ZERO);
+  static final LogPosition start = LogPosition._(Int64.ZERO, Int64.ZERO);
 
   /// Position representing the end of the transaction file
-  static LogPosition end = LogPosition._(Int64(-1), Int64(-1));
+  static final LogPosition end = LogPosition._(Int64(End), Int64(End));
 
   /// Constructs a position with the given commit and prepare positions.
   /// It is not guaranteed that the position is actually the start of a

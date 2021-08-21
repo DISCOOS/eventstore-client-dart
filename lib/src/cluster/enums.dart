@@ -1,15 +1,3 @@
-/// Indicates the state of a stream
-enum StreamStateType {
-  /// Matches any state stream
-  any,
-
-  /// Matches no stream exists
-  no_stream,
-
-  /// Matches stream exists
-  stream_exists,
-}
-
 /// Indicates the preferred EventStoreDB node type to connect to.
 enum NodePreference {
   /// When attempting connection, prefers leader node.

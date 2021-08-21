@@ -13,7 +13,10 @@ void main() {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient(secure: true)
-      ..install(secure: true);
+      ..install(
+        secure: true,
+        enableGossip: true,
+      );
 
     late final EventStoreClient client;
 

@@ -256,17 +256,17 @@ class StreamIdentifier extends $pb.GeneratedMessage {
         3,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
-            : 'streamName',
+            : 'streamId',
         $pb.PbFieldType.OY)
     ..hasRequiredFields = false;
 
   StreamIdentifier._() : super();
   factory StreamIdentifier({
-    $core.List<$core.int>? streamName,
+    $core.List<$core.int>? streamId,
   }) {
     final _result = create();
-    if (streamName != null) {
-      _result.streamName = streamName;
+    if (streamId != null) {
+      _result.streamId = streamId;
     }
     return _result;
   }
@@ -298,9 +298,9 @@ class StreamIdentifier extends $pb.GeneratedMessage {
   static StreamIdentifier? _defaultInstance;
 
   @$pb.TagNumber(3)
-  $core.List<$core.int> get streamName => $_getN(0);
+  $core.List<$core.int> get streamId => $_getN(0);
   @$pb.TagNumber(3)
-  set streamName($core.List<$core.int> v) {
+  set streamId($core.List<$core.int> v) {
     $_setBytes(0, v);
   }
 

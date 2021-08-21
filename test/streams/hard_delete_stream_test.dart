@@ -26,7 +26,7 @@ void main() {
       final result = await client.tombstone(expected);
 
       // Assert result
-      expect(result.streamName, expected.name);
+      expect(result.streamId, expected.streamId);
       expect(result.deletedAtPosition, isNotNull);
       expect(result.deletedAtRevision, isNull);
     });
@@ -44,7 +44,7 @@ void main() {
       final result = await client.tombstone(expected);
 
       // Assert result
-      expect(result.streamName, expected.name);
+      expect(result.streamId, expected.streamId);
       expect(result.deletedAtPosition, isNotNull);
       expect(result.deletedAtRevision, isNull);
     });
@@ -58,7 +58,7 @@ void main() {
       );
 
       // Act
-      final result = client.tombstone(StreamState.exists(expected.name));
+      final result = client.tombstone(StreamState.exists(expected.streamId));
 
       // Assert result
       await expectLater(result, throwsA(isA<GrpcError>()));
@@ -91,11 +91,11 @@ void main() {
     test('performs a hard delete with any', () async {
       // Act
       final result = await client.tombstone(
-        StreamState.any(state.name),
+        StreamState.any(state.streamId),
       );
 
       // Assert result
-      expect(result.streamName, state.name);
+      expect(result.streamId, state.streamId);
       expect(result.deletedAtPosition, isNotNull);
       expect(result.deletedAtRevision, state.revision);
     });
@@ -105,14 +105,14 @@ void main() {
       final result = await client.tombstone(state);
 
       // Assert result
-      expect(result.streamName, state.name);
+      expect(result.streamId, state.streamId);
       expect(result.deletedAtPosition, isNotNull);
       expect(result.deletedAtRevision, state.revision);
     });
 
     test('performs a hard delete with no stream throws', () async {
       // Act
-      final result = client.tombstone(StreamState.noStream(state.name));
+      final result = client.tombstone(StreamState.noStream(state.streamId));
 
       // Assert result
       await expectLater(result, throwsA(isA<WrongExpectedVersionException>()));
@@ -120,7 +120,7 @@ void main() {
 
     test('performs a hard delete with stream_exists throws', () async {
       // Act
-      final result = client.tombstone(StreamState.exists(state.name));
+      final result = client.tombstone(StreamState.exists(state.streamId));
 
       // Assert result
       await expectLater(result, throwsA(isA<GrpcError>()));
@@ -139,8 +139,8 @@ void main() {
       // Act
       await client.tombstone(state);
       final result = client.readFromStream(
-        state.name,
-        state.getStreamPosition(),
+        state.streamId,
+        position: state.getStreamPosition(),
       );
 
       // Assert result
@@ -161,7 +161,7 @@ void main() {
       final result = await client.tombstone(state);
 
       // Assert result
-      expect(result.streamName, state.name);
+      expect(result.streamId, state.streamId);
       expect(result.deletedAtPosition, isNotNull);
       expect(result.deletedAtRevision, isNull);
     });

@@ -1,26 +1,34 @@
 import 'package:eventstore_client_dart/src/core/constants.dart';
+import 'package:eventstore_client_dart/src/core/resolved_event.dart';
 import 'package:grpc/src/shared/status.dart';
 
 /// Exception thrown if an operation is attempted on a stream which
 /// has been deleted.
 class StreamDeletedException implements Exception {
   /// Constructs a new instance of [StreamDeletedException].
-  StreamDeletedException(this.streamName, {this.cause});
+  StreamDeletedException(this.streamId, {this.cause});
 
   /// The name of the deleted stream.
-  String streamName;
+  String streamId;
 
-  /// If available, the [Exception] that caused this exception.
-  final Exception? cause;
+  /// If available, the [cause] of this exception.
+  final Object? cause;
 
   /// Get error message
-  String get message => "Event stream '$streamName'is deleted.";
+  String get message => "Event stream '$streamId' is deleted.";
 
   /// Constructs a new instance of [StreamDeletedException] from given [error]
-  factory StreamDeletedException.fromCause(GrpcError error) =>
+  factory StreamDeletedException.fromError(GrpcError error) =>
       StreamDeletedException(
-        error.trailers![Exceptions.StreamName] ?? '<unknown>',
+        error.trailers![Exceptions.streamId] ?? '<unknown>',
         cause: error,
+      );
+
+  /// Constructs a new instance of [StreamDeletedException] from given [event]
+  factory StreamDeletedException.fromEvent(ResolvedEvent event) =>
+      StreamDeletedException(
+        event.originalStreamId,
+        cause: event,
       );
 
   @override

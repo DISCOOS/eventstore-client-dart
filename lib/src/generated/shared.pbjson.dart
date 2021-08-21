@@ -66,7 +66,7 @@ final $typed_data.Uint8List emptyDescriptor =
 const StreamIdentifier$json = const {
   '1': 'StreamIdentifier',
   '2': const [
-    const {'1': 'stream_name', '3': 3, '4': 1, '5': 12, '10': 'streamName'},
+    const {'1': 'stream_name', '3': 3, '4': 1, '5': 12, '10': 'streamId'},
   ],
   '9': const [
     const {'1': 1, '2': 3},

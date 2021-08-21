@@ -32,7 +32,7 @@ void main() {
       final result = await client.delete(expected);
 
       // Assert result
-      expect(result.streamName, expected.name);
+      expect(result.streamId, expected.streamId);
       expect(result.deletedAtPosition, isNotNull);
       expect(result.deletedAtRevision, isNull);
     });
@@ -49,7 +49,7 @@ void main() {
       final result = await client.delete(expected);
 
       // Assert result
-      expect(result.streamName, expected.name);
+      expect(result.streamId, expected.streamId);
       expect(result.deletedAtPosition, isNotNull);
       expect(result.deletedAtRevision, isNull);
     });
@@ -63,7 +63,7 @@ void main() {
       );
 
       // Act
-      final result = client.delete(StreamState.exists(expected.name));
+      final result = client.delete(StreamState.exists(expected.streamId));
 
       // Assert result
       await expectLater(result, throwsA(isA<GrpcError>()));
@@ -99,11 +99,11 @@ void main() {
     test('performs a soft-delete with any', () async {
       // Act
       final result = await client.delete(
-        StreamState.any(state.name),
+        StreamState.any(state.streamId),
       );
 
       // Assert result
-      expect(result.streamName, state.name);
+      expect(result.streamId, state.streamId);
       expect(result.deletedAtPosition, isNotNull);
       expect(result.deletedAtRevision, state.revision);
     });
@@ -113,14 +113,14 @@ void main() {
       final result = await client.delete(state);
 
       // Assert result
-      expect(result.streamName, state.name);
+      expect(result.streamId, state.streamId);
       expect(result.deletedAtPosition, isNotNull);
       expect(result.deletedAtRevision, state.revision);
     });
 
     test('performs a soft-delete with no_stream throws', () async {
       // Act
-      final result = client.delete(StreamState.noStream(state.name));
+      final result = client.delete(StreamState.noStream(state.streamId));
 
       // Assert result
       await expectLater(result, throwsA(isA<WrongExpectedVersionException>()));
@@ -128,7 +128,7 @@ void main() {
 
     test('performs a soft-delete with stream exists throws', () async {
       // Act
-      final result = client.delete(StreamState.exists(state.name));
+      final result = client.delete(StreamState.exists(state.streamId));
 
       // Assert result
       await expectLater(result, throwsA(isA<GrpcError>()));
@@ -156,8 +156,8 @@ void main() {
 
       // Act
       final result = await client.readFromStream(
-        state.name,
-        state.getStreamPosition(),
+        state.streamId,
+        position: state.getStreamPosition(),
       );
 
       // Assert
@@ -251,7 +251,7 @@ void main() {
         writeResult1.nextExpectedStreamRevision,
         StreamRevision.checked(0),
       );
-      final metadataResult1 = await client.getStreamMetadata(state.name);
+      final metadataResult1 = await client.getStreamMetadata(state.streamId);
       expect(metadataResult1.isOK, isTrue);
       expect(metadataResult1.metadata, metadata);
 
@@ -295,8 +295,8 @@ void main() {
 
       // Assert soft-delete
       final readResult = await client.readFromStream(
-        state.name,
-        StreamPosition.start,
+        state.streamId,
+        position: StreamPosition.start,
       );
       final resolved = await readResult.events;
       expect(readResult.isOK, isTrue);
@@ -307,7 +307,7 @@ void main() {
       expect(resolved.length, 3);
 
       // Assert metadata
-      final metadataResult2 = await client.getStreamMetadata(state.name);
+      final metadataResult2 = await client.getStreamMetadata(state.streamId);
       expect(metadataResult2.isOK, isTrue);
       expect(
         metadataResult2.metadata,
@@ -351,7 +351,7 @@ void main() {
       expect(result2.nextExpectedStreamRevision, actual + 6);
       expect(result2.actualType, equals(StreamStateType.stream_exists));
 
-      final metadataResult = await client.getStreamMetadata(state.name);
+      final metadataResult = await client.getStreamMetadata(state.streamId);
       expect(metadataResult.isOK, isTrue);
       expect(metadataResult.metadata!.truncateBefore!.toInt(), ExistingCount);
       expect(metadataResult.metadataStreamPosition, StreamPosition.checked(1));
@@ -387,7 +387,7 @@ void main() {
       expect(result2.nextExpectedStreamRevision, actual + 6);
       expect(result2.actualType, equals(StreamStateType.stream_exists));
 
-      final metadataResult = await client.getStreamMetadata(state.name);
+      final metadataResult = await client.getStreamMetadata(state.streamId);
       expect(metadataResult.isOK, isTrue);
       expect(metadataResult.metadata!.truncateBefore!.toInt(), ExistingCount);
       expect(metadataResult.metadataStreamPosition, StreamPosition.checked(1));

@@ -1,4 +1,5 @@
 import 'package:eventstore_client_dart/eventstore_client_dart.dart';
+import 'package:eventstore_client_dart/src/core/helpers.dart';
 import 'package:eventstore_client_dart/src/security/user_credentials.dart';
 import 'package:grpc/grpc.dart';
 
@@ -9,12 +10,13 @@ import 'operation_options.dart';
 class EventStoreCallOptions {
   static CallOptions create(
     EventStoreClientSettings settings, {
+    Duration? timeoutAfter,
     UserCredentials? userCredentials,
     EventStoreClientOperationOptions? operationOptions,
   }) {
     final credentials = (userCredentials ?? settings.defaultCredentials);
     return CallOptions(
-        timeout: operationOptions?.timeoutAfter ?? settings.operationTimeout,
+        timeout: timeoutAfter ?? toTimeout(settings, operationOptions),
         metadata: <String, String>{
           Headers.RequiresLeader:
               settings.nodePreference == NodePreference.leader
@@ -23,5 +25,13 @@ class EventStoreCallOptions {
           if (credentials?.isEmpty == false)
             Headers.Authorization: credentials.toString()
         });
+  }
+
+  static Duration? toTimeout(
+    EventStoreClientSettings settings,
+    EventStoreClientOperationOptions? operationOptions,
+  ) {
+    final timeout = operationOptions?.timeoutAfter ?? settings.operationTimeout;
+    return timeout.isNone ? null : timeout;
   }
 }

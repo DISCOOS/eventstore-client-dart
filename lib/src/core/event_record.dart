@@ -53,6 +53,12 @@ class EventRecord {
   /// The [LogPosition]  o this event in the $all stream.
   final LogPosition position;
 
+  /// Check if [contentType] is [ContentTypes.ApplicationJson]
+  bool get isJson => contentType == ContentTypes.ApplicationJson;
+
+  /// Check if [contentType] is [ContentTypes.ApplicationOctetStream]
+  bool get isOctetStream => contentType == ContentTypes.ApplicationOctetStream;
+
   @override
   String toString() {
     return '$runtimeType{eventStreamId: $eventStreamId, eventId: $eventId, '

@@ -84,7 +84,6 @@ class StreamsSecurityFixture {
     EventStoreClientOperationOptions? operationOptions,
   }) {
     return client.readFromAll(
-      forward ? LogPosition.start : LogPosition.end,
       count: count,
       forward: forward,
       resolveLinks: resolveLinks,
@@ -103,7 +102,6 @@ class StreamsSecurityFixture {
   }) {
     return client.readFromStream(
       name,
-      forward ? StreamPosition.start : StreamPosition.end,
       count: count,
       forward: forward,
       resolveLinks: resolveLinks,

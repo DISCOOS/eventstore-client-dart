@@ -6,18 +6,25 @@ import 'package:eventstore_client_dart/src/core/client_base.dart';
 import 'package:eventstore_client_dart/src/core/constants.dart';
 import 'package:eventstore_client_dart/src/core/event_data.dart';
 import 'package:eventstore_client_dart/src/core/log_position.dart';
+import 'package:eventstore_client_dart/src/core/resolved_event.dart';
 import 'package:eventstore_client_dart/src/core/stream_state.dart';
 import 'package:eventstore_client_dart/src/core/typedefs.dart';
 import 'package:eventstore_client_dart/src/core/uuid.dart';
 import 'package:eventstore_client_dart/src/generated/shared.pb.dart';
 import 'package:eventstore_client_dart/src/generated/streams.pbgrpc.dart';
 import 'package:eventstore_client_dart/src/streams/delete_results.dart';
+import 'package:eventstore_client_dart/src/streams/enums.dart';
+import 'package:eventstore_client_dart/src/streams/event_type_filter.dart';
+import 'package:eventstore_client_dart/src/streams/read_enumerator.dart';
 import 'package:eventstore_client_dart/src/streams/stream_metadata.dart';
 import 'package:eventstore_client_dart/src/streams/stream_metadata_result.dart';
-import 'package:eventstore_client_dart/src/streams/read_results.dart';
 import 'package:eventstore_client_dart/src/streams/write_results.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
+import 'package:tuple/tuple.dart';
+
+part 'read_results.dart';
+part 'subscription.dart';
 
 mixin EventStoreStreamsClient on EventStoreClientBase {
   /// Converts [GrpcError]s to typed [Exception]s
@@ -25,7 +32,7 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
       <String, GrpcErrorCallback>{
     Exceptions.WrongExpectedVersion: (e) =>
         WrongExpectedVersionException.fromCause(e),
-    Exceptions.StreamDeleted: (ex) => StreamDeletedException.fromCause(ex)
+    Exceptions.StreamDeleted: (ex) => StreamDeletedException.fromError(ex)
   };
 
   Future<StreamsClient> _createClient() async {
@@ -38,23 +45,26 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
     );
   }
 
-  /// Read all [ResolvedEvent]s in EventStore from given [position].
-  /// Use [count] to limit number of events to read.
-  /// Default is all events from given position.
+  /// Read all [ResolvedEvent]s in EventStore from optional [position]. When
+  /// [position] is not given, all events from [LogPosition.start] is
+  /// returned when [forward] is true and [StreamPosition.end] when
+  /// [forward] is false.
+  /// Use [count] to limit number of events to read (default is all events
+  /// from given position).
   /// Use [forward] to read towards the end of stream. Default is true.
-  /// Use [resolveLinks] to resolve links as [ResolvedEvent].
+  /// Use [resolveLinks] to resolve links as [ResolvedEvent]  (default is true).
   /// Returns as [ReadEventsResult] on first response from the server.
-  Future<ReadEventsResult> readFromAll(
-    LogPosition position, {
+  Future<ReadEventsResult> readFromAll({
     int? count,
     bool forward = true,
+    LogPosition? position,
     bool resolveLinks = true,
     UserCredentials? userCredentials,
     EventStoreClientOperationOptions? operationOptions,
   }) {
     return $runRequest<ReadEventsResult>(() async {
       final request = _toReadAllReq(
-        position,
+        position ?? (forward ? LogPosition.start : LogPosition.end),
         count: count,
         forward: forward,
         resolveLinks: resolveLinks,
@@ -67,32 +77,37 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
           operationOptions: operationOptions,
         ),
       );
-      return ReadEventsResult.from(
+      return _toReadResult(
         StreamState.all(position),
         resultStream,
       );
     });
   }
 
-  /// Read [ResolvedEvent]s from given stream [name] and [position].
-  /// Use [count] to limit number of events to read.
-  /// Default is all events from given position.
+  /// Read [ResolvedEvent]s from given stream [streamId] and optional [position].
+  /// When [position] is not given, all events from [StreamPosition.start]
+  /// is returned when [forward] is true and [StreamPosition.end] when
+  /// [forward] is false.
+  /// Use [count] to limit number of events to read (default is all events
+  /// from given position).
   /// Use [forward] to read towards the end of stream. Default is true.
-  /// Use [resolveLinks] to resolve links as [ResolvedEvent].
+  /// Use [resolveLinks] to resolve links as [ResolvedEvent] (default is true).
   /// Returns as [ReadEventsResult] on first response from the server.
   Future<ReadEventsResult> readFromStream(
-    String name,
-    StreamPosition position, {
+    String streamId, {
     int? count,
     bool forward = true,
     bool resolveLinks = true,
+    StreamPosition? position,
     UserCredentials? userCredentials,
     EventStoreClientOperationOptions? operationOptions,
   }) {
     return $runRequest<ReadEventsResult>(() async {
       final state = StreamState.exists(
-        name,
-        revision: StreamRevision.fromPosition(position),
+        streamId,
+        revision: StreamRevision.fromPosition(
+          position ?? (forward ? StreamPosition.start : StreamPosition.end),
+        ),
       );
       final request = state.toReadReq(
         count: count,
@@ -107,21 +122,128 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
           operationOptions: operationOptions,
         ),
       );
-      return ReadEventsResult.from(
+      return _toReadResult(
         state,
         resultStream,
       );
     });
   }
 
-  /// Reads the metadata for stream given by [name]
+  /// Subscribe to [ResolvedEvent]s from given stream [streamId].
+  ///
+  /// Start at first event after optional [position] (event at position is
+  /// not returned). When [position] is not given, all events from
+  /// [StreamPosition.start] is returned.
+  ///
+  /// Callback [eventAppeared][SubscriptionResolvedEventCallback] is invoked
+  /// and awaited when a new event is received over the subscription.
+  ///
+  /// Callback [subscriptionDropped][SubscriptionDroppedCallback] is invoked
+  /// and awaited when the subscription is dropped.
+  ///
+  /// Use [resolveLinks] to resolve links as [ResolvedEvent] (default is false).
+  ///
+  /// Returns as [EventStreamSubscription] on first response from the server.
+  Future<EventStreamSubscription> subscribeToStream(
+    String streamId, {
+    StreamPosition? position,
+    bool resolveLinks = false,
+    UserCredentials? userCredentials,
+    SubscriptionResolvedEventCallback? eventAppeared,
+    SubscriptionDroppedCallback? subscriptionDropped,
+    EventStoreClientOperationOptions? operationOptions,
+  }) async {
+    return $runRequest<EventStreamSubscription>(() async {
+      final state = StreamState.any(
+        streamId,
+        revision: (position ?? StreamPosition.start).toRevision(),
+      );
+      final request = _setSubscriptionReq(
+        state.toReadReq(
+          resolveLinks: resolveLinks,
+        ),
+      );
+      final client = await _createClient();
+      final resultStream = client.read(
+        request,
+        options: $getOptions(
+          userCredentials: userCredentials,
+          operationOptions: operationOptions,
+          timeoutAfter: toSubscriptionTimeout(operationOptions),
+        ),
+      );
+      return _toSubscriptionResult(
+        state,
+        resultStream,
+        eventAppeared: eventAppeared,
+        subscriptionDropped: subscriptionDropped,
+      );
+    });
+  }
+
+  /// Subscribe to all [ResolvedEvent]s.
+  ///
+  /// Starting with first event after optional [position].
+  /// When [position] is not given, all events from [LogPosition.start]
+  /// is returned. Use [resolveLinks] to resolve links as [ResolvedEvent]
+  /// (default is false).
+  ///
+  /// Callback [eventAppeared][SubscriptionResolvedEventCallback] is invoked
+  /// and awaited when a new event is received over the subscription.
+  ///
+  /// Callback [subscriptionDropped][SubscriptionDroppedCallback] is invoked
+  /// and awaited when the subscription is dropped.
+  ///
+  /// Returns as [EventStreamSubscription] on first response from the server.
+  Future<EventStreamSubscription> subscribeToAll({
+    LogPosition? position,
+    bool resolveLinks = false,
+    UserCredentials? userCredentials,
+    SubscriptionFilterOptions? filterOptions,
+    SubscriptionResolvedEventCallback? eventAppeared,
+    SubscriptionDroppedCallback? subscriptionDropped,
+    EventStoreClientOperationOptions? operationOptions,
+  }) async {
+    return $runRequest<EventStreamSubscription>(() async {
+      final request = _setSubscriptionReq(
+        _toReadAllReq(
+          position ?? LogPosition.start,
+          resolveLinks: resolveLinks,
+        ),
+        filterOptions,
+      );
+      final client = await _createClient();
+      final resultStream = client.read(
+        request,
+        options: $getOptions(
+          userCredentials: userCredentials,
+          operationOptions: operationOptions,
+          timeoutAfter: toSubscriptionTimeout(operationOptions),
+        ),
+      );
+      return _toSubscriptionResult(
+        StreamState.all(position),
+        resultStream,
+        eventAppeared: eventAppeared,
+        subscriptionDropped: subscriptionDropped,
+        checkpointReached: filterOptions?.checkpointReached,
+      );
+    });
+  }
+
+  /// Get [EventStreamSubscription] timeout [Duration]
+  static Duration toSubscriptionTimeout(
+          [EventStoreClientOperationOptions? operationOptions]) =>
+      operationOptions?.timeoutAfter ?? Defaults.InfiniteDuration;
+
+  /// Reads the metadata for stream given by [streamId]
   Future<StreamMetadataResult> getStreamMetadata(
-    String name, {
+    String streamId, {
     UserCredentials? userCredentials,
     EventStoreClientOperationOptions? operationOptions,
   }) {
     return $runRequest<StreamMetadataResult>(() async {
-      final state = StreamState.any(name);
+      final state = StreamState.any(streamId);
       final request = state.toReadMetaReq();
       final client = await _createClient();
       final resultStream = client.read(
@@ -132,7 +254,7 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
         ),
       );
       return StreamMetadataResult.from(
-        name,
+        streamId,
         resultStream,
       );
     });
@@ -400,5 +522,82 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
         ..preparePosition = position.preparePosition;
     }
     return all;
+  }
+
+  // Create appropriate [ReadEventsResult] from given [ResponseStream]
+  Future<ReadEventsResult> _toReadResult(
+    StreamState expected,
+    ResponseStream<ReadResp> stream,
+  ) async {
+    final enumerator = await ReadEnumerator.from(
+      expected,
+      stream,
+      $toTypedException,
+    );
+    return ReadEventsResult._(enumerator);
+  }
+
+  // Create appropriate [EventStreamSubscription] from given [ResponseStream]
+  Future<EventStreamSubscription> _toSubscriptionResult(
+    StreamState expected,
+    ResponseStream<ReadResp> stream, {
+    SubscriptionResolvedEventCallback? eventAppeared,
+    SubscriptionDroppedCallback? subscriptionDropped,
+    SubscriptionCheckpointCallback? checkpointReached,
+  }) async {
+    final enumerator = await ReadEnumerator.from(
+      expected,
+      stream,
+      $toTypedException,
+    );
+    return EventStreamSubscription(
+      enumerator,
+      eventAppeared: eventAppeared,
+      checkpointReached: checkpointReached,
+      subscriptionDropped: subscriptionDropped,
+    );
+  }
+
+  ReadReq _setSubscriptionReq(
+    ReadReq request, [
+    SubscriptionFilterOptions? filterOptions,
+  ]) {
+    request.options.subscription = ReadReq_Options_SubscriptionOptions();
+    if (filterOptions != null) {
+      ReadReq_Options_FilterOptions? filter;
+      // Is legal StreamFilter?
+      if (filterOptions.filter is StreamFilter &&
+          filterOptions.filter != StreamFilter.None) {
+        filter = ReadReq_Options_FilterOptions()
+          ..streamIdentifier = _toFilterExpression(filterOptions);
+      }
+      // Is legal EventTypeFilter?
+      if (filterOptions.filter is EventTypeFilter &&
+          filterOptions.filter != EventTypeFilter.None) {
+        filter = ReadReq_Options_FilterOptions()
+          ..eventType = _toFilterExpression(filterOptions);
+      }
+      if (filter != null) {
+        if (filterOptions.filter.maxSearchWindow != null) {
+          filter.max = filterOptions.filter.maxSearchWindow!;
+        } else {
+          filter.count = Empty();
+        }
+        filter.checkpointIntervalMultiplier = filterOptions.checkpointInterval;
+        request.options.filter = filter;
+      }
+    }
+
+    return request;
+  }
+
+  ReadReq_Options_FilterOptions_Expression _toFilterExpression(
+      SubscriptionFilterOptions filterOptions) {
+    final expression = ReadReq_Options_FilterOptions_Expression()
+      ..regex = filterOptions.filter.regex.pattern
+      ..prefix.addAll(
+        filterOptions.filter.prefixes.map((e) => e.pattern),
+      );
+    return expression;
   }
 }

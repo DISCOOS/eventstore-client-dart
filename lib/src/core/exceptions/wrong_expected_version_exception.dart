@@ -8,7 +8,7 @@ import 'package:eventstore_client_dart/src/core/stream_revision.dart';
 /// </summary>
 class WrongExpectedVersionException implements Exception {
   WrongExpectedVersionException._({
-    required this.streamName,
+    required this.streamId,
     required this.actualStreamRevision,
     required this.expectedStreamRevision,
     this.expectedStreamStateType,
@@ -20,7 +20,7 @@ class WrongExpectedVersionException implements Exception {
     final buffer = StringBuffer()
       ..writeAll(<String>[
         'Append failed due to WrongExpectedVersion. ',
-        'Stream: $streamName, ',
+        'Stream: $streamId, ',
         if (expectedVersion != null) 'Expected version: $expectedVersion, ',
         if (expectedStreamStateType != null)
           'Expected stream state: ${enumName(expectedStreamStateType!)}, ',
@@ -36,7 +36,7 @@ class WrongExpectedVersionException implements Exception {
   final Exception? cause;
 
   /// The stream identifier.
-  final String streamName;
+  final String streamId;
 
   /// If available, the expected version specified for the operation that failed.
   int? get expectedVersion => actualStreamRevision == StreamRevision.none
@@ -62,11 +62,11 @@ class WrongExpectedVersionException implements Exception {
   factory WrongExpectedVersionException.fromCause(
     GrpcError error,
   ) {
-    final streamName = error.trailers![Exceptions.StreamName];
+    final streamId = error.trailers![Exceptions.streamId];
     final actualVersion = error.trailers![Exceptions.ActualVersion];
     final expectedVersion = error.trailers![Exceptions.ExpectedVersion];
     return WrongExpectedVersionException.fromRevisions(
-      streamName!,
+      streamId!,
       actualStreamRevision: actualVersion == null
           ? StreamRevision.none
           : StreamRevision.checked(int.parse(
@@ -88,7 +88,7 @@ class WrongExpectedVersionException implements Exception {
     StreamRevision actualStreamRevision,
   ) {
     return WrongExpectedVersionException._(
-      streamName: expectedStreamState.name,
+      streamId: expectedStreamState.streamId,
       actualStreamRevision: actualStreamRevision,
       expectedStreamStateType: expectedStreamState.type,
       expectedStreamRevision:
@@ -99,13 +99,13 @@ class WrongExpectedVersionException implements Exception {
   /// Constructs a new instance of [WrongExpectedVersionException]
   /// with the expected and actual versions if available.
   factory WrongExpectedVersionException.fromRevisions(
-    String streamName, {
+    String streamId, {
     required StreamRevision actualStreamRevision,
     required StreamRevision expectedStreamRevision,
     Exception? cause,
   }) {
     return WrongExpectedVersionException._(
-      streamName: streamName,
+      streamId: streamId,
       actualStreamRevision: actualStreamRevision,
       expectedStreamRevision: expectedStreamRevision,
       cause: cause,

@@ -33,7 +33,7 @@ void main() {
     test('returns empty if reading all from start backwards', () async {
       // Act
       final result = await client.readFromAll(
-        LogPosition.start,
+        position: LogPosition.start,
         forward: false,
       );
 
@@ -42,10 +42,22 @@ void main() {
       expect(await result.stream.toList(), isEmpty);
     });
 
+    test('returns given count if reading all backwards by default', () async {
+      // Act
+      final result = await client.readFromAll(
+        forward: false,
+        count: PageCount,
+      );
+
+      // Assert
+      expect(result.isOK, isTrue);
+      expect(await result.stream.length, PageCount);
+    });
+
     test('returns given count if reading all from end backwards', () async {
       // Act
       final result = await client.readFromAll(
-        LogPosition.end,
+        position: LogPosition.end,
         forward: false,
         count: PageCount,
       );
@@ -59,7 +71,7 @@ void main() {
         () async {
       // Act
       final result = await client.readFromAll(
-        LogPosition.end,
+        position: LogPosition.end,
         forward: false,
       );
 
@@ -73,7 +85,7 @@ void main() {
         'and reading all from end backwards', () async {
       // Act
       final result = await client.readFromAll(
-        LogPosition.end,
+        position: LogPosition.end,
         forward: false,
         count: ExistingCount * 2,
       );
@@ -86,7 +98,7 @@ void main() {
     test('returns in reverse order if reading all backwards', () async {
       // Act
       final result = await client.readFromAll(
-        LogPosition.end,
+        position: LogPosition.end,
         forward: false,
         count: PageCount,
       );
@@ -115,7 +127,7 @@ void main() {
     test('returns empty if reading all from end forwards', () async {
       // Act
       final result = await client.readFromAll(
-        LogPosition.end,
+        position: LogPosition.end,
         forward: true,
       );
 
@@ -127,7 +139,18 @@ void main() {
     test('returns given count if reading all from start forwards', () async {
       // Act
       final result = await client.readFromAll(
-        LogPosition.start,
+        position: LogPosition.start,
+        forward: true,
+        count: PageCount,
+      );
+      // Assert
+      expect(result.isOK, isTrue);
+      expect(await result.stream.length, PageCount);
+    });
+
+    test('returns given count if reading all forwards by default', () async {
+      // Act
+      final result = await client.readFromAll(
         forward: true,
         count: PageCount,
       );
@@ -141,7 +164,7 @@ void main() {
         () async {
       // Act
       final result = await client.readFromAll(
-        LogPosition.start,
+        position: LogPosition.start,
         forward: true,
       );
 
@@ -155,7 +178,7 @@ void main() {
         'and reading all from start forwards', () async {
       // Act
       final result = await client.readFromAll(
-        LogPosition.start,
+        position: LogPosition.start,
         forward: true,
         count: ExistingCount * 2,
       );
@@ -168,7 +191,7 @@ void main() {
     test('returns in correct order if reading all forwards', () async {
       // Act
       final result = await client.readFromAll(
-        LogPosition.start,
+        position: LogPosition.start,
         forward: true,
         count: PageCount,
       );

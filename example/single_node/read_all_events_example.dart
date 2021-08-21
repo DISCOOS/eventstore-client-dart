@@ -10,9 +10,9 @@ void main() async {
 
   // Fetch all events in EventStore
   final result = await client.readFromAll(
-    LogPosition.start,
     forward: true,
     resolveLinks: true,
+    position: LogPosition.start,
   );
 
   // Only print if read was successful

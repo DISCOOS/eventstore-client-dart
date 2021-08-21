@@ -28,6 +28,7 @@ class EventStoreServerSingleNode extends EventStoreServer {
 
   @override
   Future<void> start({
+    bool enableGossip = false,
     bool Function(String)? isReady,
   }) async {
     verifyCertificatesExist();
@@ -36,10 +37,9 @@ class EventStoreServerSingleNode extends EventStoreServer {
       dockerExecutable: 'docker',
       name: 'eventstore-client-dart-test',
       image: withTestData
-          ? 'docker.pkg.github.com/eventstore/'
-              'eventstore-client-grpc-testdata/'
+          ? 'ghcr.io/eventstore/'
               'eventstore-client-grpc-testdata:$imageTag'
-          : 'docker.pkg.github.com/eventstore/eventstore/eventstore:$imageTag',
+          : 'ghcr.io/eventstore/eventstore:$imageTag',
       ports: [
         '1113:1113/tcp',
         '1114:1114/tcp',
@@ -51,7 +51,7 @@ class EventStoreServerSingleNode extends EventStoreServer {
         // Please note that the GossipOnSingleNode option has been deprecated
         // will be removed in version 21.10.0. The gossip endpoint is now
         // unconditionally available for any deployment topology.
-        'EVENTSTORE_GOSSIP_ON_SINGLE_NODE': 'True',
+        'EVENTSTORE_GOSSIP_ON_SINGLE_NODE': enableGossip ? 'True' : 'False',
         'EVENTSTORE_INSECURE': secure ? 'False' : 'True',
         if (withTestData)
           'EVENTSTORE_DB': '/data/integration-tests'
@@ -78,7 +78,9 @@ class EventStoreServerSingleNode extends EventStoreServer {
           failures.add(line);
         }
         return failures.isNotEmpty || isReady == null
-            ? line.contains('All components started for Instance')
+            ? line.contains(
+                "========== [\"0.0.0.0:2113\"] Sub System '\"Projections\"' initialized.",
+              )
             : isReady(line);
       },
     );

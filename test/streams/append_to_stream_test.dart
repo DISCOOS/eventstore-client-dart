@@ -154,7 +154,7 @@ void main() {
     test('handles repeated idempotent writes', () async {
       // Arrange
       final expected = StreamState.exists(
-        state.name,
+        state.streamId,
         revision: StreamRevision.checked(ExistingCount - 1),
       );
       final events = harness.createTestEvents(count: 4);
@@ -252,7 +252,7 @@ Future<void> _testClientAppendsZeroEvents(
             .having(
               (error) => error.actualState,
               'actual state equals expected',
-              equals(StreamState.noStream(state.name)),
+              equals(StreamState.noStream(state.streamId)),
             ),
       );
     } else {
@@ -261,8 +261,8 @@ Future<void> _testClientAppendsZeroEvents(
 
     // Assert empty stream
     final readResult = await client.readFromStream(
-      state.name,
-      state.getStreamPosition(),
+      state.streamId,
+      position: state.getStreamPosition(),
     );
     expect(readResult.isStreamNotFound, isTrue);
   }

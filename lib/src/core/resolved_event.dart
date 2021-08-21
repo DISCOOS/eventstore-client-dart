@@ -1,4 +1,5 @@
 import 'package:fixnum/fixnum.dart';
+import 'package:uuid/uuid.dart';
 
 import 'event_record.dart';
 import 'log_position.dart';
@@ -36,6 +37,12 @@ class ResolvedEvent {
 
   /// [LogPosition] of the [originalEvent] if available.
   final LogPosition? originalPosition;
+
+  /// The event id of the [originalEvent].
+  UuidValue get originalEventId => originalEvent.eventId;
+
+  /// The type of the [originalEvent].
+  String get originalEventType => originalEvent.eventType;
 
   /// The stream name of the [originalEvent].
   String get originalStreamId => originalEvent.eventStreamId;

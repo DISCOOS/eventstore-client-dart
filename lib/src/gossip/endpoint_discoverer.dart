@@ -3,7 +3,7 @@ import 'package:eventstore_client_dart/src/cluster/cluster_info.dart';
 import 'package:eventstore_client_dart/src/core/helpers.dart';
 import 'package:eventstore_client_dart/src/core/endpoint.dart';
 import 'package:eventstore_client_dart/src/core/endpoint_discoverer.dart';
-import 'package:eventstore_client_dart/src/core/enums.dart';
+import 'package:eventstore_client_dart/src/cluster/enums.dart';
 import 'package:eventstore_client_dart/src/core/settings.dart';
 
 import 'gossip_client.dart';

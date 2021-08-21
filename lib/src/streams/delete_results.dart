@@ -4,13 +4,13 @@ import 'package:eventstore_client_dart/src/generated/streams.pb.dart';
 
 class DeleteResult {
   DeleteResult._(
-    this.streamName,
+    this.streamId,
     this.deletedAtRevision,
     this.deletedAtPosition,
   );
 
   /// Name of deleted stream
-  final String streamName;
+  final String streamId;
 
   /// [LogPosition] of tombstone event
   final LogPosition? deletedAtPosition;
@@ -22,7 +22,7 @@ class DeleteResult {
   static DeleteResult fromTombstoneResp(
       StreamState state, TombstoneResp result) {
     return DeleteResult._(
-      state.name,
+      state.streamId,
       state.revision,
       result.hasNoPosition()
           ? null
@@ -36,7 +36,7 @@ class DeleteResult {
   /// Create a [DeleteResult] from [DeleteResp]
   static DeleteResult fromDeleteResp(StreamState state, DeleteResp result) {
     return DeleteResult._(
-      state.name,
+      state.streamId,
       state.revision,
       result.hasNoPosition()
           ? null

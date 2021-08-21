@@ -26,8 +26,8 @@ void main() {
 
       // Act
       final result = await client.readFromStream(
-        expected.name,
-        expected.revision!.toPosition(),
+        expected.streamId,
+        position: expected.revision!.toPosition(),
       );
 
       // Assert result
@@ -65,9 +65,9 @@ void main() {
         () async {
       // Act
       final result = await client.readFromStream(
-        state.name,
-        StreamPosition.start,
+        state.streamId,
         forward: false,
+        position: StreamPosition.start,
       );
 
       // Assert
@@ -84,10 +84,10 @@ void main() {
     test('returns given count if reading stream from end backwards', () async {
       // Act
       final result = await client.readFromStream(
-        state.name,
-        StreamPosition.end,
+        state.streamId,
         forward: false,
         count: PageCount,
+        position: StreamPosition.end,
       );
 
       // Assert
@@ -99,9 +99,9 @@ void main() {
         () async {
       // Act
       final result = await client.readFromStream(
-        state.name,
-        StreamPosition.end,
+        state.streamId,
         forward: false,
+        position: StreamPosition.end,
       );
 
       // Assert
@@ -114,10 +114,10 @@ void main() {
         'and reading stream from end backwards', () async {
       // Act
       final result = await client.readFromStream(
-        state.name,
-        StreamPosition.end,
+        state.streamId,
         forward: false,
         count: ExistingCount * 2,
+        position: StreamPosition.end,
       );
 
       // Assert
@@ -128,10 +128,10 @@ void main() {
     test('returns in reverse order if reading stream backwards', () async {
       // Act
       final result = await client.readFromStream(
-        state.name,
-        StreamPosition.end,
+        state.streamId,
         forward: false,
         count: PageCount,
+        position: StreamPosition.end,
       );
 
       // Assert
@@ -157,9 +157,9 @@ void main() {
     test('throws if reading stream from end forwards', () async {
       // Act
       final result = client.readFromStream(
-        state.name,
-        StreamPosition.end,
+        state.streamId,
         forward: true,
+        position: StreamPosition.end,
       );
 
       // Assert
@@ -178,9 +178,9 @@ void main() {
         () async {
       // Act
       final result = await client.readFromStream(
-        state.name,
-        StreamPosition.start,
+        state.streamId,
         forward: true,
+        position: StreamPosition.start,
       );
 
       // Assert
@@ -191,10 +191,10 @@ void main() {
     test('returns given count if reading stream from start forwards', () async {
       // Act
       final result = await client.readFromStream(
-        state.name,
-        StreamPosition.start,
+        state.streamId,
         forward: true,
         count: PageCount,
+        position: StreamPosition.start,
       );
 
       // Assert
@@ -207,10 +207,10 @@ void main() {
         'and reading stream from start forwards', () async {
       // Act
       final result = await client.readFromStream(
-        state.name,
-        StreamPosition.start,
+        state.streamId,
         forward: true,
         count: ExistingCount * 2,
+        position: StreamPosition.start,
       );
 
       // Assert
@@ -221,10 +221,10 @@ void main() {
     test('returns in correct order if reading stream forwards', () async {
       // Act
       final result = await client.readFromStream(
-        state.name,
-        StreamPosition.start,
+        state.streamId,
         forward: true,
         count: PageCount,
+        position: StreamPosition.start,
       );
 
       // Assert
@@ -238,6 +238,33 @@ void main() {
           (index) => StreamPosition.checked(index),
         )),
         reason: 'Event numbers be in correct order',
+      );
+    });
+
+    // ----------------------------------
+    // Test multiple subscribers
+    // ----------------------------------
+
+    test('allows multiple subscribers on result stream', () async {
+      // Act
+      final result = await client.readFromStream(
+        state.streamId,
+        forward: false,
+        position: StreamPosition.end,
+      );
+      final stream = result.asBroadcastStream();
+
+      // Assert
+      expect(result.isOK, isTrue);
+      expect(
+        await Future.wait<int>([
+          stream.length,
+          stream.length,
+        ]),
+        [
+          ExistingCount,
+          ExistingCount,
+        ],
       );
     });
   });

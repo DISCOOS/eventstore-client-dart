@@ -1,10 +1,11 @@
 import 'dart:typed_data';
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/endpoint_discoverer.dart';
-import 'package:eventstore_client_dart/src/gossip/gossip_client.dart';
 import 'package:meta/meta.dart';
 import 'package:grpc/grpc.dart';
 import 'package:universal_io/io.dart';
+
+import 'package:eventstore_client_dart/eventstore_client_dart.dart';
+import 'package:eventstore_client_dart/src/core/endpoint_discoverer.dart';
+import 'package:eventstore_client_dart/src/gossip/gossip_client.dart';
 
 import 'call_options.dart';
 import 'constants.dart';
@@ -87,12 +88,14 @@ abstract class EventStoreClientBase {
 
   @visibleForOverriding
   CallOptions $getOptions({
+    Duration? timeoutAfter,
     UserCredentials? userCredentials,
     EventStoreClientOperationOptions? operationOptions,
   }) {
     return _mergedCallOptionsWith(
       settings,
       _options,
+      timeoutAfter: timeoutAfter,
       userCredentials: userCredentials,
       operationOptions: operationOptions,
     );
@@ -170,11 +173,11 @@ abstract class EventStoreClientBase {
     try {
       return await call();
     } on Exception catch (error) {
-      throw _toTypedException(error);
+      throw $toTypedException(error);
     }
   }
 
-  Exception _toTypedException(Exception error) {
+  Exception $toTypedException(Exception error) {
     if (error is GrpcError) {
       final key = error.trailers?[Exceptions.ExceptionKey];
       final callback = _exceptionMap[key];
@@ -214,11 +217,13 @@ abstract class EventStoreClientBase {
   static CallOptions _mergedCallOptionsWith(
     EventStoreClientSettings settings,
     CallOptions? options, {
+    Duration? timeoutAfter,
     UserCredentials? userCredentials,
     EventStoreClientOperationOptions? operationOptions,
   }) {
     return EventStoreCallOptions.create(
       settings,
+      timeoutAfter: timeoutAfter,
       userCredentials: userCredentials,
       operationOptions: operationOptions,
     )..mergedWith(options);

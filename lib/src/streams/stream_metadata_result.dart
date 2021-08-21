@@ -6,7 +6,7 @@ import 'package:eventstore_client_dart/src/core/resolved_event.dart';
 import 'package:eventstore_client_dart/src/core/stream_position.dart';
 import 'package:eventstore_client_dart/src/core/stream_state.dart';
 import 'package:eventstore_client_dart/src/generated/streams.pbgrpc.dart';
-import 'package:eventstore_client_dart/src/streams/read_results.dart';
+import 'package:eventstore_client_dart/src/streams/read_enumerator.dart';
 import 'package:eventstore_client_dart/src/streams/stream_acl.dart';
 import 'package:grpc/grpc.dart';
 import 'package:fixnum/fixnum.dart';
@@ -18,7 +18,7 @@ import 'stream_metadata.dart';
 class StreamMetadataResult {
   StreamMetadataResult._({
     required this.state,
-    required this.streamName,
+    required this.streamId,
     this.metadata,
     this.streamDeleted = false,
     this.metadataStreamPosition,
@@ -34,7 +34,7 @@ class StreamMetadataResult {
   bool get isStreamNotFound => state == ReadState.stream_not_found;
 
   /// The name of the stream.
-  final String streamName;
+  final String streamId;
 
   /// True if the stream is deleted.
   final bool streamDeleted;
@@ -52,7 +52,7 @@ class StreamMetadataResult {
     final result = await resultStream.toList();
     if (result.isEmpty) {
       return StreamMetadataResult._(
-        streamName: name,
+        streamId: name,
         state: ReadState.ok,
         metadataStreamPosition: StreamPosition.start,
       );
@@ -60,17 +60,17 @@ class StreamMetadataResult {
     final resp = result.last;
     switch (resp.whichContent()) {
       case ReadResp_Content.event:
-        final event = ReadEventsResult.convertToResolvedEvent(resp.event);
+        final event = ReadEnumerator.convertToResolvedEvent(resp.event);
         return StreamMetadataResult._(
-          streamName: name,
+          streamId: name,
           state: ReadState.ok,
           metadata: convertToMetadata(event),
           metadataStreamPosition: event.originalEventNumber,
         );
       case ReadResp_Content.streamNotFound:
         return StreamMetadataResult._(
-          streamName:
-              utf8.decode(resp.streamNotFound.streamIdentifier.streamName),
+          streamId:
+              utf8.decode(resp.streamNotFound.streamIdentifier.streamId),
           state: ReadState.stream_not_found,
         );
       case ReadResp_Content.confirmation:
