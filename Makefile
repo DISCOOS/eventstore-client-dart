@@ -29,10 +29,10 @@ CURRENT := $(shell cat test/Harness.dart | grep 'String imageTag =' \
 		| cut -d '-' -f 1  | xargs)
 
 .PHONY: \
-	status certs protos models test
+	configure status certs protos models test
 
 .SILENT: \
-	status certs protos models test
+	configure status certs protos models test
 
 status:
 	echo "Check EventStoreDB OSS version..."
@@ -43,6 +43,9 @@ ifeq ($(LATEST), $(CURRENT))
 else
 	$(error ">> Update imageTag in 'test/Harness.dart' to '${LATEST}-buster-slim'")
 endif
+
+configure:
+	dart pub global activate pub_release
 
 certs:
 	sh tool/gencert.sh . --secure
