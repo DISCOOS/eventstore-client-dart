@@ -1,8 +1,6 @@
 name: eventstore_client_dart
 version: 0.0.1
 description: A client library for EventStoreDB 20.x and above
-authors:
-  - Kenneth Gulbrandsøy
 homepage: https://github.com/DISCOOS/eventstore-client-dart
 repository: https://github.com/DISCOOS/eventstore-client-dart
 
@@ -11,10 +9,15 @@ environment:
 
 dependencies:
   uuid: ^3.0.4
+  meta: ^1.7.0
+  path: ^1.8.0
   grpc: ^3.0.1
   tuple: ^2.0.0
+  async: ^2.8.2
   fixnum: ^1.0.0
+  logging: ^1.0.1
   protobuf: ^2.0.0
+  collection: ^1.15.0
   universal_io: ^2.0.4
 
 #dependency_overrides:

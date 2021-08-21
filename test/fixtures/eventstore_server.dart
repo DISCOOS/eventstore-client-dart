@@ -34,7 +34,7 @@ abstract class EventStoreServer {
         if (!file.existsSync()) {
           throw Exception(
             'Could not locate the certificates file ${file.absolute.path} needed '
-            "to run EventStoreDB node. \nPlease run '. tools/gencert.sh test'"
+            "to run EventStoreDB node. \nPlease run '. tool/gencert.sh test'"
             'from the repo root.',
           );
         }
