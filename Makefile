@@ -29,10 +29,10 @@ CURRENT := $(shell cat test/Harness.dart | grep 'String imageTag =' \
 		| cut -d '-' -f 1  | xargs)
 
 .PHONY: \
-	configure status certs protos models test doc
+	configure status certs protos models test doc release
 
 .SILENT: \
-	configure status certs protos models test doc
+	configure status certs protos models test doc release
 
 status:
 	echo "Check EventStoreDB OSS version..."
@@ -98,3 +98,6 @@ doc:
 	echo "Starting server at http://localhost:8080"
 	dhttpd --path doc/api
 
+release:
+	echo 'Release to pub.dev...'
+	pub_release
