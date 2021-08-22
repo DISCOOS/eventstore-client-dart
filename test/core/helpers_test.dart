@@ -8,6 +8,40 @@ void main() {
   const EVEN = [0, 2, 4, 6, 8];
   const ODD = <int>[1, 3, 5, 7, 9];
 
+  test('DateTimeX converts UnixEpochTicks to UnixEpochInUtc', () {
+    // Assert lower boundary == UnixEpoch
+    final dt = fromTicksSinceEpoch(UnixEpochTicks);
+    expect(
+      dt,
+      UnixEpochInUtc,
+      reason: 'should be UnixEpoch',
+    );
+  });
+
+  test('DateTimeX converts now to ticks back to local DateTime', () {
+    // Assert lower boundary == UnixEpoch
+    final now = DateTime.now();
+    final ticks = now.ticks;
+    final then = fromTicksSinceEpoch(ticks);
+    expect(
+      then,
+      now,
+      reason: 'should be the same',
+    );
+  });
+
+  test('DateTimeX converts now to ticks back to DateTime in utc', () {
+    // Assert lower boundary == UnixEpoch
+    final now = DateTime.now().toUtc();
+    final ticks = now.ticks;
+    final then = fromTicksSinceEpoch(ticks, inUtc: true);
+    expect(
+      then,
+      now,
+      reason: 'should be the same',
+    );
+  });
+
   test('ListX sort elements ascending by given key', () {
     // Arrange
     final items = List<int>.generate(10, (index) => index);

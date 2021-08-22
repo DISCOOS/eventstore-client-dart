@@ -7,18 +7,19 @@ String enumName(Object o) => o.toString().split('.').last;
 /// Type helper class
 Type typeOf<T>() => T;
 
-const _epochTicks = 621355968000000000;
-final _unixEpoc = DateTime(1970, 1, 1, 0, 0, 0, 0, 0);
+const UnixEpochTicks = 621355968000000000;
+final UnixEpochInUtc = DateTime.fromMicrosecondsSinceEpoch(0, isUtc: true);
 
-extension TicksOnDateTime on DateTime {
-  int get ticks => microsecondsSinceEpoch * 10 + _epochTicks;
+extension DateTimeX on DateTime {
+  int get ticks => toUtc().microsecondsSinceEpoch * 10 + UnixEpochTicks;
 }
 
-DateTime fromTicksSinceEpoch(int value) {
-  return DateTime.fromMicrosecondsSinceEpoch(
-    _unixEpoc.ticks + value,
+DateTime fromTicksSinceEpoch(int value, {bool inUtc = false}) {
+  final dt = DateTime.fromMicrosecondsSinceEpoch(
+    (value - UnixEpochTicks) ~/ 10,
     isUtc: true,
   );
+  return inUtc ? dt : dt.toLocal();
 }
 
 extension DurationX on Duration {
