@@ -18,18 +18,21 @@ class EventStoreGossipClient extends EventStoreClientBase {
     );
   }
 
-  Future<ClusterInfo> read(EndPoint endPoint) async {
-    final client = _getClient(endPoint);
-    final response = client.read(Empty());
-    final info = await response.asStream().first;
+  /// Get [ClusterInfo] from given [endpoint]
+  Future<ClusterInfo> read(EndPoint endpoint) async {
+    return $runRequest(() async {
+      final client = _getClient(endpoint);
+      final response = client.read(Empty());
+      final info = await response.asStream().first;
 
-    final members = info.members.map((member) => MemberInfo(
-          isAlive: member.isAlive,
-          state: _toState(member),
-          endPoint: _toEndPoint(member),
-          uuid: UuidV4.fromDTO(member.instanceId).value,
-        ));
-    return ClusterInfo(members);
+      final members = info.members.map((member) => MemberInfo(
+            isAlive: member.isAlive,
+            state: _toState(member),
+            endPoint: _toEndPoint(member),
+            uuid: UuidV4.fromDTO(member.instanceId).value,
+          ));
+      return ClusterInfo(members);
+    });
   }
 
   VNodeState _toState($a.MemberInfo member) {
