@@ -1,6 +1,6 @@
 A community developed gRPC client library for EventStoreDB.
 
-EventStoreDB is the open-source, functional database with Complex Event Processing
+EventStoreDB is an open-source, functional database with Complex Event Processing
 capabilities. Documentation for EventStoreDB can be [found here](https://eventstore.com/docs).
 
 ## Getting started
@@ -47,6 +47,7 @@ This package is in active development and breaking changes should still be expec
 supports the following EventStoreDB client APIs:
 
 * :white_check_mark: Streams gRPC API
+* :white_check_mark: Gossip gRPC API (open source version of EventstoreDB)
 
 We are working on the following APIs:
 * :stopwatch: Projections Management gRPC API
@@ -54,7 +55,6 @@ We are working on the following APIs:
 The following APIs are planned for implementation in prioritized order: 
 * :one: Persistent Subscriptions Management gRPC API
 * :two: User Management gRPC API
-* :white_check_mark: Gossip gRPC API (open source version of EventstoreDB)
 * :three: Operations gRPC API
 * :four: Monitoring gRPC API
 * :five: Cluster Management gRPC API (commercial version of EventstoreDB)
