@@ -1,4 +1,4 @@
-import 'package:eventstore_client_dart/eventstore_client_dart.dart' as $a;
+import 'package:eventstore_client/eventstore_client.dart' as $a;
 
 /// Constant value for [LogPosition.end]
 const End = -1;

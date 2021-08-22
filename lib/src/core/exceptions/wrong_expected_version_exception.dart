@@ -1,6 +1,6 @@
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/helpers.dart';
-import 'package:eventstore_client_dart/src/core/stream_revision.dart';
+import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/core/helpers.dart';
+import 'package:eventstore_client/src/core/stream_revision.dart';
 
 /// <summary>
 /// Exception thrown if the expected version specified on an operation

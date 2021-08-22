@@ -1,6 +1,6 @@
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/helpers.dart';
-import 'package:eventstore_client_dart/src/security/user_credentials.dart';
+import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/core/helpers.dart';
+import 'package:eventstore_client/src/security/user_credentials.dart';
 import 'package:grpc/grpc.dart';
 
 import 'constants.dart';

@@ -1,6 +1,6 @@
 import 'dart:core';
 
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
+import 'package:eventstore_client/eventstore_client.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 

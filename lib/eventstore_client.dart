@@ -1,9 +1,9 @@
 /// A client library for EventStoreDB 20.x and above
-library eventstore_client_dart;
+library eventstore_client;
 
-import 'package:eventstore_client_dart/src/core/client_base.dart';
-import 'package:eventstore_client_dart/src/core/settings.dart';
-import 'package:eventstore_client_dart/src/streams/streams_client.dart';
+import 'package:eventstore_client/src/core/client_base.dart';
+import 'package:eventstore_client/src/core/settings.dart';
+import 'package:eventstore_client/src/streams/streams_client.dart';
 
 export 'package:grpc/grpc.dart';
 

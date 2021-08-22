@@ -3,9 +3,9 @@ import 'package:meta/meta.dart';
 import 'package:grpc/grpc.dart';
 import 'package:universal_io/io.dart';
 
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/endpoint_discoverer.dart';
-import 'package:eventstore_client_dart/src/gossip/gossip_client.dart';
+import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/core/endpoint_discoverer.dart';
+import 'package:eventstore_client/src/gossip/gossip_client.dart';
 
 import 'call_options.dart';
 import 'constants.dart';

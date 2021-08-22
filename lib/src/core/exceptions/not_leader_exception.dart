@@ -1,5 +1,5 @@
-import 'package:eventstore_client_dart/src/core/constants.dart';
-import 'package:eventstore_client_dart/src/generated/cluster.pb.dart';
+import 'package:eventstore_client/src/core/constants.dart';
+import 'package:eventstore_client/src/generated/cluster.pb.dart';
 import 'package:grpc/grpc.dart';
 import 'package:universal_io/io.dart';
 

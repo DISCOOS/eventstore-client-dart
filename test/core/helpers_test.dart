@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:eventstore_client_dart/src/core/helpers.dart';
+import 'package:eventstore_client/src/core/helpers.dart';
 import 'package:test/test.dart';
 
 void main() {

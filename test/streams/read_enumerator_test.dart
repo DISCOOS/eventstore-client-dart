@@ -1,5 +1,5 @@
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/streams/read_enumerator.dart';
+import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/streams/read_enumerator.dart';
 import 'package:test/test.dart';
 
 import '../fixtures/read_enumerator_mock.dart';

@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:eventstore_client_dart/src/core/constants.dart';
+import 'package:eventstore_client/src/core/constants.dart';
 import 'package:uuid/uuid.dart';
 
 import 'log_position.dart';

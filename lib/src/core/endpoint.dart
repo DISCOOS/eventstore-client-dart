@@ -1,5 +1,5 @@
-import 'package:eventstore_client_dart/src/core/constants.dart';
-import 'package:eventstore_client_dart/src/core/exceptions/exceptions.dart';
+import 'package:eventstore_client/src/core/constants.dart';
+import 'package:eventstore_client/src/core/exceptions/exceptions.dart';
 import 'package:universal_io/io.dart';
 
 class EndPoint {

@@ -1,5 +1,5 @@
-import 'package:eventstore_client_dart/src/core/constants.dart';
-import 'package:eventstore_client_dart/src/core/resolved_event.dart';
+import 'package:eventstore_client/src/core/constants.dart';
+import 'package:eventstore_client/src/core/resolved_event.dart';
 import 'package:grpc/src/shared/status.dart';
 
 /// Exception thrown if an operation is attempted on a stream which

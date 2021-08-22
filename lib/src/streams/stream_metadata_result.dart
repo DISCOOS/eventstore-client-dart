@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/helpers.dart';
-import 'package:eventstore_client_dart/src/core/resolved_event.dart';
-import 'package:eventstore_client_dart/src/core/stream_position.dart';
-import 'package:eventstore_client_dart/src/core/stream_state.dart';
-import 'package:eventstore_client_dart/src/generated/streams.pbgrpc.dart';
-import 'package:eventstore_client_dart/src/streams/read_enumerator.dart';
-import 'package:eventstore_client_dart/src/streams/stream_acl.dart';
+import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/core/helpers.dart';
+import 'package:eventstore_client/src/core/resolved_event.dart';
+import 'package:eventstore_client/src/core/stream_position.dart';
+import 'package:eventstore_client/src/core/stream_state.dart';
+import 'package:eventstore_client/src/generated/streams.pbgrpc.dart';
+import 'package:eventstore_client/src/streams/read_enumerator.dart';
+import 'package:eventstore_client/src/streams/stream_acl.dart';
 import 'package:grpc/grpc.dart';
 import 'package:fixnum/fixnum.dart';
 

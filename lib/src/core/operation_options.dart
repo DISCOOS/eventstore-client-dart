@@ -1,4 +1,4 @@
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
+import 'package:eventstore_client/eventstore_client.dart';
 
 /// A class representing the options to apply to an individual operation.
 class EventStoreClientOperationOptions {

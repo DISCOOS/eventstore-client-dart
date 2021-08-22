@@ -1,4 +1,4 @@
-name: eventstore_client_dart
+name: eventstore_client
 version: 0.0.1
 homepage: https://github.com/DISCOOS/eventstore-client-dart
 description: A client library for EventStoreDB 20.x and above

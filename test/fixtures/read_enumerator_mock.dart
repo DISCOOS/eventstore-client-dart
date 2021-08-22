@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/uuid.dart';
-import 'package:eventstore_client_dart/src/generated/shared.pb.dart';
-import 'package:eventstore_client_dart/src/generated/streams.pbgrpc.dart';
+import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/core/uuid.dart';
+import 'package:eventstore_client/src/generated/shared.pb.dart';
+import 'package:eventstore_client/src/generated/streams.pbgrpc.dart';
 import 'package:mockito/mockito.dart';
 
 class ResponseStreamMock extends Fake implements ResponseStream<ReadResp> {

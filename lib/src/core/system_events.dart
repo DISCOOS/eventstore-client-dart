@@ -1,7 +1,7 @@
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/constants.dart';
-import 'package:eventstore_client_dart/src/core/event_record.dart';
-import 'package:eventstore_client_dart/src/core/resolved_event.dart';
+import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/core/constants.dart';
+import 'package:eventstore_client/src/core/event_record.dart';
+import 'package:eventstore_client/src/core/resolved_event.dart';
 import 'package:fixnum/fixnum.dart';
 
 /// Event received by subscriptions if the stream is tombstoned (hard delete)

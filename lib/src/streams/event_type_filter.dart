@@ -1,5 +1,5 @@
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/resolved_event.dart';
+import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/core/resolved_event.dart';
 
 /// A structure representing a filter on event types for read operations.
 class EventTypeFilter extends ReadFilter {

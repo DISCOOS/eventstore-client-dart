@@ -1,5 +1,5 @@
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/uuid.dart';
+import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/core/uuid.dart';
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:universal_io/io.dart';

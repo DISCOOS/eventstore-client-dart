@@ -1,4 +1,4 @@
-import 'package:eventstore_client_dart/src/core/resolved_event.dart';
+import 'package:eventstore_client/src/core/resolved_event.dart';
 
 /// An interface that represents a search filter, used for read operations.
 abstract class ReadFilter {

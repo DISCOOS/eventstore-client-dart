@@ -1,4 +1,4 @@
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
+import 'package:eventstore_client/eventstore_client.dart';
 
 /// A class representing a checkpoint [LogPosition] reached by a [EventStreamSubscription]
 class SubscriptionCheckPoint {

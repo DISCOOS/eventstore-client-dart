@@ -8,7 +8,7 @@ A client library for EventStoreDB 20.x and above
 A simple usage example of reading from a _self-hosted single-node_:
 
 ```dart
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
+import 'package:eventstore_client/eventstore_client.dart';
 
 void main() async {
   // Create a client instance

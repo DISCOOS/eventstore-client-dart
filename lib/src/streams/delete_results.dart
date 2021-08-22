@@ -1,6 +1,6 @@
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/log_position.dart';
-import 'package:eventstore_client_dart/src/generated/streams.pb.dart';
+import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/core/log_position.dart';
+import 'package:eventstore_client/src/generated/streams.pb.dart';
 
 class DeleteResult {
   DeleteResult._(

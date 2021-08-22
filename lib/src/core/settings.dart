@@ -1,12 +1,11 @@
 import 'dart:math';
 
-import 'package:eventstore_client_dart/eventstore_client_dart.dart'
-    hide NodePreference;
-import 'package:eventstore_client_dart/src/cluster/enums.dart' as $e;
-import 'package:eventstore_client_dart/src/core/endpoint.dart';
-import 'package:eventstore_client_dart/src/core/helpers.dart';
-import 'package:eventstore_client_dart/src/core/uuid.dart';
-import 'package:eventstore_client_dart/src/security/user_credentials.dart';
+import 'package:eventstore_client/eventstore_client.dart' hide NodePreference;
+import 'package:eventstore_client/src/cluster/enums.dart' as $e;
+import 'package:eventstore_client/src/core/endpoint.dart';
+import 'package:eventstore_client/src/core/helpers.dart';
+import 'package:eventstore_client/src/core/uuid.dart';
+import 'package:eventstore_client/src/security/user_credentials.dart';
 import 'package:fixnum/fixnum.dart';
 
 import 'operation_options.dart';

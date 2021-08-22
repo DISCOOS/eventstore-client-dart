@@ -1,4 +1,4 @@
-import 'package:eventstore_client_dart/src/core/stream_position.dart';
+import 'package:eventstore_client/src/core/stream_position.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 

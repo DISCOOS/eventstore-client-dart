@@ -1,18 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:eventstore_client_dart/src/generated/code.pb.dart';
-import 'package:eventstore_client_dart/src/streams/enums.dart';
+import 'package:eventstore_client/src/generated/code.pb.dart';
+import 'package:eventstore_client/src/streams/enums.dart';
 import 'package:grpc/grpc.dart';
 import 'package:tuple/tuple.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:eventstore_client_dart/eventstore_client_dart.dart';
-import 'package:eventstore_client_dart/src/core/resolved_event.dart';
-import 'package:eventstore_client_dart/src/core/stream_position.dart';
-import 'package:eventstore_client_dart/src/generated/streams.pbgrpc.dart';
-import 'package:eventstore_client_dart/src/core/log_position.dart';
-import 'package:eventstore_client_dart/src/core/stream_state.dart';
+import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/core/resolved_event.dart';
+import 'package:eventstore_client/src/core/stream_position.dart';
+import 'package:eventstore_client/src/generated/streams.pbgrpc.dart';
+import 'package:eventstore_client/src/core/log_position.dart';
+import 'package:eventstore_client/src/core/stream_state.dart';
 
 /// Internal class for reading [ReadResp] from server
 class ReadEnumerator {
