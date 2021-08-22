@@ -89,27 +89,31 @@ class ReadEnumerator {
       _eventController.add(event);
       if (SystemEventTypes.StreamDeleted == event.event.eventType) {
         _drop(
-            SubscriptionDroppedReason.serverError,
-            StreamDeletedException.fromEvent(
-              StreamDeletedEvent.from(event),
-            ));
+          SubscriptionDroppedReason.serverError,
+          StreamDeletedException.fromEvent(
+            StreamDeletedEvent.from(event),
+          ),
+        );
       }
     }
   }
 
   void _addError(Object error, StackTrace stackTrace) {
     final typed = error is! Exception ? error : _toTypedException(error);
-    if (!isCompleted) {
+    if (isSubscription) {
+      // Subscription stream does not throw errors,
+      // they are dropped with a reason and cause
+      _drop(
+        error is GrpcError && error.code != Code.CANCELLED.value
+            ? SubscriptionDroppedReason.serverError
+            : error is GrpcError && error.code == Code.CANCELLED.value
+                ? SubscriptionDroppedReason.disposed
+                : SubscriptionDroppedReason.subscriberError,
+        typed,
+      );
+    } else if (!isCompleted) {
       _eventController.addError(typed, stackTrace);
     }
-    _drop(
-      error is GrpcError && error.code != Code.CANCELLED.value
-          ? SubscriptionDroppedReason.serverError
-          : error is GrpcError && error.code == Code.CANCELLED.value
-              ? SubscriptionDroppedReason.disposed
-              : SubscriptionDroppedReason.subscriberError,
-      typed,
-    );
     dispose();
   }
 

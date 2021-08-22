@@ -151,4 +151,10 @@ class SubscriptionDroppedEvent extends SubscriptionEvent {
 
   final Object? cause;
   final SubscriptionDroppedReason reason;
+
+  /// Check if [cause] was [StreamDeletedException]
+  bool get isDeleted => cause is StreamDeletedException;
+
+  /// Check if [reason] was [SubscriptionDroppedReason.disposed]
+  bool get isDisposed => reason == SubscriptionDroppedReason.disposed;
 }

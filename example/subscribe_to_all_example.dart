@@ -3,14 +3,11 @@ import 'package:eventstore_client/eventstore_client.dart';
 void main() async {
   // Create a client instance
   final client = EventStoreClient(
-    EventStoreClientSettings.parse(
-      'esdb://127.0.0.1:2113',
-    ),
+    EventStoreClientSettings.parse('<your value>'),
   );
 
-  // Fetch all events in EventStore
-  final result = await client.readFromAll(
-    forward: true,
+  // Catchup to all events in EventStore
+  final result = await client.subscribeToAll(
     resolveLinks: true,
     position: LogPosition.start,
   );
