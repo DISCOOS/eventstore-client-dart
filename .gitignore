@@ -12,7 +12,4 @@ build/
 pubspec.lock
 
 # Project spesific resources
-certs/.failed_tracker
-.failed_tracker
 test/certs
-tool/post_release_hook/settings.yaml
