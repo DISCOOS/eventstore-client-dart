@@ -1,3 +1,6 @@
+# 0.0.3
+- Added documentation with proper package layout
+
 # 0.0.2
 
 - Added more examples
