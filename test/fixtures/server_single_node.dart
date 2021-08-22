@@ -30,6 +30,8 @@ class EventStoreServerSingleNode extends EventStoreServer {
   Future<void> start({
     bool enableGossip = false,
     bool Function(String)? isReady,
+    String runProjections = 'none',
+    bool startSystemProjection = false,
   }) async {
     verifyCertificatesExist();
     final failures = <String>[];
@@ -64,6 +66,9 @@ class EventStoreServerSingleNode extends EventStoreServer {
           'EVENTSTORE_TRUSTED_ROOT_CERTIFICATES_PATH':
               '/etc/eventstore/certs/ca',
         },
+        'EVENTSTORE_RUN_PROJECTIONS': runProjections,
+        'EVENTSTORE_START_SYSTEM_PROJECTIONS':
+            startSystemProjection ? 'True' : 'False',
       },
       dockerArgs: secure
           ? [

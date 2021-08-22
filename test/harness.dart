@@ -116,6 +116,8 @@ class EventStoreClientHarness {
     bool enableGossip = false,
     bool Function(String)? isReady,
     String imageTag = ImageTags.LTS,
+    String runProjections = 'none',
+    bool startSystemProjection = false,
     Duration? timeoutAfter = const Duration(seconds: 5),
   }) {
     Timer? _timeout;
@@ -140,6 +142,8 @@ class EventStoreClientHarness {
         await server.start(
           isReady: isReady,
           enableGossip: enableGossip,
+          runProjections: runProjections,
+          startSystemProjection: startSystemProjection,
         );
       }
 
@@ -155,6 +159,8 @@ class EventStoreClientHarness {
         await server.start(
           isReady: isReady,
           enableGossip: enableGossip,
+          runProjections: runProjections,
+          startSystemProjection: startSystemProjection,
         );
       }
       if (timeoutAfter != null) {
