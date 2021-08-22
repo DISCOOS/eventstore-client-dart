@@ -1,11 +1,6 @@
-import 'dart:async';
-
 import 'package:eventstore_client/eventstore_client.dart';
 
 void main() async {
-  var position = LogPosition.start;
-  final controller = StreamController<ResolvedEvent>();
-
   // Create a client instance
   final client = EventStoreClient(
     EventStoreClientSettings.parse('<your value>'),

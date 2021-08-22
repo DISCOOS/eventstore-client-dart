@@ -37,9 +37,11 @@ void main() async {
 }
 ```
 
-This client is not yet properly documented. For additional documentation about usage, see the 
-[official documentation for gRPC clients](https://developers.eventstore.com/clients/grpc/getting-started) 
-on [eventstore.com](https://developers.eventstore.com). 
+## Usage and documentation
+This client is not yet properly documented, but we have made [some example usages](example/README.md), 
+and publish the [API reference](https://pub.dev/documentation/eventstore_client/latest). 
+For additional documentation about general usage, see the [official documentation for gRPC clients](https://developers.eventstore.com/clients/grpc/getting-started) 
+on [eventstore.com](https://developers.eventstore.com).
 
 ## Features and bugs
 
@@ -63,13 +65,13 @@ Please file feature requests and bugs at the [issue tracker][tracker].
 
 [tracker]: https://github.com/DISCOOS/eventstore-client-dart/issues/new
 
-### Community
+## Community
 There is a community discussion space at [Event Store Discuss](https://discuss.eventstore.com). 
 If you prefer slack, there is also an #eventstore channel in the [DDD-CQRS-ES](https://j.mp/ddd-es-cqrs) 
 slack community. The maintainers of this community developed client will do their 
 best to answer any questions in both these channels.
 
-### Contributing
+## Contributing
 Development is done on the `master` branch. As for the official clients, we also 
 attempt to do our best to ensure that the history remains clean and to do so, we generally 
 ask contributors to squash their commits into a set or single logical commit. 
