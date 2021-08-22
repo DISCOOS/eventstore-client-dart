@@ -29,10 +29,10 @@ CURRENT := $(shell cat test/Harness.dart | grep 'String imageTag =' \
 		| cut -d '-' -f 1  | xargs)
 
 .PHONY: \
-	configure status certs protos models test
+	configure status certs protos models test doc
 
 .SILENT: \
-	configure status certs protos models test
+	configure status certs protos models test doc
 
 status:
 	echo "Check EventStoreDB OSS version..."
@@ -48,6 +48,8 @@ configure:
 	dart pub global activate pub_release
 	dart pub global activate critical_test
 	pub global activate dcli
+	pub global activate dartdoc
+	pub global activate dhttpd
 
 certs:
 	sh tool/gencert.sh . --secure
@@ -89,4 +91,10 @@ models:
 test:
 	if [ ! -d test/certs ]; then . tool/gencert.sh test; fi
 	dart test -j 1
+
+doc:
+	rm -rf doc
+	dartdoc
+	echo "Starting server at http://localhost:8080"
+	dhttpd --path doc/api
 

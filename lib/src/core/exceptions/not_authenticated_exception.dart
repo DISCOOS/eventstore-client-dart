@@ -2,7 +2,7 @@ import 'package:grpc/grpc.dart';
 
 /// The exception that is thrown when a user is not authenticated.
 class NotAuthenticatedException implements Exception {
-  /// Constructs a new instance of [NotAuthenticatedException] from given [error]
+  /// Constructs a new instance of [NotAuthenticatedException] from given [cause]
   NotAuthenticatedException(this.message, {this.cause});
 
   final dynamic message;

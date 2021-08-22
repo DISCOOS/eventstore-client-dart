@@ -1,4 +1,4 @@
-/// A client library for EventStoreDB 20.x and above
+/// A community developed gRPC client library for EventStoreDB
 library eventstore_client;
 
 import 'package:eventstore_client/src/core/client_base.dart';

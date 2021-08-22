@@ -5,7 +5,7 @@ import 'package:universal_io/io.dart';
 
 /// This exception is thrown when an operation requiring a leader node is made on a follower node.
 class NotLeaderException implements Exception {
-  /// Constructs a new instance of [NotLeaderException] from given [error]
+  /// Constructs a new instance of [NotLeaderException] from given [cause]
   NotLeaderException(String host, int port, {this.cause})
       : leader = EndPoint()
           ..address = host

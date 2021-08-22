@@ -13,3 +13,4 @@ pubspec.lock
 
 # Project spesific resources
 test/certs
+doc/

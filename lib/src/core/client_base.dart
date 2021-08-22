@@ -18,9 +18,8 @@ import '../security/user_credentials.dart';
 abstract class EventStoreClientBase {
   EventStoreClientBase({
     required this.settings,
-    CallOptions? options,
     Map<String, GrpcErrorCallback> exceptionMap = const {},
-  })  : _options = _mergedCallOptionsWith(settings, options),
+  })  : _options = _mergedCallOptionsWith(settings),
         _exceptionMap = {
           Exceptions.NotLeader: (error) => NotLeaderException.fromCause(error),
           Exceptions.AccessDenied: (error) =>
@@ -36,9 +35,6 @@ abstract class EventStoreClientBase {
 
   /// [leader] is lazily fetched or created on next get
   late EndPoint? _leader;
-
-  /// [channel] is lazily fetched or created on next get
-  late ClientChannel _channel;
 
   /// List of lazily created [ClientChannel]
   final Map<EndPoint, ClientChannel> _channels = {};
@@ -73,9 +69,6 @@ abstract class EventStoreClientBase {
     return _leader = await _leaderDiscoverer.discover();
   }
 
-  /// Get current [ClientChannel] instance
-  ClientChannel get channel => _channel;
-
   /// Shutdown all channels
   Future<void> shutdown() async {
     await Future.wait([
@@ -86,6 +79,7 @@ abstract class EventStoreClientBase {
     _credentials.clear();
   }
 
+  /// @nodoc
   @visibleForOverriding
   CallOptions $getOptions({
     Duration? timeoutAfter,
@@ -94,19 +88,21 @@ abstract class EventStoreClientBase {
   }) {
     return _mergedCallOptionsWith(
       settings,
-      _options,
+      options: _options,
       timeoutAfter: timeoutAfter,
       userCredentials: userCredentials,
       operationOptions: operationOptions,
     );
   }
 
+  /// @nodoc
   @visibleForOverriding
   Future<ClientChannel> $getCurrentChannel() async {
     await discover();
     return $getOrAddChannel(_leader!);
   }
 
+  /// @nodoc
   @visibleForOverriding
   ChannelCredentials $getOrAddCredentials(EndPoint endPoint) {
     return _credentials.putIfAbsent(
@@ -121,6 +117,7 @@ abstract class EventStoreClientBase {
     );
   }
 
+  /// @nodoc
   @visibleForOverriding
   ClientChannel $getOrAddChannel(EndPoint endPoint) {
     return _channels.putIfAbsent(
@@ -148,6 +145,7 @@ abstract class EventStoreClientBase {
     );
   }
 
+  /// @nodoc
   @visibleForOverriding
   Uint8List $readHostCertificate() {
     final file = File(settings.publicKeyPath);
@@ -157,6 +155,7 @@ abstract class EventStoreClientBase {
     return file.readAsBytesSync();
   }
 
+  /// @nodoc
   @visibleForOverriding
   List<ClientInterceptor> $toInterceptors(
     String connectionName, {
@@ -168,6 +167,7 @@ abstract class EventStoreClientBase {
     ];
   }
 
+  /// @nodoc
   @visibleForOverriding
   Future<T> $runRequest<T>(Future<T> Function() call) async {
     try {
@@ -177,6 +177,8 @@ abstract class EventStoreClientBase {
     }
   }
 
+  /// @nodoc
+  @visibleForOverriding
   Exception $toTypedException(Exception error) {
     if (error is GrpcError) {
       final key = error.trailers?[Exceptions.ExceptionKey];
@@ -215,8 +217,8 @@ abstract class EventStoreClientBase {
   }
 
   static CallOptions _mergedCallOptionsWith(
-    EventStoreClientSettings settings,
-    CallOptions? options, {
+    EventStoreClientSettings settings, {
+    CallOptions? options,
     Duration? timeoutAfter,
     UserCredentials? userCredentials,
     EventStoreClientOperationOptions? operationOptions,

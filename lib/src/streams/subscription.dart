@@ -57,8 +57,7 @@ class EventStreamSubscription {
   bool get isStreamNotFound => _enumerator.isStreamNotFound;
 
   /// Check if operation has completed. Operation is completed when
-  /// all events are fetched with [events] or [stream], or after
-  /// [dispose] is called.
+  /// all events are fetched with [stream], or after [dispose] is called.
   bool get isCompleted => _enumerator.isCompleted;
 
   /// Current [StreamState] progress

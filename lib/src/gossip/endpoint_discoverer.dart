@@ -8,10 +8,13 @@ import 'package:eventstore_client/src/core/settings.dart';
 
 import 'gossip_client.dart';
 
+/// A class for discovering an [EndPoint] using the Gossip api
+/// based on
+
 class GossipBasedEndpointDiscoverer extends EndpointDiscoverer {
   GossipBasedEndpointDiscoverer(
     EventStoreGossipClient client,
-  ) : _client = client;
+  ) : client = client;
 
   static const List<VNodeState> NotAllowedStates = [
     VNodeState.manager,
@@ -29,41 +32,45 @@ class GossipBasedEndpointDiscoverer extends EndpointDiscoverer {
     VNodeState.discover_leader,
   ];
 
-  final EventStoreGossipClient _client;
+  /// [EventStoreGossipClient] used to by this [GossipBasedEndpointDiscoverer]
+  /// to discover EventStoreDB host that matches current [settings].
+  final EventStoreGossipClient client;
 
   ClusterInfo? _oldInfo;
 
-  EventStoreClientSettings get _settings => _client.settings;
+  /// [EventStoreClientSettings] used to discover [EventStoreDB][EndPoint] hosts
+  EventStoreClientSettings get settings => client.settings;
 
   @override
-  Future<void> dispose() => _client.shutdown();
+  Future<void> dispose() => client.shutdown();
 
+  /// Discover EventStoreDB host based on given [settings].
   @override
   Future<EndPoint> discover() async {
-    for (var attempt = 1; attempt <= _settings.maxDiscoverAttempts; ++attempt) {
+    for (var attempt = 1; attempt <= settings.maxDiscoverAttempts; ++attempt) {
       try {
         final request = _discover();
-        final endpoint = await (_settings.gossipTimeout.isInfinite
+        final endpoint = await (settings.gossipTimeout.isInfinite
             ? request
             : request.timeout(
-                _settings.gossipTimeout,
+                settings.gossipTimeout,
               ));
         if (endpoint != null) {
           return endpoint;
         }
       } on Exception {
         await Future<void>.delayed(
-          _settings.discoveryInterval,
+          settings.discoveryInterval,
         );
       }
     }
-    throw DiscoveryException(_settings.maxDiscoverAttempts);
+    throw DiscoveryException(settings.maxDiscoverAttempts);
   }
 
   Future<EndPoint?> _discover() async {
     final gossipCandidates = _oldInfo?.members.isNotEmpty == true
         ? _arrangeCandidates(_oldInfo?.members as List<MemberInfo>)
-        : _getGossipCandidates(_settings.gossipSeeds);
+        : _getGossipCandidates(settings.gossipSeeds);
 
     for (var candidate in gossipCandidates) {
       final info = await read(candidate);
@@ -78,7 +85,7 @@ class GossipBasedEndpointDiscoverer extends EndpointDiscoverer {
 
   /// Get [ClusterInfo] for given [EndPoint] candidate.
   Future<ClusterInfo> read(EndPoint candidate) async =>
-      await _client.read(candidate);
+      await client.read(candidate);
 
   List<EndPoint> _arrangeCandidates(List<MemberInfo> members) {
     final result = <EndPoint?>[]..length = members.length;
@@ -108,7 +115,7 @@ class GossipBasedEndpointDiscoverer extends EndpointDiscoverer {
     // Shift leaders before followers
     nodes.shiftBy((node) => node.state != VNodeState.leader);
 
-    switch (_settings.nodePreference) {
+    switch (settings.nodePreference) {
       case NodePreference.random:
         nodes.shuffle();
         break;

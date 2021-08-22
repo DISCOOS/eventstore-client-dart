@@ -165,8 +165,7 @@ abstract class BatchWriteResult extends WriteResult {
   }
 
   /// Check if operation has completed. Operation is completed when
-  /// all events are fetched with [events] or [stream], and after
-  /// [cancel] is called.
+  /// all events are appended, and after [cancel] is called.
   bool get isCompleted => _controller.isClosed;
 
   /// Internal [ResponseStream] for cancelling

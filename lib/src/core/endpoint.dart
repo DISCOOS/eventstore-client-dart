@@ -2,35 +2,47 @@ import 'package:eventstore_client/src/core/constants.dart';
 import 'package:eventstore_client/src/core/exceptions/exceptions.dart';
 import 'package:universal_io/io.dart';
 
+/// A class representing an [EventStoreDB](https://eventstore.com) host
 class EndPoint {
+  /// Constructs a [EndPoint] instance
   const EndPoint(this.address, this.port);
+
+  /// [EventStoreDB](https://eventstore.com) host address
   final String address;
+
+  /// [EventStoreDB](https://eventstore.com) host port
   final int port;
 
+  /// Get this [EndPoint] as a [Uri]
   Uri toUri() {
     return Uri(host: address, port: port);
   }
 
+  /// An [EndPoint] representing [InternetAddress.loopbackIPv4]
   static final loopbackIPv4 = EndPoint(
     InternetAddress.loopbackIPv4.address,
     Defaults.GrpcPort,
   );
 
+  /// An [EndPoint] representing [InternetAddress.loopbackIPv6]
   static final loopbackIPv6 = EndPoint(
     InternetAddress.loopbackIPv6.address,
     Defaults.GrpcPort,
   );
 
+  /// An [EndPoint] representing [InternetAddress.anyIPv4]
   static final anyIPv4 = EndPoint(
     InternetAddress.anyIPv4.address,
     Defaults.GrpcPort,
   );
 
+  /// An [EndPoint] representing [InternetAddress.anyIPv6]
   static final anyIPv6 = EndPoint(
     InternetAddress.anyIPv6.address,
     Defaults.GrpcPort,
   );
 
+  /// Construct an [EndPoint] from given [path]
   factory EndPoint.from(String path) {
     late int port;
     late String host;

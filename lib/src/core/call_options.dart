@@ -7,6 +7,7 @@ import 'constants.dart';
 import 'operation_options.dart';
 
 /// A helper class for creating [CallOptions].
+///
 class EventStoreCallOptions {
   static CallOptions create(
     EventStoreClientSettings settings, {

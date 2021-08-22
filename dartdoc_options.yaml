@@ -1,0 +1,11 @@
+dartdoc:
+  nodoc:
+    - lib/src/generated
+  exclude:
+    - package:grpc
+    - package:grpc_connection_interface
+    - package:grpc_or_grpcweb
+    - package:grpc_web
+    - package:service_api
+
+

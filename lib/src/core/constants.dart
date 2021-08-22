@@ -110,7 +110,7 @@ class Headers {
 
 /// Constants for information in stream metadata
 class SystemMetadata {
-  /// List of [StringMetadata] fields
+  /// List of [SystemMetadata] fields
   static const List<String> fields = [
     Acl,
     MaxAge,

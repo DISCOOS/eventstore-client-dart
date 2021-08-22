@@ -27,7 +27,7 @@ class StreamFilter extends ReadFilter {
     );
   }
 
-  /// Constructs a new [StreamFilter] from a multiple prefixes [pattern]
+  /// Constructs a new [StreamFilter] from a multiple prefixes [patterns]
   factory StreamFilter.fromPrefixes(
     List<String> patterns, [
     int maxSearchWindow = Defaults.MaxSearchWindow,

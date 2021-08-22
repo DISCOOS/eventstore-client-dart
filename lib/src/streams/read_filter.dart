@@ -17,7 +17,7 @@ abstract class ReadFilter {
   /// Check if a Prefix filter
   bool get isPrefix => prefixes.isNotEmpty;
 
-  /// Check if [Regexp] filter
+  /// Check if [RegExp] filter
   bool get isRegex => regex != RegularFilterExpression.None;
 
   /// Filter events using this filter

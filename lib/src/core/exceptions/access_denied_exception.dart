@@ -2,7 +2,7 @@ import 'package:grpc/grpc.dart';
 
 /// Exception thrown when a user is not authorised to carry out an operation.
 class AccessDeniedException implements Exception {
-  /// Constructs a new instance of [AccessDeniedException] from given [error]
+  /// Constructs a new instance of [AccessDeniedException] from given [cause]
   AccessDeniedException(this.message, {this.cause});
 
   final dynamic message;

@@ -37,7 +37,7 @@ class EventTypeFilter extends ReadFilter {
     );
   }
 
-  /// Constructs a new [EventTypeFilter] from a multiple prefixes [pattern]
+  /// Constructs a new [EventTypeFilter] from a multiple prefixes [patterns]
   factory EventTypeFilter.fromPrefixes(
     List<String> patterns, [
     int maxSearchWindow = Defaults.MaxSearchWindow,
