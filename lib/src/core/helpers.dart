@@ -7,16 +7,17 @@ String enumName(Object o) => o.toString().split('.').last;
 /// Type helper class
 Type typeOf<T>() => T;
 
+/// Number of ticks from year 0 to Unix Epoc
 const UnixEpochTicks = 621355968000000000;
-final UnixEpochInUtc = DateTime.fromMicrosecondsSinceEpoch(0, isUtc: true);
 
 extension DateTimeX on DateTime {
-  int get ticks => toUtc().microsecondsSinceEpoch * 10 + UnixEpochTicks;
+  /// Get number of ticks since epoch
+  int get ticks => toUtc().microsecondsSinceEpoch * 10;
 }
 
-DateTime fromTicksSinceEpoch(int value, {bool inUtc = false}) {
+DateTime fromTicksSinceEpoch(int ticks, {bool inUtc = false}) {
   final dt = DateTime.fromMicrosecondsSinceEpoch(
-    (value - UnixEpochTicks) ~/ 10,
+    ticks ~/ 10,
     isUtc: true,
   );
   return inUtc ? dt : dt.toLocal();

@@ -7,10 +7,13 @@ void main() {
   final RND = Random(10);
   const EVEN = [0, 2, 4, 6, 8];
   const ODD = <int>[1, 3, 5, 7, 9];
+  const UnixEpochTicks = 621355968000000000;
+  final UnixEpochInLocal = DateTime.fromMicrosecondsSinceEpoch(0);
+  final UnixEpochInUtc = DateTime.fromMicrosecondsSinceEpoch(0, isUtc: true);
 
-  test('DateTimeX converts UnixEpochTicks to UnixEpochInUtc', () {
+  test('DateTimeX converts ticks to unix epoch in utc', () {
     // Assert lower boundary == UnixEpoch
-    final dt = fromTicksSinceEpoch(UnixEpochTicks);
+    final dt = fromTicksSinceEpoch(0, inUtc: true);
     expect(
       dt,
       UnixEpochInUtc,
@@ -18,15 +21,13 @@ void main() {
     );
   });
 
-  test('DateTimeX converts now to ticks back to local DateTime', () {
+  test('DateTimeX converts ticks to unix epoch in local', () {
     // Assert lower boundary == UnixEpoch
-    final now = DateTime.now();
-    final ticks = now.ticks;
-    final then = fromTicksSinceEpoch(ticks);
+    final dt = fromTicksSinceEpoch(0);
     expect(
-      then,
-      now,
-      reason: 'should be the same',
+      dt,
+      UnixEpochInLocal,
+      reason: 'should be UnixEpoch',
     );
   });
 
@@ -35,6 +36,18 @@ void main() {
     final now = DateTime.now().toUtc();
     final ticks = now.ticks;
     final then = fromTicksSinceEpoch(ticks, inUtc: true);
+    expect(
+      then,
+      now,
+      reason: 'should be the same',
+    );
+  });
+
+  test('DateTimeX converts now to ticks back to DateTime in local', () {
+    // Assert lower boundary == UnixEpoch
+    final now = DateTime.now();
+    final ticks = now.ticks;
+    final then = fromTicksSinceEpoch(ticks);
     expect(
       then,
       now,
