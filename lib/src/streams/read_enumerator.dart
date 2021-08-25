@@ -87,7 +87,7 @@ class ReadEnumerator {
         revision: event.originalEventNumber.toRevision(),
       );
       _eventController.add(event);
-      if (SystemEventTypes.StreamDeleted == event.event.eventType) {
+      if (SystemEvents.StreamDeleted == event.event.eventType) {
         _drop(
           SubscriptionDroppedReason.serverError,
           StreamDeletedException.fromEvent(

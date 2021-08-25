@@ -1,16 +1,25 @@
 import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/core/constants.dart';
 import 'package:test/test.dart';
 
 import '../harness.dart';
 
 void main() {
+  const StatefulProjectionQuery = '''
+    fromStream("\$projections-some-stateful-proj").when({
+      \$init: function() { return { Count: 0 }; },
+      \$any: function(s, e) { s.Count++; return s; }
+    }).outputState();
+  ''';
+
   group('When projections are running, projections client', () {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
       ..install(
+        timeoutAfter: null,
         runProjections: 'all',
-        startSystemProjection: false,
+        startSystemProjections: true,
       );
 
     late final EventStoreClient streamsClient;
@@ -43,7 +52,9 @@ void main() {
       );
 
       // Assert
-      final result = await projectionsClient.getStatus('some-continuous-proj');
+      final result = await projectionsClient.getStatus(
+        'some-continuous-proj',
+      );
       expect(result.name, 'some-continuous-proj');
     });
 
@@ -55,8 +66,33 @@ void main() {
       );
 
       // Assert
-      final result = await projectionsClient.getStatus('some-transient-proj');
+      final result = await projectionsClient.getStatus(
+        'some-transient-proj',
+      );
       expect(result.name, 'some-transient-proj');
+    });
+
+    test('creates a stateful continuous projection', () async {
+      // Act
+      await projectionsClient.createContinuous(
+        'some-stateful-proj',
+        StatefulProjectionQuery,
+      );
+
+      // Assert
+      final result = await streamsClient.readFromStream(
+        Projections.resultStreamId(
+          'some-stateful-proj',
+        ),
+      );
+      // final result = await streamsClient.readFromAll();
+      expect(result.isOK, isTrue);
+      final events = await result.events;
+      expect(events, isNotEmpty);
+      expect(
+        events.first.originalEventType,
+        SystemEvents.Result,
+      );
     });
   });
 }

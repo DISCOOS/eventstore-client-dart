@@ -30,8 +30,8 @@ class EventStoreServerSingleNode extends EventStoreServer {
   Future<void> start({
     bool enableGossip = false,
     bool Function(String)? isReady,
+    bool? startSystemProjections,
     String runProjections = 'none',
-    bool startSystemProjection = false,
   }) async {
     verifyCertificatesExist();
     final failures = <String>[];
@@ -67,8 +67,9 @@ class EventStoreServerSingleNode extends EventStoreServer {
               '/etc/eventstore/certs/ca',
         },
         'EVENTSTORE_RUN_PROJECTIONS': runProjections,
-        'EVENTSTORE_START_SYSTEM_PROJECTIONS':
-            startSystemProjection ? 'True' : 'False',
+        if (startSystemProjections != null)
+          'EVENTSTORE_START_SYSTEM_PROJECTIONS':
+              startSystemProjections ? 'True' : 'False',
       },
       dockerArgs: secure
           ? [
@@ -83,9 +84,7 @@ class EventStoreServerSingleNode extends EventStoreServer {
           failures.add(line);
         }
         return failures.isNotEmpty || isReady == null
-            ? line.contains(
-                "========== [\"0.0.0.0:2113\"] Sub System '\"Projections\"' initialized.",
-              )
+            ? line.contains('All components started for Instance')
             : isReady(line);
       },
     );

@@ -7,7 +7,6 @@ void main() {
   final RND = Random(10);
   const EVEN = [0, 2, 4, 6, 8];
   const ODD = <int>[1, 3, 5, 7, 9];
-  const UnixEpochTicks = 621355968000000000;
   final UnixEpochInLocal = DateTime.fromMicrosecondsSinceEpoch(0);
   final UnixEpochInUtc = DateTime.fromMicrosecondsSinceEpoch(0, isUtc: true);
 

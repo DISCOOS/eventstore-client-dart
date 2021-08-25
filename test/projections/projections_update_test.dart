@@ -11,10 +11,9 @@ void main() {
       ..withClient()
       ..install(
         runProjections: 'all',
-        startSystemProjection: false,
+        startSystemProjections: false,
       );
 
-    var init = true;
     late final EventStoreClient streamsClient;
     late final EventStoreProjectionsClient projectionsClient;
 
@@ -25,53 +24,71 @@ void main() {
       );
     });
 
-    setUp(() async {
-      if (init) {
-        await projectionsClient.createContinuous(
-          ProjName,
-          'fromAll().when({\$init: function (state, ev) {return {};}});',
-        );
-        init = false;
-      }
-    });
-
     // ---------------------------------------
     // Test update operations
     // ---------------------------------------
 
     test('updates projection with not emits given', () async {
-      // Act
-      await projectionsClient.update(
-        ProjName,
-        'fromAll().when({\$init: function (s, e) {return {};}});',
+      // Arrange
+      await projectionsClient.createContinuous(
+        '$ProjName-1',
+        'fromAll().when({\$init: function (state, ev) {return {};}});',
       );
-      // Assert
-      final result = await projectionsClient.getStatus(ProjName);
-      expect(result.name, ProjName);
+
+      // Act
+      try {
+        await projectionsClient.update(
+          '$ProjName-1',
+          'fromAll().when({\$init: function (s, e) {return {};}});',
+        );
+        // Assert
+        final result = await projectionsClient.getStatus(
+          '$ProjName-1',
+        );
+        expect(result.name, '$ProjName-1');
+      } on Exception catch (e) {
+        print(e);
+      }
     });
 
     test('updates projection with emits enabled', () async {
+      // Arrange
+      await projectionsClient.createContinuous(
+        '$ProjName-2',
+        'fromAll().when({\$init: function (state, ev) {return {};}});',
+      );
+
       // Act
       await projectionsClient.update(
-        ProjName,
+        '$ProjName-2',
         'fromAll().when({\$init: function (s, e) {return {};}});',
         emitEnabled: true,
       );
       // Assert
-      final result = await projectionsClient.getStatus(ProjName);
-      expect(result.name, ProjName);
+      final result = await projectionsClient.getStatus(
+        '$ProjName-2',
+      );
+      expect(result.name, '$ProjName-2');
     });
 
     test('updates projection with emits disabled', () async {
+      // Arrange
+      await projectionsClient.createContinuous(
+        '$ProjName-3',
+        'fromAll().when({\$init: function (state, ev) {return {};}});',
+      );
+
       // Act
       await projectionsClient.update(
-        ProjName,
+        '$ProjName-3',
         'fromAll().when({\$init: function (s, e) {return {};}});',
         emitEnabled: false,
       );
       // Assert
-      final result = await projectionsClient.getStatus(ProjName);
-      expect(result.name, ProjName);
+      final result = await projectionsClient.getStatus(
+        '$ProjName-3',
+      );
+      expect(result.name, '$ProjName-3');
     });
   });
 }

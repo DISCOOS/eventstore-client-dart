@@ -24,7 +24,7 @@ mixin EventStoreProjectionsStatistics on EventStoreClientBase {
       return _getList(
         client,
         StatisticsReq_Options()..oneTime = Empty(),
-        userCredentials,
+        userCredentials: userCredentials,
       );
     });
   }
@@ -39,7 +39,7 @@ mixin EventStoreProjectionsStatistics on EventStoreClientBase {
       return _getList(
         client,
         StatisticsReq_Options()..continuous = Empty(),
-        userCredentials,
+        userCredentials: userCredentials,
       );
     });
   }
@@ -54,7 +54,7 @@ mixin EventStoreProjectionsStatistics on EventStoreClientBase {
       return _getList(
         client,
         StatisticsReq_Options()..transient = Empty(),
-        userCredentials,
+        userCredentials: userCredentials,
       );
     });
   }
@@ -69,7 +69,7 @@ mixin EventStoreProjectionsStatistics on EventStoreClientBase {
       return _getList(
         client,
         StatisticsReq_Options()..all = Empty(),
-        userCredentials,
+        userCredentials: userCredentials,
       );
     });
   }
@@ -78,6 +78,7 @@ mixin EventStoreProjectionsStatistics on EventStoreClientBase {
   /// The [name] argument identifies the projection.
   Future<ProjectionDetails> getStatus(
     String name, {
+    Duration? timeoutAfter,
     UserCredentials? userCredentials,
   }) async {
     return $runRequest(() async {
@@ -86,7 +87,8 @@ mixin EventStoreProjectionsStatistics on EventStoreClientBase {
       final list = await _getList(
         client,
         StatisticsReq_Options()..name = name,
-        userCredentials,
+        timeoutAfter: timeoutAfter,
+        userCredentials: userCredentials,
       );
       return list.first;
     });
@@ -94,12 +96,14 @@ mixin EventStoreProjectionsStatistics on EventStoreClientBase {
 
   Future<List<ProjectionDetails>> _getList(
     ProjectionsClient client,
-    StatisticsReq_Options options,
+    StatisticsReq_Options options, {
+    Duration? timeoutAfter,
     UserCredentials? userCredentials,
-  ) {
+  }) {
     final responseStream = client.statistics(
       StatisticsReq()..options = options,
       options: $getOptions(
+        timeoutAfter: timeoutAfter,
         userCredentials: userCredentials,
       ),
     );

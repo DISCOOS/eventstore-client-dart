@@ -18,17 +18,14 @@ mixin EventStoreProjectionsControl on EventStoreClientBase {
   ///
   /// The [name] identifies the projection to enable.
   Future<void> enable(
-    String name,
-    String query, {
+    String name, {
     UserCredentials? userCredentials,
   }) async {
     return $runRequest(() async {
       final client = await _getClient();
 
-      final request = EnableReq()..options = (EnableReq_Options()..name = name);
-
       await client.enable(
-        request,
+        EnableReq()..options = (EnableReq_Options()..name = name),
         options: $getOptions(
           userCredentials: userCredentials,
         ),
@@ -41,8 +38,7 @@ mixin EventStoreProjectionsControl on EventStoreClientBase {
   /// This operation save the projection's checkpoint.
   /// The [name] identifies the projection to disable.
   Future<void> disable(
-    String name,
-    String query, {
+    String name, {
     UserCredentials? userCredentials,
   }) async {
     return $runRequest(
@@ -59,8 +55,7 @@ mixin EventStoreProjectionsControl on EventStoreClientBase {
   /// Does the same as [disable], but without saving projection's checkpoint.
   /// The [name] identifies the projection to disable.
   Future<void> abort(
-    String name,
-    String query, {
+    String name, {
     UserCredentials? userCredentials,
   }) async {
     return $runRequest(
@@ -76,17 +71,14 @@ mixin EventStoreProjectionsControl on EventStoreClientBase {
   ///
   /// The [name] identifies the projection to reset.
   Future<void> reset(
-    String name,
-    String query, {
+    String name, {
     UserCredentials? userCredentials,
   }) async {
     return $runRequest(() async {
       final client = await _getClient();
 
-      final request = ResetReq()..options = (ResetReq_Options()..name = name);
-
       await client.reset(
-        request,
+        ResetReq()..options = (ResetReq_Options()..name = name),
         options: $getOptions(
           userCredentials: userCredentials,
         ),

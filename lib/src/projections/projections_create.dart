@@ -43,11 +43,11 @@ mixin EventStoreProjectionsCreate on EventStoreClientBase {
   /// This projection runs until the end of the log and
   /// then continues running. Continuous projections are persisted
   /// by the server and are restarted if the projection subsystem is
-  /// restarted. The [query] parameter contains the JavaScript you want
-  /// created as a one time projection. Continuous projections have explicit
-  /// names and you can enable or disable them via this name.
-  /// See {@macro user_defined_projections_api} for more information
-  /// about the query language (javascript).
+  /// restarted. {@macro proj-name-param}. The [query] parameter contains
+  /// the JavaScript you want created as a one time projection.
+  /// Continuous projections have explicit names and you can enable or
+  /// disable them via this name. See {@macro user_defined_projections_api}
+  /// for more information about the query language (javascript).
   Future<void> createContinuous(
     String name,
     String query, {
@@ -77,11 +77,11 @@ mixin EventStoreProjectionsCreate on EventStoreClientBase {
   /// This projection runs until the end of the log and
   /// then continues running. Transient projections are not persisted
   /// by the server and will be lost if the projection subsystem is
-  /// restarted. The [query] parameter contains the JavaScript you want
-  /// created as a one time projection. Continuous projections have
-  /// explicit names and you can enable or disable them via this name.
-  /// See {@macro user_defined_projections_api} for more information
-  /// about the query language (javascript).
+  /// restarted. {@macro proj-name-param}. The [query] parameter contains
+  /// the JavaScript you want created as a one time projection.
+  /// Continuous projections have explicit names and you can enable or
+  /// disable them via this name. See {@macro user_defined_projections_api}
+  /// for more information about the query language (javascript).
   Future<void> createTransient(
     String name,
     String query, {

@@ -352,7 +352,7 @@ mixin EventStoreStreamsClient on EventStoreClientBase {
         state.toAppendMetaReq(),
         _toAppendReq(EventData(
           uuid: UuidV4.newUuid().value.uuid,
-          type: SystemEventTypes.StreamMetadata,
+          type: SystemEvents.StreamMetadata,
           data: utf8.encode(json.encode(metadata.toJson())),
         )),
       ]);

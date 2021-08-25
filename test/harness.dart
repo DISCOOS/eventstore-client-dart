@@ -116,8 +116,8 @@ class EventStoreClientHarness {
     bool enableGossip = false,
     bool Function(String)? isReady,
     String imageTag = ImageTags.LTS,
+    bool? startSystemProjections,
     String runProjections = 'none',
-    bool startSystemProjection = false,
     Duration? timeoutAfter = const Duration(seconds: 5),
   }) {
     Timer? _timeout;
@@ -143,7 +143,7 @@ class EventStoreClientHarness {
           isReady: isReady,
           enableGossip: enableGossip,
           runProjections: runProjections,
-          startSystemProjection: startSystemProjection,
+          startSystemProjections: startSystemProjections,
         );
       }
 
@@ -160,7 +160,7 @@ class EventStoreClientHarness {
           isReady: isReady,
           enableGossip: enableGossip,
           runProjections: runProjections,
-          startSystemProjection: startSystemProjection,
+          startSystemProjections: startSystemProjections,
         );
       }
       if (timeoutAfter != null) {

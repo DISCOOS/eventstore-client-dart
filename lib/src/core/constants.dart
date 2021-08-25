@@ -160,7 +160,7 @@ class SystemMetadata {
 }
 
 /// Constants for System event types
-class SystemEventTypes {
+class SystemEvents {
   /// Event type for stream deleted
   static const String StreamDeleted = '\$streamDeleted';
 
@@ -175,4 +175,16 @@ class SystemEventTypes {
 
   /// Event type for the system settings
   static const String Settings = '\$settings';
+
+  /// Event type for projections initialized
+  static const String ProjectionsInitialized = '\$ProjectionsInitialized';
+
+  /// Event type for projection created
+  static const String ProjectionCreated = '\$ProjectionCreated';
+
+  /// Event type for projection created
+  static const String ProjectionUpdated = '\$ProjectionUpdated';
+
+  /// Event type for stateful projection results
+  static const String Result = 'Result';
 }

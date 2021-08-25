@@ -15,7 +15,7 @@ class StreamDeletedEvent extends ResolvedEvent {
   static final Position = StreamPosition.checked(Max);
 
   factory StreamDeletedEvent.from(ResolvedEvent event) {
-    _verifyType(event, SystemEventTypes.StreamDeleted);
+    _verifyType(event, SystemEvents.StreamDeleted);
     return StreamDeletedEvent._(
       event.event,
       event.link,
@@ -33,7 +33,7 @@ class LinkToEvent extends ResolvedEvent {
   ) : super(event, link, commitPosition);
 
   factory LinkToEvent.from(ResolvedEvent event) {
-    _verifyType(event, SystemEventTypes.LinkTo);
+    _verifyType(event, SystemEvents.LinkTo);
     return LinkToEvent._(
       event.event,
       event.link,
@@ -51,7 +51,7 @@ class StreamMetadataEvent extends ResolvedEvent {
   ) : super(event, link, commitPosition);
 
   factory StreamMetadataEvent.from(ResolvedEvent event) {
-    _verifyType(event, SystemEventTypes.StreamMetadata);
+    _verifyType(event, SystemEvents.StreamMetadata);
     return StreamMetadataEvent._(
       event.event,
       event.link,
@@ -69,7 +69,7 @@ class SettingsEvent extends ResolvedEvent {
   ) : super(event, link, commitPosition);
 
   factory SettingsEvent.from(ResolvedEvent event) {
-    _verifyType(event, SystemEventTypes.Settings);
+    _verifyType(event, SystemEvents.Settings);
     return SettingsEvent._(
       event.event,
       event.link,
@@ -87,7 +87,7 @@ class StatsCollectionEvent extends ResolvedEvent {
   ) : super(event, link, commitPosition);
 
   factory StatsCollectionEvent.from(ResolvedEvent event) {
-    _verifyType(event, SystemEventTypes.StatsCollection);
+    _verifyType(event, SystemEvents.StatsCollection);
     return StatsCollectionEvent._(
       event.event,
       event.link,
@@ -101,7 +101,7 @@ void _verifyType(ResolvedEvent event, String type) {
     throw ArgumentError.value(
       event,
       'event.originalEventType',
-      "Expected type '$SystemEventTypes'",
+      "Expected type '$SystemEvents'",
     );
   }
 }

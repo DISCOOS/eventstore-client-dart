@@ -1,6 +1,5 @@
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:eventstore_client/src/generated/projections.pbgrpc.dart';
-import 'package:eventstore_client/src/generated/shared.pb.dart';
 
 /// Operations for deleting user-defined projections.
 mixin EventStoreProjectionsDelete on EventStoreClientBase {
