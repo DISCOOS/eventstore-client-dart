@@ -26,14 +26,14 @@ jobs:
       - name: Install dart dependencies
         run: dart pub get
 
-#      # Verify the use of 'dart format' on each commit.
-#      - name: Verify formatting
-#        run: dart format --output=none --set-exit-if-changed .
-#
-#      # Consider passing '--fatal-infos' for slightly stricter analysis.
-#      - name: Analyze project source
-#        run: dart analyze
+      # Verify the use of 'dart format' on each commit.
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed .
+
+      # Consider passing '--fatal-infos' for slightly stricter analysis.
+      - name: Analyze project source
+        run: dart analyze
 
       # Run tests
       - name: Run tests
-        run: dart test -j 1
+        run: dart test -j 1 --reporter=expanded
