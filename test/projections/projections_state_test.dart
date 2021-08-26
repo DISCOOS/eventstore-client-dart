@@ -14,7 +14,7 @@ void main() {
 
   group('When projections are running, projections client', () {
     final harness = EventStoreClientHarness()
-      ..withLogger(debug: true)
+      ..withLogger()
       ..withClient()
       ..install(
         timeoutAfter: null,

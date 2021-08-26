@@ -8,7 +8,7 @@ void main() {
   group('When projections are running, projections client', () {
     const ProjName = 'some-continuous-proj';
     final harness = EventStoreClientHarness()
-      ..withLogger(debug: true)
+      ..withLogger()
       ..withClient()
       ..install(
         runProjections: 'all',
