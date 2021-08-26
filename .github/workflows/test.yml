@@ -25,7 +25,9 @@ jobs:
       - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
 
       - name: Install dependencies
-        run: dart pub get
+        run: |
+          dart pub get
+          pub global activate coverage
 
       # Verify the use of 'dart format' on each commit.
       - name: Verify formatting
@@ -35,8 +37,9 @@ jobs:
       - name: Analyze project source
         run: dart analyze
 
-      # Your project will need to have tests in test/ and a dependency on
-      # package:test for this step to succeed. Note that Flutter projects will
-      # want to change this to 'flutter test'.
+      # Run tests
       - name: Run tests
-        run: dart test
+      - uses: docker://ghcr.io/eventstore/eventstore:20.10.4-buster-slim
+        run: |
+          . tool/gencert.sh test
+          dart test
