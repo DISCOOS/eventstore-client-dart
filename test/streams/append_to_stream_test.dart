@@ -187,10 +187,9 @@ void main() {
       ..install(
         imageTag: ImageTags.v21_6_0,
         isReady: (line) {
-          return line.contains('IS LEADER... SPARTA!');
+          return line.contains('Became Leader so now handling subscriptions');
         },
       );
-    ;
 
     // ----------------------------------
     // Test append idempotency
