@@ -14,7 +14,7 @@ void main() {
         runProjections: 'all',
       );
 
-    late var init = false;
+    late var init = true;
     late final EventStoreClient streamsClient;
     late final EventStoreProjectionsClient projectionsClient;
 
