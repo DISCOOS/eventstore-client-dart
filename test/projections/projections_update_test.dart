@@ -49,19 +49,15 @@ void main() {
       );
 
       // Act
-      try {
-        await projectionsClient.update(
-          '$ProjName-1',
-          'fromAll().when({\$init: function (s, e) {return {};}});',
-        );
-        // Assert
-        final result = await projectionsClient.getStatus(
-          '$ProjName-1',
-        );
-        expect(result.name, '$ProjName-1');
-      } on Exception catch (e) {
-        print(e);
-      }
+      await projectionsClient.update(
+        '$ProjName-1',
+        'fromAll().when({\$init: function (s, e) {return {};}});',
+      );
+      // Assert
+      final result = await projectionsClient.getStatus(
+        '$ProjName-1',
+      );
+      expect(result.name, '$ProjName-1');
     });
 
     test('updates projection with emits enabled', () async {

@@ -36,4 +36,4 @@ jobs:
 
       # Run tests
       - name: Run tests
-        run: dart test -j 1 --reporter=expanded
+        run: dart test -j 1
