@@ -1,0 +1,3 @@
+ignore:
+  - "lib/src/generated"
+  - "lib/src/version"

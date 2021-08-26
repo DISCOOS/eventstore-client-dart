@@ -1,5 +1,8 @@
 A community developed gRPC client library for EventStoreDB.
 
+[![Dart](https://github.com/DISCOOS/eventstore-client-dart/actions/workflows/test.yml/badge.svg)](https://github.com/DISCOOS/eventstore-client-dart/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/DISCOOS/eventstore-client-dart/branch/master/graph/badge.svg?token=HAHS8DUBHM)](https://codecov.io/gh/DISCOOS/eventstore-client-dart)
+
 EventStoreDB is an open-source, functional database with Complex Event Processing
 capabilities. Documentation for EventStoreDB can be [found here](https://eventstore.com/docs).
 
