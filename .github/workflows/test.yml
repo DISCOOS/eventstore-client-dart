@@ -24,10 +24,11 @@ jobs:
       # - uses: dart-lang/setup-dart@v1
       - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
 
-      - name: Install dependencies
-        run: |
-          dart pub get
-          pub global activate coverage
+      - name: Install dart dependencies
+        run: dart pub get
+
+      - name: Activate test coverage
+        run: pub global activate coverage
 
       # Verify the use of 'dart format' on each commit.
       - name: Verify formatting
@@ -38,8 +39,8 @@ jobs:
         run: dart analyze
 
       # Run tests
+      - name: Generate certificats
+        run: . tool/gencert.sh test
+
       - name: Run tests
-      - uses: docker://ghcr.io/eventstore/eventstore:20.10.4-buster-slim
-        run: |
-          . tool/gencert.sh test
-          dart test
+        run: dart test
