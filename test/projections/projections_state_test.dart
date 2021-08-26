@@ -35,6 +35,11 @@ void main() {
     setUp(() async {
       if (init) {
         init = false;
+        await Projections.onStatus(
+          ProjectionStatus.Stopped,
+          SystemProjections.Names,
+          projectionsClient,
+        );
         await projectionsClient.createContinuous(
           ProjName,
           StatefulProjectionQuery,
@@ -48,6 +53,8 @@ void main() {
     // ---------------------------------------
 
     test('returns expected state', () async {
+      // Assert
+      await Projections.onState([ProjName], streamsClient);
       // Act
       final JsonDocument state = await projectionsClient.getState(
         ProjName,
@@ -61,6 +68,8 @@ void main() {
     });
 
     test('returns expected result', () async {
+      // Assert
+      await Projections.onState([ProjName], streamsClient);
       // Act
       final JsonDocument result = await projectionsClient.getResult(
         ProjName,

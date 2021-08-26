@@ -12,6 +12,5 @@ build/
 pubspec.lock
 
 # Project spesific resources
-test/certs
 doc/
 .failed_tracker

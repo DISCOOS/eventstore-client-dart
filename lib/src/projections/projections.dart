@@ -46,6 +46,66 @@ class Projections {
   static String resultStreamId(String name) => '\$projections-$name-result';
 
   /// Returns when system streams are running
+  static Future<List<ResolvedEvent>> onState(
+    List<String> names,
+    EventStoreClient client, {
+    UserCredentials? userCredentials,
+    FutureOr<void> Function()? onTimeout,
+    String eventType = SystemEvents.ProjectionUpdated,
+    Duration? timeoutAfter = Defaults.OperationTimeout,
+  }) async {
+    final tests = Future.wait<ResolvedEvent>(names.map(
+      (name) => _onState(
+        client,
+        name,
+        eventType,
+        userCredentials,
+      ),
+    ));
+    return (timeoutAfter == null
+        ? tests
+        : tests.timeout(
+            timeoutAfter,
+            onTimeout: onTimeout == null
+                ? null
+                : () async {
+                    await onTimeout();
+                    return <ResolvedEvent>[];
+                  },
+          ));
+  }
+
+  static Future<ResolvedEvent> _onState(
+    EventStoreClient client,
+    String name,
+    String eventType,
+    UserCredentials? userCredentials,
+  ) async {
+    while (true) {
+      try {
+        final result = await client.readFromStream(
+          '\$projections-$name',
+          userCredentials: userCredentials,
+          operationOptions: EventStoreClientOperationOptions.Default.cloneWith(
+            timeoutAfter: const Duration(milliseconds: 100),
+          ),
+        );
+        if (result.isOK) {
+          final event = await result.stream.first;
+          if (event.originalEventType == eventType) {
+            return event;
+          }
+        }
+        await Future<void>.delayed(
+          const Duration(milliseconds: 100),
+        );
+      } catch (_) {
+        // NOP
+      }
+    }
+  }
+
+  /// Returns when system streams are running
   static Future<void> onStatus(
     ProjectionStatus status,
     List<String> names,
@@ -55,7 +115,7 @@ class Projections {
     Duration? timeoutAfter = Defaults.OperationTimeout,
   }) async {
     final tests = Future.wait<void>(names.map(
-      (name) => _waitFor(
+      (name) => _onStatus(
         client,
         name,
         enumName(status),
@@ -72,7 +132,7 @@ class Projections {
           ));
   }
 
-  static Future<void> _waitFor(
+  static Future<void> _onStatus(
     EventStoreProjectionsClient client,
     String name,
     String status,

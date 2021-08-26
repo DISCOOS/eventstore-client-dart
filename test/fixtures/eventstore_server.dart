@@ -32,6 +32,16 @@ abstract class EventStoreServer {
       for (var path in certificateFiles) {
         final file = File(path);
         if (!file.existsSync()) {
+          print(
+            '${file.parent} exists: ${file.parent.existsSync()}',
+          );
+          print(
+            '${file.parent.path} exists: ${file.parent.parent.existsSync()}',
+          );
+          print(
+            '${file.parent.parent.path} exists: ${file.parent.parent.parent.existsSync()}',
+          );
+
           throw Exception(
             'Could not locate the certificates file ${file.absolute.path} needed '
             "to run EventStoreDB node. \nPlease run '. tool/gencert.sh test'"

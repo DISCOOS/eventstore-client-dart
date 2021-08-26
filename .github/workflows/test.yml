@@ -18,7 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # Note: This workflow uses the latest stable version of the Dart SDK.
       # You can specify other versions if desired, see documentation here:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
       # - uses: dart-lang/setup-dart@v1
@@ -27,18 +26,14 @@ jobs:
       - name: Install dart dependencies
         run: dart pub get
 
-      # Verify the use of 'dart format' on each commit.
-      - name: Verify formatting
-        run: dart format --output=none --set-exit-if-changed .
-
-      # Consider passing '--fatal-infos' for slightly stricter analysis.
-      - name: Analyze project source
-        run: dart analyze
+#      # Verify the use of 'dart format' on each commit.
+#      - name: Verify formatting
+#        run: dart format --output=none --set-exit-if-changed .
+#
+#      # Consider passing '--fatal-infos' for slightly stricter analysis.
+#      - name: Analyze project source
+#        run: dart analyze
 
       # Run tests
-      - name: Generate certificates
-        run: . tool/gencert.sh test
-
       - name: Run tests
         run: dart test -j 1 --reporter=expanded
-

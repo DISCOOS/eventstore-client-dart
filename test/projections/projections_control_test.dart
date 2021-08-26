@@ -11,6 +11,7 @@ void main() {
       ..withLogger()
       ..withClient()
       ..install(
+        timeoutAfter: null,
         runProjections: 'all',
       );
 
@@ -27,12 +28,12 @@ void main() {
 
     setUp(() async {
       if (init) {
+        init = false;
         await Projections.onStatus(
           ProjectionStatus.Stopped,
           SystemProjections.Names,
           projectionsClient,
         );
-        init = false;
       }
       return Future<void>.value();
     });

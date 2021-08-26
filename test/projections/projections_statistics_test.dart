@@ -9,6 +9,7 @@ void main() {
       ..withLogger()
       ..withClient()
       ..install(
+        timeoutAfter: null,
         runProjections: 'all',
       );
 

@@ -10,10 +10,11 @@ void main() {
       ..withLogger()
       ..withClient()
       ..install(
+        timeoutAfter: null,
         runProjections: 'all',
-        startSystemProjections: false,
       );
 
+    late var init = false;
     late final EventStoreClient streamsClient;
     late final EventStoreProjectionsClient projectionsClient;
 
@@ -22,6 +23,18 @@ void main() {
       projectionsClient = EventStoreProjectionsClient(
         streamsClient.settings,
       );
+    });
+
+    setUp(() async {
+      if (init) {
+        init = false;
+        await Projections.onStatus(
+          ProjectionStatus.Stopped,
+          SystemProjections.Names,
+          projectionsClient,
+        );
+      }
+      return Future<void>.value();
     });
 
     // ---------------------------------------
