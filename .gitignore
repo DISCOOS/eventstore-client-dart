@@ -13,4 +13,5 @@ pubspec.lock
 
 # Project spesific resources
 doc/
+coverage*
 .failed_tracker
