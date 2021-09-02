@@ -1,3 +1,10 @@
+# 0.2.0
+- Implemented persistent subscriptions api 
+- Refactored all clients into using mixins 
+- Refactored stream read method names (breaking) 
+- Added EventStoreDB client API version validation (feature support) 
+- Refactored event and dropped callbacks (breaking)
+
 # 0.1.0
 - Added badges to README
 - Added coverage to github action
