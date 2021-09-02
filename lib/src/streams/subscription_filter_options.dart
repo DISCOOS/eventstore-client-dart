@@ -51,7 +51,7 @@ class SubscriptionFilterOptions {
   }
 
   /// Constructs a new [SubscriptionFilterOptions] with
-  /// [EventTypeFilter.excludeSystemEvents] and optional
+  /// [StreamFilter.excludeSystemEvents] and optional
   /// [checkpointInterval] (default is [Defaults.CheckpointInterval])
   /// and [maxSearchWindow] (default is [Defaults.MaxSearchWindow]).
   /// Use [checkpointReached] to get the checkpoint each
@@ -61,7 +61,7 @@ class SubscriptionFilterOptions {
     int checkpointInterval = Defaults.CheckpointInterval,
   }) =>
       SubscriptionFilterOptions(
-        EventTypeFilter.excludeSystemEvents(maxSearchWindow),
+        StreamFilter.excludeSystemEvents(maxSearchWindow),
         checkpointReached: checkpointReached,
         checkpointInterval: checkpointInterval,
       );

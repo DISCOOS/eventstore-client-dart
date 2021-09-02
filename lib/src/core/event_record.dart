@@ -5,7 +5,7 @@ import 'package:uuid/uuid.dart';
 
 import 'log_position.dart';
 import 'helpers.dart';
-import 'stream_position.dart';
+import '../streams/stream_position.dart';
 
 /// Represents a previously written event.
 class EventRecord {

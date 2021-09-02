@@ -5,6 +5,7 @@ import 'package:eventstore_client/eventstore_client.dart';
 import 'package:eventstore_client/src/core/uuid.dart';
 import 'package:eventstore_client/src/generated/shared.pb.dart';
 import 'package:eventstore_client/src/generated/streams.pbgrpc.dart';
+import 'package:grpc/grpc.dart';
 import 'package:mockito/mockito.dart';
 
 class ResponseStreamMock extends Fake implements ResponseStream<ReadResp> {

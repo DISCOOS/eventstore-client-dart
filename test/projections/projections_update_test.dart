@@ -15,7 +15,7 @@ void main() {
       );
 
     late var init = true;
-    late final EventStoreClient streamsClient;
+    late final EventStoreStreamsClient streamsClient;
     late final EventStoreProjectionsClient projectionsClient;
 
     setUpAll(() async {

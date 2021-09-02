@@ -66,6 +66,7 @@ class EventStoreServerSingleNode extends EventStoreServer {
           'EVENTSTORE_TRUSTED_ROOT_CERTIFICATES_PATH':
               '/etc/eventstore/certs/ca',
         },
+        'EVENTSTORE_LOG_HTTP_REQUESTS': 'True',
         'EVENTSTORE_RUN_PROJECTIONS': runProjections,
         if (startSystemProjections != null)
           'EVENTSTORE_START_SYSTEM_PROJECTIONS':

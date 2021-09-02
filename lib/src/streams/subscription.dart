@@ -1,46 +1,52 @@
 part of 'streams_client.dart';
 
 typedef SubscriptionDroppedCallback = Future<void> Function(
-  SubscriptionDroppedEvent,
+  EventStreamSubscription subscription,
+  SubscriptionDroppedEvent event,
 );
 
 typedef SubscriptionResolvedEventCallback = Future<void> Function(
-  SubscriptionResolvedEvent,
+  EventStreamSubscription subscription,
+  ResolvedEvent event,
 );
 
-/// A class representing a [EventStreamSubscription].
+/// A class representing a [ResolvedEvent] stream subscription.
 ///
+/// {@macro EventStreamSubscription}
+///
+/// {@template EventStreamSubscription}
 /// This class maintains the [state] of the subscription,
-/// the [progress] along the stream, the [stream] of [ResolvedEvent]s
-/// and [information][SubscriptionDroppedEvent] about the
-/// [cause][SubscriptionDroppedEvent.cause] and
-/// [reason][SubscriptionDroppedEvent.reason]
-/// why the subscription [was dropped][onDropped].
+/// the [progress] along the stream, the [stream] of
+/// [ResolvedEvent]s and [information][SubscriptionDroppedEvent]
+/// about the [cause][SubscriptionDroppedEvent.cause] and
+/// [reason][SubscriptionDroppedEvent.reason] why the subscription
+/// [was dropped][onDropped].
 ///
 /// If you need to add multiple listeners to the [stream],
 /// you should use [asBroadcastStream]. When you are finished using
 /// the subscription, you need to [dispose] it to close the
 /// connection to the server and release resources to prevent memory leaks.
+/// {@endtemplate}
 ///
 class EventStreamSubscription {
   /// Constructs a new [EventStreamSubscription]
   EventStreamSubscription(
     ReadEnumerator enumerator, {
-    SubscriptionResolvedEventCallback? eventAppeared,
-    SubscriptionDroppedCallback? subscriptionDropped,
+    SubscriptionResolvedEventCallback? onEventAppeared,
+    SubscriptionDroppedCallback? onSubscriptionDropped,
     SubscriptionCheckpointCallback? checkpointReached,
   }) : _enumerator = enumerator {
-    _stream = eventAppeared == null
+    _stream = onEventAppeared == null
         ? _enumerator.stream
         : _enumerator.stream.asyncMap(
-            (e) => _onResolved(e, eventAppeared),
+            (e) => _onResolved(e, onEventAppeared),
           );
     _checkpoints = _enumerator.checkpoints!.asyncMap(
       (p) => _onCheckpoint(p, checkpointReached),
     );
     onDropped = _enumerator.onSubscriptionDropped!
         .asStream()
-        .asyncMap((e) => _onDropped(e, subscriptionDropped))
+        .asyncMap((e) => _onDropped(e, onSubscriptionDropped))
         .first;
   }
 
@@ -92,10 +98,12 @@ class EventStreamSubscription {
 
   Future<ResolvedEvent> _onResolved(
     ResolvedEvent event,
-    SubscriptionResolvedEventCallback eventAppeared,
+    SubscriptionResolvedEventCallback? onEventAppeared,
   ) async {
     {
-      await eventAppeared(SubscriptionResolvedEvent(this, event));
+      if (onEventAppeared != null) {
+        await onEventAppeared(this, event);
+      }
       return event;
     }
   }
@@ -113,41 +121,26 @@ class EventStreamSubscription {
 
   Future<SubscriptionDroppedEvent> _onDropped(
       Tuple2<SubscriptionDroppedReason, Object?> event,
-      SubscriptionDroppedCallback? subscriptionDropped) async {
+      SubscriptionDroppedCallback? onSubscriptionDropped) async {
     {
       final dropped = SubscriptionDroppedEvent(
-        this,
         event.item1,
         event.item2,
       );
-      if (subscriptionDropped != null) {
-        await subscriptionDropped(dropped);
+      if (onSubscriptionDropped != null) {
+        await onSubscriptionDropped(this, dropped);
       }
       return dropped;
     }
   }
 }
 
-/// Base class for [SubscriptionEvent]s
-abstract class SubscriptionEvent {
-  SubscriptionEvent(this.subscription);
-  final EventStreamSubscription subscription;
-}
-
-/// Subscription event with [ResolvedEvent]
-class SubscriptionResolvedEvent {
-  SubscriptionResolvedEvent(this.subscription, this.resolved);
-  final ResolvedEvent resolved;
-  final EventStreamSubscription subscription;
-}
-
 /// Event with information about reason for dropping [subscription]
-class SubscriptionDroppedEvent extends SubscriptionEvent {
+class SubscriptionDroppedEvent {
   SubscriptionDroppedEvent(
-    EventStreamSubscription subscription,
     this.reason,
     this.cause,
-  ) : super(subscription);
+  );
 
   final Object? cause;
   final SubscriptionDroppedReason reason;

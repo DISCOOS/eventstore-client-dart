@@ -12,7 +12,7 @@ import 'package:test/test.dart';
 
 import 'fixtures/server_single_node.dart';
 
-typedef ClientCreator = EventStoreClient Function();
+typedef ClientCreator = EventStoreStreamsClient Function();
 
 class EventStoreClientHarness {
   static const int PORT_2113 = 2113;
@@ -42,7 +42,9 @@ class EventStoreClientHarness {
     String? suffix,
     String? connectionName,
   }) =>
-      _clients[connectionName ?? '$EventStoreClient']!.settings.connectionName +
+      _clients[connectionName ?? '$EventStoreStreamsClient']!
+          .settings
+          .connectionName +
       '_${suffix ?? DateTime.now().millisecondsSinceEpoch}';
 
   StreamState newStreamState(
@@ -64,11 +66,11 @@ class EventStoreClientHarness {
     );
   }
 
-  EventStoreClient client({String? connectionName}) =>
-      _clients[connectionName ?? '$EventStoreClient']!;
+  EventStoreStreamsClient client({String? connectionName}) =>
+      _clients[connectionName ?? '$EventStoreStreamsClient']!;
 
   final Map<String, ClientCreator> _creators = {};
-  final Map<String, EventStoreClient> _clients = {};
+  final Map<String, EventStoreStreamsClient> _clients = {};
 
   EventStoreClientHarness withClient({
     bool secure = false,
@@ -78,11 +80,11 @@ class EventStoreClientHarness {
     List<EndPoint> gossipSeeds = const [],
     NodePreference nodePreference = NodePreference.leader,
   }) {
-    final name = connectionName ?? '$EventStoreClient';
+    final name = connectionName ?? '$EventStoreStreamsClient';
     _register(
       name,
       () {
-        return EventStoreClient(
+        return EventStoreStreamsClient(
           (settings ?? EventStoreClientSettings.LTS).cloneWith(
             useTls: secure,
             connectionName: name,
@@ -198,9 +200,9 @@ class EventStoreClientHarness {
     });
   }
 
-  EventStoreClient _open(
+  EventStoreStreamsClient _open(
     String connectionName,
-    EventStoreClient Function() create,
+    EventStoreStreamsClient Function() create,
   ) {
     final client = create();
     _clients.update(
@@ -355,7 +357,7 @@ Future<void> testClientAppendsEvents(
   );
 
   // Assert stream contains events
-  final readResult = await client.readFromStream(
+  final readResult = await client.read(
     state.streamId,
     position: StreamPosition.checked(offset),
   );
@@ -406,7 +408,7 @@ Future<StreamRevision> testRecreatesSoftDeletedStreamWithGivenState(
   expect(writeResult.nextExpectedStreamRevision, expectedRevision);
 
   // Assert Read Operation
-  final readResult = await client.readFromStream(
+  final readResult = await client.read(
     expected.streamId,
     position: StreamPosition.start,
   );
@@ -486,9 +488,9 @@ Future<Iterable<EventData>> seed(
 }
 
 String toResolvedEventString(ResolvedEvent e) => {
-      'type': e.originalEventType,
+      'type': e.event.eventType,
       'data': utf8.decode(
-        e.originalEvent.data,
+        e.event.data,
       )
     }.toString();
 

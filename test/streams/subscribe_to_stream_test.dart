@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:eventstore_client/src/core/resolved_event.dart';
 import 'package:fixnum/fixnum.dart';
+import 'package:grpc/grpc.dart';
 import 'package:test/test.dart';
 
 import '../harness.dart';
@@ -34,7 +35,7 @@ void main() {
 
     test('calls subscription dropped when disposed', () async {
       // Arrange
-      final result = await client.subscribeToStream(
+      final result = await client.subscribe(
         state.streamId,
       );
 
@@ -53,7 +54,7 @@ void main() {
 
     test('subscribe with callbacks', () async {
       // Arrange
-      final appeared = <SubscriptionResolvedEvent>[];
+      final appeared = <ResolvedEvent>[];
       final onDroppedCallback = Completer<SubscriptionDroppedEvent>();
       final expected = await seed(
         harness,
@@ -61,12 +62,12 @@ void main() {
         state,
         ExistingCount,
       );
-      final result = await client.subscribeToStream(
+      final result = await client.subscribe(
         state.streamId,
-        eventAppeared: (e) async {
+        onEventAppeared: (s, e) async {
           appeared.add(e);
         },
-        subscriptionDropped: (d) async {
+        onSubscriptionDropped: (s, d) async {
           onDroppedCallback.complete(d);
         },
       );
@@ -86,7 +87,7 @@ void main() {
         reason: 'should contain 10 events',
       );
       expect(
-        appeared.map((e) => toResolvedEventString(e.resolved)),
+        appeared.map((e) => toResolvedEventString(e)),
         equals(expected.map((e) => toEventDataString(e))),
         reason: 'should contain 10 events',
       );
@@ -103,7 +104,7 @@ void main() {
 
     test('subscribe to non-existing stream', () async {
       // Arrange
-      final result = await client.subscribeToStream(
+      final result = await client.subscribe(
         StreamThatDoesNotExist,
       );
       expect(result.isOK, isTrue);
@@ -121,7 +122,7 @@ void main() {
 
     test('subscribe to non-existing stream then get events', () async {
       // Arrange
-      final result = await client.subscribeToStream(
+      final result = await client.subscribe(
         StreamThatDoesNotExist,
       );
       expect(result.isOK, isTrue);
@@ -161,7 +162,7 @@ void main() {
       final expected = await seed(harness, client, state, ExistingCount);
 
       // Act
-      final result = await client.subscribeToStream(
+      final result = await client.subscribe(
         state.streamId,
       );
       expect(result.isOK, isTrue);
@@ -207,8 +208,8 @@ void main() {
       final expected = await seed(harness, client, state, 10);
 
       final results = await Future.wait([
-        client.subscribeToStream(state.streamId),
-        client.subscribeToStream(state.streamId),
+        client.subscribe(state.streamId),
+        client.subscribe(state.streamId),
       ]);
       expect(results.every((r) => r.isOK), isTrue);
 
@@ -254,7 +255,7 @@ void main() {
       final expected = start + 1;
 
       // Act
-      final result = await client.subscribeToStream(
+      final result = await client.subscribe(
         state.streamId,
         position: start,
       );
@@ -283,7 +284,7 @@ void main() {
         // the stream is tombstoned.
         ExistingCount * 100,
       );
-      final result = await client.subscribeToStream(
+      final result = await client.subscribe(
         state.streamId,
       );
       expect(result.isOK, isTrue);
@@ -315,7 +316,7 @@ void main() {
       final expected = StreamPosition.checked(
         ExistingCount - 1,
       );
-      final result = await client.subscribeToStream(
+      final result = await client.subscribe(
         state.streamId,
         position: StreamPosition.start,
       );
@@ -346,7 +347,7 @@ void main() {
         ExistingCount,
       );
       final expected = StreamPosition.checked(Max);
-      final result = await client.subscribeToStream(
+      final result = await client.subscribe(
         state.streamId,
         position: StreamPosition.end,
       );
@@ -391,7 +392,7 @@ Future<void> testSubscribeToStreamExistingEventsAndKeepListening(
     eventType: eventType,
   );
 
-  final result = await client.subscribeToStream(
+  final result = await client.subscribe(
     state.streamId,
     position: position,
   );

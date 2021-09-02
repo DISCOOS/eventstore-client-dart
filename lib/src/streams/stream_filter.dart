@@ -13,6 +13,16 @@ class StreamFilter extends ReadFilter {
   /// An empty [StreamFilter]
   static const StreamFilter None = StreamFilter();
 
+  /// An StreamFilter that excludes all events from system streams
+  /// (i.e., those whose stream ids start with $).
+  factory StreamFilter.excludeSystemEvents([
+    int maxSearchWindow = Defaults.MaxSearchWindow,
+  ]) =>
+      StreamFilter(
+        maxSearchWindow: maxSearchWindow,
+        regex: RegularFilterExpression.ExcludeSystemEvents,
+      );
+
   /// Constructs a new [StreamFilter] from a single prefix [pattern]
   factory StreamFilter.fromPrefix(
     String pattern, [

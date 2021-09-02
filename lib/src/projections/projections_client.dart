@@ -1,9 +1,4 @@
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/projections/projections_control.dart';
-import 'package:eventstore_client/src/projections/projections_create.dart';
-import 'package:eventstore_client/src/projections/projections_state.dart';
-import 'package:eventstore_client/src/projections/projections_statistics.dart';
-import 'package:eventstore_client/src/projections/projections_update.dart';
 
 /// Class implementing the {@macro projections_mgmnt_api}.
 ///
@@ -14,6 +9,7 @@ import 'package:eventstore_client/src/projections/projections_update.dart';
 ///
 class EventStoreProjectionsClient extends EventStoreClientBase
     with
+        EventStoreProjectionsMixin,
         EventStoreProjectionsState,
         EventStoreProjectionsCreate,
         EventStoreProjectionsUpdate,

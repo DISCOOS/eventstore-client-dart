@@ -1,5 +1,6 @@
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:fixnum/fixnum.dart';
+import 'package:grpc/grpc.dart';
 import 'package:test/test.dart';
 
 import '../harness.dart';
@@ -155,7 +156,7 @@ void main() {
       await client.delete(state);
 
       // Act
-      final result = await client.readFromStream(
+      final result = await client.read(
         state.streamId,
         position: state.getStreamPosition(),
       );
@@ -296,7 +297,7 @@ void main() {
         // print(all);
 
         // Assert soft-delete
-        final readResult = await client.readFromStream(
+        final readResult = await client.read(
           state.streamId,
           position: StreamPosition.start,
         );

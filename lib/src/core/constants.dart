@@ -11,11 +11,13 @@ class Defaults {
   static const GossipPort = 2114;
   static const bool UseTls = true;
 
+  static const int MaxRetries = 10;
   static const int MaxSearchWindow = 32;
   static const int MaxDiscoverAttempts = 10;
   static const int CheckpointInterval = 1000;
   static const String PublicKeyPath = 'ca.crt';
   static const Duration GossipTimeout = Duration(seconds: 5);
+  static const Duration MaxBackoffTime = Duration(seconds: 10);
   static const Duration OperationTimeout = Duration(seconds: 30);
   static const Duration KeepAliveTimeout = Duration(seconds: 10);
   static const Duration KeepAliveInterval = Duration(seconds: 10);
@@ -31,15 +33,25 @@ class Defaults {
 
   /// Supported from EventStoreDB v21.6 (as of Aug 2021, LTS is v20.10).
   static const BatchAppend = false;
-
-  /// Supported from EventStoreDB v21.6 (as of Aug 2021, LTS is v20.10).
   static const int BatchAppendSize = 3 * 1024 * 1024;
+}
+
+class ApiVersions {
+  static const LTS = v20_10_0;
+  static const LATEST = v21_6_0;
+  static const v21_6_0 = '21.6.0';
+  static const v21_2_0 = '21.2.0';
+  static const v20_10_0 = '20.10.0';
+
+  static String toImageTag(String version) => '$version-buster-slim';
 }
 
 class ImageTags {
   static const MASTER = 'ci';
   static const LTS = v20_10_4;
+  static const LATEST = v21_6_0;
   static const v21_6_0 = '21.6.0-buster-slim';
+  static const v21_2_0 = '21.2.0-buster-slim';
   static const v20_10_4 = '20.10.4-buster-slim';
 }
 
@@ -74,7 +86,7 @@ class Exceptions {
 
   static const String ExpectedVersion = 'expected-version';
   static const String ActualVersion = 'actual-version';
-  static const String streamId = 'stream-name';
+  static const String StreamName = 'stream-name';
   static const String GroupName = 'group-name';
   static const String Reason = 'reason';
   static const String MaximumAppendSize = 'maximum-append-size';

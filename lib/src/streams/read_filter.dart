@@ -86,7 +86,7 @@ class RegularFilterExpression {
   /// A [RegularFilterExpression that excludes system events
   /// (i.e., those whose types start with $).
   static const RegularFilterExpression ExcludeSystemEvents =
-      RegularFilterExpression._(r'[^\$].*');
+      RegularFilterExpression._(r'^[^\$].*');
 
   /// Constructs a new [RegularFilterExpression] from given [RegExp] pattern
   factory RegularFilterExpression.fromPattern(String pattern) {

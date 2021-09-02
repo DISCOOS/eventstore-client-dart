@@ -1,4 +1,5 @@
 import 'package:eventstore_client/eventstore_client.dart';
+import 'package:grpc/grpc.dart';
 import 'package:test/test.dart';
 
 import '../harness.dart';
@@ -138,7 +139,7 @@ void main() {
     test('read from hard deleted stream throws', () async {
       // Act
       await client.tombstone(state);
-      final result = client.readFromStream(
+      final result = client.read(
         state.streamId,
         position: state.getStreamPosition(),
       );

@@ -84,7 +84,7 @@ class StreamsSecurityFixture {
     EventStoreClientOperationOptions? operationOptions,
   }) {
     return client.readFromAll(
-      count: count,
+      maxCount: count,
       forward: forward,
       resolveLinks: resolveLinks,
       userCredentials: userCredentials,
@@ -100,9 +100,9 @@ class StreamsSecurityFixture {
     EventStoreClientOperationOptions? operationOptions,
     UserCredentials? userCredentials = TestCredentials.Root,
   }) {
-    return client.readFromStream(
+    return client.read(
       name,
-      count: count,
+      maxCount: count,
       forward: forward,
       resolveLinks: resolveLinks,
       userCredentials: userCredentials,

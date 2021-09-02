@@ -26,4 +26,12 @@ class SystemStreams {
   /// Returns the original stream of the metadata stream.
   static String originalStreamOf(String metaStreamId) =>
       metaStreamId.substring(2);
+
+  /// Returns the checkpoint stream for given persistent subscription [group] on [stream]
+  static String persistentCheckpointStreamOn(String stream, String group) =>
+      '\$persistentsubscription-$stream::$group-checkpoint';
+
+  /// Returns the parked events stream for given persistent subscription [group] on [stream]
+  static String persistentParkedStreamOn(String stream, String group) =>
+      '\$persistentsubscription-$stream::$group-parked';
 }

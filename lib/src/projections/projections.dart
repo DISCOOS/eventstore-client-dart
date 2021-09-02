@@ -1,10 +1,11 @@
-export 'projections_client.dart';
-export 'projection_details.dart';
-
 import 'dart:async';
 
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:eventstore_client/src/core/helpers.dart';
+
+export 'mixins/projections_mixins.dart';
+export 'projections_client.dart';
+export 'projection_details.dart';
 
 /// Utility class for projections
 ///
@@ -48,7 +49,7 @@ class Projections {
   /// Returns when system streams are running
   static Future<List<ResolvedEvent>> onState(
     List<String> names,
-    EventStoreClient client, {
+    EventStoreStreamsClient client, {
     UserCredentials? userCredentials,
     FutureOr<void> Function()? onTimeout,
     String eventType = SystemEvents.ProjectionUpdated,
@@ -76,14 +77,14 @@ class Projections {
   }
 
   static Future<ResolvedEvent> _onState(
-    EventStoreClient client,
+    EventStoreStreamsClient client,
     String name,
     String eventType,
     UserCredentials? userCredentials,
   ) async {
     while (true) {
       try {
-        final result = await client.readFromStream(
+        final result = await client.read(
           '\$projections-$name',
           userCredentials: userCredentials,
           operationOptions: EventStoreClientOperationOptions.Default.cloneWith(

@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/core/stream_position.dart';
+import 'package:eventstore_client/src/streams/stream_position.dart';
 import 'package:eventstore_client/src/core/typedefs.dart';
 import 'package:grpc/grpc.dart';
 
@@ -37,21 +37,21 @@ class StreamMetadata {
     this.truncateBefore,
   }) {
     if (maxCount != null && maxCount! <= 0) {
-      throw GrpcError.outOfRange(
+      throw ArgumentOutOfRangeException.fromCause(GrpcError.outOfRange(
         'maxCount value must be larger than zero',
-      );
+      ));
     }
 
     if (maxAge != null && maxAge! <= Duration.zero) {
-      throw GrpcError.outOfRange(
+      throw ArgumentOutOfRangeException.fromCause(GrpcError.outOfRange(
         'maxAge value must be larger than zero',
-      );
+      ));
     }
 
     if (cacheControl != null && cacheControl! <= Duration.zero) {
-      throw GrpcError.outOfRange(
+      throw ArgumentOutOfRangeException.fromCause(GrpcError.outOfRange(
         'cacheControl value must be larger than zero',
-      );
+      ));
     }
   }
 

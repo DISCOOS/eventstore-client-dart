@@ -1,17 +1,4 @@
-import 'dart:convert';
-
-import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/core/helpers.dart';
-import 'package:eventstore_client/src/core/resolved_event.dart';
-import 'package:eventstore_client/src/core/stream_position.dart';
-import 'package:eventstore_client/src/core/stream_state.dart';
-import 'package:eventstore_client/src/generated/streams.pbgrpc.dart';
-import 'package:eventstore_client/src/streams/read_enumerator.dart';
-import 'package:eventstore_client/src/streams/stream_acl.dart';
-import 'package:grpc/grpc.dart';
-import 'package:fixnum/fixnum.dart';
-
-import 'stream_metadata.dart';
+part of 'streams_client.dart';
 
 /// Represents stream metadata as a series of properties for system
 /// data (e.g., MaxAge) and a [StreamMetadata] object for user metadata.
@@ -60,7 +47,9 @@ class StreamMetadataResult {
     final resp = result.last;
     switch (resp.whichContent()) {
       case ReadResp_Content.event:
-        final event = ReadEnumerator.convertToResolvedEvent(resp.event);
+        final event = convertToResolvedEvent(
+          resp.event,
+        );
         return StreamMetadataResult._(
           streamId: name,
           state: ReadState.ok,

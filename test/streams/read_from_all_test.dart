@@ -46,7 +46,7 @@ void main() {
       // Act
       final result = await client.readFromAll(
         forward: false,
-        count: PageCount,
+        maxCount: PageCount,
       );
 
       // Assert
@@ -59,7 +59,7 @@ void main() {
       final result = await client.readFromAll(
         position: LogPosition.end,
         forward: false,
-        count: PageCount,
+        maxCount: PageCount,
       );
 
       // Assert
@@ -87,7 +87,7 @@ void main() {
       final result = await client.readFromAll(
         position: LogPosition.end,
         forward: false,
-        count: ExistingCount * 2,
+        maxCount: ExistingCount * 2,
       );
 
       // Assert
@@ -100,7 +100,7 @@ void main() {
       final result = await client.readFromAll(
         position: LogPosition.end,
         forward: false,
-        count: PageCount,
+        maxCount: PageCount,
       );
 
       // Assert
@@ -141,7 +141,7 @@ void main() {
       final result = await client.readFromAll(
         position: LogPosition.start,
         forward: true,
-        count: PageCount,
+        maxCount: PageCount,
       );
       // Assert
       expect(result.isOK, isTrue);
@@ -152,7 +152,7 @@ void main() {
       // Act
       final result = await client.readFromAll(
         forward: true,
-        count: PageCount,
+        maxCount: PageCount,
       );
 
       // Assert
@@ -180,7 +180,7 @@ void main() {
       final result = await client.readFromAll(
         position: LogPosition.start,
         forward: true,
-        count: ExistingCount * 2,
+        maxCount: ExistingCount * 2,
       );
 
       // Assert
@@ -193,7 +193,7 @@ void main() {
       final result = await client.readFromAll(
         position: LogPosition.start,
         forward: true,
-        count: PageCount,
+        maxCount: PageCount,
       );
 
       // Assert

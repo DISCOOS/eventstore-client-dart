@@ -259,7 +259,7 @@ Future<void> _testClientAppendsZeroEvents(
     }
 
     // Assert empty stream
-    final readResult = await client.readFromStream(
+    final readResult = await client.read(
       state.streamId,
       position: state.getStreamPosition(),
     );

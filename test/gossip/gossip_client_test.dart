@@ -18,7 +18,7 @@ void main() {
         enableGossip: true,
       );
 
-    late final EventStoreClient client;
+    late final EventStoreStreamsClient client;
 
     setUpAll(() {
       client = harness.client();

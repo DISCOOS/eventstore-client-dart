@@ -22,7 +22,7 @@ void main() {
       );
 
     var init = true;
-    late final EventStoreClient streamsClient;
+    late final EventStoreStreamsClient streamsClient;
     late final EventStoreProjectionsClient projectionsClient;
 
     setUpAll(() {
@@ -92,7 +92,7 @@ void main() {
       );
 
       // Assert
-      final result = await streamsClient.readFromStream(
+      final result = await streamsClient.read(
         Projections.resultStreamId(
           'some-stateful-proj',
         ),

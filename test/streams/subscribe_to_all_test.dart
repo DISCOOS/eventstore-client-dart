@@ -146,7 +146,7 @@ void main() {
 
     test('subscribe with callbacks', () async {
       // Arrange
-      final appeared = <SubscriptionResolvedEvent>[];
+      final appeared = <ResolvedEvent>[];
       final onDroppedCallback = Completer<SubscriptionDroppedEvent>();
       final expected = await seed(
         harness,
@@ -155,10 +155,10 @@ void main() {
         ExistingCount,
       );
       final result = await client.subscribeToAll(
-        eventAppeared: (e) async {
+        onEventAppeared: (s, e) async {
           appeared.add(e);
         },
-        subscriptionDropped: (d) async {
+        onSubscriptionDropped: (s, d) async {
           onDroppedCallback.complete(d);
         },
       );
@@ -178,7 +178,7 @@ void main() {
         reason: 'should contain 10 events',
       );
       expect(
-        withoutSystemEvents(appeared.map((e) => e.resolved))
+        withoutSystemEvents(appeared)
             .where((e) => e.originalStreamId == state.streamId)
             .map((e) => toResolvedEventString(e)),
         equals(expected.map((e) => toEventDataString(e))),

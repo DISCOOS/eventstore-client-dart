@@ -17,6 +17,8 @@ class EventStoreClientSettings {
     String? connectionName,
     this.defaultCredentials,
     this.gossipSeeds = const [],
+    this.apiVersion = ApiVersions.LTS,
+    this.maxRetries = Defaults.MaxRetries,
     this.batchAppend = Defaults.BatchAppend,
     this.publicKeyPath = Defaults.PublicKeyPath,
     this.gossipTimeout = Defaults.GossipTimeout,
@@ -39,7 +41,11 @@ class EventStoreClientSettings {
   /// Get default settings for EventStoreDB v21.6
   static final EventStoreClientSettings v21_6_0 = v20_10_4.cloneWith(
     batchAppend: true,
+    apiVersion: ApiVersions.v21_6_0,
   );
+
+  /// Settings are compatible with given EventStoreDB [apiVersion]
+  final String apiVersion;
 
   /// Optional [UserCredentials] to use if none
   /// have been supplied to the operation.
@@ -95,11 +101,17 @@ class EventStoreClientSettings {
   /// Only available with version EventStoreDB v21.6 and above
   final int batchAppendSize;
 
+  /// Maximum number of reties before transient errors from
+  /// servers throws an error. By default, only status code
+  /// only [gRPC status code](https://grpc.github.io/grpc/core/md_doc_statuscodes.html)
+  /// UNAVAILABLE is retried.
+  final int maxRetries;
+
   /// The default [EventStoreClientOperationOptions] to use.
   final EventStoreClientOperationOptions operationOptions;
 
   /// Get address to single node
-  Uri? get address => singleNode?.toUri();
+  Uri? get address => singleNode?.toUri(useTls);
 
   /// Check if connection is on a single node
   bool get isSingleNode => gossipSeeds.isEmpty;
@@ -110,6 +122,7 @@ class EventStoreClientSettings {
   EventStoreClientSettings cloneWith({
     bool? useTls,
     bool? batchAppend,
+    String? apiVersion,
     EndPoint? singleNode,
     int? batchAppendSize,
     String? publicKeyPath,
@@ -128,6 +141,7 @@ class EventStoreClientSettings {
       EventStoreClientSettings(
         useTls: useTls ?? this.useTls,
         singleNode: singleNode ?? this.singleNode,
+        apiVersion: apiVersion ?? this.apiVersion,
         batchAppend: batchAppend ?? this.batchAppend,
         gossipSeeds: gossipSeeds ?? this.gossipSeeds,
         gossipTimeout: gossipTimeout ?? this.gossipTimeout,

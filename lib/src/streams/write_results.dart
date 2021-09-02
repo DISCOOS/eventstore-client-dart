@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:eventstore_client/src/generated/status.pb.dart';
+import 'package:grpc/grpc.dart';
 import 'package:meta/meta.dart';
 
 import 'package:eventstore_client/src/core/log_position.dart';

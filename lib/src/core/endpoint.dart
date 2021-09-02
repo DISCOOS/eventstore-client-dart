@@ -14,8 +14,8 @@ class EndPoint {
   final int port;
 
   /// Get this [EndPoint] as a [Uri]
-  Uri toUri() {
-    return Uri(host: address, port: port);
+  Uri toUri([bool useTls = true]) {
+    return Uri(scheme: useTls ? 'https' : 'http', host: address, port: port);
   }
 
   /// An [EndPoint] representing [InternetAddress.loopbackIPv4]

@@ -6,10 +6,15 @@ A community developed gRPC client library for EventStoreDB.
 EventStoreDB is an open-source, functional database with Complex Event Processing
 capabilities. Documentation for EventStoreDB can be [found here](https://eventstore.com/docs).
 
+This package is still in active development and not yet reached a stable version. 
+You should expect breaking changes that will require refactoring both code and behaviors
+of code depending on this package. When stable 1.0.0 is released, we pledge to keep the 
+package backwards compatible within each major version. 
+
 ## Getting started
 * Create a cluster in [EventStore Cloud](https://developers.eventstore.com/cloud/intro/) (or [deploy your own](https://developers.eventstore.com/server/v21.6/docs/installation/#quick-start-preview))
 * Create an appropriate [connection string](https://developers.eventstore.com/clients/grpc/getting-started/#connection-details)
-* Create an instance of EventStoreClient with given connection string
+* Create an instance of EventStoreStreamsClient with given connection string
 
 A simple usage example of reading from a _self-hosted single-node_:
 
@@ -18,7 +23,7 @@ import 'package:eventstore_client/eventstore_client.dart';
 
 void main() async {
   // Create a client instance
-  final client = EventStoreClient(
+  final client = EventStoreStreamsClient(
     EventStoreClientSettings.parse(
       'esdb://127.0.0.1:2113',
     ),
@@ -53,16 +58,16 @@ supports the following EventStoreDB client APIs:
 
 * :white_check_mark:  Streams API
 * :white_check_mark:  Projections Management API
+* :white_check_mark:  Persistent Subscriptions Management API
 * :white_check_mark:  Gossip API (open source version of EventstoreDB)
 
 We are working on the following APIs:
-* :stopwatch:  Persistent Subscriptions Management API
+* :stopwatch:  User Management API
 
 The following APIs are planned for implementation in prioritized order: 
-* :one:  User Management API
-* :two:  Operations API
-* :three:  Monitoring API 
-* :four:  Cluster Management API (commercial version of EventstoreDB)
+* :one:  Operations API
+* :two:  Monitoring API
+* :three:  Cluster Management API (commercial version of EventstoreDB) 
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 

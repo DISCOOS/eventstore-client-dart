@@ -1,4 +1,5 @@
 import 'package:eventstore_client/eventstore_client.dart';
+import 'package:grpc/grpc.dart';
 import 'package:test/test.dart';
 
 import '../harness.dart';
@@ -25,7 +26,7 @@ void main() {
       );
 
       // Act
-      final result = await client.readFromStream(
+      final result = await client.read(
         expected.streamId,
         position: expected.revision!.toPosition(),
       );
@@ -64,7 +65,7 @@ void main() {
     test('returns first event if reading stream from start backwards',
         () async {
       // Act
-      final result = await client.readFromStream(
+      final result = await client.read(
         state.streamId,
         forward: false,
         position: StreamPosition.start,
@@ -83,10 +84,10 @@ void main() {
 
     test('returns given count if reading stream from end backwards', () async {
       // Act
-      final result = await client.readFromStream(
+      final result = await client.read(
         state.streamId,
         forward: false,
-        count: PageCount,
+        maxCount: PageCount,
         position: StreamPosition.end,
       );
 
@@ -98,7 +99,7 @@ void main() {
     test('returns all events as default if reading stream from end backwards',
         () async {
       // Act
-      final result = await client.readFromStream(
+      final result = await client.read(
         state.streamId,
         forward: false,
         position: StreamPosition.end,
@@ -113,10 +114,10 @@ void main() {
         'returns partial slice if not enough events '
         'and reading stream from end backwards', () async {
       // Act
-      final result = await client.readFromStream(
+      final result = await client.read(
         state.streamId,
         forward: false,
-        count: ExistingCount * 2,
+        maxCount: ExistingCount * 2,
         position: StreamPosition.end,
       );
 
@@ -127,10 +128,10 @@ void main() {
 
     test('returns in reverse order if reading stream backwards', () async {
       // Act
-      final result = await client.readFromStream(
+      final result = await client.read(
         state.streamId,
         forward: false,
-        count: PageCount,
+        maxCount: PageCount,
         position: StreamPosition.end,
       );
 
@@ -156,7 +157,7 @@ void main() {
 
     test('throws if reading stream from end forwards', () async {
       // Act
-      final result = client.readFromStream(
+      final result = client.read(
         state.streamId,
         forward: true,
         position: StreamPosition.end,
@@ -177,7 +178,7 @@ void main() {
     test('returns all events by default if reading stream from start forwards',
         () async {
       // Act
-      final result = await client.readFromStream(
+      final result = await client.read(
         state.streamId,
         forward: true,
         position: StreamPosition.start,
@@ -190,10 +191,10 @@ void main() {
 
     test('returns given count if reading stream from start forwards', () async {
       // Act
-      final result = await client.readFromStream(
+      final result = await client.read(
         state.streamId,
         forward: true,
-        count: PageCount,
+        maxCount: PageCount,
         position: StreamPosition.start,
       );
 
@@ -206,10 +207,10 @@ void main() {
         'returns partial slice if not enough events '
         'and reading stream from start forwards', () async {
       // Act
-      final result = await client.readFromStream(
+      final result = await client.read(
         state.streamId,
         forward: true,
-        count: ExistingCount * 2,
+        maxCount: ExistingCount * 2,
         position: StreamPosition.start,
       );
 
@@ -220,10 +221,10 @@ void main() {
 
     test('returns in correct order if reading stream forwards', () async {
       // Act
-      final result = await client.readFromStream(
+      final result = await client.read(
         state.streamId,
         forward: true,
-        count: PageCount,
+        maxCount: PageCount,
         position: StreamPosition.start,
       );
 
@@ -247,7 +248,7 @@ void main() {
 
     test('allows multiple subscribers on result stream', () async {
       // Act
-      final result = await client.readFromStream(
+      final result = await client.read(
         state.streamId,
         forward: false,
         position: StreamPosition.end,

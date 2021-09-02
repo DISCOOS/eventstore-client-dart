@@ -23,6 +23,29 @@ DateTime fromTicksSinceEpoch(int ticks, {bool inUtc = false}) {
   return inUtc ? dt : dt.toLocal();
 }
 
+Future<T> onBackoff<T>(
+  int attempt,
+  T value, [
+  Duration maxBackoffTime = Defaults.MaxBackoffTime,
+]) =>
+    Future<T>.delayed(
+      Duration(
+        milliseconds: toNextTimeout(
+          attempt,
+          maxBackoffTime,
+        ),
+      ),
+      () => Future.value(value),
+    );
+
+int toNextTimeout(int reconnects, Duration maxBackoffTime, {int exponent = 2}) {
+  final wait = min(
+    pow(exponent, reconnects++).toInt() + Random().nextInt(1000),
+    maxBackoffTime.inMilliseconds,
+  );
+  return wait;
+}
+
 extension DurationX on Duration {
   /// See [Defaults.NoneDuration]
   bool get isNone => this == Defaults.NoneDuration;

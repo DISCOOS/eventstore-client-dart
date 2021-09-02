@@ -1,5 +1,8 @@
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/streams/read_enumerator.dart';
+import 'package:eventstore_client/src/core/read_enumerator.dart';
+import 'package:eventstore_client/src/generated/streams.pb.dart';
+import 'package:eventstore_client/src/streams/helpers.dart';
+import 'package:grpc/grpc.dart';
 import 'package:test/test.dart';
 
 import '../fixtures/read_enumerator_mock.dart';
@@ -11,11 +14,7 @@ void main() {
       final cause = GrpcError.unknown();
       final responseStream = ResponseStreamMock();
       responseStream.addConfirmation();
-      final enumerator = await ReadEnumerator.from(
-        StreamState.any('test'),
-        responseStream,
-        (e) => e,
-      );
+      final enumerator = await _toEnumerator(responseStream);
       final subscription = EventStreamSubscription(enumerator);
 
       // Act
@@ -34,11 +33,7 @@ void main() {
       final cause = Exception('');
       final responseStream = ResponseStreamMock();
       responseStream.addConfirmation();
-      final enumerator = await ReadEnumerator.from(
-        StreamState.any('test'),
-        responseStream,
-        (e) => e,
-      );
+      final enumerator = await _toEnumerator(responseStream);
       final subscription = EventStreamSubscription(enumerator);
 
       // Act
@@ -52,4 +47,33 @@ void main() {
       expect(dropped.reason, SubscriptionDroppedReason.subscriberError);
     });
   });
+}
+
+Future<ReadEnumerator<ReadResp>> _toEnumerator(
+    ResponseStreamMock responseStream) {
+  return ReadEnumerator.from<ReadResp>(
+    expected: StreamState.any('test'),
+    stream: responseStream,
+    toTypedException: (e) => e,
+    toReadResp: (resp) {
+      switch (resp.whichContent()) {
+        case ReadResp_Content.event:
+          return ReadResponse.event;
+        case ReadResp_Content.confirmation:
+          return ReadResponse.confirmation;
+        case ReadResp_Content.checkpoint:
+          return ReadResponse.checkpoint;
+        case ReadResp_Content.streamNotFound:
+          return ReadResponse.streamNotFound;
+        case ReadResp_Content.notSet:
+          return ReadResponse.notSet;
+      }
+    },
+    toResolvedEvent: (resp) => convertToResolvedEvent(resp.event),
+    toCheckpoint: (ReadResp resp) => LogPosition.checked(
+      resp.checkpoint.commitPosition,
+      resp.checkpoint.preparePosition,
+    ),
+    toSubscriptionId: (resp) => resp.confirmation.subscriptionId,
+  );
 }

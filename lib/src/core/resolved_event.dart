@@ -3,7 +3,7 @@ import 'package:uuid/uuid.dart';
 
 import 'event_record.dart';
 import 'log_position.dart';
-import 'stream_position.dart';
+import '../streams/stream_position.dart';
 
 /// A structure representing a single event or a resolved link event.
 class ResolvedEvent {

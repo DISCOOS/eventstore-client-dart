@@ -4,9 +4,11 @@ import 'package:eventstore_client/eventstore_client.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 
+import 'position.dart';
+
 /// A class referring to a potential logical
 /// record position in the Event Store transaction file.
-class LogPosition {
+class LogPosition extends Position {
   /// Constructs a position with the given commit and prepare positions.
   /// It is not guaranteed that the position is actually the start of a
   /// record in the transaction file.
@@ -27,22 +29,22 @@ class LogPosition {
   /// The commit position cannot be less than the prepare position.
   factory LogPosition.checked(Int64 commitPosition, Int64 preparePosition) {
     if (commitPosition < preparePosition) {
-      throw GrpcError.outOfRange(
+      throw ArgumentOutOfRangeException.fromCause(GrpcError.outOfRange(
         'The commit position cannot be less than the prepare position',
-      );
+      ));
     }
 
     if (commitPosition > Int64.MAX_VALUE && commitPosition != Int64.MAX_VALUE) {
-      throw GrpcError.outOfRange(
+      throw ArgumentOutOfRangeException.fromCause(GrpcError.outOfRange(
         'The commit position larger than Int64.MAX_VALUE',
-      );
+      ));
     }
 
     if (preparePosition > Int64.MAX_VALUE &&
         preparePosition != Int64.MAX_VALUE) {
-      throw GrpcError.outOfRange(
+      throw ArgumentOutOfRangeException.fromCause(GrpcError.outOfRange(
         'The prepare position larger than Int64.MAX_VALUE',
-      );
+      ));
     }
     return LogPosition._(commitPosition, preparePosition);
   }
