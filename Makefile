@@ -100,4 +100,4 @@ doc:
 
 release:
 	echo 'Release to pub.dev...'
-	pub_release
+	pub_release --no-test
