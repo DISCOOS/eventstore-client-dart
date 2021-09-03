@@ -90,6 +90,7 @@ class EventStoreClientHarness {
             connectionName: name,
             gossipSeeds: gossipSeeds,
             nodePreference: nodePreference,
+            onBadCertificate: (___, __, _) => true,
             defaultCredentials: defaultCredentials,
             publicKeyPath:
                 secure ? 'test/certs/ca/ca.crt' : Defaults.PublicKeyPath,
