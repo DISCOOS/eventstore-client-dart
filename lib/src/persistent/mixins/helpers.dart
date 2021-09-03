@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/core/helpers.dart';
 import 'package:eventstore_client/src/generated/persistent.pb.dart';
 import 'package:eventstore_client/src/generated/shared.pb.dart';
 import 'package:fixnum/fixnum.dart';
@@ -43,9 +44,14 @@ Future<void> replayParked(
   required EventStoreClientSettings settings,
   required ChannelCredentials channelCredentials,
 }) async {
-  final client = HttpClient(
-    context: channelCredentials.securityContext,
-  );
+  final client = settings.useTls
+      ? HttpClient(
+          context: SecurityContext(withTrustedRoots: false)
+            ..setTrustedCertificatesBytes(
+              readHostCertificate(settings),
+            ),
+        )
+      : HttpClient();
   final path = '${endPoint.toUri(settings.useTls)}'
       '/subscriptions/$streamId/$groupName/replayParked'
       '${stopAt != null ? '?stopAt=$stopAt' : ''}';
@@ -57,6 +63,7 @@ Future<void> replayParked(
     request.headers.add(Headers.Authorization, credentials);
   }
   await request.close();
+  client.close(force: true);
 }
 
 class PersistentSubscriptionResolvedEvent extends ResolvedEvent {

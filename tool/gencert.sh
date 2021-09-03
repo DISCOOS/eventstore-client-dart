@@ -18,12 +18,14 @@ mkdir -p "$ROOT"
 docker pull eventstore/es-gencert-cli:1.0.1
 docker run --rm --volume "$ROOT:/tmp" --user "$(id -u):$(id -g)" eventstore/es-gencert-cli:1.0.1 create-ca -out /tmp/ca
 docker run --rm --volume "$ROOT:/tmp" --user "$(id -u):$(id -g)" eventstore/es-gencert-cli:1.0.1 create-node -ca-certificate /tmp/ca/ca.crt -ca-key /tmp/ca/ca.key -out /tmp/node -ip-addresses 127.0.0.1 -dns-names localhost
+cat "${ROOT}ca/ca.key" "${ROOT}ca/ca.crt" > "${ROOT}ca/ca.pem"
 
 echo "Created Certificate Authority certificate at ${ROOT}ca"
-#ls -al "${ROOT}ca"
+ls -al "${ROOT}ca"
 
 echo "Created Node certificate at ${ROOT}node"
-#ls -al "${ROOT}node"
+ls -al "${ROOT}node"
+
 
 if [ "$2" == "--secure" ]
   then

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/core/interceptors/interseptors.dart';
+import 'package:eventstore_client/src/core/interceptors/interceptors.dart';
 import 'package:eventstore_client/src/generated/code.pb.dart';
 import 'package:eventstore_client/src/generated/persistent.pb.dart';
 import 'package:grpc/grpc.dart';

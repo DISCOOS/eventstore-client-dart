@@ -244,7 +244,10 @@ class GossipClientMock extends Fake implements EventStoreGossipClient {
   final EventStoreClientSettings settings;
 
   @override
-  Future<ClusterInfo> read(EndPoint endPoint) async {
+  Future<ClusterInfo> read(
+    EndPoint endPoint, {
+    bool extended = false,
+  }) async {
     return clusterInfo();
   }
 }

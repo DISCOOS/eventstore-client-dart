@@ -11,3 +11,4 @@ export 'invalid_user_credentials_exception.dart';
 export 'no_scheme_exception.dart';
 export 'not_authenticated_exception.dart';
 export 'not_leader_exception.dart';
+export 'unsupported_api_version_exception.dart';

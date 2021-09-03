@@ -18,7 +18,7 @@ void main() {
       final state = harness.newStreamState(
         StreamStateType.any,
       );
-      await _testClientAppendsZeroEvents(harness, state);
+      return _testClientAppendsZeroEvents(harness, state);
     });
 
     test('appends zero events when expected state is no stream', () async {

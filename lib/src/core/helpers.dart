@@ -1,4 +1,9 @@
+import 'dart:convert';
 import 'dart:math';
+import 'package:eventstore_client/eventstore_client.dart';
+import 'package:grpc/grpc.dart';
+import 'package:universal_io/io.dart';
+
 import 'constants.dart';
 
 /// Get enum value name
@@ -44,6 +49,82 @@ int toNextTimeout(int reconnects, Duration maxBackoffTime, {int exponent = 2}) {
     maxBackoffTime.inMilliseconds,
   );
   return wait;
+}
+
+List<int> readHostCertificate(EventStoreClientSettings settings) {
+  final file = File(settings.publicKeyPath);
+  if (!file.existsSync()) {
+    throw HostCertificateNotFound(file.absolute.path);
+  }
+  return file.readAsBytesSync().toList();
+}
+
+Future<MemberInfo> getNodeInfo(
+  EndPoint endPoint, {
+  UserCredentials? userCredentials,
+  required EventStoreClientSettings settings,
+  required ChannelCredentials channelCredentials,
+}) async {
+  final client = settings.useTls
+      ? HttpClient(
+          context: SecurityContext(withTrustedRoots: false)
+            ..setTrustedCertificatesBytes(
+              readHostCertificate(settings),
+            ),
+        )
+      : HttpClient();
+  if (channelCredentials.onBadCertificate != null) {
+    client.badCertificateCallback = (X509Certificate cert, String host, _) {
+      return true;
+    };
+  }
+  final path = '${endPoint.toUri(settings.useTls)}/info';
+  final request = await client.getUrl(
+    Uri.parse(path),
+  );
+  final credentials = userCredentials ?? settings.defaultCredentials;
+  if (credentials != null) {
+    request.headers.add(Headers.Authorization, credentials);
+  }
+  await request.close();
+  final response = await request.done;
+  final content = await response.toList();
+  final data = Map<String, dynamic>.from(json.decode(
+    utf8.decode(content.fold<List<int>>(
+      [],
+      (previous, list) => previous..addAll(list),
+    )),
+  ) as Map);
+  final apiVersion = _toVersion(data, settings);
+  client.close();
+  return MemberInfo(
+    isAlive: true,
+    endPoint: endPoint,
+    uuid: UuidV4.newUuid().value,
+    state: VNodeState.values.firstWhere(
+      (e) => enumName(e) == data['state'],
+      orElse: () => VNodeState.unknown,
+    ),
+    features: Map<String, dynamic>.from(
+      data['features'] as Map? ?? <String, dynamic>{},
+    )
+        .entries
+        .where((e) => e.value == true)
+        .map((e) => ApiFeature(e.key, '$apiVersion'))
+        .toList(),
+    apiVersion: apiVersion,
+  );
+}
+
+String _toVersion(
+    Map<String, dynamic> data, EventStoreClientSettings settings) {
+  var apiVersion = data['esVersion'] as String?;
+  if (apiVersion != null) {
+    // Limit to semantic versioning format
+    final parts = apiVersion.split('\.');
+    apiVersion = parts.take(3).join('.');
+  }
+  return apiVersion ?? settings.apiVersion;
 }
 
 extension DurationX on Duration {

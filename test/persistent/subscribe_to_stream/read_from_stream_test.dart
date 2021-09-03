@@ -210,7 +210,7 @@ void main() {
           minCheckPointCount: 1,
           maxCheckPointCount: 1,
           startFrom: StreamPosition.start,
-          checkPointAfter: Duration(seconds: 1),
+          checkPointAfter: Duration(milliseconds: 10),
         ),
       );
 

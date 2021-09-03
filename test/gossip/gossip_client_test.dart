@@ -12,9 +12,13 @@ void main() {
 
     final harness = EventStoreClientHarness()
       ..withLogger()
-      ..withClient(secure: true)
+      ..withClient(
+        secure: true,
+        defaultCredentials: EventStoreClientHarness.DefaultCredentials,
+      )
       ..install(
         secure: true,
+        timeoutAfter: null,
         enableGossip: true,
       );
 
@@ -28,19 +32,24 @@ void main() {
     // Test read operations
     // ---------------------------------------
 
-    test('reads cluster info from end point', () async {
+    test('reads cluster info from given endpoint', () async {
       // Arrange
       final gossipClient = EventStoreGossipClient(
         client.settings,
       );
 
       // Act
-      final result = await gossipClient.read(GossipSeed);
+      final result = await gossipClient.read(
+        GossipSeed,
+        extended: true,
+      );
 
       // Assert
       expect(result.members.length, 1);
       expect(result.members.first.isAlive, isTrue);
+      expect(result.members.first.features, isNotEmpty);
       expect(result.members.first.endPoint, GossipSeed);
+      expect(result.members.first.apiVersion, isNotEmpty);
       expect(result.members.first.state, VNodeState.leader);
     });
 

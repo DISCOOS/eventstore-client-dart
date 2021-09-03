@@ -4,17 +4,17 @@ import 'package:pub_semver/pub_semver.dart';
 /// Class that defines EventStore gRPC client features
 /// by [ApiVersion] as semantic version [constraint].
 class ApiFeature {
-  const ApiFeature._(this.name, this.constraint);
+  const ApiFeature(this.name, this.constraint);
 
   // ----------------------------------
   // Features introduced >=20.10.
   // ----------------------------------
   static const All = [BatchAppend, PersistentSubscriptionOnAllStream];
-  static const BatchAppend = ApiFeature._(
+  static const BatchAppend = ApiFeature(
     'BatchAppend',
     '>=${ApiVersions.v21_6_0}',
   );
-  static const PersistentSubscriptionOnAllStream = ApiFeature._(
+  static const PersistentSubscriptionOnAllStream = ApiFeature(
     'PersistentSubscriptionOnAllStream',
     '>=${ApiVersions.v21_6_0}',
   );

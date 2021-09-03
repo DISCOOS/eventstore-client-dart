@@ -1,4 +1,5 @@
 import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/core/helpers.dart';
 import 'package:eventstore_client/src/core/uuid.dart';
 import 'package:eventstore_client/src/generated/gossip.pbgrpc.dart' as $a;
 import 'package:eventstore_client/src/generated/shared.pb.dart';
@@ -18,18 +19,34 @@ class EventStoreGossipClient extends EventStoreClientBase {
     );
   }
 
-  /// Get [ClusterInfo] from given [endpoint]
-  Future<ClusterInfo> read(EndPoint endpoint) async {
+  /// Get [ClusterInfo] from given [endpoint].
+  /// If [extended] is 'true' extended information
+  /// about leader is gathered, which includes
+  /// server api version and active features.
+  Future<ClusterInfo> read(
+    EndPoint endpoint, {
+    bool extended = false,
+  }) async {
     return $runRequest(() async {
       final client = _getClient(endpoint);
       final response = client.read(Empty());
-      final info = await response.asStream().first;
+      final leader = await response.asStream().first;
 
-      final members = info.members.map((member) => MemberInfo(
+      final info = extended
+          ? await getNodeInfo(
+              endpoint,
+              settings: settings,
+              channelCredentials: $getOrAddCredentials(endpoint),
+            )
+          : null;
+
+      final members = leader.members.map((member) => MemberInfo(
             isAlive: member.isAlive,
             state: _toState(member),
             endPoint: _toEndPoint(member),
             uuid: UuidV4.fromDTO(member.instanceId).value,
+            features: info?.features ?? const [],
+            apiVersion: info?.apiVersion ?? settings.apiVersion,
           ));
       return ClusterInfo(members);
     });

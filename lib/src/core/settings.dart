@@ -7,13 +7,22 @@ import 'package:eventstore_client/src/core/helpers.dart';
 import 'package:eventstore_client/src/core/uuid.dart';
 import 'package:eventstore_client/src/security/user_credentials.dart';
 import 'package:fixnum/fixnum.dart';
+import 'package:universal_io/io.dart';
 
 import 'operation_options.dart';
+
+/// Handler for checking certificates that fail validation. If this handler
+/// returns `true`, the bad certificate is allowed, and the TLS handshake can
+/// continue. If the handler returns `false`, the TLS handshake fails, and the
+/// connection is aborted.
+typedef BadCertificateHandler = bool Function(
+    X509Certificate certificate, String host, int port);
 
 class EventStoreClientSettings {
   EventStoreClientSettings({
     this.singleNode,
     this.useTls = true,
+    this.onBadCertificate,
     String? connectionName,
     this.defaultCredentials,
     this.gossipSeeds = const [],
@@ -55,6 +64,12 @@ class EventStoreClientSettings {
   /// (public key) used by each EventStoreDB node for secure
   /// communication. This setting is only used if [useTls] is enabled.
   final String publicKeyPath;
+
+  /// Handler for checking certificates that fail validation. If this handler
+  /// returns `true`, the bad certificate is allowed, and the TLS handshake can
+  /// continue. If the handler returns `false`, the TLS handshake fails, and the
+  /// connection is aborted.
+  final BadCertificateHandler? onBadCertificate;
 
   /// [EndPoint] to single node
   final EndPoint? singleNode;
