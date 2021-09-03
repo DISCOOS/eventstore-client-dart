@@ -1,3 +1,6 @@
+# 0.2.1
+- Added support for api version verification
+
 # 0.2.0
 - Implemented persistent subscriptions api 
 - Refactored all clients into using mixins 
