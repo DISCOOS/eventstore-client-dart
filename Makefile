@@ -29,10 +29,10 @@ CURRENT := $(shell cat test/Harness.dart | grep 'String imageTag =' \
 		| cut -d '-' -f 1  | xargs)
 
 .PHONY: \
-	configure status certs protos models test doc release
+	configure status certs protos models action test doc release
 
 .SILENT: \
-	configure status certs protos models test doc release
+	configure status certs protos models action test doc release
 
 status:
 	echo "Check EventStoreDB OSS version..."
@@ -50,6 +50,7 @@ configure:
 	pub global activate dcli
 	pub global activate dartdoc
 	pub global activate dhttpd
+	brew install act
 
 certs:
 	sh tool/gencert.sh . --secure
@@ -97,6 +98,10 @@ doc:
 	dartdoc
 	echo "Starting server at http://localhost:8080"
 	dhttpd --path doc/api
+
+action:
+	echo "Running github actions..."
+	act
 
 release:
 	echo 'Release to pub.dev...'
