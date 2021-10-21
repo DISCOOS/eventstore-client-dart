@@ -1,0 +1,2 @@
+eventstore_client: .
+eventstore_client_test: ../eventstore_client_test
