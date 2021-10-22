@@ -1,3 +1,4 @@
 ignore:
-  - "lib/src/generated"
-  - "lib/src/version"
+  - "packages/eventstore_client/lib/src/generated"
+  - "packages/eventstore_client/lib/src/version"
+  - "packages/eventstore_client_test/lib/src/version"
