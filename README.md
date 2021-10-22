@@ -1,4 +1,5 @@
 [![Dart](https://github.com/DISCOOS/eventstore-client-dart/actions/workflows/dart.yml/badge.svg)](https://github.com/DISCOOS/eventstore-client-dart/actions/workflows/dart.yml)
+[![codecov](https://codecov.io/gh/DISCOOS/eventstore-client-dart/branch/master/graph/badge.svg?token=HAHS8DUBHM)](https://codecov.io/gh/DISCOOS/eventstore-client-dart)
 
 A mono-repo for [eventstore_client][eventstore_client] and associated packages for building event sourced applications.
 

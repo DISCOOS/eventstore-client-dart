@@ -1,3 +1,7 @@
+[![Pub](https://img.shields.io/pub/v/eventstore_client_test.svg)](https://pub.dev/packages/eventstore_client_test)
+[![Dart](https://github.com/DISCOOS/eventstore-client-dart/actions/workflows/dart.yml/badge.svg)](https://github.com/DISCOOS/eventstore-client-dart/actions/workflows/dart.yml)
+[![codecov](https://codecov.io/gh/DISCOOS/eventstore-client-dart/branch/master/graph/badge.svg?token=HAHS8DUBHM)](https://codecov.io/gh/DISCOOS/eventstore-client-dart)
+
 A testing library for applications using 
 [EventStore Client][package:eventstore_client] with a local EventStoreDB instance.
 
