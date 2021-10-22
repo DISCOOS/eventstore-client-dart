@@ -10,7 +10,7 @@ void main() {
   setUpAll(() {
     server = EventStoreServerSingleNode();
     client = EventStoreStreamsClient(
-      EventStoreClientSettings.parse('<your value>'),
+      EventStoreClientSettings.parse('esdb://127.0.0.1:2113'),
     );
     return server.start();
   });
