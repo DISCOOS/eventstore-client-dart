@@ -29,10 +29,10 @@ CURRENT := $(shell cat test/Harness.dart | grep 'String imageTag =' \
 		| cut -d '-' -f 1  | xargs)
 
 .PHONY: \
-	configure status certs protos models action test doc release
+	status certs protos models test doc release
 
 .SILENT: \
-	configure status certs protos models action test doc release
+	status certs protos models test doc release
 
 status:
 	echo "Check EventStoreDB OSS version..."
@@ -44,16 +44,8 @@ else
 	$(error ">> Update imageTag in 'test/Harness.dart' to '${LATEST}-buster-slim'")
 endif
 
-configure:
-	dart pub global activate pub_release
-	dart pub global activate critical_test
-	pub global activate dcli
-	pub global activate dartdoc
-	pub global activate dhttpd
-	brew install act
-
 certs:
-	sh tool/gencert.sh . --secure
+	esdbtcli certs --out test
 
 protos:
 	echo "Downloading protobuf definitions from google..."
@@ -90,7 +82,7 @@ models:
 	echo "[✓] Generating models complete."
 
 test:
-	if [ ! -d test/certs ]; then . tool/gencert.sh test; fi
+	if [ ! -d test/certs ]; then esdbtcli certs --out test; fi
 	dart test -j 1
 
 doc:
@@ -98,10 +90,6 @@ doc:
 	dartdoc
 	echo "Starting server at http://localhost:8080"
 	dhttpd --path doc/api
-
-action:
-	echo "Running github actions..."
-	act
 
 release:
 	echo 'Release to pub.dev...'

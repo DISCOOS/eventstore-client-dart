@@ -46,8 +46,7 @@ abstract class EventStoreServer {
 
           throw Exception(
             'Could not locate the certificates file ${file.absolute.path} needed '
-            "to run EventStoreDB node. \nPlease run '. tool/gencert.sh test'"
-            'from the repo root.',
+            "to run EventStoreDB node. \nPlease run 'esdbtcli certs'.",
           );
         }
       }

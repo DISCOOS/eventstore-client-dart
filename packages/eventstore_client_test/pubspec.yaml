@@ -2,19 +2,20 @@ name: eventstore_client_test
 version: 0.2.1
 homepage: https://github.com/DISCOOS/eventstore-client-dart
 repository: https://github.com/DISCOOS/eventstore-client-dart
-description: A testing library for applications using EventStore Client.
+description: A testing library for applications using EventStore Client with a local EventStoreDB instance.
 
 environment:
   sdk: '>=2.13.0 <3.0.0'
 
 
 dependencies:
+  args: ^2.3.0
+  file: ^6.1.2
+  path: ^1.8.0
+  shell: ^2.0.0
+  logging: ^1.0.2
   universal_io: ^2.0.4
   eventstore_client: ^0.2.1
-
-dependency_overrides:
-  eventstore_client:
-    path: ../eventstore_client
 
 dev_dependencies:
   lints: ^1.0.0
@@ -22,4 +23,4 @@ dev_dependencies:
 
 
 executables:
-  esdbtcli: main
+  esdbtcli: cli

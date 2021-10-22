@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:logging/logging.dart';
 
-import 'docker_process.dart';
+import '../process/docker_process.dart';
 import 'eventstore_server.dart';
 
 class EventStoreServerSingleNode extends EventStoreServer {
