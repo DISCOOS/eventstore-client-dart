@@ -141,9 +141,6 @@ abstract class BatchWriteResult extends WriteResult {
   final StreamController<StreamState> _controller =
       StreamController<StreamState>();
 
-  bool get isOK => this is BatchWriteSuccessResult;
-  bool get isError => this is BatchWriteErrorResult;
-
   @override
   StreamState get actualState {
     return _streamState ?? super.actualState;
