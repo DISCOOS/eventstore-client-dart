@@ -1,3 +1,10 @@
+# 0.2.2
+- Added getters for checking WriteResult statuses
+- Added static construction methods for EventData streams
+- Added local connection string to examples
+- Updated badges in READMEs
+- Fixed broken exclusion of generated code from test coverage
+
 # 0.2.1
 - Added support for api version verification
 
