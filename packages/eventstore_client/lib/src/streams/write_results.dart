@@ -28,6 +28,16 @@ abstract class WriteResult {
   StreamRevision get nextExpectedStreamRevision =>
       actualState.revision ?? StreamRevision.none;
 
+  /// Check if write succeeded
+  bool get isOK =>
+      this is WriteSuccessResult || this is BatchWriteSuccessResult;
+
+  /// Check if write failed
+  bool get isError => isWrongExpectedVersion || this is BatchWriteErrorResult;
+
+  /// Check if write failed because expected stream state failed
+  bool get isWrongExpectedVersion => this is WrongExpectedVersionResult;
+
   /// Create appropriate [WriteResult] for given [AppendResp]
   static WriteResult from(StreamState expected, AppendResp resp) {
     switch (resp.whichResult()) {

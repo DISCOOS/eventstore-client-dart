@@ -96,6 +96,7 @@ void main() {
         state,
         Stream.fromIterable(events),
       );
+      expect(writeResult.isOK, isTrue);
       expect(
         writeResult.nextExpectedStreamRevision,
         StreamRevision.checked(0),
@@ -143,6 +144,7 @@ void main() {
         state,
         Stream.fromIterable(exists),
       );
+      expect(result.isOK, isTrue);
       expect(result, isA<WriteSuccessResult>());
       expect(result.actualType, equals(StreamStateType.stream_exists));
     });
@@ -208,6 +210,7 @@ void main() {
         state,
         Stream.fromIterable(exists),
       );
+      expect(result.isOK, isTrue);
       expect(result, isA<BatchWriteSuccessResult>());
       expect(
         result.nextExpectedStreamRevision,
@@ -239,6 +242,7 @@ Future<void> _testClientAppendsZeroEvents(
     expect(writeResult.actualType, equals(StreamStateType.no_stream));
     expect(writeResult.nextExpectedStreamRevision, StreamRevision.none);
     if (state.isStreamExists) {
+      expect(writeResult.isWrongExpectedVersion, isTrue);
       expect(writeResult, isA<WrongExpectedVersionResult>());
       expect(
         writeResult,
@@ -255,6 +259,7 @@ Future<void> _testClientAppendsZeroEvents(
             ),
       );
     } else {
+      expect(writeResult.isOK, isTrue);
       expect(writeResult, isA<WriteSuccessResult>());
     }
 
