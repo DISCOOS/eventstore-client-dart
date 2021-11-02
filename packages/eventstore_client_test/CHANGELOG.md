@@ -1,2 +1,5 @@
+# 0.2.2
+- Bumped version in lockstep with eventstore_client.
+
 # 0.2.1
 - Introduced test library for EventStoreDB Client
