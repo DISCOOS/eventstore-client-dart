@@ -17,6 +17,43 @@ class StreamState {
     this.revision,
   ]);
 
+  /// Create [StreamState] with given [name] and [StreamStateType.no_stream]
+  factory StreamState.noStream(String name) =>
+      StreamState(name, StreamStateType.no_stream, null, StreamRevision.none);
+
+  /// Create [StreamState] with given [name] and [StreamStateType.any]
+  factory StreamState.any(
+    String name, {
+    LogPosition? position,
+    StreamRevision? revision,
+  }) =>
+      StreamState(
+        name,
+        StreamStateType.any,
+        position,
+        revision,
+      );
+
+  /// Create [StreamState] with given [name] and [StreamStateType.stream_exists]
+  factory StreamState.exists(
+    String name, {
+    LogPosition? position,
+    StreamRevision? revision,
+  }) =>
+      StreamState(
+        name,
+        StreamStateType.stream_exists,
+        position,
+        revision,
+      );
+
+  /// Create [StreamState] with [SystemStreams.AllStream] and [StreamStateType.stream_exists]
+  factory StreamState.all(LogPosition? position) => StreamState(
+        SystemStreams.AllStream,
+        StreamStateType.stream_exists,
+        position,
+      );
+
   final String streamId;
   final StreamStateType type;
   final LogPosition? position;
@@ -82,39 +119,6 @@ class StreamState {
     }
     throw UnsupportedError('AppendResp $resp is unsupported');
   }
-
-  factory StreamState.noStream(String name) =>
-      StreamState(name, StreamStateType.no_stream, null, StreamRevision.none);
-
-  factory StreamState.all(LogPosition? position) => StreamState(
-        '\$all',
-        StreamStateType.stream_exists,
-        position,
-      );
-
-  factory StreamState.any(
-    String name, {
-    LogPosition? position,
-    StreamRevision? revision,
-  }) =>
-      StreamState(
-        name,
-        StreamStateType.any,
-        position,
-        revision,
-      );
-
-  factory StreamState.exists(
-    String name, {
-    LogPosition? position,
-    StreamRevision? revision,
-  }) =>
-      StreamState(
-        name,
-        StreamStateType.stream_exists,
-        position,
-        revision,
-      );
 
   ReadReq toReadReq({
     int? count,

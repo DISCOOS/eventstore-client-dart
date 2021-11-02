@@ -1,9 +1,11 @@
 import 'dart:collection';
+import 'dart:convert';
 
 import 'package:grpc/grpc.dart';
 import 'package:uuid/uuid.dart';
 
 import 'constants.dart';
+import 'uuid.dart';
 
 /// Represents an event to be written to a stream
 class EventData {
@@ -36,6 +38,42 @@ class EventData {
         '${ContentTypes.ApplicationOctetStream} are acceptable values.',
       );
     }
+  }
+
+  /// Create Stream from single event with json data
+  static Stream<EventData> toStreamFromJson(
+    String eventType,
+    dynamic data, {
+    UuidV4? uuid,
+    Map<String, dynamic> metadata = const <String, dynamic>{},
+  }) {
+    return Stream.fromIterable([
+      EventData(
+        type: eventType,
+        data: utf8.encode(jsonEncode(data)),
+        metadata: utf8.encode(jsonEncode(data)),
+        contentType: ContentTypes.ApplicationJson,
+        uuid: uuid?.value.uuid ?? UuidV4.newUuid().value.uuid,
+      )
+    ]);
+  }
+
+  /// Create Stream from single event with json data
+  static Stream<EventData> toStreamFromBinary(
+    String eventType,
+    List<int> data, {
+    UuidV4? uuid,
+    List<int> metadata = const [],
+  }) {
+    return Stream.fromIterable([
+      EventData(
+        data: data,
+        type: eventType,
+        metadata: metadata,
+        contentType: ContentTypes.ApplicationJson,
+        uuid: uuid?.value.uuid ?? UuidV4.newUuid().value.uuid,
+      )
+    ]);
   }
 
   /// The [UuidValue] of the event, used as part of the idempotent write check.

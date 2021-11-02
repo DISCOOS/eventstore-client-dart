@@ -10,9 +10,7 @@ void main() async {
   await client.subscribeToAll(
     resolveLinks: true,
     onEventAppeared: (EventStreamSubscription _, ResolvedEvent event) async =>
-        print(
-      event,
-    ),
+        print(event),
     position: LogPosition.start,
   );
 }
