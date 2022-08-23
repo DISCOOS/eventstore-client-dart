@@ -1,7 +1,6 @@
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:eventstore_client/src/core/helpers.dart';
 
-
 /// A class for discovering an [EndPoint] using the Gossip api
 /// based on
 

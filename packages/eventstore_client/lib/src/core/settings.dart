@@ -6,7 +6,6 @@ import 'package:eventstore_client/src/core/helpers.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:universal_io/io.dart';
 
-
 /// Handler for checking certificates that fail validation. If this handler
 /// returns `true`, the bad certificate is allowed, and the TLS handshake can
 /// continue. If the handler returns `false`, the TLS handshake fails, and the

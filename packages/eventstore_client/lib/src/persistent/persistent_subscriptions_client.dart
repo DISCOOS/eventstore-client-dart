@@ -6,7 +6,6 @@ import 'package:eventstore_client/src/generated/code.pb.dart';
 import 'package:eventstore_client/src/generated/persistent.pb.dart';
 import 'package:grpc/grpc.dart';
 
-
 /// Class implementing the {@macro persistent_subs_api}
 ///
 /// Utility class for {@macro persistent_subs_doc}

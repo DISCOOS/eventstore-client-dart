@@ -4,7 +4,6 @@ import 'package:eventstore_client/eventstore_client.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 
-
 /// A class referring to an [EventRecord]'s position within a stream.
 class StreamPosition extends Position {
   /// Constructs a new [StreamPosition].

@@ -4,7 +4,6 @@ import 'package:eventstore_client/eventstore_client.dart';
 import 'package:grpc/grpc.dart';
 import 'package:universal_io/io.dart';
 
-
 /// Get enum value name
 String enumName(Object o) => o.toString().split('.').last;
 
