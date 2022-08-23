@@ -6,10 +6,6 @@ import 'package:eventstore_client/src/generated/code.pb.dart';
 import 'package:eventstore_client/src/generated/persistent.pb.dart';
 import 'package:grpc/grpc.dart';
 
-import 'exceptions/maximum_subscribers_reached_exception.dart';
-import 'exceptions/persistent_subscription_dropped_by_server_exception.dart';
-import 'exceptions/persistent_subscription_not_found_exception.dart';
-import 'mixins/persistent_projections_mixins.dart';
 
 /// Class implementing the {@macro persistent_subs_api}
 ///

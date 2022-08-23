@@ -1,21 +1,14 @@
 import 'dart:async';
-import 'package:eventstore_client/src/core/features.dart';
 import 'package:eventstore_client/src/generated/code.pb.dart';
 import 'package:meta/meta.dart';
 import 'package:grpc/grpc.dart';
 
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/core/endpoint_discoverer.dart';
-import 'package:eventstore_client/src/gossip/gossip_client.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'call_options.dart';
-import 'constants.dart';
-import 'exceptions/exceptions.dart';
 import 'helpers.dart';
 import 'interceptors/interceptors.dart';
-import 'operation_options.dart';
-import '../security/user_credentials.dart';
 
 abstract class EventStoreClientBase {
   final List<ClientInterceptor> _interceptors;

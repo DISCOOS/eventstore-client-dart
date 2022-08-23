@@ -1,5 +1,4 @@
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/streams/system_streams.dart';
 
 import 'test_credentials.dart';
 

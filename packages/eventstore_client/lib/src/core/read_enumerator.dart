@@ -1,15 +1,11 @@
 import 'dart:async';
 
 import 'package:eventstore_client/src/generated/code.pb.dart';
-import 'package:eventstore_client/src/streams/enums.dart';
 import 'package:grpc/grpc.dart';
 import 'package:protobuf/protobuf.dart';
 import 'package:tuple/tuple.dart';
 
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/core/resolved_event.dart';
-import 'package:eventstore_client/src/core/log_position.dart';
-import 'package:eventstore_client/src/streams/stream_state.dart';
 
 enum ReadResponse {
   streamNotFound,

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/core/uuid.dart';
 import 'package:eventstore_client/src/generated/shared.pb.dart';
 import 'package:eventstore_client/src/generated/streams.pbgrpc.dart';
 import 'package:grpc/grpc.dart';

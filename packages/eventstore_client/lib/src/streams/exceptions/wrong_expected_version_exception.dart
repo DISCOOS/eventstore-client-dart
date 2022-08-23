@@ -1,6 +1,5 @@
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:eventstore_client/src/core/helpers.dart';
-import 'package:eventstore_client/src/streams/stream_revision.dart';
 import 'package:grpc/grpc.dart';
 
 /// <summary>

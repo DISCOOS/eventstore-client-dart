@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/core/constants.dart';
-import 'package:eventstore_client/src/core/log_position.dart';
 import 'package:test/test.dart';
 
 import '../../harness.dart';

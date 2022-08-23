@@ -2,11 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/cluster/enums.dart';
 import 'package:eventstore_client/src/core/helpers.dart';
-import 'package:eventstore_client/src/core/log_position.dart';
-import 'package:eventstore_client/src/core/resolved_event.dart';
-import 'package:eventstore_client/src/core/uuid.dart';
 import 'package:eventstore_client_test/eventstore_client_test.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';

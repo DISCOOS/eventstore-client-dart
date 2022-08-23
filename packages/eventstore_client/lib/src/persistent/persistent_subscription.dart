@@ -5,7 +5,6 @@ import 'package:eventstore_client/src/core/read_enumerator.dart';
 import 'package:eventstore_client/src/generated/persistent.pb.dart';
 import 'package:eventstore_client/src/generated/shared.pb.dart';
 
-import 'enums.dart';
 import 'mixins/helpers.dart';
 
 typedef PersistentSubscriptionResolvedEventCallback = Future<void> Function(

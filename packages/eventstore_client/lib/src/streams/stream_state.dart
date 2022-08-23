@@ -1,11 +1,8 @@
 import 'dart:convert';
 
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/core/log_position.dart';
-import 'package:eventstore_client/src/streams/stream_revision.dart';
 import 'package:eventstore_client/src/generated/shared.pb.dart';
 import 'package:eventstore_client/src/generated/streams.pb.dart';
-import 'package:eventstore_client/src/streams/system_streams.dart';
 import 'package:eventstore_client/src/generated/google/empty.pb.dart' as $g;
 import 'package:fixnum/fixnum.dart';
 

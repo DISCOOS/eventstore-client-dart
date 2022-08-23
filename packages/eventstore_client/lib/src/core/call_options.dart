@@ -1,10 +1,7 @@
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:eventstore_client/src/core/helpers.dart';
-import 'package:eventstore_client/src/security/user_credentials.dart';
 import 'package:grpc/grpc.dart';
 
-import 'constants.dart';
-import 'operation_options.dart';
 
 /// A helper class for creating [CallOptions].
 ///

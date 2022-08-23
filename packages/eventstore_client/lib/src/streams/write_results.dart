@@ -4,7 +4,6 @@ import 'package:eventstore_client/src/generated/status.pb.dart';
 import 'package:grpc/grpc.dart';
 import 'package:meta/meta.dart';
 
-import 'package:eventstore_client/src/core/log_position.dart';
 import 'package:eventstore_client/src/generated/streams.pb.dart';
 import 'package:eventstore_client/eventstore_client.dart';
 

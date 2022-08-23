@@ -1,10 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/streams/stream_position.dart';
-import 'package:eventstore_client/src/core/typedefs.dart';
 import 'package:grpc/grpc.dart';
 
-import 'stream_acl.dart';
 
 /// A structure representing a stream's custom metadata with strongly typed properties
 /// for system values and a dictionary-like interface for custom values.

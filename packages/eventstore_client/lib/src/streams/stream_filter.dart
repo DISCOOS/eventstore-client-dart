@@ -1,5 +1,4 @@
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/core/resolved_event.dart';
 
 /// A structure representing a filter on stream names for read operations.
 class StreamFilter extends ReadFilter {

@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/core/resolved_event.dart';
-import 'package:eventstore_client/src/streams/event_type_filter.dart';
 import 'package:test/test.dart';
 
 import '../harness.dart';

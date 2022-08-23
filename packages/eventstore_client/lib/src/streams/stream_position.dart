@@ -1,11 +1,9 @@
 import 'dart:core';
 
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/streams/stream_revision.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 
-import '../core/position.dart';
 
 /// A class referring to an [EventRecord]'s position within a stream.
 class StreamPosition extends Position {

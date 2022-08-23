@@ -7,6 +7,7 @@ class StreamMetadataResult {
     required this.state,
     required this.streamId,
     this.metadata,
+    // ignore: unused_element
     this.streamDeleted = false,
     this.metadataStreamPosition,
   });

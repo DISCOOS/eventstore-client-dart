@@ -1,12 +1,6 @@
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/cluster/cluster_info.dart';
 import 'package:eventstore_client/src/core/helpers.dart';
-import 'package:eventstore_client/src/core/endpoint.dart';
-import 'package:eventstore_client/src/core/endpoint_discoverer.dart';
-import 'package:eventstore_client/src/cluster/enums.dart';
-import 'package:eventstore_client/src/core/settings.dart';
 
-import 'gossip_client.dart';
 
 /// A class for discovering an [EndPoint] using the Gossip api
 /// based on

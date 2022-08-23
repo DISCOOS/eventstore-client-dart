@@ -2,30 +2,16 @@ import 'dart:convert';
 
 import 'package:async/async.dart';
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/core/constants.dart';
-import 'package:eventstore_client/src/core/event_data.dart';
-import 'package:eventstore_client/src/core/features.dart';
 import 'package:eventstore_client/src/core/helpers.dart';
-import 'package:eventstore_client/src/core/log_position.dart';
 import 'package:eventstore_client/src/core/read_enumerator.dart';
-import 'package:eventstore_client/src/core/resolved_event.dart';
-import 'package:eventstore_client/src/streams/stream_position.dart';
-import 'package:eventstore_client/src/streams/stream_state.dart';
-import 'package:eventstore_client/src/core/typedefs.dart';
-import 'package:eventstore_client/src/core/uuid.dart';
 import 'package:eventstore_client/src/generated/shared.pb.dart';
 import 'package:eventstore_client/src/generated/streams.pbgrpc.dart';
-import 'package:eventstore_client/src/streams/enums.dart';
-import 'package:eventstore_client/src/streams/event_type_filter.dart';
-import 'package:eventstore_client/src/streams/stream_acl.dart';
-import 'package:eventstore_client/src/streams/write_results.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 import 'package:meta/meta.dart';
 import 'package:tuple/tuple.dart';
 
 import 'helpers.dart';
-import 'stream_metadata.dart';
 
 part 'delete_results.dart';
 part 'mixins/streams_append_mixin.dart';

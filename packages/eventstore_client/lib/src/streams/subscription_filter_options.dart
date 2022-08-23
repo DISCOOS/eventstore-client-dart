@@ -1,5 +1,4 @@
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/core/resolved_event.dart';
 
 typedef SubscriptionCheckpointCallback = Future<void> Function(
   SubscriptionCheckPoint,

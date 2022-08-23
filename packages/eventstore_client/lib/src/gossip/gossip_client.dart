@@ -1,6 +1,5 @@
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:eventstore_client/src/core/helpers.dart';
-import 'package:eventstore_client/src/core/uuid.dart';
 import 'package:eventstore_client/src/generated/gossip.pbgrpc.dart' as $a;
 import 'package:eventstore_client/src/generated/shared.pb.dart';
 
