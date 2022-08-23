@@ -24,3 +24,5 @@ dev_dependencies:
   mockito: ^5.0.15
   eventstore_client_test: 
     path: ../eventstore_client_test
+false_secrets:
+  - /test/certs/*
