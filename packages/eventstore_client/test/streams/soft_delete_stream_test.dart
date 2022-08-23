@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 import '../harness.dart';
 
 void main() {
-  const JsonDocument _customMetadata = <String, dynamic>{
+  const JsonDocument customMetadata = <String, dynamic>{
     'key1': true,
     'key2': 17,
     'key3': 'some value',
@@ -214,7 +214,7 @@ void main() {
             Int64.MAX_VALUE, // 1 less than End
           ),
           acl: StreamAcl(deleteRoles: ['some-role']),
-          custom: _customMetadata,
+          custom: customMetadata,
         );
 
         //

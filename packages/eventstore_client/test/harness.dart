@@ -37,10 +37,9 @@ class EventStoreClientHarness {
     String? suffix,
     String? connectionName,
   }) =>
-      _clients[connectionName ?? '$EventStoreStreamsClient']!
+      '${_clients[connectionName ?? '$EventStoreStreamsClient']!
           .settings
-          .connectionName +
-      '_${suffix ?? DateTime.now().millisecondsSinceEpoch}';
+          .connectionName}_${suffix ?? DateTime.now().millisecondsSinceEpoch}';
 
   StreamState newStreamState(
     StreamStateType type, {
@@ -118,7 +117,7 @@ class EventStoreClientHarness {
     String runProjections = 'none',
     Duration? timeoutAfter = const Duration(seconds: 5),
   }) {
-    Timer? _timeout;
+    Timer? timeout;
     final server = EventStoreServerSingleNode(
       secure: secure,
       imageTag: imageTag,
@@ -127,10 +126,10 @@ class EventStoreClientHarness {
       withTestData: withTestData,
       hostCertificatePath: 'test/certs',
     );
-    StreamSubscription<LogRecord>? _printer;
+    StreamSubscription<LogRecord>? printer;
     setUpAll(() async {
       if (_debug) {
-        _printer = onRecord?.listen(
+        printer = onRecord?.listen(
           (rec) => print(rec),
         );
       }
@@ -162,7 +161,7 @@ class EventStoreClientHarness {
         );
       }
       if (timeoutAfter != null) {
-        _timeout = Timer(
+        timeout = Timer(
           timeoutAfter,
           () => throw Exception('Test timeout'),
         );
@@ -170,14 +169,14 @@ class EventStoreClientHarness {
     });
 
     tearDown(() async {
-      _timeout?.cancel();
+      timeout?.cancel();
       if (restart) {
         await server.stop();
       }
     });
 
     tearDownAll(() async {
-      _timeout?.cancel();
+      timeout?.cancel();
       _logger?.info('---tearDownAll---');
       try {
         if (!restart) {
@@ -188,7 +187,7 @@ class EventStoreClientHarness {
             (e) => e.shutdown(),
           )
         ]);
-        return await _printer?.cancel();
+        return await printer?.cancel();
       } finally {
         _clients.clear();
         _logger?.info('---tearDownAll--->ok');
