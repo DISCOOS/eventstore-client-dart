@@ -48,11 +48,13 @@ class ApiVersions {
 
 class ImageTags {
   static const MASTER = 'ci';
-  static const LTS = v20_10_4;
-  static const LATEST = v21_6_0;
-  static const v21_6_0 = '21.6.0-buster-slim';
-  static const v21_2_0 = '21.2.0-buster-slim';
+  static const LTS = v21_10_7;
+  static const LATEST = v22_6_0;
   static const v20_10_4 = '20.10.4-buster-slim';
+  static const v21_2_0 = '21.2.0-buster-slim';
+  static const v21_6_0 = '21.6.0-buster-slim';
+  static const v21_10_7 = '21.10.7-buster-slim';
+  static const v22_6_0 = '22.6.0-buster-slim';
 }
 
 class Exceptions {
