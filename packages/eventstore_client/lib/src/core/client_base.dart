@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:eventstore_client/src/generated/code.pb.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 import 'package:meta/meta.dart';
 import 'package:grpc/grpc.dart';
 
@@ -186,7 +187,7 @@ abstract class EventStoreClientBase {
   }
 
   ClientChannel _createChannel(EndPoint endPoint) {
-    return ClientChannel(
+    return GrpcOrGrpcWebClientChannel.grpc(
       endPoint.address,
       port: endPoint.port,
       options: ChannelOptions(
