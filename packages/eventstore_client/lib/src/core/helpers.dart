@@ -138,8 +138,8 @@ HttpClient toHttpClient(
       };
     }
   } else {
-    client.badCertificateCallback = TlsSetup(
-      verifyCert: false,
+    client.badCertificateCallback = TlsSetup.allowBadCertificate(
+      true,
     ).onBadCertificate;
   }
   return client;
