@@ -230,7 +230,11 @@ void main() {
           group,
         ),
       );
-      expect(checkpoints.isOK, isTrue);
+      expect(
+        checkpoints.isOK,
+        isTrue,
+        reason: "checkpoint read state was ${checkpoints.state.name}",
+      );
       expect(await checkpoints.events, isNotEmpty);
 
       // Cleanup
