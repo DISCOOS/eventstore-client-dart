@@ -37,9 +37,7 @@ class EventStoreClientHarness {
     String? suffix,
     String? connectionName,
   }) =>
-      '${_clients[connectionName ?? '$EventStoreStreamsClient']!
-          .settings
-          .connectionName}_${suffix ?? DateTime.now().millisecondsSinceEpoch}';
+      '${_clients[connectionName ?? '$EventStoreStreamsClient']!.settings.connectionName}_${suffix ?? DateTime.now().millisecondsSinceEpoch}';
 
   StreamState newStreamState(
     StreamStateType type, {

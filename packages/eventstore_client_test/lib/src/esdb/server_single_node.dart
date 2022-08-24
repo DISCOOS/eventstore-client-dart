@@ -97,6 +97,6 @@ class EventStoreServerSingleNode extends EventStoreServer {
   }
 
   @override
-  Future<void> stop({String? name}) =>
-      (_server ?? DockerProcess.fromName(name!)).stop(name: name);
+  Future<void> stop({String name = 'eventstore-db'}) =>
+      (_server ?? DockerProcess.fromName(name)).stop(name: name);
 }
