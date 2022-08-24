@@ -1,3 +1,6 @@
+# 0.3.0
+- Bumped version in lockstep with eventstore_client.
+
 # 0.2.2
 - Bumped version in lockstep with eventstore_client.
 
