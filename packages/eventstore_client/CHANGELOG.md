@@ -1,3 +1,18 @@
+# 0.3.0
+- Added support for TLS setup with configurable certification verification
+- Use implemented LTS version until tests are upgraded
+- Fixed null validation error
+- Added test failure reasons
+- Added support for grpc web
+- Updated LTS and LATEST version contants
+- Applied dart fix on analysis results
+- Upgraded major versions of dart packages
+- Added test certs to false_secrets
+- Fixed formatting errors
+- Fixed linting errors
+- Upgraded mono_pkg config
+- Removed unnecessary overrides in BatchWriteResult
+
 # 0.2.2
 - Added getters for checking WriteResult statuses
 - Added static construction methods for EventData streams
