@@ -67,7 +67,7 @@ class EventStoreClientHarness {
   EventStoreClientHarness withClient({
     bool secure = false,
     String? connectionName,
-    bool verifyCert = true,
+    bool verifyCert = false,
     List<int>? certificates,
     EventStoreClientSettings? settings,
     UserCredentials? defaultCredentials,
