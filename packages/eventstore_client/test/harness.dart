@@ -67,25 +67,31 @@ class EventStoreClientHarness {
   EventStoreClientHarness withClient({
     bool secure = false,
     String? connectionName,
+    bool verifyCert = true,
+    List<int>? certificates,
     EventStoreClientSettings? settings,
     UserCredentials? defaultCredentials,
     List<EndPoint> gossipSeeds = const [],
+    String? publicKeyPath = 'test/certs/ca/ca.crt',
     NodePreference nodePreference = NodePreference.leader,
   }) {
     final name = connectionName ?? '$EventStoreStreamsClient';
+    final config = (settings ?? EventStoreClientSettings.LTS);
     _register(
       name,
       () {
         return EventStoreStreamsClient(
-          (settings ?? EventStoreClientSettings.LTS).cloneWith(
+          config.copyWith(
             useTls: secure,
             connectionName: name,
             gossipSeeds: gossipSeeds,
             nodePreference: nodePreference,
-            onBadCertificate: (___, __, _) => true,
             defaultCredentials: defaultCredentials,
-            publicKeyPath:
-                secure ? 'test/certs/ca/ca.crt' : Defaults.PublicKeyPath,
+            tlsSetup: config.tlsSetup.copyWith(
+              verifyCert: verifyCert,
+              certificates: certificates,
+              publicKeyPath: publicKeyPath,
+            ),
             singleNode: gossipSeeds.isEmpty ? EndPoint.loopbackIPv4 : null,
           ),
         );

@@ -10,18 +10,32 @@ void main() {
     const ExistingCount = 1;
     const NoCredentials = 'NoCredentials';
     const DefaultCredentials = 'DefaultCredentials';
+    const DefaultTrustStoreVerified = 'DefaultTrustStoreVerified';
+    const DefaultTrustStoreUnverified = 'DefaultTrustStoreUnverified';
     final harness = EventStoreClientHarness()
       ..withLogger()
+      ..withClient(secure: true)
       ..withClient(
         secure: true,
         connectionName: NoCredentials,
       )
       ..withClient(
         secure: true,
+        verifyCert: true,
+        publicKeyPath: null,
+        connectionName: DefaultTrustStoreVerified,
+      )
+      ..withClient(
+        secure: true,
+        verifyCert: false,
+        publicKeyPath: null,
+        connectionName: DefaultTrustStoreUnverified,
+      )
+      ..withClient(
+        secure: true,
         connectionName: DefaultCredentials,
         defaultCredentials: EventStoreClientHarness.DefaultCredentials,
       )
-      ..withClient(secure: true)
       ..install(secure: true);
 
     late Iterable<EventData> exists;
@@ -43,6 +57,38 @@ void main() {
 
       await _writeTo(StreamsSecurityFixture.NoAclStream, exists);
       await _writeTo(StreamsSecurityFixture.ReadStream, exists);
+    });
+
+    test('fails to connect with default trust store', () async {
+      // Arrange
+      final client = harness.client(connectionName: DefaultTrustStoreVerified);
+      final fixture = StreamsSecurityFixture(client);
+
+      // Act
+      final request = fixture.readFromStream(
+        StreamsSecurityFixture.ReadStream,
+        userCredentials: TestCredentials.TestBadUser,
+      );
+
+      // Assert
+      await expectLater(request, throwsA(isA<CertificateVerifyFailed>()));
+    });
+
+    test('able to connect with default trust store with verifyCert=false',
+        () async {
+      // Arrange
+      final client =
+          harness.client(connectionName: DefaultTrustStoreUnverified);
+      final fixture = StreamsSecurityFixture(client);
+
+      // Act
+      final request = fixture.readFromStream(
+        StreamsSecurityFixture.ReadStream,
+        userCredentials: TestCredentials.TestBadUser,
+      );
+
+      // Assert
+      await expectLater(request, throwsA(isA<NotAuthenticatedException>()));
     });
 
     test('throws NotAuthenticatedException on bad username', () async {

@@ -17,14 +17,13 @@ class EventStoreClientSettings {
   EventStoreClientSettings({
     this.singleNode,
     this.useTls = true,
-    this.onBadCertificate,
     String? connectionName,
     this.defaultCredentials,
     this.gossipSeeds = const [],
+    this.tlsSetup = Defaults.TlsSetup,
     this.apiVersion = ApiVersions.LTS,
     this.maxRetries = Defaults.MaxRetries,
     this.batchAppend = Defaults.BatchAppend,
-    this.publicKeyPath = Defaults.PublicKeyPath,
     this.gossipTimeout = Defaults.GossipTimeout,
     this.batchAppendSize = Defaults.BatchAppendSize,
     this.nodePreference = Defaults.NodePreference,
@@ -43,7 +42,7 @@ class EventStoreClientSettings {
   static final EventStoreClientSettings v20_10_4 = EventStoreClientSettings();
 
   /// Get default settings for EventStoreDB v21.6
-  static final EventStoreClientSettings v21_6_0 = v20_10_4.cloneWith(
+  static final EventStoreClientSettings v21_6_0 = v20_10_4.copyWith(
     batchAppend: true,
     apiVersion: ApiVersions.v21_6_0,
   );
@@ -55,16 +54,11 @@ class EventStoreClientSettings {
   /// have been supplied to the operation.
   final UserCredentials? defaultCredentials;
 
-  /// Path to the Certificate Authority (CA) signed certificate
-  /// (public key) used by each EventStoreDB node for secure
-  /// communication. This setting is only used if [useTls] is enabled.
-  final String publicKeyPath;
+  /// True if communicating over a secure channel; otherwise false.
+  final bool useTls;
 
-  /// Handler for checking certificates that fail validation. If this handler
-  /// returns `true`, the bad certificate is allowed, and the TLS handshake can
-  /// continue. If the handler returns `false`, the TLS handshake fails, and the
-  /// connection is aborted.
-  final BadCertificateHandler? onBadCertificate;
+  /// [tlsSetup] configures secure connection behaviour and security context.
+  final TlsSetup tlsSetup;
 
   /// [EndPoint] to single node
   final EndPoint? singleNode;
@@ -80,9 +74,6 @@ class EventStoreClientSettings {
 
   /// Connection name supplied as metadata to server
   final String connectionName;
-
-  /// True if communicating over a secure channel; otherwise false.
-  final bool useTls;
 
   /// After a duration of [keepAliveInterval] (in milliseconds), if the server
   /// doesn't see any activity, it pings the client to see if the transport is
@@ -129,20 +120,20 @@ class EventStoreClientSettings {
   /// Check if basic authentication should be used
   bool get isBasicAuth => defaultCredentials?.isBasicAuth == true;
 
-  EventStoreClientSettings cloneWith({
+  /// Copy [EventStoreClientSettings] and overwrite given values
+  EventStoreClientSettings copyWith({
     bool? useTls,
     bool? batchAppend,
     String? apiVersion,
+    TlsSetup? tlsSetup,
     EndPoint? singleNode,
     int? batchAppendSize,
-    String? publicKeyPath,
     String? connectionName,
     Duration? gossipTimeout,
     int? maxDiscoverAttempts,
     List<EndPoint>? gossipSeeds,
     $e.NodePreference? nodePreference,
     UserCredentials? defaultCredentials,
-    BadCertificateHandler? onBadCertificate,
     EventStoreClientOperationOptions? operationOptions,
     Duration? operationTimeout = Defaults.OperationTimeout,
     Duration? keepAliveTimeout = Defaults.KeepAliveTimeout,
@@ -151,16 +142,15 @@ class EventStoreClientSettings {
   }) =>
       EventStoreClientSettings(
         useTls: useTls ?? this.useTls,
+        tlsSetup: tlsSetup ?? this.tlsSetup,
         singleNode: singleNode ?? this.singleNode,
         apiVersion: apiVersion ?? this.apiVersion,
         batchAppend: batchAppend ?? this.batchAppend,
         gossipSeeds: gossipSeeds ?? this.gossipSeeds,
         gossipTimeout: gossipTimeout ?? this.gossipTimeout,
-        publicKeyPath: publicKeyPath ?? this.publicKeyPath,
         connectionName: connectionName ?? this.connectionName,
         nodePreference: nodePreference ?? this.nodePreference,
         batchAppendSize: batchAppendSize ?? this.batchAppendSize,
-        onBadCertificate: onBadCertificate ?? this.onBadCertificate,
         operationOptions: operationOptions ?? this.operationOptions,
         operationTimeout: operationTimeout ?? this.operationTimeout,
         keepAliveTimeout: keepAliveTimeout ?? this.keepAliveTimeout,
@@ -196,6 +186,9 @@ class EventStoreClientConnectionString {
   static const List<String> Schemes = ['esdb', UriSchemeDiscover];
 
   static const Tls = 'tls';
+  static const TlsVerifyCert = 'tlsVerifyCert';
+  static const TlsPublicKeyPath = 'tlsPublicKeyPath';
+
   static const ConnectionName = 'connectionName';
   static const MaxDiscoverAttempts = 'maxDiscoverAttempts';
   static const DiscoveryInterval = 'discoveryInterval';
@@ -205,7 +198,6 @@ class EventStoreClientConnectionString {
   static const ThrowOnAppendFailure = 'throwOnAppendFailure';
   static const KeepAliveInterval = 'keepAliveInterval';
   static const KeepAliveTimeout = 'keepAliveTimeout';
-  static const PublicKeyPath = 'publicKeyPath';
   static const BatchAppend = 'batchAppend';
   static const BatchAppendSize = 'batchAppendSize';
 
@@ -274,15 +266,28 @@ class EventStoreClientConnectionString {
     final isSingleNode = hosts.length == 1 && scheme != UriSchemeDiscover;
     return EventStoreClientSettings(
       gossipSeeds: isSingleNode ? [] : hosts,
-      defaultCredentials: UserCredentials.from(userInfo),
+      connectionName: options[ConnectionName],
       singleNode: isSingleNode ? hosts.first : null,
+      defaultCredentials: UserCredentials.from(userInfo),
       useTls: _getOrDefault<bool>(
         options,
         key: Tls,
         defaultValue: Defaults.UseTls,
         map: (value) => value.toLowerCase() == 'true',
       ),
-      connectionName: options[ConnectionName],
+      tlsSetup: TlsSetup(
+        verifyCert: _getOrDefault<bool>(
+          options,
+          key: TlsVerifyCert,
+          defaultValue: Defaults.TlsVerifyCert,
+          map: (value) => value.toLowerCase() == 'true',
+        ),
+        publicKeyPath: _getOrDefault<String?>(
+          options,
+          key: TlsPublicKeyPath,
+          defaultValue: null,
+        ),
+      ),
       keepAliveTimeout: _getOrDefault<Duration>(
         options,
         key: KeepAliveTimeout,
@@ -312,11 +317,6 @@ class EventStoreClientConnectionString {
         key: MaxDiscoverAttempts,
         defaultValue: Defaults.MaxDiscoverAttempts,
         map: (value) => int.parse(value),
-      ),
-      publicKeyPath: _getOrDefault<String>(
-        options,
-        key: PublicKeyPath,
-        defaultValue: Defaults.PublicKeyPath,
       ),
       operationTimeout: _getOrDefault<Duration>(
         options,
@@ -397,7 +397,7 @@ class EventStoreClientConnectionString {
   }) {
     final value = options[key];
     return map == null
-        ? (value ?? defaultValue)! as T
+        ? (value ?? defaultValue) as T
         : value == null
             ? defaultValue!
             : map(value);

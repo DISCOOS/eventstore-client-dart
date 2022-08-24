@@ -1,5 +1,6 @@
 export 'access_denied_exception.dart';
 export 'argument_out_of_range_exception.dart';
+export 'certificate_verify_failed.dart';
 export 'connection_string_parse_exception.dart';
 export 'duplicate_key_exception.dart';
 export 'feature_not_supported_exception.dart';

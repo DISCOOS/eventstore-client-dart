@@ -49,12 +49,27 @@ int toNextTimeout(int reconnects, Duration maxBackoffTime, {int exponent = 2}) {
   return wait;
 }
 
-List<int> readHostCertificate(EventStoreClientSettings settings) {
-  final file = File(settings.publicKeyPath);
-  if (!file.existsSync()) {
-    throw HostCertificateNotFound(file.absolute.path);
+/// Create TLS certificates from [TlsSetup.publicKeyPath]
+/// and [TlsSetup.certificates]. Return [null] if none of
+/// these are provided.
+List<int>? readHostCertificate(EventStoreClientSettings settings) {
+  final certificates = <int>[];
+
+  // Add certs from local file?
+  if (settings.tlsSetup.publicKeyPath?.isNotEmpty == true) {
+    final file = File(settings.tlsSetup.publicKeyPath!);
+    if (!file.existsSync()) {
+      throw HostCertificateNotFound(file.absolute.path);
+    }
+    certificates.addAll(file.readAsBytesSync().toList());
   }
-  return file.readAsBytesSync().toList();
+
+  // Add certs from settings as list of ints?
+  if (settings.tlsSetup.certificates?.isNotEmpty == true) {
+    certificates.addAll(settings.tlsSetup.certificates!);
+  }
+
+  return certificates.isNotEmpty ? certificates : null;
 }
 
 Future<MemberInfo> getNodeInfo(
@@ -63,19 +78,8 @@ Future<MemberInfo> getNodeInfo(
   required EventStoreClientSettings settings,
   required ChannelCredentials channelCredentials,
 }) async {
-  final client = settings.useTls
-      ? HttpClient(
-          context: SecurityContext(withTrustedRoots: false)
-            ..setTrustedCertificatesBytes(
-              readHostCertificate(settings),
-            ),
-        )
-      : HttpClient();
-  if (channelCredentials.onBadCertificate != null) {
-    client.badCertificateCallback = (X509Certificate cert, String host, _) {
-      return true;
-    };
-  }
+  final client = toHttpClient(settings, channelCredentials);
+
   final path = '${endPoint.toUri(settings.useTls)}/info';
   final request = await client.getUrl(
     Uri.parse(path),
@@ -114,8 +118,48 @@ Future<MemberInfo> getNodeInfo(
   );
 }
 
+HttpClient toHttpClient(
+  EventStoreClientSettings settings,
+  ChannelCredentials channelCredentials,
+) {
+  final client = settings.useTls
+      ? HttpClient(context: toSecurityContext(settings))
+      : HttpClient();
+
+  if (settings.tlsSetup.verifyCert) {
+    if (channelCredentials.onBadCertificate != null) {
+      client.badCertificateCallback = (X509Certificate cert, String host, _) {
+        return channelCredentials.onBadCertificate!(cert, host);
+      };
+    } else if (settings.tlsSetup.onBadCertificate != null) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, port) {
+        return settings.tlsSetup.onBadCertificate!(cert, host, port);
+      };
+    }
+  } else {
+    client.badCertificateCallback = TlsSetup(
+      verifyCert: false,
+    ).onBadCertificate;
+  }
+  return client;
+}
+
+SecurityContext toSecurityContext(EventStoreClientSettings settings) {
+  final certs = readHostCertificate(settings);
+  if (certs?.isEmpty == true) {
+    return SecurityContext.defaultContext;
+  }
+  return SecurityContext(withTrustedRoots: false)
+    ..setTrustedCertificatesBytes(
+      certs!,
+    );
+}
+
 String _toVersion(
-    Map<String, dynamic> data, EventStoreClientSettings settings) {
+  Map<String, dynamic> data,
+  EventStoreClientSettings settings,
+) {
   var apiVersion = data['esVersion'] as String?;
   if (apiVersion != null) {
     // Limit to semantic versioning format

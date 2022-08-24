@@ -163,14 +163,19 @@ abstract class EventStoreClientBase {
       endPoint,
       () => settings.useTls
           ? ChannelCredentials.secure(
+              // If not provided, the default trust store is used.
               certificates: readHostCertificate(settings),
-              onBadCertificate: settings.onBadCertificate != null
-                  ? (cert, host) => settings.onBadCertificate!(
+              onBadCertificate: (cert, host) {
+                return settings.tlsSetup.onBadCertificate != null
+                    // Use supplied bad cert callback if provided
+                    ? settings.tlsSetup.onBadCertificate!(
                         cert,
                         host,
                         endPoint.port,
                       )
-                  : null,
+                    // else if verifyCert is true, bad certs are not allowed
+                    : !settings.tlsSetup.verifyCert;
+              },
             )
           : ChannelCredentials.insecure(),
     );
@@ -267,9 +272,9 @@ abstract class EventStoreClientBase {
 
   /// Retry is allowed when attempt is less than maxAttempt and
   /// one of the following conditions are met:
-  ///   1. gRPC error code UNAVAILABLE
+  ///   1. gRPC error code UNAVAILABLE and NOT an handshake error
   ///   2. StreamException error from http2 StreamHandler
-  /// @nodoc
+  /// Returns true of retry should be attempted, false otherwise
   FutureOr<bool> _canRetry(
     Exception error,
     int attempt, // 1-based
@@ -277,8 +282,8 @@ abstract class EventStoreClientBase {
   ) {
     assert(attempt > 0, 'attempts is a 1-based counter');
     if (attempt < maxAttempt && error is GrpcError) {
-      if (error.code == Code.UNAVAILABLE.value) {
-        // The service is currently unavailable.  This is most likely a
+      if (error.code == Code.UNAVAILABLE.value && !_isHandshakeError(error)) {
+        // The service is currently unavailable. This is most likely a
         // transient condition, which can be corrected by retrying with
         // a backoff. Note that it is not always safe to retry
         // non-idempotent operations. HTTP Mapping: 503 Service Unavailable
@@ -322,7 +327,10 @@ abstract class EventStoreClientBase {
 
       switch (error.code) {
         case StatusCode.unavailable:
-          if (error.message?.toLowerCase() == 'deadline exceeded') {
+          if (_isHandshakeError(error)) {
+            return CertificateVerifyFailed.fromCause(error);
+          }
+          if (_isDeadlineExceededError(error)) {
             return GrpcError.deadlineExceeded(
               error.message,
               error.details,
@@ -342,6 +350,15 @@ abstract class EventStoreClientBase {
       }
     }
     return error;
+  }
+
+  bool _isDeadlineExceededError(GrpcError error) =>
+      error.message?.toLowerCase() == 'deadline exceeded';
+
+  bool _isHandshakeError(GrpcError error) {
+    final msg = '${error.message}'.toUpperCase();
+    return ['HANDSHAKE', 'CERTIFICATE_VERIFY_FAILED']
+        .any((test) => msg.contains(test));
   }
 
   Exception _checkNewLeader(Exception ex) {

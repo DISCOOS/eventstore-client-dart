@@ -160,4 +160,31 @@ void main() {
     expect(settings.keepAliveTimeout, Duration(milliseconds: 5000));
     expect(settings.keepAliveInterval, Duration(milliseconds: 10000));
   });
+
+  test('ConnectionString with default tls setup', () {
+    // Arrange
+    final connectionString = 'esdb://some.dns:2113?tls=true';
+
+    // Act
+    final settings = EventStoreClientSettings.parse(connectionString);
+
+    // Assert
+    expect(settings.useTls, isTrue);
+    expect(settings.tlsSetup.verifyCert, isTrue);
+    expect(settings.tlsSetup.publicKeyPath, null);
+  });
+
+  test('ConnectionString with custom tls setup', () {
+    // Arrange
+    final connectionString = 'esdb://some.dns:2113'
+        '?tls=false&tlsVerifyCert=false&tlsPublicKeyPath=key.cert';
+
+    // Act
+    final settings = EventStoreClientSettings.parse(connectionString);
+
+    // Assert
+    expect(settings.useTls, isFalse);
+    expect(settings.tlsSetup.verifyCert, isFalse);
+    expect(settings.tlsSetup.publicKeyPath, 'key.cert');
+  });
 }

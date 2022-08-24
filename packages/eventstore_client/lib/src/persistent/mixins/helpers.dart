@@ -45,12 +45,7 @@ Future<void> replayParked(
   required ChannelCredentials channelCredentials,
 }) async {
   final client = settings.useTls
-      ? HttpClient(
-          context: SecurityContext(withTrustedRoots: false)
-            ..setTrustedCertificatesBytes(
-              readHostCertificate(settings),
-            ),
-        )
+      ? HttpClient(context: toSecurityContext(settings))
       : HttpClient();
   final path = '${endPoint.toUri(settings.useTls)}'
       '/subscriptions/$streamId/$groupName/replayParked'

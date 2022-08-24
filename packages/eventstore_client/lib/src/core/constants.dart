@@ -9,13 +9,15 @@ const Max = 9223372036854775807;
 class Defaults {
   static const GrpcPort = 2113;
   static const GossipPort = 2114;
+
   static const bool UseTls = true;
+  static const bool TlsVerifyCert = true;
+  static const TlsSetup = $a.TlsSetup(verifyCert: TlsVerifyCert);
 
   static const int MaxRetries = 10;
   static const int MaxSearchWindow = 32;
   static const int MaxDiscoverAttempts = 10;
   static const int CheckpointInterval = 1000;
-  static const String PublicKeyPath = 'ca.crt';
   static const Duration GossipTimeout = Duration(seconds: 5);
   static const Duration MaxBackoffTime = Duration(seconds: 10);
   static const Duration OperationTimeout = Duration(seconds: 30);

@@ -27,5 +27,6 @@ export 'src/gossip/gossip_client.dart';
 export 'src/persistent/persistent_subscriptions.dart';
 export 'src/projections/projections.dart';
 export 'src/security/system_groups.dart';
+export 'src/security/tls_setup.dart';
 export 'src/security/user_credentials.dart';
 export 'src/streams/streams.dart';
