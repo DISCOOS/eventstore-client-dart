@@ -77,7 +77,7 @@ models:
 		status.proto \
 		streams.proto \
 		users.proto
-	dartfmt -w lib/src/generated
+	dart format lib/src/generated
 	echo "[✓] Generating models complete."
 
 test:
