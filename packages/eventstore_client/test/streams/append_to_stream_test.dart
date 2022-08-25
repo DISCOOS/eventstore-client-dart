@@ -179,15 +179,15 @@ void main() {
     });
   });
 
-  group('When appending to EventStoreDB v21.6.0, streams client', () {
+  group('When appending to EventStoreDB v21_LTS, streams client', () {
     const ExistingCount = 25;
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient(
-        settings: EventStoreClientSettings.v21_6_0,
+        settings: EventStoreClientSettings.v21,
       )
       ..install(
-        imageTag: ImageTags.v21_6_0,
+        imageTag: ImageTags.v21_LTS,
         isReady: (line) {
           return line.contains('Became Leader so now handling subscriptions');
         },

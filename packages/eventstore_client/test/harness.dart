@@ -76,7 +76,7 @@ class EventStoreClientHarness {
     NodePreference nodePreference = NodePreference.leader,
   }) {
     final name = connectionName ?? '$EventStoreStreamsClient';
-    final config = (settings ?? EventStoreClientSettings.LTS);
+    final config = (settings ?? EventStoreClientSettings.v20_LTS);
     _register(
       name,
       () {
@@ -116,7 +116,7 @@ class EventStoreClientHarness {
     bool enableGossip = true,
     bool withTestData = false,
     bool Function(String)? isReady,
-    String imageTag = ImageTags.LTS,
+    String imageTag = ImageTags.v20_LTS,
     bool? startSystemProjections,
     String runProjections = 'none',
     Duration? timeoutAfter = const Duration(seconds: 5),

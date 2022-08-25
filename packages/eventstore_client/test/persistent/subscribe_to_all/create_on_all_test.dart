@@ -7,14 +7,14 @@ import '../../harness.dart';
 void main() {
   var index = 0;
   String GroupName() => 'existing-$index';
-  group('When using EventStoreDB LTS, client', () {
+  group('When using EventStoreDB v20_LTS, client', () {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
       ..install(
         timeoutAfter: null,
         runProjections: 'all',
-        imageTag: ImageTags.LTS,
+        imageTag: ImageTags.v20_LTS,
       );
 
     late final EventStoreStreamsClient streamsClient;
@@ -44,15 +44,15 @@ void main() {
     });
   });
 
-  group('When using EventStoreDB v21.6, persistent subscription client', () {
+  group('When using EventStoreDB v21_LTS, persistent subscription client', () {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient(
-        settings: EventStoreClientSettings.v21_6_0,
+        settings: EventStoreClientSettings.v21,
       )
       ..install(
         timeoutAfter: null,
-        imageTag: ImageTags.v21_6_0,
+        imageTag: ImageTags.v21_LTS,
         isReady: (line) {
           return line.contains('Became Leader so now handling subscriptions');
         },

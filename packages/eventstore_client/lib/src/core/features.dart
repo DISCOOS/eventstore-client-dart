@@ -7,16 +7,16 @@ class ApiFeature {
   const ApiFeature(this.name, this.constraint);
 
   // ----------------------------------
-  // Features introduced >=20.10.
+  // Features introduced >= 20.10.x
   // ----------------------------------
   static const All = [BatchAppend, PersistentSubscriptionOnAllStream];
   static const BatchAppend = ApiFeature(
     'BatchAppend',
-    '>=${ApiVersions.v21_6_0}',
+    '>=${ApiVersions.v21}',
   );
   static const PersistentSubscriptionOnAllStream = ApiFeature(
     'PersistentSubscriptionOnAllStream',
-    '>=${ApiVersions.v21_6_0}',
+    '>=${ApiVersions.v21}',
   );
 
   /// Name of feature

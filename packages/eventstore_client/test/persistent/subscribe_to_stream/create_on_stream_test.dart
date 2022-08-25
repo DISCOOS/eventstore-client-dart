@@ -11,7 +11,7 @@ void main() {
   const FromEnd = 'from-end';
   const ExistingStream = 'existing';
   String GroupName() => 'some-$index';
-  group('When using EventStoreDB LTS, persistent subscription client', () {
+  group('When using EventStoreDB v20_LTS, persistent subscription client', () {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()

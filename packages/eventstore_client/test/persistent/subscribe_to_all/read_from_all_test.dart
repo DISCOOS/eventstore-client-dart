@@ -11,15 +11,15 @@ void main() {
   const MaxOne = 'max-one';
   const FromEnd = 'from-end';
   String nextGroup() => 'some-${++index}';
-  group('When using EventStoreDB v21.6, persistent subscription client', () {
+  group('When using EventStoreDB v21_LTS, persistent subscription client', () {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient(
-        settings: EventStoreClientSettings.v21_6_0,
+        settings: EventStoreClientSettings.v21,
       )
       ..install(
         timeoutAfter: null,
-        imageTag: ImageTags.v21_6_0,
+        imageTag: ImageTags.v21_LTS,
         isReady: (line) {
           return line.contains('Became Leader so now handling subscriptions');
         },

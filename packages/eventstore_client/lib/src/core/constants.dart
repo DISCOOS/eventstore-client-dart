@@ -33,30 +33,31 @@ class Defaults {
   static const Duration GrpcIdleTimeout = Duration(minutes: 5);
   static const Duration GrpcConnectionTimeout = Duration(minutes: 50);
 
-  /// Supported from EventStoreDB v21.6 (as of Aug 2021, LTS is v20.10).
+  // Supported from EventStoreDB v21_LTS (as of Aug 2021, v20_LTS is v20.10).
   static const BatchAppend = false;
   static const int BatchAppendSize = 3 * 1024 * 1024;
 }
 
 class ApiVersions {
-  static const LTS = v20_10_0;
-  static const LATEST = v21_6_0;
-  static const v21_6_0 = '21.6.0';
-  static const v21_2_0 = '21.2.0';
-  static const v20_10_0 = '20.10.0';
+  static const v20 = '20.10.0';
+  static const v21 = '21.6.0';
+  static const v22 = '22.6.0';
+  static const v20_LTS = '20.10.5';
+  static const v21_LTS = '21.10.7';
+  static const LATEST = v22;
 
   static String toImageTag(String version) => '$version-buster-slim';
 }
 
 class ImageTags {
   static const MASTER = 'ci';
-  static const LTS = v20_10_4;
-  static const LATEST = v22_6_0;
-  static const v20_10_4 = '20.10.4-buster-slim';
-  static const v21_2_0 = '21.2.0-buster-slim';
-  static const v21_6_0 = '21.6.0-buster-slim';
-  static const v21_10_7 = '21.10.7-buster-slim';
-  static const v22_6_0 = '22.6.0-buster-slim';
+  static const LATEST = '22.6.0-buster-slim';
+  static const v20 = '${ApiVersions.v20}-buster-slim';
+  static const v21 = '${ApiVersions.v21}-buster-slim';
+
+  static const LTS = v20_LTS;
+  static const v20_LTS = '${ApiVersions.v20_LTS}-buster-slim';
+  static const v21_LTS = '${ApiVersions.v21_LTS}-buster-slim';
 }
 
 class Exceptions {

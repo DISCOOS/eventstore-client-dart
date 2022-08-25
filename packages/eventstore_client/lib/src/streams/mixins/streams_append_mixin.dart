@@ -14,7 +14,7 @@ mixin EventStoreStreamsAppendMixin on EventStoreStreamsMixin {
     return $runRequest<WriteResult>(() async {
       final client = await $getClient();
       if (settings.batchAppend) {
-        // From v21.6 the ability to use multiplex appends over
+        // From v21_LTS the ability to use multiplex appends over
         // a single gRPC channel was added with BatchAppend. This improves
         // speed by eliminating the channel setup overhead. This results
         // in a performance improvement in the order of 20x.

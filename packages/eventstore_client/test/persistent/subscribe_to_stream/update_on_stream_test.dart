@@ -7,7 +7,7 @@ void main() {
   const EventCount = 10;
   const GroupName = 'existing';
   const ExistingStream = 'existing';
-  group('When using EventStoreDB LTS, persistent subscription client', () {
+  group('When using EventStoreDB v20_LTS, persistent subscription client', () {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()

@@ -21,7 +21,7 @@ class EventStoreClientSettings {
     this.defaultCredentials,
     this.gossipSeeds = const [],
     this.tlsSetup = Defaults.TlsSetup,
-    this.apiVersion = ApiVersions.LTS,
+    this.apiVersion = ApiVersions.v20_LTS,
     this.maxRetries = Defaults.MaxRetries,
     this.batchAppend = Defaults.BatchAppend,
     this.gossipTimeout = Defaults.GossipTimeout,
@@ -35,17 +35,20 @@ class EventStoreClientSettings {
     this.operationOptions = EventStoreClientOperationOptions.Default,
   }) : connectionName = connectionName ?? 'ES-${UuidV4.newUuid().value.uuid}';
 
-  /// Get default settings for EventStoreDB LTS version
-  static final EventStoreClientSettings LTS = v20_10_4;
+  /// Get default settings for EventStoreDB v20.x
+  static final EventStoreClientSettings v20 = EventStoreClientSettings();
 
-  /// Get default settings for EventStoreDB v20.10.4
-  static final EventStoreClientSettings v20_10_4 = EventStoreClientSettings();
+  /// Get default settings for EventStoreDB v20.x LTS version
+  static final EventStoreClientSettings v20_LTS = v20;
 
-  /// Get default settings for EventStoreDB v21.6
-  static final EventStoreClientSettings v21_6_0 = v20_10_4.copyWith(
+  /// Get default settings for EventStoreDB v21.x
+  static final EventStoreClientSettings v21 = v20.copyWith(
     batchAppend: true,
-    apiVersion: ApiVersions.v21_6_0,
+    apiVersion: ApiVersions.v21,
   );
+
+  /// Get default settings for EventStoreDB v21.x LTS version
+  static final EventStoreClientSettings v21_LTS = v21;
 
   /// Settings are compatible with given EventStoreDB [apiVersion]
   final String apiVersion;
@@ -95,11 +98,11 @@ class EventStoreClientSettings {
   final Duration operationTimeout;
 
   /// If true, use batch append operation.
-  /// Only available with version EventStoreDB 21.6 and above
+  /// Only available with version EventStoreDB 21.6.x and above
   final bool batchAppend;
 
   /// Batch append size used when [batchAppend] is true.
-  /// Only available with version EventStoreDB v21.6 and above
+  /// Only available with version EventStoreDB v21_LTS and above
   final int batchAppendSize;
 
   /// Maximum number of reties before transient errors from
