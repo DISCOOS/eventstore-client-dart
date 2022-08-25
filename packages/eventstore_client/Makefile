@@ -66,6 +66,7 @@ models:
 		google/empty.proto \
 		google/struct.proto \
 		google/timestamp.proto \
+		google/duration.proto \
 		cluster.proto \
 		code.proto \
 		gossip.proto \
@@ -73,6 +74,7 @@ models:
 		operations.proto \
 		persistent.proto \
 		projections.proto \
+		serverfeatures.proto \
 		shared.proto \
 		status.proto \
 		streams.proto \

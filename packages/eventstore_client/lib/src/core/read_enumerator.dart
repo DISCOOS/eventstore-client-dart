@@ -7,11 +7,16 @@ import 'package:tuple/tuple.dart';
 
 import 'package:eventstore_client/eventstore_client.dart';
 
+import '../generated/streams.pb.dart';
+
 enum ReadResponse {
   streamNotFound,
   event,
   confirmation,
   checkpoint,
+  firstStreamPosition,
+  lastStreamPosition,
+  lastAllStreamPosition,
   notSet,
 }
 
@@ -225,6 +230,38 @@ class ReadEnumerator<T extends GeneratedMessage> {
             throw StateError(
               'Received empty content type: $resp',
             );
+          case ReadResponse.firstStreamPosition:
+            result = _onResponse<T>(
+              ReadState.ok,
+              expected,
+              result,
+              stream,
+              completer,
+              toTypedException,
+            );
+            result!._progress = result!._progress.withFirstRevision(
+              (resp as ReadResp).firstStreamPosition,
+            );
+            break;
+          case ReadResponse.lastStreamPosition:
+            result = _onResponse<T>(
+              ReadState.ok,
+              expected,
+              result,
+              stream,
+              completer,
+              toTypedException,
+            );
+            result!._progress = result!._progress.withLastRevision(
+              (resp as ReadResp).lastStreamPosition,
+            );
+            break;
+          case ReadResponse.lastAllStreamPosition:
+            result!._progress = result!._progress.withLastAllPosition(
+              (resp as ReadResp).lastAllStreamPosition.commitPosition,
+              resp.lastAllStreamPosition.preparePosition,
+            );
+            break;
         }
       },
       onDone: () {

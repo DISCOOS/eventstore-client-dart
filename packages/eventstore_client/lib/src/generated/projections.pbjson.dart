@@ -3,7 +3,7 @@
 //  source: projections.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,deprecated_member_use_from_same_package,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
@@ -80,9 +80,10 @@ const CreateReq_Options_Continuous$json = const {
   '1': 'Continuous',
   '2': const [
     const {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
+    const {'1': 'emit_enabled', '3': 2, '4': 1, '5': 8, '10': 'emitEnabled'},
     const {
       '1': 'track_emitted_streams',
-      '3': 2,
+      '3': 3,
       '4': 1,
       '5': 8,
       '10': 'trackEmittedStreams'
@@ -92,7 +93,7 @@ const CreateReq_Options_Continuous$json = const {
 
 /// Descriptor for `CreateReq`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List createReqDescriptor = $convert.base64Decode(
-    'CglDcmVhdGVSZXESSwoHb3B0aW9ucxgBIAEoCzIxLmV2ZW50X3N0b3JlLmNsaWVudC5wcm9qZWN0aW9ucy5DcmVhdGVSZXEuT3B0aW9uc1IHb3B0aW9ucxqTAwoHT3B0aW9ucxI2CghvbmVfdGltZRgBIAEoCzIZLmV2ZW50X3N0b3JlLmNsaWVudC5FbXB0eUgAUgdvbmVUaW1lElsKCXRyYW5zaWVudBgCIAEoCzI7LmV2ZW50X3N0b3JlLmNsaWVudC5wcm9qZWN0aW9ucy5DcmVhdGVSZXEuT3B0aW9ucy5UcmFuc2llbnRIAFIJdHJhbnNpZW50El4KCmNvbnRpbnVvdXMYAyABKAsyPC5ldmVudF9zdG9yZS5jbGllbnQucHJvamVjdGlvbnMuQ3JlYXRlUmVxLk9wdGlvbnMuQ29udGludW91c0gAUgpjb250aW51b3VzEhQKBXF1ZXJ5GAQgASgJUgVxdWVyeRofCglUcmFuc2llbnQSEgoEbmFtZRgBIAEoCVIEbmFtZRpUCgpDb250aW51b3VzEhIKBG5hbWUYASABKAlSBG5hbWUSMgoVdHJhY2tfZW1pdHRlZF9zdHJlYW1zGAIgASgIUhN0cmFja0VtaXR0ZWRTdHJlYW1zQgYKBG1vZGU=');
+    'CglDcmVhdGVSZXESSwoHb3B0aW9ucxgBIAEoCzIxLmV2ZW50X3N0b3JlLmNsaWVudC5wcm9qZWN0aW9ucy5DcmVhdGVSZXEuT3B0aW9uc1IHb3B0aW9ucxq2AwoHT3B0aW9ucxI2CghvbmVfdGltZRgBIAEoCzIZLmV2ZW50X3N0b3JlLmNsaWVudC5FbXB0eUgAUgdvbmVUaW1lElsKCXRyYW5zaWVudBgCIAEoCzI7LmV2ZW50X3N0b3JlLmNsaWVudC5wcm9qZWN0aW9ucy5DcmVhdGVSZXEuT3B0aW9ucy5UcmFuc2llbnRIAFIJdHJhbnNpZW50El4KCmNvbnRpbnVvdXMYAyABKAsyPC5ldmVudF9zdG9yZS5jbGllbnQucHJvamVjdGlvbnMuQ3JlYXRlUmVxLk9wdGlvbnMuQ29udGludW91c0gAUgpjb250aW51b3VzEhQKBXF1ZXJ5GAQgASgJUgVxdWVyeRofCglUcmFuc2llbnQSEgoEbmFtZRgBIAEoCVIEbmFtZRp3CgpDb250aW51b3VzEhIKBG5hbWUYASABKAlSBG5hbWUSIQoMZW1pdF9lbmFibGVkGAIgASgIUgtlbWl0RW5hYmxlZBIyChV0cmFja19lbWl0dGVkX3N0cmVhbXMYAyABKAhSE3RyYWNrRW1pdHRlZFN0cmVhbXNCBgoEbW9kZQ==');
 @$core.Deprecated('Use createRespDescriptor instead')
 const CreateResp$json = const {
   '1': 'CreateResp',

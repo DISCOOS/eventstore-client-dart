@@ -6,6 +6,7 @@ class EventStoreClientOperationOptions {
     this.timeoutAfter,
     required this.batchAppendSize,
     required this.throwOnAppendFailure,
+    this.batchAppendDeadline,
   });
 
   /// Default [EventStoreClientOperationOptions]
@@ -25,15 +26,20 @@ class EventStoreClientOperationOptions {
   /// The batch size, in bytes.
   final int batchAppendSize;
 
+  /// The batch append operation deadline.
+  final Duration? batchAppendDeadline;
+
   /// Clones a copy of the current <[EventStoreClientOperationOptions].
   EventStoreClientOperationOptions cloneWith({
     Duration? timeoutAfter,
     int? batchAppendSize,
     bool? throwOnAppendFailure,
+    Duration? batchAppendDeadline,
   }) =>
       EventStoreClientOperationOptions(
         timeoutAfter: timeoutAfter,
         batchAppendSize: batchAppendSize ?? this.batchAppendSize,
+        batchAppendDeadline: batchAppendDeadline ?? this.batchAppendDeadline,
         throwOnAppendFailure: throwOnAppendFailure ?? this.throwOnAppendFailure,
       );
 }

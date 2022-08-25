@@ -31,6 +31,12 @@ mixin EventStoreStreamsMixin on EventStoreClientBase {
             return ReadResponse.checkpoint;
           case ReadResp_Content.streamNotFound:
             return ReadResponse.streamNotFound;
+          case ReadResp_Content.firstStreamPosition:
+            return ReadResponse.firstStreamPosition;
+          case ReadResp_Content.lastStreamPosition:
+            return ReadResponse.lastStreamPosition;
+          case ReadResp_Content.lastAllStreamPosition:
+            return ReadResponse.lastAllStreamPosition;
           case ReadResp_Content.notSet:
             return ReadResponse.notSet;
         }

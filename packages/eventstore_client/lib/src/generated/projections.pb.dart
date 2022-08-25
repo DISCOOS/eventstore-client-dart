@@ -3,7 +3,7 @@
 //  source: projections.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
@@ -11,7 +11,7 @@ import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'shared.pb.dart' as $1;
-import 'google/struct.pb.dart' as $10;
+import 'google/struct.pb.dart' as $11;
 
 class CreateReq_Options_Transient extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -103,17 +103,26 @@ class CreateReq_Options_Continuous extends $pb.GeneratedMessage {
         2,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
+            : 'emitEnabled')
+    ..aOB(
+        3,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
             : 'trackEmittedStreams')
     ..hasRequiredFields = false;
 
   CreateReq_Options_Continuous._() : super();
   factory CreateReq_Options_Continuous({
     $core.String? name,
+    $core.bool? emitEnabled,
     $core.bool? trackEmittedStreams,
   }) {
     final _result = create();
     if (name != null) {
       _result.name = name;
+    }
+    if (emitEnabled != null) {
+      _result.emitEnabled = emitEnabled;
     }
     if (trackEmittedStreams != null) {
       _result.trackEmittedStreams = trackEmittedStreams;
@@ -164,16 +173,28 @@ class CreateReq_Options_Continuous extends $pb.GeneratedMessage {
   void clearName() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.bool get trackEmittedStreams => $_getBF(1);
+  $core.bool get emitEnabled => $_getBF(1);
   @$pb.TagNumber(2)
-  set trackEmittedStreams($core.bool v) {
+  set emitEnabled($core.bool v) {
     $_setBool(1, v);
   }
 
   @$pb.TagNumber(2)
-  $core.bool hasTrackEmittedStreams() => $_has(1);
+  $core.bool hasEmitEnabled() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTrackEmittedStreams() => clearField(2);
+  void clearEmitEnabled() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.bool get trackEmittedStreams => $_getBF(2);
+  @$pb.TagNumber(3)
+  set trackEmittedStreams($core.bool v) {
+    $_setBool(2, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasTrackEmittedStreams() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTrackEmittedStreams() => clearField(3);
 }
 
 enum CreateReq_Options_Mode { oneTime, transient, continuous, notSet }
@@ -1897,17 +1918,17 @@ class StateResp extends $pb.GeneratedMessage {
               ? ''
               : 'event_store.client.projections'),
       createEmptyInstance: create)
-    ..aOM<$10.Value>(
+    ..aOM<$11.Value>(
         1,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'state',
-        subBuilder: $10.Value.create)
+        subBuilder: $11.Value.create)
     ..hasRequiredFields = false;
 
   StateResp._() : super();
   factory StateResp({
-    $10.Value? state,
+    $11.Value? state,
   }) {
     final _result = create();
     if (state != null) {
@@ -1942,9 +1963,9 @@ class StateResp extends $pb.GeneratedMessage {
   static StateResp? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $10.Value get state => $_getN(0);
+  $11.Value get state => $_getN(0);
   @$pb.TagNumber(1)
-  set state($10.Value v) {
+  set state($11.Value v) {
     setField(1, v);
   }
 
@@ -1953,7 +1974,7 @@ class StateResp extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearState() => clearField(1);
   @$pb.TagNumber(1)
-  $10.Value ensureState() => $_ensure(0);
+  $11.Value ensureState() => $_ensure(0);
 }
 
 class ResultReq_Options extends $pb.GeneratedMessage {
@@ -2123,17 +2144,17 @@ class ResultResp extends $pb.GeneratedMessage {
               ? ''
               : 'event_store.client.projections'),
       createEmptyInstance: create)
-    ..aOM<$10.Value>(
+    ..aOM<$11.Value>(
         1,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'result',
-        subBuilder: $10.Value.create)
+        subBuilder: $11.Value.create)
     ..hasRequiredFields = false;
 
   ResultResp._() : super();
   factory ResultResp({
-    $10.Value? result,
+    $11.Value? result,
   }) {
     final _result = create();
     if (result != null) {
@@ -2168,9 +2189,9 @@ class ResultResp extends $pb.GeneratedMessage {
   static ResultResp? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $10.Value get result => $_getN(0);
+  $11.Value get result => $_getN(0);
   @$pb.TagNumber(1)
-  set result($10.Value v) {
+  set result($11.Value v) {
     setField(1, v);
   }
 
@@ -2179,7 +2200,7 @@ class ResultResp extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearResult() => clearField(1);
   @$pb.TagNumber(1)
-  $10.Value ensureResult() => $_ensure(0);
+  $11.Value ensureResult() => $_ensure(0);
 }
 
 class ResetReq_Options extends $pb.GeneratedMessage {

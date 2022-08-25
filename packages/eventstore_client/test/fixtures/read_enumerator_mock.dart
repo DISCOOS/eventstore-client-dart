@@ -56,7 +56,7 @@ class ResponseStreamMock extends Fake implements ResponseStream<ReadResp> {
           ..id = UUID(string: event.uuid.uuid)
           ..data = event.data
           ..streamIdentifier = (StreamIdentifier()
-            ..streamId = utf8.encode(
+            ..streamName = utf8.encode(
               streamId,
             ))
           ..metadata.addAll(metadata)

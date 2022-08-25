@@ -3,15 +3,15 @@
 //  source: status.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/any.pb.dart' as $11;
+import 'google/any.pb.dart' as $12;
 
-import 'code.pbenum.dart' as $12;
+import 'code.pbenum.dart' as $13;
 
 class Status extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -23,33 +23,33 @@ class Status extends $pb.GeneratedMessage {
               ? ''
               : 'google.rpc'),
       createEmptyInstance: create)
-    ..e<$12.Code>(
+    ..e<$13.Code>(
         1,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'code',
         $pb.PbFieldType.OE,
-        defaultOrMaker: $12.Code.OK,
-        valueOf: $12.Code.valueOf,
-        enumValues: $12.Code.values)
+        defaultOrMaker: $13.Code.OK,
+        valueOf: $13.Code.valueOf,
+        enumValues: $13.Code.values)
     ..aOS(
         2,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'message')
-    ..aOM<$11.Any>(
+    ..aOM<$12.Any>(
         3,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'details',
-        subBuilder: $11.Any.create)
+        subBuilder: $12.Any.create)
     ..hasRequiredFields = false;
 
   Status._() : super();
   factory Status({
-    $12.Code? code,
+    $13.Code? code,
     $core.String? message,
-    $11.Any? details,
+    $12.Any? details,
   }) {
     final _result = create();
     if (code != null) {
@@ -90,9 +90,9 @@ class Status extends $pb.GeneratedMessage {
   static Status? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $12.Code get code => $_getN(0);
+  $13.Code get code => $_getN(0);
   @$pb.TagNumber(1)
-  set code($12.Code v) {
+  set code($13.Code v) {
     setField(1, v);
   }
 
@@ -114,9 +114,9 @@ class Status extends $pb.GeneratedMessage {
   void clearMessage() => clearField(2);
 
   @$pb.TagNumber(3)
-  $11.Any get details => $_getN(2);
+  $12.Any get details => $_getN(2);
   @$pb.TagNumber(3)
-  set details($11.Any v) {
+  set details($12.Any v) {
     setField(3, v);
   }
 
@@ -125,5 +125,5 @@ class Status extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   void clearDetails() => clearField(3);
   @$pb.TagNumber(3)
-  $11.Any ensureDetails() => $_ensure(2);
+  $12.Any ensureDetails() => $_ensure(2);
 }

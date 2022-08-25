@@ -4,19 +4,29 @@ import 'package:eventstore_client/eventstore_client.dart';
 import 'package:eventstore_client/src/generated/shared.pb.dart';
 import 'package:eventstore_client/src/generated/streams.pb.dart';
 import 'package:eventstore_client/src/generated/google/empty.pb.dart' as $g;
+import 'package:eventstore_client/src/generated/google/duration.pb.dart' as $g;
+import 'package:eventstore_client/src/generated/google/timestamp.pb.dart' as $g;
+import 'package:eventstore_client/src/generated/streams.pbgrpc.dart';
 import 'package:fixnum/fixnum.dart';
 
 class StreamState {
   const StreamState(
     this.streamId,
-    this.type, [
+    this.type, {
     this.position,
     this.revision,
-  ]);
+    this.first,
+    this.last,
+    this.lastAll,
+  });
 
   /// Create [StreamState] with given [name] and [StreamStateType.no_stream]
-  factory StreamState.noStream(String name) =>
-      StreamState(name, StreamStateType.no_stream, null, StreamRevision.none);
+  factory StreamState.noStream(String name) => StreamState(
+        name,
+        StreamStateType.no_stream,
+        position: null,
+        revision: StreamRevision.none,
+      );
 
   /// Create [StreamState] with given [name] and [StreamStateType.any]
   factory StreamState.any(
@@ -27,8 +37,8 @@ class StreamState {
       StreamState(
         name,
         StreamStateType.any,
-        position,
-        revision,
+        position: position,
+        revision: revision,
       );
 
   /// Create [StreamState] with given [name] and [StreamStateType.stream_exists]
@@ -40,21 +50,34 @@ class StreamState {
       StreamState(
         name,
         StreamStateType.stream_exists,
-        position,
-        revision,
+        position: position,
+        revision: revision,
       );
 
   /// Create [StreamState] with [SystemStreams.AllStream] and [StreamStateType.stream_exists]
   factory StreamState.all(LogPosition? position) => StreamState(
         SystemStreams.AllStream,
         StreamStateType.stream_exists,
-        position,
+        position: position,
       );
 
   final String streamId;
   final StreamStateType type;
+
+  /// Current stream log position
   final LogPosition? position;
+
+  /// Current Stream revision
   final StreamRevision? revision;
+
+  /// First Stream revision
+  final StreamRevision? first;
+
+  /// Last Stream revision
+  final StreamRevision? last;
+
+  /// Last $all Stream log position
+  final LogPosition? lastAll;
 
   /// Check if [revision] exists and is not [StreamRevision.none]
   bool get hasRevision => revision != null && revision != StreamRevision.none;
@@ -86,11 +109,11 @@ class StreamState {
         resp.success.hasNoStream()
             ? StreamStateType.no_stream
             : StreamStateType.stream_exists,
-        LogPosition.checked(
+        position: LogPosition.checked(
           resp.success.position.commitPosition,
           resp.success.position.preparePosition,
         ),
-        resp.success.hasCurrentRevision()
+        revision: resp.success.hasCurrentRevision()
             ? StreamRevision.fromInt64(resp.success.currentRevision)
             : StreamRevision.none,
       );
@@ -106,8 +129,8 @@ class StreamState {
         resp.wrongExpectedVersion.hasCurrentNoStream()
             ? StreamStateType.no_stream
             : StreamStateType.stream_exists,
-        null,
-        resp.wrongExpectedVersion.hasCurrentRevision()
+        position: null,
+        revision: resp.wrongExpectedVersion.hasCurrentRevision()
             ? StreamRevision.fromInt64(
                 resp.wrongExpectedVersion.currentRevision,
               )
@@ -115,6 +138,45 @@ class StreamState {
       );
     }
     throw UnsupportedError('AppendResp $resp is unsupported');
+  }
+
+  /// Construct [StreamState] with [first] revision
+  StreamState withFirstRevision(Int64 value) {
+    return StreamState(
+      streamId,
+      StreamStateType.stream_exists,
+      position: position,
+      revision: revision,
+      first: StreamRevision.fromInt64(value),
+      last: last,
+      lastAll: lastAll,
+    );
+  }
+
+  /// Construct [StreamState] with [last] revision
+  StreamState withLastRevision(Int64 value) {
+    return StreamState(
+      streamId,
+      StreamStateType.stream_exists,
+      position: position,
+      revision: revision,
+      first: first,
+      last: StreamRevision.fromInt64(value),
+      lastAll: lastAll,
+    );
+  }
+
+  /// Construct [StreamState] with [lastAll] log position
+  StreamState withLastAllPosition(Int64 commitPosition, Int64 preparePosition) {
+    return StreamState(
+      streamId,
+      StreamStateType.stream_exists,
+      position: position,
+      revision: revision,
+      first: first,
+      last: last,
+      lastAll: LogPosition.checked(commitPosition, preparePosition),
+    );
   }
 
   ReadReq toReadReq({
@@ -170,7 +232,7 @@ class StreamState {
 
   StreamIdentifier toStreamIdentifier({bool meta = false}) {
     return (StreamIdentifier()
-      ..streamId = utf8.encode(
+      ..streamName = utf8.encode(
         meta ? SystemStreams.metaStreamOf(streamId) : streamId,
       ));
   }
@@ -205,9 +267,25 @@ class StreamState {
     return AppendReq()..options = options;
   }
 
-  BatchAppendReq_Options toBatchAppendReqOptions() {
+  BatchAppendReq_Options toBatchAppendReqOptions(EventStoreClientBase client) {
     final options = BatchAppendReq_Options()
       ..streamIdentifier = toStreamIdentifier(meta: false);
+
+    if(client.settings.batchAppendDeadline!=null) {
+      final deadline = $g.Duration()
+        ..seconds = Int64(client.settings.batchAppendDeadline!.inSeconds)
+        ..nanos = 0;
+
+      if (client.isFeatureSupported(ApiFeature.BatchAppendDeadline)) {
+        options.deadline = deadline;
+      } else {
+        options.deadline21100 = $g.Timestamp(
+          seconds: Int64(DateTime.now().millisecondsSinceEpoch ~/ 1000) +
+              deadline.seconds,
+          nanos: 0,
+        );
+      }
+    }
 
     if (revision != null && revision != StreamRevision.none) {
       options.streamPosition = revision!.value;
@@ -293,6 +371,10 @@ class StreamState {
   StreamState toAny() => StreamState.any(streamId);
   StreamState toExists() => StreamState.exists(streamId);
   StreamState toNoStream() => StreamState.noStream(streamId);
-  StreamState toRevision(int revision) => StreamState(streamId,
-      StreamStateType.stream_exists, null, StreamRevision.checked(revision));
+  StreamState toRevision(int revision) => StreamState(
+        streamId,
+        StreamStateType.stream_exists,
+        position: null,
+        revision: StreamRevision.checked(revision),
+      );
 }

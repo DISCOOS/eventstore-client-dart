@@ -3,14 +3,14 @@
 //  source: shared.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/empty.pb.dart' as $9;
+import 'google/empty.pb.dart' as $10;
 
 class UUID_Structured extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -256,17 +256,17 @@ class StreamIdentifier extends $pb.GeneratedMessage {
         3,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
-            : 'streamId',
+            : 'streamName',
         $pb.PbFieldType.OY)
     ..hasRequiredFields = false;
 
   StreamIdentifier._() : super();
   factory StreamIdentifier({
-    $core.List<$core.int>? streamId,
+    $core.List<$core.int>? streamName,
   }) {
     final _result = create();
-    if (streamId != null) {
-      _result.streamId = streamId;
+    if (streamName != null) {
+      _result.streamName = streamName;
     }
     return _result;
   }
@@ -298,9 +298,9 @@ class StreamIdentifier extends $pb.GeneratedMessage {
   static StreamIdentifier? _defaultInstance;
 
   @$pb.TagNumber(3)
-  $core.List<$core.int> get streamId => $_getN(0);
+  $core.List<$core.int> get streamName => $_getN(0);
   @$pb.TagNumber(3)
-  set streamId($core.List<$core.int> v) {
+  set streamName($core.List<$core.int> v) {
     $_setBytes(0, v);
   }
 
@@ -451,12 +451,12 @@ class WrongExpectedVersion extends $pb.GeneratedMessage {
             : 'currentStreamRevision',
         $pb.PbFieldType.OU6,
         defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aOM<$9.Empty>(
+    ..aOM<$10.Empty>(
         2,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'currentNoStream',
-        subBuilder: $9.Empty.create)
+        subBuilder: $10.Empty.create)
     ..a<$fixnum.Int64>(
         3,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
@@ -464,34 +464,34 @@ class WrongExpectedVersion extends $pb.GeneratedMessage {
             : 'expectedStreamPosition',
         $pb.PbFieldType.OU6,
         defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aOM<$9.Empty>(
+    ..aOM<$10.Empty>(
         4,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'expectedAny',
-        subBuilder: $9.Empty.create)
-    ..aOM<$9.Empty>(
+        subBuilder: $10.Empty.create)
+    ..aOM<$10.Empty>(
         5,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'expectedStreamExists',
-        subBuilder: $9.Empty.create)
-    ..aOM<$9.Empty>(
+        subBuilder: $10.Empty.create)
+    ..aOM<$10.Empty>(
         6,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'expectedNoStream',
-        subBuilder: $9.Empty.create)
+        subBuilder: $10.Empty.create)
     ..hasRequiredFields = false;
 
   WrongExpectedVersion._() : super();
   factory WrongExpectedVersion({
     $fixnum.Int64? currentStreamRevision,
-    $9.Empty? currentNoStream,
+    $10.Empty? currentNoStream,
     $fixnum.Int64? expectedStreamPosition,
-    $9.Empty? expectedAny,
-    $9.Empty? expectedStreamExists,
-    $9.Empty? expectedNoStream,
+    $10.Empty? expectedAny,
+    $10.Empty? expectedStreamExists,
+    $10.Empty? expectedNoStream,
   }) {
     final _result = create();
     if (currentStreamRevision != null) {
@@ -567,9 +567,9 @@ class WrongExpectedVersion extends $pb.GeneratedMessage {
   void clearCurrentStreamRevision() => clearField(1);
 
   @$pb.TagNumber(2)
-  $9.Empty get currentNoStream => $_getN(1);
+  $10.Empty get currentNoStream => $_getN(1);
   @$pb.TagNumber(2)
-  set currentNoStream($9.Empty v) {
+  set currentNoStream($10.Empty v) {
     setField(2, v);
   }
 
@@ -578,7 +578,7 @@ class WrongExpectedVersion extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearCurrentNoStream() => clearField(2);
   @$pb.TagNumber(2)
-  $9.Empty ensureCurrentNoStream() => $_ensure(1);
+  $10.Empty ensureCurrentNoStream() => $_ensure(1);
 
   @$pb.TagNumber(3)
   $fixnum.Int64 get expectedStreamPosition => $_getI64(2);
@@ -593,9 +593,9 @@ class WrongExpectedVersion extends $pb.GeneratedMessage {
   void clearExpectedStreamPosition() => clearField(3);
 
   @$pb.TagNumber(4)
-  $9.Empty get expectedAny => $_getN(3);
+  $10.Empty get expectedAny => $_getN(3);
   @$pb.TagNumber(4)
-  set expectedAny($9.Empty v) {
+  set expectedAny($10.Empty v) {
     setField(4, v);
   }
 
@@ -604,12 +604,12 @@ class WrongExpectedVersion extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   void clearExpectedAny() => clearField(4);
   @$pb.TagNumber(4)
-  $9.Empty ensureExpectedAny() => $_ensure(3);
+  $10.Empty ensureExpectedAny() => $_ensure(3);
 
   @$pb.TagNumber(5)
-  $9.Empty get expectedStreamExists => $_getN(4);
+  $10.Empty get expectedStreamExists => $_getN(4);
   @$pb.TagNumber(5)
-  set expectedStreamExists($9.Empty v) {
+  set expectedStreamExists($10.Empty v) {
     setField(5, v);
   }
 
@@ -618,12 +618,12 @@ class WrongExpectedVersion extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   void clearExpectedStreamExists() => clearField(5);
   @$pb.TagNumber(5)
-  $9.Empty ensureExpectedStreamExists() => $_ensure(4);
+  $10.Empty ensureExpectedStreamExists() => $_ensure(4);
 
   @$pb.TagNumber(6)
-  $9.Empty get expectedNoStream => $_getN(5);
+  $10.Empty get expectedNoStream => $_getN(5);
   @$pb.TagNumber(6)
-  set expectedNoStream($9.Empty v) {
+  set expectedNoStream($10.Empty v) {
     setField(6, v);
   }
 
@@ -632,7 +632,7 @@ class WrongExpectedVersion extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   void clearExpectedNoStream() => clearField(6);
   @$pb.TagNumber(6)
-  $9.Empty ensureExpectedNoStream() => $_ensure(5);
+  $10.Empty ensureExpectedNoStream() => $_ensure(5);
 }
 
 class AccessDenied extends $pb.GeneratedMessage {

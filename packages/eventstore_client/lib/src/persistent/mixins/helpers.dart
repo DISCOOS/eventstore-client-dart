@@ -21,7 +21,7 @@ PersistentSubscriptionResolvedEvent convertToResolvedEvent(
 
 EventRecord convertToEventRecord(ReadResp_ReadEvent_RecordedEvent event) {
   return EventRecord(
-    utf8.decode(event.streamIdentifier.streamId),
+    utf8.decode(event.streamIdentifier.streamName),
     UuidValue(event.id.string),
     StreamPosition.fromInt64(event.streamRevision),
     LogPosition.checked(event.commitPosition, event.preparePosition),
@@ -32,7 +32,7 @@ EventRecord convertToEventRecord(ReadResp_ReadEvent_RecordedEvent event) {
 }
 
 StreamIdentifier toStreamIdentifier(String streamId) {
-  return (StreamIdentifier()..streamId = utf8.encode(streamId));
+  return (StreamIdentifier()..streamName = utf8.encode(streamId));
 }
 
 Future<void> replayParked(

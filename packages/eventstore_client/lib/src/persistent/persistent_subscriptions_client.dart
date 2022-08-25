@@ -60,7 +60,7 @@ class EventStorePersistentSubscriptionsClient extends EventStoreClientBase
             ? '<unknown>'
             : update.options.hasAll()
                 ? SystemStreams.AllStream
-                : utf8.decode(update.options.stream.streamIdentifier.streamId),
+                : utf8.decode(update.options.stream.streamIdentifier.streamName),
         update == null ? '<unknown>' : update.options.groupName,
       );
     }

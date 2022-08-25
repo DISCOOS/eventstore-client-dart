@@ -7,13 +7,24 @@ class ApiFeature {
   const ApiFeature(this.name, this.constraint);
 
   // ----------------------------------
-  // Features introduced >= 20.10.x
+  // Features introduced >= 21.x
   // ----------------------------------
-  static const All = [BatchAppend, PersistentSubscriptionOnAllStream];
+  static const All = [
+    BatchAppend,
+    BatchAppendDeadline,
+    PersistentSubscriptionOnAllStream,
+  ];
+
   static const BatchAppend = ApiFeature(
     'BatchAppend',
     '>=${ApiVersions.v21}',
   );
+
+  static const BatchAppendDeadline = ApiFeature(
+    'BatchAppend_Deadline',
+    '>=${ApiVersions.v21_10_0}',
+  );
+
   static const PersistentSubscriptionOnAllStream = ApiFeature(
     'PersistentSubscriptionOnAllStream',
     '>=${ApiVersions.v21}',

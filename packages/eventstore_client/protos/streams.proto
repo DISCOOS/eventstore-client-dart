@@ -4,6 +4,7 @@ option java_package = "com.eventstore.dbclient.proto.streams";
 
 import "shared.proto";
 import "status.proto";
+import "google/duration.proto";
 import "google/empty.proto";
 import "google/timestamp.proto";
 
@@ -34,6 +35,7 @@ message ReadReq {
 			event_store.client.Empty no_filter = 8;
 		}
 		UUIDOption uuid_option = 9;
+		ControlOption control_option = 10;
 
 		enum ReadDirection {
 			Forwards = 0;
@@ -82,6 +84,9 @@ message ReadReq {
 				event_store.client.Empty string = 2;
 			}
 		}
+		message ControlOption {
+			uint32 compatibility = 1;
+		}
 	}
 }
 
@@ -91,6 +96,9 @@ message ReadResp {
 		SubscriptionConfirmation confirmation = 2;
 		Checkpoint checkpoint = 3;
 		StreamNotFound stream_not_found = 4;
+		uint64 first_stream_position = 5;
+		uint64 last_stream_position = 6;
+		AllStreamPosition last_all_stream_position = 7;
 	}
 
 	message ReadEvent {
@@ -207,7 +215,10 @@ message BatchAppendReq {
 			google.protobuf.Empty any = 4;
 			google.protobuf.Empty stream_exists = 5;
 		}
-		google.protobuf.Timestamp deadline = 6;
+		oneof deadline_option {
+			google.protobuf.Timestamp deadline_21_10_0 = 6;
+			google.protobuf.Duration deadline = 7;
+		}
 	}
 
 	message ProposedMessage {

@@ -3,7 +3,7 @@
 //  source: streams.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
@@ -11,9 +11,10 @@ import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'shared.pb.dart' as $1;
-import 'google/empty.pb.dart' as $9;
-import 'google/timestamp.pb.dart' as $13;
-import 'status.pb.dart' as $14;
+import 'google/empty.pb.dart' as $10;
+import 'google/timestamp.pb.dart' as $14;
+import 'google/duration.pb.dart' as $15;
+import 'status.pb.dart' as $16;
 
 import 'streams.pbenum.dart';
 
@@ -855,6 +856,78 @@ class ReadReq_Options_UUIDOption extends $pb.GeneratedMessage {
   $1.Empty ensureString() => $_ensure(1);
 }
 
+class ReadReq_Options_ControlOption extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ReadReq.Options.ControlOption',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.streams'),
+      createEmptyInstance: create)
+    ..a<$core.int>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'compatibility',
+        $pb.PbFieldType.OU3)
+    ..hasRequiredFields = false;
+
+  ReadReq_Options_ControlOption._() : super();
+  factory ReadReq_Options_ControlOption({
+    $core.int? compatibility,
+  }) {
+    final _result = create();
+    if (compatibility != null) {
+      _result.compatibility = compatibility;
+    }
+    return _result;
+  }
+  factory ReadReq_Options_ControlOption.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ReadReq_Options_ControlOption.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ReadReq_Options_ControlOption clone() =>
+      ReadReq_Options_ControlOption()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ReadReq_Options_ControlOption copyWith(
+          void Function(ReadReq_Options_ControlOption) updates) =>
+      super.copyWith(
+              (message) => updates(message as ReadReq_Options_ControlOption))
+          as ReadReq_Options_ControlOption; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ReadReq_Options_ControlOption create() =>
+      ReadReq_Options_ControlOption._();
+  ReadReq_Options_ControlOption createEmptyInstance() => create();
+  static $pb.PbList<ReadReq_Options_ControlOption> createRepeated() =>
+      $pb.PbList<ReadReq_Options_ControlOption>();
+  @$core.pragma('dart2js:noInline')
+  static ReadReq_Options_ControlOption getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ReadReq_Options_ControlOption>(create);
+  static ReadReq_Options_ControlOption? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get compatibility => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set compatibility($core.int v) {
+    $_setUnsignedInt32(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasCompatibility() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearCompatibility() => clearField(1);
+}
+
 enum ReadReq_Options_StreamOption { stream, all, notSet }
 
 enum ReadReq_Options_CountOption { count, subscription, notSet }
@@ -949,6 +1022,12 @@ class ReadReq_Options extends $pb.GeneratedMessage {
             ? ''
             : 'uuidOption',
         subBuilder: ReadReq_Options_UUIDOption.create)
+    ..aOM<ReadReq_Options_ControlOption>(
+        10,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'controlOption',
+        subBuilder: ReadReq_Options_ControlOption.create)
     ..hasRequiredFields = false;
 
   ReadReq_Options._() : super();
@@ -962,6 +1041,7 @@ class ReadReq_Options extends $pb.GeneratedMessage {
     ReadReq_Options_FilterOptions? filter,
     $1.Empty? noFilter,
     ReadReq_Options_UUIDOption? uuidOption,
+    ReadReq_Options_ControlOption? controlOption,
   }) {
     final _result = create();
     if (stream != null) {
@@ -990,6 +1070,9 @@ class ReadReq_Options extends $pb.GeneratedMessage {
     }
     if (uuidOption != null) {
       _result.uuidOption = uuidOption;
+    }
+    if (controlOption != null) {
+      _result.controlOption = controlOption;
     }
     return _result;
   }
@@ -1151,6 +1234,20 @@ class ReadReq_Options extends $pb.GeneratedMessage {
   void clearUuidOption() => clearField(9);
   @$pb.TagNumber(9)
   ReadReq_Options_UUIDOption ensureUuidOption() => $_ensure(8);
+
+  @$pb.TagNumber(10)
+  ReadReq_Options_ControlOption get controlOption => $_getN(9);
+  @$pb.TagNumber(10)
+  set controlOption(ReadReq_Options_ControlOption v) {
+    setField(10, v);
+  }
+
+  @$pb.TagNumber(10)
+  $core.bool hasControlOption() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearControlOption() => clearField(10);
+  @$pb.TagNumber(10)
+  ReadReq_Options_ControlOption ensureControlOption() => $_ensure(9);
 }
 
 class ReadReq extends $pb.GeneratedMessage {
@@ -1845,6 +1942,9 @@ enum ReadResp_Content {
   confirmation,
   checkpoint,
   streamNotFound,
+  firstStreamPosition,
+  lastStreamPosition,
+  lastAllStreamPosition,
   notSet
 }
 
@@ -1854,6 +1954,9 @@ class ReadResp extends $pb.GeneratedMessage {
     2: ReadResp_Content.confirmation,
     3: ReadResp_Content.checkpoint,
     4: ReadResp_Content.streamNotFound,
+    5: ReadResp_Content.firstStreamPosition,
+    6: ReadResp_Content.lastStreamPosition,
+    7: ReadResp_Content.lastAllStreamPosition,
     0: ReadResp_Content.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
@@ -1865,7 +1968,7 @@ class ReadResp extends $pb.GeneratedMessage {
               ? ''
               : 'event_store.client.streams'),
       createEmptyInstance: create)
-    ..oo(0, [1, 2, 3, 4])
+    ..oo(0, [1, 2, 3, 4, 5, 6, 7])
     ..aOM<ReadResp_ReadEvent>(
         1,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
@@ -1890,6 +1993,26 @@ class ReadResp extends $pb.GeneratedMessage {
             ? ''
             : 'streamNotFound',
         subBuilder: ReadResp_StreamNotFound.create)
+    ..a<$fixnum.Int64>(
+        5,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'firstStreamPosition',
+        $pb.PbFieldType.OU6,
+        defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(
+        6,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'lastStreamPosition',
+        $pb.PbFieldType.OU6,
+        defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOM<$1.AllStreamPosition>(
+        7,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'lastAllStreamPosition',
+        subBuilder: $1.AllStreamPosition.create)
     ..hasRequiredFields = false;
 
   ReadResp._() : super();
@@ -1898,6 +2021,9 @@ class ReadResp extends $pb.GeneratedMessage {
     ReadResp_SubscriptionConfirmation? confirmation,
     ReadResp_Checkpoint? checkpoint,
     ReadResp_StreamNotFound? streamNotFound,
+    $fixnum.Int64? firstStreamPosition,
+    $fixnum.Int64? lastStreamPosition,
+    $1.AllStreamPosition? lastAllStreamPosition,
   }) {
     final _result = create();
     if (event != null) {
@@ -1911,6 +2037,15 @@ class ReadResp extends $pb.GeneratedMessage {
     }
     if (streamNotFound != null) {
       _result.streamNotFound = streamNotFound;
+    }
+    if (firstStreamPosition != null) {
+      _result.firstStreamPosition = firstStreamPosition;
+    }
+    if (lastStreamPosition != null) {
+      _result.lastStreamPosition = lastStreamPosition;
+    }
+    if (lastAllStreamPosition != null) {
+      _result.lastAllStreamPosition = lastAllStreamPosition;
     }
     return _result;
   }
@@ -1998,6 +2133,44 @@ class ReadResp extends $pb.GeneratedMessage {
   void clearStreamNotFound() => clearField(4);
   @$pb.TagNumber(4)
   ReadResp_StreamNotFound ensureStreamNotFound() => $_ensure(3);
+
+  @$pb.TagNumber(5)
+  $fixnum.Int64 get firstStreamPosition => $_getI64(4);
+  @$pb.TagNumber(5)
+  set firstStreamPosition($fixnum.Int64 v) {
+    $_setInt64(4, v);
+  }
+
+  @$pb.TagNumber(5)
+  $core.bool hasFirstStreamPosition() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearFirstStreamPosition() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $fixnum.Int64 get lastStreamPosition => $_getI64(5);
+  @$pb.TagNumber(6)
+  set lastStreamPosition($fixnum.Int64 v) {
+    $_setInt64(5, v);
+  }
+
+  @$pb.TagNumber(6)
+  $core.bool hasLastStreamPosition() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearLastStreamPosition() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $1.AllStreamPosition get lastAllStreamPosition => $_getN(6);
+  @$pb.TagNumber(7)
+  set lastAllStreamPosition($1.AllStreamPosition v) {
+    setField(7, v);
+  }
+
+  @$pb.TagNumber(7)
+  $core.bool hasLastAllStreamPosition() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearLastAllStreamPosition() => clearField(7);
+  @$pb.TagNumber(7)
+  $1.AllStreamPosition ensureLastAllStreamPosition() => $_ensure(6);
 }
 
 enum AppendReq_Options_ExpectedStreamRevision {
@@ -3205,6 +3378,8 @@ enum BatchAppendReq_Options_ExpectedStreamPosition {
   notSet
 }
 
+enum BatchAppendReq_Options_DeadlineOption { deadline21100, deadline, notSet }
+
 class BatchAppendReq_Options extends $pb.GeneratedMessage {
   static const $core
           .Map<$core.int, BatchAppendReq_Options_ExpectedStreamPosition>
@@ -3214,6 +3389,12 @@ class BatchAppendReq_Options extends $pb.GeneratedMessage {
     4: BatchAppendReq_Options_ExpectedStreamPosition.any,
     5: BatchAppendReq_Options_ExpectedStreamPosition.streamExists,
     0: BatchAppendReq_Options_ExpectedStreamPosition.notSet
+  };
+  static const $core.Map<$core.int, BatchAppendReq_Options_DeadlineOption>
+      _BatchAppendReq_Options_DeadlineOptionByTag = {
+    6: BatchAppendReq_Options_DeadlineOption.deadline21100,
+    7: BatchAppendReq_Options_DeadlineOption.deadline,
+    0: BatchAppendReq_Options_DeadlineOption.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       const $core.bool.fromEnvironment('protobuf.omit_message_names')
@@ -3225,6 +3406,7 @@ class BatchAppendReq_Options extends $pb.GeneratedMessage {
               : 'event_store.client.streams'),
       createEmptyInstance: create)
     ..oo(0, [2, 3, 4, 5])
+    ..oo(1, [6, 7])
     ..aOM<$1.StreamIdentifier>(
         1,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
@@ -3238,40 +3420,48 @@ class BatchAppendReq_Options extends $pb.GeneratedMessage {
             : 'streamPosition',
         $pb.PbFieldType.OU6,
         defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aOM<$9.Empty>(
+    ..aOM<$10.Empty>(
         3,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'noStream',
-        subBuilder: $9.Empty.create)
-    ..aOM<$9.Empty>(
+        subBuilder: $10.Empty.create)
+    ..aOM<$10.Empty>(
         4,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'any',
-        subBuilder: $9.Empty.create)
-    ..aOM<$9.Empty>(
+        subBuilder: $10.Empty.create)
+    ..aOM<$10.Empty>(
         5,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'streamExists',
-        subBuilder: $9.Empty.create)
-    ..aOM<$13.Timestamp>(
+        subBuilder: $10.Empty.create)
+    ..aOM<$14.Timestamp>(
         6,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
+            : 'deadline21100',
+        protoName: 'deadline_21_10_0',
+        subBuilder: $14.Timestamp.create)
+    ..aOM<$15.Duration>(
+        7,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
             : 'deadline',
-        subBuilder: $13.Timestamp.create)
+        subBuilder: $15.Duration.create)
     ..hasRequiredFields = false;
 
   BatchAppendReq_Options._() : super();
   factory BatchAppendReq_Options({
     $1.StreamIdentifier? streamIdentifier,
     $fixnum.Int64? streamPosition,
-    $9.Empty? noStream,
-    $9.Empty? any,
-    $9.Empty? streamExists,
-    $13.Timestamp? deadline,
+    $10.Empty? noStream,
+    $10.Empty? any,
+    $10.Empty? streamExists,
+    $14.Timestamp? deadline21100,
+    $15.Duration? deadline,
   }) {
     final _result = create();
     if (streamIdentifier != null) {
@@ -3288,6 +3478,9 @@ class BatchAppendReq_Options extends $pb.GeneratedMessage {
     }
     if (streamExists != null) {
       _result.streamExists = streamExists;
+    }
+    if (deadline21100 != null) {
+      _result.deadline21100 = deadline21100;
     }
     if (deadline != null) {
       _result.deadline = deadline;
@@ -3327,6 +3520,10 @@ class BatchAppendReq_Options extends $pb.GeneratedMessage {
       _BatchAppendReq_Options_ExpectedStreamPositionByTag[$_whichOneof(0)]!;
   void clearExpectedStreamPosition() => clearField($_whichOneof(0));
 
+  BatchAppendReq_Options_DeadlineOption whichDeadlineOption() =>
+      _BatchAppendReq_Options_DeadlineOptionByTag[$_whichOneof(1)]!;
+  void clearDeadlineOption() => clearField($_whichOneof(1));
+
   @$pb.TagNumber(1)
   $1.StreamIdentifier get streamIdentifier => $_getN(0);
   @$pb.TagNumber(1)
@@ -3354,9 +3551,9 @@ class BatchAppendReq_Options extends $pb.GeneratedMessage {
   void clearStreamPosition() => clearField(2);
 
   @$pb.TagNumber(3)
-  $9.Empty get noStream => $_getN(2);
+  $10.Empty get noStream => $_getN(2);
   @$pb.TagNumber(3)
-  set noStream($9.Empty v) {
+  set noStream($10.Empty v) {
     setField(3, v);
   }
 
@@ -3365,12 +3562,12 @@ class BatchAppendReq_Options extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   void clearNoStream() => clearField(3);
   @$pb.TagNumber(3)
-  $9.Empty ensureNoStream() => $_ensure(2);
+  $10.Empty ensureNoStream() => $_ensure(2);
 
   @$pb.TagNumber(4)
-  $9.Empty get any => $_getN(3);
+  $10.Empty get any => $_getN(3);
   @$pb.TagNumber(4)
-  set any($9.Empty v) {
+  set any($10.Empty v) {
     setField(4, v);
   }
 
@@ -3379,12 +3576,12 @@ class BatchAppendReq_Options extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   void clearAny() => clearField(4);
   @$pb.TagNumber(4)
-  $9.Empty ensureAny() => $_ensure(3);
+  $10.Empty ensureAny() => $_ensure(3);
 
   @$pb.TagNumber(5)
-  $9.Empty get streamExists => $_getN(4);
+  $10.Empty get streamExists => $_getN(4);
   @$pb.TagNumber(5)
-  set streamExists($9.Empty v) {
+  set streamExists($10.Empty v) {
     setField(5, v);
   }
 
@@ -3393,21 +3590,35 @@ class BatchAppendReq_Options extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   void clearStreamExists() => clearField(5);
   @$pb.TagNumber(5)
-  $9.Empty ensureStreamExists() => $_ensure(4);
+  $10.Empty ensureStreamExists() => $_ensure(4);
 
   @$pb.TagNumber(6)
-  $13.Timestamp get deadline => $_getN(5);
+  $14.Timestamp get deadline21100 => $_getN(5);
   @$pb.TagNumber(6)
-  set deadline($13.Timestamp v) {
+  set deadline21100($14.Timestamp v) {
     setField(6, v);
   }
 
   @$pb.TagNumber(6)
-  $core.bool hasDeadline() => $_has(5);
+  $core.bool hasDeadline21100() => $_has(5);
   @$pb.TagNumber(6)
-  void clearDeadline() => clearField(6);
+  void clearDeadline21100() => clearField(6);
   @$pb.TagNumber(6)
-  $13.Timestamp ensureDeadline() => $_ensure(5);
+  $14.Timestamp ensureDeadline21100() => $_ensure(5);
+
+  @$pb.TagNumber(7)
+  $15.Duration get deadline => $_getN(6);
+  @$pb.TagNumber(7)
+  set deadline($15.Duration v) {
+    setField(7, v);
+  }
+
+  @$pb.TagNumber(7)
+  $core.bool hasDeadline() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearDeadline() => clearField(7);
+  @$pb.TagNumber(7)
+  $15.Duration ensureDeadline() => $_ensure(6);
 }
 
 class BatchAppendReq_ProposedMessage extends $pb.GeneratedMessage {
@@ -3714,32 +3925,32 @@ class BatchAppendResp_Success extends $pb.GeneratedMessage {
             : 'currentRevision',
         $pb.PbFieldType.OU6,
         defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aOM<$9.Empty>(
+    ..aOM<$10.Empty>(
         2,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'noStream',
-        subBuilder: $9.Empty.create)
+        subBuilder: $10.Empty.create)
     ..aOM<$1.AllStreamPosition>(
         3,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'position',
         subBuilder: $1.AllStreamPosition.create)
-    ..aOM<$9.Empty>(
+    ..aOM<$10.Empty>(
         4,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'noPosition',
-        subBuilder: $9.Empty.create)
+        subBuilder: $10.Empty.create)
     ..hasRequiredFields = false;
 
   BatchAppendResp_Success._() : super();
   factory BatchAppendResp_Success({
     $fixnum.Int64? currentRevision,
-    $9.Empty? noStream,
+    $10.Empty? noStream,
     $1.AllStreamPosition? position,
-    $9.Empty? noPosition,
+    $10.Empty? noPosition,
   }) {
     final _result = create();
     if (currentRevision != null) {
@@ -3806,9 +4017,9 @@ class BatchAppendResp_Success extends $pb.GeneratedMessage {
   void clearCurrentRevision() => clearField(1);
 
   @$pb.TagNumber(2)
-  $9.Empty get noStream => $_getN(1);
+  $10.Empty get noStream => $_getN(1);
   @$pb.TagNumber(2)
-  set noStream($9.Empty v) {
+  set noStream($10.Empty v) {
     setField(2, v);
   }
 
@@ -3817,7 +4028,7 @@ class BatchAppendResp_Success extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearNoStream() => clearField(2);
   @$pb.TagNumber(2)
-  $9.Empty ensureNoStream() => $_ensure(1);
+  $10.Empty ensureNoStream() => $_ensure(1);
 
   @$pb.TagNumber(3)
   $1.AllStreamPosition get position => $_getN(2);
@@ -3834,9 +4045,9 @@ class BatchAppendResp_Success extends $pb.GeneratedMessage {
   $1.AllStreamPosition ensurePosition() => $_ensure(2);
 
   @$pb.TagNumber(4)
-  $9.Empty get noPosition => $_getN(3);
+  $10.Empty get noPosition => $_getN(3);
   @$pb.TagNumber(4)
-  set noPosition($9.Empty v) {
+  set noPosition($10.Empty v) {
     setField(4, v);
   }
 
@@ -3845,7 +4056,7 @@ class BatchAppendResp_Success extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   void clearNoPosition() => clearField(4);
   @$pb.TagNumber(4)
-  $9.Empty ensureNoPosition() => $_ensure(3);
+  $10.Empty ensureNoPosition() => $_ensure(3);
 }
 
 enum BatchAppendResp_Result { error, success, notSet }
@@ -3890,12 +4101,12 @@ class BatchAppendResp extends $pb.GeneratedMessage {
             ? ''
             : 'correlationId',
         subBuilder: $1.UUID.create)
-    ..aOM<$14.Status>(
+    ..aOM<$16.Status>(
         2,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'error',
-        subBuilder: $14.Status.create)
+        subBuilder: $16.Status.create)
     ..aOM<BatchAppendResp_Success>(
         3,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
@@ -3915,36 +4126,36 @@ class BatchAppendResp extends $pb.GeneratedMessage {
             : 'streamPosition',
         $pb.PbFieldType.OU6,
         defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aOM<$9.Empty>(
+    ..aOM<$10.Empty>(
         6,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'noStream',
-        subBuilder: $9.Empty.create)
-    ..aOM<$9.Empty>(
+        subBuilder: $10.Empty.create)
+    ..aOM<$10.Empty>(
         7,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'any',
-        subBuilder: $9.Empty.create)
-    ..aOM<$9.Empty>(
+        subBuilder: $10.Empty.create)
+    ..aOM<$10.Empty>(
         8,
         const $core.bool.fromEnvironment('protobuf.omit_field_names')
             ? ''
             : 'streamExists',
-        subBuilder: $9.Empty.create)
+        subBuilder: $10.Empty.create)
     ..hasRequiredFields = false;
 
   BatchAppendResp._() : super();
   factory BatchAppendResp({
     $1.UUID? correlationId,
-    $14.Status? error,
+    $16.Status? error,
     BatchAppendResp_Success? success,
     $1.StreamIdentifier? streamIdentifier,
     $fixnum.Int64? streamPosition,
-    $9.Empty? noStream,
-    $9.Empty? any,
-    $9.Empty? streamExists,
+    $10.Empty? noStream,
+    $10.Empty? any,
+    $10.Empty? streamExists,
   }) {
     final _result = create();
     if (correlationId != null) {
@@ -4023,9 +4234,9 @@ class BatchAppendResp extends $pb.GeneratedMessage {
   $1.UUID ensureCorrelationId() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $14.Status get error => $_getN(1);
+  $16.Status get error => $_getN(1);
   @$pb.TagNumber(2)
-  set error($14.Status v) {
+  set error($16.Status v) {
     setField(2, v);
   }
 
@@ -4034,7 +4245,7 @@ class BatchAppendResp extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearError() => clearField(2);
   @$pb.TagNumber(2)
-  $14.Status ensureError() => $_ensure(1);
+  $16.Status ensureError() => $_ensure(1);
 
   @$pb.TagNumber(3)
   BatchAppendResp_Success get success => $_getN(2);
@@ -4077,9 +4288,9 @@ class BatchAppendResp extends $pb.GeneratedMessage {
   void clearStreamPosition() => clearField(5);
 
   @$pb.TagNumber(6)
-  $9.Empty get noStream => $_getN(5);
+  $10.Empty get noStream => $_getN(5);
   @$pb.TagNumber(6)
-  set noStream($9.Empty v) {
+  set noStream($10.Empty v) {
     setField(6, v);
   }
 
@@ -4088,12 +4299,12 @@ class BatchAppendResp extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   void clearNoStream() => clearField(6);
   @$pb.TagNumber(6)
-  $9.Empty ensureNoStream() => $_ensure(5);
+  $10.Empty ensureNoStream() => $_ensure(5);
 
   @$pb.TagNumber(7)
-  $9.Empty get any => $_getN(6);
+  $10.Empty get any => $_getN(6);
   @$pb.TagNumber(7)
-  set any($9.Empty v) {
+  set any($10.Empty v) {
     setField(7, v);
   }
 
@@ -4102,12 +4313,12 @@ class BatchAppendResp extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   void clearAny() => clearField(7);
   @$pb.TagNumber(7)
-  $9.Empty ensureAny() => $_ensure(6);
+  $10.Empty ensureAny() => $_ensure(6);
 
   @$pb.TagNumber(8)
-  $9.Empty get streamExists => $_getN(7);
+  $10.Empty get streamExists => $_getN(7);
   @$pb.TagNumber(8)
-  set streamExists($9.Empty v) {
+  set streamExists($10.Empty v) {
     setField(8, v);
   }
 
@@ -4116,7 +4327,7 @@ class BatchAppendResp extends $pb.GeneratedMessage {
   @$pb.TagNumber(8)
   void clearStreamExists() => clearField(8);
   @$pb.TagNumber(8)
-  $9.Empty ensureStreamExists() => $_ensure(7);
+  $10.Empty ensureStreamExists() => $_ensure(7);
 }
 
 enum DeleteReq_Options_ExpectedStreamRevision {

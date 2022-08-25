@@ -210,7 +210,19 @@ mixin EventStorePersistentSubscriptionsCreate
     return CreateReq_AllOptions()..position = start;
   }
 
-  CreateReq_ConsumerStrategy _toCreateStrategy(SystemConsumerStrategies type) {
+  String _toConsumerStrategy(SystemConsumerStrategies type) {
+    switch (type) {
+      case SystemConsumerStrategies.dispatchToSingle:
+        return CreateReq_ConsumerStrategy.DispatchToSingle.name;
+      case SystemConsumerStrategies.roundRobin:
+        return CreateReq_ConsumerStrategy.RoundRobin.name;
+      case SystemConsumerStrategies.pinned:
+        return CreateReq_ConsumerStrategy.Pinned.name;
+    }
+  }
+
+  CreateReq_ConsumerStrategy _toNamedConsumerStrategy(
+      SystemConsumerStrategies type) {
     switch (type) {
       case SystemConsumerStrategies.dispatchToSingle:
         return CreateReq_ConsumerStrategy.DispatchToSingle;
@@ -275,6 +287,12 @@ mixin EventStorePersistentSubscriptionsCreate
       ..minCheckpointCount = settings.minCheckPointCount
       ..messageTimeoutMs = settings.messageTimeout.inMilliseconds
       ..checkpointAfterMs = settings.checkPointAfter.inMilliseconds
-      ..namedConsumerStrategy = _toCreateStrategy(settings.consumerStrategy);
+      ..consumerStrategy = _toConsumerStrategy(
+        settings.consumerStrategy,
+      )
+      // ignore: deprecated_member_use_from_same_package
+      ..namedConsumerStrategy = _toNamedConsumerStrategy(
+        settings.consumerStrategy,
+      );
   }
 }

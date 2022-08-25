@@ -36,11 +36,13 @@ class Defaults {
   // Supported from EventStoreDB v21_LTS (as of Aug 2021, v20_LTS is v20.10).
   static const BatchAppend = false;
   static const int BatchAppendSize = 3 * 1024 * 1024;
+  static const Duration BatchAppendDeadline = Duration(seconds: 30);
 }
 
 class ApiVersions {
   static const v20 = '20.10.0';
   static const v21 = '21.6.0';
+  static const v21_10_0 = '21.10.0';
   static const v22 = '22.6.0';
   static const v20_LTS = '20.10.5';
   static const v21_LTS = '21.10.7';

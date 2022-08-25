@@ -59,7 +59,9 @@ class StreamMetadataResult {
         );
       case ReadResp_Content.streamNotFound:
         return StreamMetadataResult._(
-          streamId: utf8.decode(resp.streamNotFound.streamIdentifier.streamId),
+          streamId: utf8.decode(
+            resp.streamNotFound.streamIdentifier.streamName,
+          ),
           state: ReadState.stream_not_found,
         );
       case ReadResp_Content.confirmation:

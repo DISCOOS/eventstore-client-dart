@@ -3,7 +3,7 @@
 //  source: persistent.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:async' as $async;
 
@@ -11,6 +11,7 @@ import 'dart:core' as $core;
 
 import 'package:grpc/service_api.dart' as $grpc;
 import 'persistent.pb.dart' as $5;
+import 'shared.pb.dart' as $1;
 export 'persistent.pb.dart';
 
 class PersistentSubscriptionsClient extends $grpc.Client {
@@ -30,6 +31,23 @@ class PersistentSubscriptionsClient extends $grpc.Client {
       '/event_store.client.persistent_subscriptions.PersistentSubscriptions/Read',
       ($5.ReadReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $5.ReadResp.fromBuffer(value));
+  static final _$getInfo = $grpc.ClientMethod<$5.GetInfoReq, $5.GetInfoResp>(
+      '/event_store.client.persistent_subscriptions.PersistentSubscriptions/GetInfo',
+      ($5.GetInfoReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $5.GetInfoResp.fromBuffer(value));
+  static final _$replayParked = $grpc.ClientMethod<$5.ReplayParkedReq,
+          $5.ReplayParkedResp>(
+      '/event_store.client.persistent_subscriptions.PersistentSubscriptions/ReplayParked',
+      ($5.ReplayParkedReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $5.ReplayParkedResp.fromBuffer(value));
+  static final _$list = $grpc.ClientMethod<$5.ListReq, $5.ListResp>(
+      '/event_store.client.persistent_subscriptions.PersistentSubscriptions/List',
+      ($5.ListReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $5.ListResp.fromBuffer(value));
+  static final _$restartSubsystem = $grpc.ClientMethod<$1.Empty, $1.Empty>(
+      '/event_store.client.persistent_subscriptions.PersistentSubscriptions/RestartSubsystem',
+      ($1.Empty value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
 
   PersistentSubscriptionsClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -54,6 +72,27 @@ class PersistentSubscriptionsClient extends $grpc.Client {
   $grpc.ResponseStream<$5.ReadResp> read($async.Stream<$5.ReadReq> request,
       {$grpc.CallOptions? options}) {
     return $createStreamingCall(_$read, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$5.GetInfoResp> getInfo($5.GetInfoReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getInfo, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$5.ReplayParkedResp> replayParked(
+      $5.ReplayParkedReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$replayParked, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$5.ListResp> list($5.ListReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$list, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Empty> restartSubsystem($1.Empty request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$restartSubsystem, request, options: options);
   }
 }
 
@@ -90,6 +129,34 @@ abstract class PersistentSubscriptionsServiceBase extends $grpc.Service {
         true,
         ($core.List<$core.int> value) => $5.ReadReq.fromBuffer(value),
         ($5.ReadResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$5.GetInfoReq, $5.GetInfoResp>(
+        'GetInfo',
+        getInfo_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $5.GetInfoReq.fromBuffer(value),
+        ($5.GetInfoResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$5.ReplayParkedReq, $5.ReplayParkedResp>(
+        'ReplayParked',
+        replayParked_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $5.ReplayParkedReq.fromBuffer(value),
+        ($5.ReplayParkedResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$5.ListReq, $5.ListResp>(
+        'List',
+        list_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $5.ListReq.fromBuffer(value),
+        ($5.ListResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.Empty, $1.Empty>(
+        'RestartSubsystem',
+        restartSubsystem_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $1.Empty.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
   }
 
   $async.Future<$5.CreateResp> create_Pre(
@@ -107,6 +174,26 @@ abstract class PersistentSubscriptionsServiceBase extends $grpc.Service {
     return delete(call, await request);
   }
 
+  $async.Future<$5.GetInfoResp> getInfo_Pre(
+      $grpc.ServiceCall call, $async.Future<$5.GetInfoReq> request) async {
+    return getInfo(call, await request);
+  }
+
+  $async.Future<$5.ReplayParkedResp> replayParked_Pre(
+      $grpc.ServiceCall call, $async.Future<$5.ReplayParkedReq> request) async {
+    return replayParked(call, await request);
+  }
+
+  $async.Future<$5.ListResp> list_Pre(
+      $grpc.ServiceCall call, $async.Future<$5.ListReq> request) async {
+    return list(call, await request);
+  }
+
+  $async.Future<$1.Empty> restartSubsystem_Pre(
+      $grpc.ServiceCall call, $async.Future<$1.Empty> request) async {
+    return restartSubsystem(call, await request);
+  }
+
   $async.Future<$5.CreateResp> create(
       $grpc.ServiceCall call, $5.CreateReq request);
   $async.Future<$5.UpdateResp> update(
@@ -115,4 +202,11 @@ abstract class PersistentSubscriptionsServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $5.DeleteReq request);
   $async.Stream<$5.ReadResp> read(
       $grpc.ServiceCall call, $async.Stream<$5.ReadReq> request);
+  $async.Future<$5.GetInfoResp> getInfo(
+      $grpc.ServiceCall call, $5.GetInfoReq request);
+  $async.Future<$5.ReplayParkedResp> replayParked(
+      $grpc.ServiceCall call, $5.ReplayParkedReq request);
+  $async.Future<$5.ListResp> list($grpc.ServiceCall call, $5.ListReq request);
+  $async.Future<$1.Empty> restartSubsystem(
+      $grpc.ServiceCall call, $1.Empty request);
 }

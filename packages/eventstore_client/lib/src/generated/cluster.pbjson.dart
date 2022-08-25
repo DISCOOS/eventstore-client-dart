@@ -3,7 +3,7 @@
 //  source: cluster.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,deprecated_member_use_from_same_package,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
@@ -598,3 +598,327 @@ const MemberInfo_VNodeState$json = const {
 /// Descriptor for `MemberInfo`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List memberInfoDescriptor = $convert.base64Decode(
     'CgpNZW1iZXJJbmZvEjkKC2luc3RhbmNlX2lkGAEgASgLMhguZXZlbnRfc3RvcmUuY2xpZW50LlVVSURSCmluc3RhbmNlSWQSHQoKdGltZV9zdGFtcBgCIAEoA1IJdGltZVN0YW1wEkAKBXN0YXRlGAMgASgOMiouZXZlbnRfc3RvcmUuY2x1c3Rlci5NZW1iZXJJbmZvLlZOb2RlU3RhdGVSBXN0YXRlEhkKCGlzX2FsaXZlGAQgASgIUgdpc0FsaXZlEkMKDmh0dHBfZW5kX3BvaW50GAUgASgLMh0uZXZlbnRfc3RvcmUuY2x1c3Rlci5FbmRQb2ludFIMaHR0cEVuZFBvaW50EkAKDGludGVybmFsX3RjcBgGIAEoCzIdLmV2ZW50X3N0b3JlLmNsdXN0ZXIuRW5kUG9pbnRSC2ludGVybmFsVGNwEkAKDGV4dGVybmFsX3RjcBgHIAEoCzIdLmV2ZW50X3N0b3JlLmNsdXN0ZXIuRW5kUG9pbnRSC2V4dGVybmFsVGNwEjEKFWludGVybmFsX3RjcF91c2VzX3RscxgIIAEoCFISaW50ZXJuYWxUY3BVc2VzVGxzEjEKFWV4dGVybmFsX3RjcF91c2VzX3RscxgJIAEoCFISZXh0ZXJuYWxUY3BVc2VzVGxzEjAKFGxhc3RfY29tbWl0X3Bvc2l0aW9uGAogASgDUhJsYXN0Q29tbWl0UG9zaXRpb24SKwoRd3JpdGVyX2NoZWNrcG9pbnQYCyABKANSEHdyaXRlckNoZWNrcG9pbnQSKwoRY2hhc2VyX2NoZWNrcG9pbnQYDCABKANSEGNoYXNlckNoZWNrcG9pbnQSJQoOZXBvY2hfcG9zaXRpb24YDSABKANSDWVwb2NoUG9zaXRpb24SIQoMZXBvY2hfbnVtYmVyGA4gASgFUgtlcG9jaE51bWJlchIzCghlcG9jaF9pZBgPIAEoCzIYLmV2ZW50X3N0b3JlLmNsaWVudC5VVUlEUgdlcG9jaElkEiMKDW5vZGVfcHJpb3JpdHkYECABKAVSDG5vZGVQcmlvcml0eRIvChRpc19yZWFkX29ubHlfcmVwbGljYRgRIAEoCFIRaXNSZWFkT25seVJlcGxpY2ESPAobYWR2ZXJ0aXNlX2hvc3RfdG9fY2xpZW50X2FzGBIgASgJUhdhZHZlcnRpc2VIb3N0VG9DbGllbnRBcxJFCiBhZHZlcnRpc2VfaHR0cF9wb3J0X3RvX2NsaWVudF9hcxgTIAEoDVIbYWR2ZXJ0aXNlSHR0cFBvcnRUb0NsaWVudEFzEkMKH2FkdmVydGlzZV90Y3BfcG9ydF90b19jbGllbnRfYXMYFCABKA1SGmFkdmVydGlzZVRjcFBvcnRUb0NsaWVudEFzIpoCCgpWTm9kZVN0YXRlEhAKDEluaXRpYWxpemluZxAAEhIKDkRpc2NvdmVyTGVhZGVyEAESCwoHVW5rbm93bhACEg4KClByZVJlcGxpY2EQAxIOCgpDYXRjaGluZ1VwEAQSCQoFQ2xvbmUQBRIMCghGb2xsb3dlchAGEg0KCVByZUxlYWRlchAHEgoKBkxlYWRlchAIEgsKB01hbmFnZXIQCRIQCgxTaHV0dGluZ0Rvd24QChIMCghTaHV0ZG93bhALEhYKElJlYWRPbmx5TGVhZGVybGVzcxAMEhYKElByZVJlYWRPbmx5UmVwbGljYRANEhMKD1JlYWRPbmx5UmVwbGljYRAOEhMKD1Jlc2lnbmluZ0xlYWRlchAP');
+@$core.Deprecated('Use replicaLogWriteDescriptor instead')
+const ReplicaLogWrite$json = const {
+  '1': 'ReplicaLogWrite',
+  '2': const [
+    const {'1': 'log_position', '3': 1, '4': 1, '5': 3, '10': 'logPosition'},
+    const {'1': 'replica_id', '3': 2, '4': 1, '5': 12, '10': 'replicaId'},
+  ],
+};
+
+/// Descriptor for `ReplicaLogWrite`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List replicaLogWriteDescriptor = $convert.base64Decode(
+    'Cg9SZXBsaWNhTG9nV3JpdGUSIQoMbG9nX3Bvc2l0aW9uGAEgASgDUgtsb2dQb3NpdGlvbhIdCgpyZXBsaWNhX2lkGAIgASgMUglyZXBsaWNhSWQ=');
+@$core.Deprecated('Use replicatedToDescriptor instead')
+const ReplicatedTo$json = const {
+  '1': 'ReplicatedTo',
+  '2': const [
+    const {'1': 'log_position', '3': 1, '4': 1, '5': 3, '10': 'logPosition'},
+  ],
+};
+
+/// Descriptor for `ReplicatedTo`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List replicatedToDescriptor = $convert.base64Decode(
+    'CgxSZXBsaWNhdGVkVG8SIQoMbG9nX3Bvc2l0aW9uGAEgASgDUgtsb2dQb3NpdGlvbg==');
+@$core.Deprecated('Use epochDescriptor instead')
+const Epoch$json = const {
+  '1': 'Epoch',
+  '2': const [
+    const {
+      '1': 'epoch_position',
+      '3': 1,
+      '4': 1,
+      '5': 3,
+      '10': 'epochPosition'
+    },
+    const {'1': 'epoch_number', '3': 2, '4': 1, '5': 5, '10': 'epochNumber'},
+    const {'1': 'epoch_id', '3': 3, '4': 1, '5': 12, '10': 'epochId'},
+  ],
+};
+
+/// Descriptor for `Epoch`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List epochDescriptor = $convert.base64Decode(
+    'CgVFcG9jaBIlCg5lcG9jaF9wb3NpdGlvbhgBIAEoA1INZXBvY2hQb3NpdGlvbhIhCgxlcG9jaF9udW1iZXIYAiABKAVSC2Vwb2NoTnVtYmVyEhkKCGVwb2NoX2lkGAMgASgMUgdlcG9jaElk');
+@$core.Deprecated('Use subscribeReplicaDescriptor instead')
+const SubscribeReplica$json = const {
+  '1': 'SubscribeReplica',
+  '2': const [
+    const {'1': 'log_position', '3': 1, '4': 1, '5': 3, '10': 'logPosition'},
+    const {'1': 'chunk_id', '3': 2, '4': 1, '5': 12, '10': 'chunkId'},
+    const {
+      '1': 'LastEpochs',
+      '3': 3,
+      '4': 3,
+      '5': 11,
+      '6': '.event_store.cluster.Epoch',
+      '10': 'LastEpochs'
+    },
+    const {'1': 'ip', '3': 4, '4': 1, '5': 12, '10': 'ip'},
+    const {'1': 'port', '3': 5, '4': 1, '5': 5, '10': 'port'},
+    const {'1': 'leader_id', '3': 6, '4': 1, '5': 12, '10': 'leaderId'},
+    const {
+      '1': 'subscription_id',
+      '3': 7,
+      '4': 1,
+      '5': 12,
+      '10': 'subscriptionId'
+    },
+    const {'1': 'is_promotable', '3': 8, '4': 1, '5': 8, '10': 'isPromotable'},
+    const {'1': 'version', '3': 9, '4': 1, '5': 5, '10': 'version'},
+  ],
+};
+
+/// Descriptor for `SubscribeReplica`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List subscribeReplicaDescriptor = $convert.base64Decode(
+    'ChBTdWJzY3JpYmVSZXBsaWNhEiEKDGxvZ19wb3NpdGlvbhgBIAEoA1ILbG9nUG9zaXRpb24SGQoIY2h1bmtfaWQYAiABKAxSB2NodW5rSWQSOgoKTGFzdEVwb2NocxgDIAMoCzIaLmV2ZW50X3N0b3JlLmNsdXN0ZXIuRXBvY2hSCkxhc3RFcG9jaHMSDgoCaXAYBCABKAxSAmlwEhIKBHBvcnQYBSABKAVSBHBvcnQSGwoJbGVhZGVyX2lkGAYgASgMUghsZWFkZXJJZBInCg9zdWJzY3JpcHRpb25faWQYByABKAxSDnN1YnNjcmlwdGlvbklkEiMKDWlzX3Byb21vdGFibGUYCCABKAhSDGlzUHJvbW90YWJsZRIYCgd2ZXJzaW9uGAkgASgFUgd2ZXJzaW9u');
+@$core.Deprecated('Use replicaSubscriptionRetryDescriptor instead')
+const ReplicaSubscriptionRetry$json = const {
+  '1': 'ReplicaSubscriptionRetry',
+  '2': const [
+    const {'1': 'leader_id', '3': 1, '4': 1, '5': 12, '10': 'leaderId'},
+    const {
+      '1': 'subscription_id',
+      '3': 2,
+      '4': 1,
+      '5': 12,
+      '10': 'subscriptionId'
+    },
+  ],
+};
+
+/// Descriptor for `ReplicaSubscriptionRetry`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List replicaSubscriptionRetryDescriptor =
+    $convert.base64Decode(
+        'ChhSZXBsaWNhU3Vic2NyaXB0aW9uUmV0cnkSGwoJbGVhZGVyX2lkGAEgASgMUghsZWFkZXJJZBInCg9zdWJzY3JpcHRpb25faWQYAiABKAxSDnN1YnNjcmlwdGlvbklk');
+@$core.Deprecated('Use replicaSubscribedDescriptor instead')
+const ReplicaSubscribed$json = const {
+  '1': 'ReplicaSubscribed',
+  '2': const [
+    const {'1': 'leader_id', '3': 1, '4': 1, '5': 12, '10': 'leaderId'},
+    const {
+      '1': 'subscription_id',
+      '3': 2,
+      '4': 1,
+      '5': 12,
+      '10': 'subscriptionId'
+    },
+    const {
+      '1': 'subscription_position',
+      '3': 3,
+      '4': 1,
+      '5': 3,
+      '10': 'subscriptionPosition'
+    },
+  ],
+};
+
+/// Descriptor for `ReplicaSubscribed`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List replicaSubscribedDescriptor = $convert.base64Decode(
+    'ChFSZXBsaWNhU3Vic2NyaWJlZBIbCglsZWFkZXJfaWQYASABKAxSCGxlYWRlcklkEicKD3N1YnNjcmlwdGlvbl9pZBgCIAEoDFIOc3Vic2NyaXB0aW9uSWQSMwoVc3Vic2NyaXB0aW9uX3Bvc2l0aW9uGAMgASgDUhRzdWJzY3JpcHRpb25Qb3NpdGlvbg==');
+@$core.Deprecated('Use replicaLogPositionAckDescriptor instead')
+const ReplicaLogPositionAck$json = const {
+  '1': 'ReplicaLogPositionAck',
+  '2': const [
+    const {
+      '1': 'subscription_id',
+      '3': 1,
+      '4': 1,
+      '5': 12,
+      '10': 'subscriptionId'
+    },
+    const {
+      '1': 'replication_log_position',
+      '3': 2,
+      '4': 1,
+      '5': 3,
+      '10': 'replicationLogPosition'
+    },
+    const {
+      '1': 'writer_log_position',
+      '3': 3,
+      '4': 1,
+      '5': 3,
+      '10': 'writerLogPosition'
+    },
+  ],
+};
+
+/// Descriptor for `ReplicaLogPositionAck`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List replicaLogPositionAckDescriptor = $convert.base64Decode(
+    'ChVSZXBsaWNhTG9nUG9zaXRpb25BY2sSJwoPc3Vic2NyaXB0aW9uX2lkGAEgASgMUg5zdWJzY3JpcHRpb25JZBI4ChhyZXBsaWNhdGlvbl9sb2dfcG9zaXRpb24YAiABKANSFnJlcGxpY2F0aW9uTG9nUG9zaXRpb24SLgoTd3JpdGVyX2xvZ19wb3NpdGlvbhgDIAEoA1IRd3JpdGVyTG9nUG9zaXRpb24=');
+@$core.Deprecated('Use createChunkDescriptor instead')
+const CreateChunk$json = const {
+  '1': 'CreateChunk',
+  '2': const [
+    const {'1': 'leader_id', '3': 1, '4': 1, '5': 12, '10': 'leaderId'},
+    const {
+      '1': 'subscription_id',
+      '3': 2,
+      '4': 1,
+      '5': 12,
+      '10': 'subscriptionId'
+    },
+    const {
+      '1': 'chunk_header_bytes',
+      '3': 3,
+      '4': 1,
+      '5': 12,
+      '10': 'chunkHeaderBytes'
+    },
+    const {'1': 'file_size', '3': 4, '4': 1, '5': 5, '10': 'fileSize'},
+    const {
+      '1': 'is_completed_chunk',
+      '3': 5,
+      '4': 1,
+      '5': 8,
+      '10': 'isCompletedChunk'
+    },
+  ],
+};
+
+/// Descriptor for `CreateChunk`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List createChunkDescriptor = $convert.base64Decode(
+    'CgtDcmVhdGVDaHVuaxIbCglsZWFkZXJfaWQYASABKAxSCGxlYWRlcklkEicKD3N1YnNjcmlwdGlvbl9pZBgCIAEoDFIOc3Vic2NyaXB0aW9uSWQSLAoSY2h1bmtfaGVhZGVyX2J5dGVzGAMgASgMUhBjaHVua0hlYWRlckJ5dGVzEhsKCWZpbGVfc2l6ZRgEIAEoBVIIZmlsZVNpemUSLAoSaXNfY29tcGxldGVkX2NodW5rGAUgASgIUhBpc0NvbXBsZXRlZENodW5r');
+@$core.Deprecated('Use rawChunkBulkDescriptor instead')
+const RawChunkBulk$json = const {
+  '1': 'RawChunkBulk',
+  '2': const [
+    const {'1': 'leader_id', '3': 1, '4': 1, '5': 12, '10': 'leaderId'},
+    const {
+      '1': 'subscription_id',
+      '3': 2,
+      '4': 1,
+      '5': 12,
+      '10': 'subscriptionId'
+    },
+    const {
+      '1': 'chunk_start_number',
+      '3': 3,
+      '4': 1,
+      '5': 5,
+      '10': 'chunkStartNumber'
+    },
+    const {
+      '1': 'chunk_end_number',
+      '3': 4,
+      '4': 1,
+      '5': 5,
+      '10': 'chunkEndNumber'
+    },
+    const {'1': 'raw_position', '3': 5, '4': 1, '5': 5, '10': 'rawPosition'},
+    const {'1': 'raw_bytes', '3': 6, '4': 1, '5': 12, '10': 'rawBytes'},
+    const {
+      '1': 'complete_chunk',
+      '3': 7,
+      '4': 1,
+      '5': 8,
+      '10': 'completeChunk'
+    },
+  ],
+};
+
+/// Descriptor for `RawChunkBulk`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List rawChunkBulkDescriptor = $convert.base64Decode(
+    'CgxSYXdDaHVua0J1bGsSGwoJbGVhZGVyX2lkGAEgASgMUghsZWFkZXJJZBInCg9zdWJzY3JpcHRpb25faWQYAiABKAxSDnN1YnNjcmlwdGlvbklkEiwKEmNodW5rX3N0YXJ0X251bWJlchgDIAEoBVIQY2h1bmtTdGFydE51bWJlchIoChBjaHVua19lbmRfbnVtYmVyGAQgASgFUg5jaHVua0VuZE51bWJlchIhCgxyYXdfcG9zaXRpb24YBSABKAVSC3Jhd1Bvc2l0aW9uEhsKCXJhd19ieXRlcxgGIAEoDFIIcmF3Qnl0ZXMSJQoOY29tcGxldGVfY2h1bmsYByABKAhSDWNvbXBsZXRlQ2h1bms=');
+@$core.Deprecated('Use dataChunkBulkDescriptor instead')
+const DataChunkBulk$json = const {
+  '1': 'DataChunkBulk',
+  '2': const [
+    const {'1': 'leader_id', '3': 1, '4': 1, '5': 12, '10': 'leaderId'},
+    const {
+      '1': 'subscription_id',
+      '3': 2,
+      '4': 1,
+      '5': 12,
+      '10': 'subscriptionId'
+    },
+    const {
+      '1': 'chunk_start_number',
+      '3': 3,
+      '4': 1,
+      '5': 5,
+      '10': 'chunkStartNumber'
+    },
+    const {
+      '1': 'chunk_end_number',
+      '3': 4,
+      '4': 1,
+      '5': 5,
+      '10': 'chunkEndNumber'
+    },
+    const {
+      '1': 'subscription_position',
+      '3': 5,
+      '4': 1,
+      '5': 3,
+      '10': 'subscriptionPosition'
+    },
+    const {'1': 'data_bytes', '3': 6, '4': 1, '5': 12, '10': 'dataBytes'},
+    const {
+      '1': 'complete_chunk',
+      '3': 7,
+      '4': 1,
+      '5': 8,
+      '10': 'completeChunk'
+    },
+  ],
+};
+
+/// Descriptor for `DataChunkBulk`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List dataChunkBulkDescriptor = $convert.base64Decode(
+    'Cg1EYXRhQ2h1bmtCdWxrEhsKCWxlYWRlcl9pZBgBIAEoDFIIbGVhZGVySWQSJwoPc3Vic2NyaXB0aW9uX2lkGAIgASgMUg5zdWJzY3JpcHRpb25JZBIsChJjaHVua19zdGFydF9udW1iZXIYAyABKAVSEGNodW5rU3RhcnROdW1iZXISKAoQY2h1bmtfZW5kX251bWJlchgEIAEoBVIOY2h1bmtFbmROdW1iZXISMwoVc3Vic2NyaXB0aW9uX3Bvc2l0aW9uGAUgASgDUhRzdWJzY3JpcHRpb25Qb3NpdGlvbhIdCgpkYXRhX2J5dGVzGAYgASgMUglkYXRhQnl0ZXMSJQoOY29tcGxldGVfY2h1bmsYByABKAhSDWNvbXBsZXRlQ2h1bms=');
+@$core.Deprecated('Use followerAssignmentDescriptor instead')
+const FollowerAssignment$json = const {
+  '1': 'FollowerAssignment',
+  '2': const [
+    const {'1': 'leader_id', '3': 1, '4': 1, '5': 12, '10': 'leaderId'},
+    const {
+      '1': 'subscription_id',
+      '3': 2,
+      '4': 1,
+      '5': 12,
+      '10': 'subscriptionId'
+    },
+  ],
+};
+
+/// Descriptor for `FollowerAssignment`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List followerAssignmentDescriptor = $convert.base64Decode(
+    'ChJGb2xsb3dlckFzc2lnbm1lbnQSGwoJbGVhZGVyX2lkGAEgASgMUghsZWFkZXJJZBInCg9zdWJzY3JpcHRpb25faWQYAiABKAxSDnN1YnNjcmlwdGlvbklk');
+@$core.Deprecated('Use cloneAssignmentDescriptor instead')
+const CloneAssignment$json = const {
+  '1': 'CloneAssignment',
+  '2': const [
+    const {'1': 'leader_id', '3': 1, '4': 1, '5': 12, '10': 'leaderId'},
+    const {
+      '1': 'subscription_id',
+      '3': 2,
+      '4': 1,
+      '5': 12,
+      '10': 'subscriptionId'
+    },
+  ],
+};
+
+/// Descriptor for `CloneAssignment`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List cloneAssignmentDescriptor = $convert.base64Decode(
+    'Cg9DbG9uZUFzc2lnbm1lbnQSGwoJbGVhZGVyX2lkGAEgASgMUghsZWFkZXJJZBInCg9zdWJzY3JpcHRpb25faWQYAiABKAxSDnN1YnNjcmlwdGlvbklk');
+@$core.Deprecated('Use dropSubscriptionDescriptor instead')
+const DropSubscription$json = const {
+  '1': 'DropSubscription',
+  '2': const [
+    const {'1': 'leader_id', '3': 1, '4': 1, '5': 12, '10': 'leaderId'},
+    const {
+      '1': 'subscription_id',
+      '3': 2,
+      '4': 1,
+      '5': 12,
+      '10': 'subscriptionId'
+    },
+  ],
+};
+
+/// Descriptor for `DropSubscription`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List dropSubscriptionDescriptor = $convert.base64Decode(
+    'ChBEcm9wU3Vic2NyaXB0aW9uEhsKCWxlYWRlcl9pZBgBIAEoDFIIbGVhZGVySWQSJwoPc3Vic2NyaXB0aW9uX2lkGAIgASgMUg5zdWJzY3JpcHRpb25JZA==');

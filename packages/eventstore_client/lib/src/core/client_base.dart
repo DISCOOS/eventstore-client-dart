@@ -42,6 +42,13 @@ abstract class EventStoreClientBase {
   /// Connection name supplied as metadata to server
   final EventStoreClientSettings settings;
 
+  /// Get Node api version. If [verify] is not invoked,
+  /// [EventStoreClientSettings.apiVersion] is returned.
+  String get apiVersion {
+    return _apiVersion ?? settings.apiVersion;
+  }
+  String? _apiVersion;
+
   /// Converts [GrpcError]s to typed [Exception]s
   final Map<String, GrpcErrorCallback> _exceptionMap;
 
@@ -79,26 +86,31 @@ abstract class EventStoreClientBase {
   /// requested [EventStoreClientSettings.apiVersion].
   Future<void> verify() async {
     if (_shouldVerify) {
-      await discover();
-      final node = await getNodeInfo(
-        leader,
-        settings: settings,
-        channelCredentials: $getOrAddCredentials(leader),
-      );
+      _apiVersion = await _getApiVersion();
       final constraint = VersionConstraint.parse(
-        '<=${node.apiVersion}',
+        '<=$_apiVersion',
       );
       final isSupported = constraint.allows(Version.parse(
         settings.apiVersion,
       ));
       if (!isSupported) {
         throw UnsupportedApiVersionException(
-          'Server version ${node.apiVersion} is not supported '
+          'Server version $_apiVersion is not supported '
           'for node $leader. Requested version is ${settings.apiVersion}.',
         );
       }
       _shouldVerify = false;
     }
+  }
+
+  Future<String> _getApiVersion() async {
+    await discover();
+    final node = await getNodeInfo(
+      leader,
+      settings: settings,
+      channelCredentials: $getOrAddCredentials(leader),
+    );
+    return node.apiVersion;
   }
 
   bool _shouldVerify = true;
@@ -113,16 +125,16 @@ abstract class EventStoreClientBase {
     _credentials.clear();
   }
 
-  /// Check if given [feature] is supported by
-  /// [configured api version][EventStoreClientSettings.apiVersion]
-  bool isFeatureSupported(ApiFeature feature) =>
-      feature.allows(settings.apiVersion);
+  /// Check if given [feature] is supported by [apiVersion]
+  bool isFeatureSupported(ApiFeature feature) {
+    return feature.allows(apiVersion);
+  }
 
   /// @nodoc
   @visibleForOverriding
   void $verifyFeatureAllowed(ApiFeature feature) {
     if (!isFeatureSupported(feature)) {
-      throw FeatureNotSupportedException(feature, settings.apiVersion);
+      throw FeatureNotSupportedException(feature, apiVersion);
     }
   }
 

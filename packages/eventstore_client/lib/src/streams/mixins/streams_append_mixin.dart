@@ -179,7 +179,7 @@ mixin EventStoreStreamsAppendMixin on EventStoreStreamsMixin {
       ..correlationId = (UUID()..string = correlationId)
       ..isFinal = isFinal;
     if (isFirst) {
-      request.options = state.toBatchAppendReqOptions();
+      request.options = state.toBatchAppendReqOptions(this);
     }
     return request;
   }

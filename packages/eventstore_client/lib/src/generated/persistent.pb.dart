@@ -3,7 +3,7 @@
 //  source: persistent.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
@@ -2299,6 +2299,11 @@ class CreateReq_Settings extends $pb.GeneratedMessage {
             ? ''
             : 'checkpointAfterMs',
         $pb.PbFieldType.O3)
+    ..aOS(
+        16,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'consumerStrategy')
     ..hasRequiredFields = false;
 
   CreateReq_Settings._() : super();
@@ -2315,9 +2320,11 @@ class CreateReq_Settings extends $pb.GeneratedMessage {
     $core.int? liveBufferSize,
     $core.int? readBatchSize,
     $core.int? historyBufferSize,
-    CreateReq_ConsumerStrategy? namedConsumerStrategy,
+    @$core.Deprecated('This field is deprecated.')
+        CreateReq_ConsumerStrategy? namedConsumerStrategy,
     $core.int? messageTimeoutMs,
     $core.int? checkpointAfterMs,
+    $core.String? consumerStrategy,
   }) {
     final _result = create();
     if (resolveLinks != null) {
@@ -2358,6 +2365,7 @@ class CreateReq_Settings extends $pb.GeneratedMessage {
       _result.historyBufferSize = historyBufferSize;
     }
     if (namedConsumerStrategy != null) {
+      // ignore: deprecated_member_use_from_same_package
       _result.namedConsumerStrategy = namedConsumerStrategy;
     }
     if (messageTimeoutMs != null) {
@@ -2365,6 +2373,9 @@ class CreateReq_Settings extends $pb.GeneratedMessage {
     }
     if (checkpointAfterMs != null) {
       _result.checkpointAfterMs = checkpointAfterMs;
+    }
+    if (consumerStrategy != null) {
+      _result.consumerStrategy = consumerStrategy;
     }
     return _result;
   }
@@ -2551,15 +2562,19 @@ class CreateReq_Settings extends $pb.GeneratedMessage {
   @$pb.TagNumber(12)
   void clearHistoryBufferSize() => clearField(12);
 
+  @$core.Deprecated('This field is deprecated.')
   @$pb.TagNumber(13)
   CreateReq_ConsumerStrategy get namedConsumerStrategy => $_getN(12);
+  @$core.Deprecated('This field is deprecated.')
   @$pb.TagNumber(13)
   set namedConsumerStrategy(CreateReq_ConsumerStrategy v) {
     setField(13, v);
   }
 
+  @$core.Deprecated('This field is deprecated.')
   @$pb.TagNumber(13)
   $core.bool hasNamedConsumerStrategy() => $_has(12);
+  @$core.Deprecated('This field is deprecated.')
   @$pb.TagNumber(13)
   void clearNamedConsumerStrategy() => clearField(13);
 
@@ -2586,6 +2601,18 @@ class CreateReq_Settings extends $pb.GeneratedMessage {
   $core.bool hasCheckpointAfterMs() => $_has(14);
   @$pb.TagNumber(15)
   void clearCheckpointAfterMs() => clearField(15);
+
+  @$pb.TagNumber(16)
+  $core.String get consumerStrategy => $_getSZ(15);
+  @$pb.TagNumber(16)
+  set consumerStrategy($core.String v) {
+    $_setString(15, v);
+  }
+
+  @$pb.TagNumber(16)
+  $core.bool hasConsumerStrategy() => $_has(15);
+  @$pb.TagNumber(16)
+  void clearConsumerStrategy() => clearField(16);
 }
 
 class CreateReq extends $pb.GeneratedMessage {
@@ -4024,4 +4051,1883 @@ class DeleteResp extends $pb.GeneratedMessage {
   static DeleteResp getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<DeleteResp>(create);
   static DeleteResp? _defaultInstance;
+}
+
+enum GetInfoReq_Options_StreamOption { streamIdentifier, all, notSet }
+
+class GetInfoReq_Options extends $pb.GeneratedMessage {
+  static const $core.Map<$core.int, GetInfoReq_Options_StreamOption>
+      _GetInfoReq_Options_StreamOptionByTag = {
+    1: GetInfoReq_Options_StreamOption.streamIdentifier,
+    2: GetInfoReq_Options_StreamOption.all,
+    0: GetInfoReq_Options_StreamOption.notSet
+  };
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'GetInfoReq.Options',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.persistent_subscriptions'),
+      createEmptyInstance: create)
+    ..oo(0, [1, 2])
+    ..aOM<$1.StreamIdentifier>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'streamIdentifier',
+        subBuilder: $1.StreamIdentifier.create)
+    ..aOM<$1.Empty>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'all',
+        subBuilder: $1.Empty.create)
+    ..aOS(
+        3,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'groupName')
+    ..hasRequiredFields = false;
+
+  GetInfoReq_Options._() : super();
+  factory GetInfoReq_Options({
+    $1.StreamIdentifier? streamIdentifier,
+    $1.Empty? all,
+    $core.String? groupName,
+  }) {
+    final _result = create();
+    if (streamIdentifier != null) {
+      _result.streamIdentifier = streamIdentifier;
+    }
+    if (all != null) {
+      _result.all = all;
+    }
+    if (groupName != null) {
+      _result.groupName = groupName;
+    }
+    return _result;
+  }
+  factory GetInfoReq_Options.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory GetInfoReq_Options.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  GetInfoReq_Options clone() => GetInfoReq_Options()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  GetInfoReq_Options copyWith(void Function(GetInfoReq_Options) updates) =>
+      super.copyWith((message) => updates(message as GetInfoReq_Options))
+          as GetInfoReq_Options; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetInfoReq_Options create() => GetInfoReq_Options._();
+  GetInfoReq_Options createEmptyInstance() => create();
+  static $pb.PbList<GetInfoReq_Options> createRepeated() =>
+      $pb.PbList<GetInfoReq_Options>();
+  @$core.pragma('dart2js:noInline')
+  static GetInfoReq_Options getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<GetInfoReq_Options>(create);
+  static GetInfoReq_Options? _defaultInstance;
+
+  GetInfoReq_Options_StreamOption whichStreamOption() =>
+      _GetInfoReq_Options_StreamOptionByTag[$_whichOneof(0)]!;
+  void clearStreamOption() => clearField($_whichOneof(0));
+
+  @$pb.TagNumber(1)
+  $1.StreamIdentifier get streamIdentifier => $_getN(0);
+  @$pb.TagNumber(1)
+  set streamIdentifier($1.StreamIdentifier v) {
+    setField(1, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasStreamIdentifier() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearStreamIdentifier() => clearField(1);
+  @$pb.TagNumber(1)
+  $1.StreamIdentifier ensureStreamIdentifier() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $1.Empty get all => $_getN(1);
+  @$pb.TagNumber(2)
+  set all($1.Empty v) {
+    setField(2, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasAll() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAll() => clearField(2);
+  @$pb.TagNumber(2)
+  $1.Empty ensureAll() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $core.String get groupName => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set groupName($core.String v) {
+    $_setString(2, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasGroupName() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearGroupName() => clearField(3);
+}
+
+class GetInfoReq extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'GetInfoReq',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.persistent_subscriptions'),
+      createEmptyInstance: create)
+    ..aOM<GetInfoReq_Options>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'options',
+        subBuilder: GetInfoReq_Options.create)
+    ..hasRequiredFields = false;
+
+  GetInfoReq._() : super();
+  factory GetInfoReq({
+    GetInfoReq_Options? options,
+  }) {
+    final _result = create();
+    if (options != null) {
+      _result.options = options;
+    }
+    return _result;
+  }
+  factory GetInfoReq.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory GetInfoReq.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  GetInfoReq clone() => GetInfoReq()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  GetInfoReq copyWith(void Function(GetInfoReq) updates) =>
+      super.copyWith((message) => updates(message as GetInfoReq))
+          as GetInfoReq; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetInfoReq create() => GetInfoReq._();
+  GetInfoReq createEmptyInstance() => create();
+  static $pb.PbList<GetInfoReq> createRepeated() => $pb.PbList<GetInfoReq>();
+  @$core.pragma('dart2js:noInline')
+  static GetInfoReq getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<GetInfoReq>(create);
+  static GetInfoReq? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  GetInfoReq_Options get options => $_getN(0);
+  @$pb.TagNumber(1)
+  set options(GetInfoReq_Options v) {
+    setField(1, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasOptions() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearOptions() => clearField(1);
+  @$pb.TagNumber(1)
+  GetInfoReq_Options ensureOptions() => $_ensure(0);
+}
+
+class GetInfoResp extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'GetInfoResp',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.persistent_subscriptions'),
+      createEmptyInstance: create)
+    ..aOM<SubscriptionInfo>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'subscriptionInfo',
+        subBuilder: SubscriptionInfo.create)
+    ..hasRequiredFields = false;
+
+  GetInfoResp._() : super();
+  factory GetInfoResp({
+    SubscriptionInfo? subscriptionInfo,
+  }) {
+    final _result = create();
+    if (subscriptionInfo != null) {
+      _result.subscriptionInfo = subscriptionInfo;
+    }
+    return _result;
+  }
+  factory GetInfoResp.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory GetInfoResp.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  GetInfoResp clone() => GetInfoResp()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  GetInfoResp copyWith(void Function(GetInfoResp) updates) =>
+      super.copyWith((message) => updates(message as GetInfoResp))
+          as GetInfoResp; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetInfoResp create() => GetInfoResp._();
+  GetInfoResp createEmptyInstance() => create();
+  static $pb.PbList<GetInfoResp> createRepeated() => $pb.PbList<GetInfoResp>();
+  @$core.pragma('dart2js:noInline')
+  static GetInfoResp getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<GetInfoResp>(create);
+  static GetInfoResp? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  SubscriptionInfo get subscriptionInfo => $_getN(0);
+  @$pb.TagNumber(1)
+  set subscriptionInfo(SubscriptionInfo v) {
+    setField(1, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasSubscriptionInfo() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSubscriptionInfo() => clearField(1);
+  @$pb.TagNumber(1)
+  SubscriptionInfo ensureSubscriptionInfo() => $_ensure(0);
+}
+
+class SubscriptionInfo_ConnectionInfo extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'SubscriptionInfo.ConnectionInfo',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.persistent_subscriptions'),
+      createEmptyInstance: create)
+    ..aOS(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'from')
+    ..aOS(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'username')
+    ..a<$core.int>(
+        3,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'averageItemsPerSecond',
+        $pb.PbFieldType.O3)
+    ..aInt64(
+        4,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'totalItems')
+    ..aInt64(
+        5,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'countSinceLastMeasurement')
+    ..pc<SubscriptionInfo_Measurement>(
+        6,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'observedMeasurements',
+        $pb.PbFieldType.PM,
+        subBuilder: SubscriptionInfo_Measurement.create)
+    ..a<$core.int>(
+        7,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'availableSlots',
+        $pb.PbFieldType.O3)
+    ..a<$core.int>(
+        8,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'inFlightMessages',
+        $pb.PbFieldType.O3)
+    ..aOS(
+        9,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'connectionName')
+    ..hasRequiredFields = false;
+
+  SubscriptionInfo_ConnectionInfo._() : super();
+  factory SubscriptionInfo_ConnectionInfo({
+    $core.String? from,
+    $core.String? username,
+    $core.int? averageItemsPerSecond,
+    $fixnum.Int64? totalItems,
+    $fixnum.Int64? countSinceLastMeasurement,
+    $core.Iterable<SubscriptionInfo_Measurement>? observedMeasurements,
+    $core.int? availableSlots,
+    $core.int? inFlightMessages,
+    $core.String? connectionName,
+  }) {
+    final _result = create();
+    if (from != null) {
+      _result.from = from;
+    }
+    if (username != null) {
+      _result.username = username;
+    }
+    if (averageItemsPerSecond != null) {
+      _result.averageItemsPerSecond = averageItemsPerSecond;
+    }
+    if (totalItems != null) {
+      _result.totalItems = totalItems;
+    }
+    if (countSinceLastMeasurement != null) {
+      _result.countSinceLastMeasurement = countSinceLastMeasurement;
+    }
+    if (observedMeasurements != null) {
+      _result.observedMeasurements.addAll(observedMeasurements);
+    }
+    if (availableSlots != null) {
+      _result.availableSlots = availableSlots;
+    }
+    if (inFlightMessages != null) {
+      _result.inFlightMessages = inFlightMessages;
+    }
+    if (connectionName != null) {
+      _result.connectionName = connectionName;
+    }
+    return _result;
+  }
+  factory SubscriptionInfo_ConnectionInfo.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory SubscriptionInfo_ConnectionInfo.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  SubscriptionInfo_ConnectionInfo clone() =>
+      SubscriptionInfo_ConnectionInfo()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  SubscriptionInfo_ConnectionInfo copyWith(
+          void Function(SubscriptionInfo_ConnectionInfo) updates) =>
+      super.copyWith(
+              (message) => updates(message as SubscriptionInfo_ConnectionInfo))
+          as SubscriptionInfo_ConnectionInfo; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static SubscriptionInfo_ConnectionInfo create() =>
+      SubscriptionInfo_ConnectionInfo._();
+  SubscriptionInfo_ConnectionInfo createEmptyInstance() => create();
+  static $pb.PbList<SubscriptionInfo_ConnectionInfo> createRepeated() =>
+      $pb.PbList<SubscriptionInfo_ConnectionInfo>();
+  @$core.pragma('dart2js:noInline')
+  static SubscriptionInfo_ConnectionInfo getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<SubscriptionInfo_ConnectionInfo>(
+          create);
+  static SubscriptionInfo_ConnectionInfo? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get from => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set from($core.String v) {
+    $_setString(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasFrom() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearFrom() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get username => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set username($core.String v) {
+    $_setString(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasUsername() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUsername() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get averageItemsPerSecond => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set averageItemsPerSecond($core.int v) {
+    $_setSignedInt32(2, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasAverageItemsPerSecond() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearAverageItemsPerSecond() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $fixnum.Int64 get totalItems => $_getI64(3);
+  @$pb.TagNumber(4)
+  set totalItems($fixnum.Int64 v) {
+    $_setInt64(3, v);
+  }
+
+  @$pb.TagNumber(4)
+  $core.bool hasTotalItems() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearTotalItems() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $fixnum.Int64 get countSinceLastMeasurement => $_getI64(4);
+  @$pb.TagNumber(5)
+  set countSinceLastMeasurement($fixnum.Int64 v) {
+    $_setInt64(4, v);
+  }
+
+  @$pb.TagNumber(5)
+  $core.bool hasCountSinceLastMeasurement() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearCountSinceLastMeasurement() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.List<SubscriptionInfo_Measurement> get observedMeasurements =>
+      $_getList(5);
+
+  @$pb.TagNumber(7)
+  $core.int get availableSlots => $_getIZ(6);
+  @$pb.TagNumber(7)
+  set availableSlots($core.int v) {
+    $_setSignedInt32(6, v);
+  }
+
+  @$pb.TagNumber(7)
+  $core.bool hasAvailableSlots() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearAvailableSlots() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.int get inFlightMessages => $_getIZ(7);
+  @$pb.TagNumber(8)
+  set inFlightMessages($core.int v) {
+    $_setSignedInt32(7, v);
+  }
+
+  @$pb.TagNumber(8)
+  $core.bool hasInFlightMessages() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearInFlightMessages() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.String get connectionName => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set connectionName($core.String v) {
+    $_setString(8, v);
+  }
+
+  @$pb.TagNumber(9)
+  $core.bool hasConnectionName() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearConnectionName() => clearField(9);
+}
+
+class SubscriptionInfo_Measurement extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'SubscriptionInfo.Measurement',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.persistent_subscriptions'),
+      createEmptyInstance: create)
+    ..aOS(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'key')
+    ..aInt64(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'value')
+    ..hasRequiredFields = false;
+
+  SubscriptionInfo_Measurement._() : super();
+  factory SubscriptionInfo_Measurement({
+    $core.String? key,
+    $fixnum.Int64? value,
+  }) {
+    final _result = create();
+    if (key != null) {
+      _result.key = key;
+    }
+    if (value != null) {
+      _result.value = value;
+    }
+    return _result;
+  }
+  factory SubscriptionInfo_Measurement.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory SubscriptionInfo_Measurement.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  SubscriptionInfo_Measurement clone() =>
+      SubscriptionInfo_Measurement()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  SubscriptionInfo_Measurement copyWith(
+          void Function(SubscriptionInfo_Measurement) updates) =>
+      super.copyWith(
+              (message) => updates(message as SubscriptionInfo_Measurement))
+          as SubscriptionInfo_Measurement; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static SubscriptionInfo_Measurement create() =>
+      SubscriptionInfo_Measurement._();
+  SubscriptionInfo_Measurement createEmptyInstance() => create();
+  static $pb.PbList<SubscriptionInfo_Measurement> createRepeated() =>
+      $pb.PbList<SubscriptionInfo_Measurement>();
+  @$core.pragma('dart2js:noInline')
+  static SubscriptionInfo_Measurement getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<SubscriptionInfo_Measurement>(create);
+  static SubscriptionInfo_Measurement? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get key => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set key($core.String v) {
+    $_setString(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $fixnum.Int64 get value => $_getI64(1);
+  @$pb.TagNumber(2)
+  set value($fixnum.Int64 v) {
+    $_setInt64(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasValue() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearValue() => clearField(2);
+}
+
+class SubscriptionInfo extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'SubscriptionInfo',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.persistent_subscriptions'),
+      createEmptyInstance: create)
+    ..aOS(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'eventSource')
+    ..aOS(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'groupName')
+    ..aOS(
+        3,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'status')
+    ..pc<SubscriptionInfo_ConnectionInfo>(
+        4,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'connections',
+        $pb.PbFieldType.PM,
+        subBuilder: SubscriptionInfo_ConnectionInfo.create)
+    ..a<$core.int>(
+        5,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'averagePerSecond',
+        $pb.PbFieldType.O3)
+    ..aInt64(
+        6,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'totalItems')
+    ..aInt64(
+        7,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'countSinceLastMeasurement')
+    ..aOS(
+        8,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'lastCheckpointedEventPosition')
+    ..aOS(
+        9,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'lastKnownEventPosition')
+    ..aOB(
+        10,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'resolveLinkTos')
+    ..aOS(
+        11,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'startFrom')
+    ..a<$core.int>(
+        12,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'messageTimeoutMilliseconds',
+        $pb.PbFieldType.O3)
+    ..aOB(
+        13,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'extraStatistics')
+    ..a<$core.int>(
+        14,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'maxRetryCount',
+        $pb.PbFieldType.O3)
+    ..a<$core.int>(
+        15,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'liveBufferSize',
+        $pb.PbFieldType.O3)
+    ..a<$core.int>(
+        16,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'bufferSize',
+        $pb.PbFieldType.O3)
+    ..a<$core.int>(
+        17,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'readBatchSize',
+        $pb.PbFieldType.O3)
+    ..a<$core.int>(
+        18,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'checkPointAfterMilliseconds',
+        $pb.PbFieldType.O3)
+    ..a<$core.int>(
+        19,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'minCheckPointCount',
+        $pb.PbFieldType.O3)
+    ..a<$core.int>(
+        20,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'maxCheckPointCount',
+        $pb.PbFieldType.O3)
+    ..a<$core.int>(
+        21,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'readBufferCount',
+        $pb.PbFieldType.O3)
+    ..aInt64(
+        22,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'liveBufferCount')
+    ..a<$core.int>(
+        23,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'retryBufferCount',
+        $pb.PbFieldType.O3)
+    ..a<$core.int>(
+        24,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'totalInFlightMessages',
+        $pb.PbFieldType.O3)
+    ..a<$core.int>(
+        25,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'outstandingMessagesCount',
+        $pb.PbFieldType.O3)
+    ..aOS(
+        26,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'namedConsumerStrategy')
+    ..a<$core.int>(
+        27,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'maxSubscriberCount',
+        $pb.PbFieldType.O3)
+    ..aInt64(
+        28,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'parkedMessageCount')
+    ..hasRequiredFields = false;
+
+  SubscriptionInfo._() : super();
+  factory SubscriptionInfo({
+    $core.String? eventSource,
+    $core.String? groupName,
+    $core.String? status,
+    $core.Iterable<SubscriptionInfo_ConnectionInfo>? connections,
+    $core.int? averagePerSecond,
+    $fixnum.Int64? totalItems,
+    $fixnum.Int64? countSinceLastMeasurement,
+    $core.String? lastCheckpointedEventPosition,
+    $core.String? lastKnownEventPosition,
+    $core.bool? resolveLinkTos,
+    $core.String? startFrom,
+    $core.int? messageTimeoutMilliseconds,
+    $core.bool? extraStatistics,
+    $core.int? maxRetryCount,
+    $core.int? liveBufferSize,
+    $core.int? bufferSize,
+    $core.int? readBatchSize,
+    $core.int? checkPointAfterMilliseconds,
+    $core.int? minCheckPointCount,
+    $core.int? maxCheckPointCount,
+    $core.int? readBufferCount,
+    $fixnum.Int64? liveBufferCount,
+    $core.int? retryBufferCount,
+    $core.int? totalInFlightMessages,
+    $core.int? outstandingMessagesCount,
+    $core.String? namedConsumerStrategy,
+    $core.int? maxSubscriberCount,
+    $fixnum.Int64? parkedMessageCount,
+  }) {
+    final _result = create();
+    if (eventSource != null) {
+      _result.eventSource = eventSource;
+    }
+    if (groupName != null) {
+      _result.groupName = groupName;
+    }
+    if (status != null) {
+      _result.status = status;
+    }
+    if (connections != null) {
+      _result.connections.addAll(connections);
+    }
+    if (averagePerSecond != null) {
+      _result.averagePerSecond = averagePerSecond;
+    }
+    if (totalItems != null) {
+      _result.totalItems = totalItems;
+    }
+    if (countSinceLastMeasurement != null) {
+      _result.countSinceLastMeasurement = countSinceLastMeasurement;
+    }
+    if (lastCheckpointedEventPosition != null) {
+      _result.lastCheckpointedEventPosition = lastCheckpointedEventPosition;
+    }
+    if (lastKnownEventPosition != null) {
+      _result.lastKnownEventPosition = lastKnownEventPosition;
+    }
+    if (resolveLinkTos != null) {
+      _result.resolveLinkTos = resolveLinkTos;
+    }
+    if (startFrom != null) {
+      _result.startFrom = startFrom;
+    }
+    if (messageTimeoutMilliseconds != null) {
+      _result.messageTimeoutMilliseconds = messageTimeoutMilliseconds;
+    }
+    if (extraStatistics != null) {
+      _result.extraStatistics = extraStatistics;
+    }
+    if (maxRetryCount != null) {
+      _result.maxRetryCount = maxRetryCount;
+    }
+    if (liveBufferSize != null) {
+      _result.liveBufferSize = liveBufferSize;
+    }
+    if (bufferSize != null) {
+      _result.bufferSize = bufferSize;
+    }
+    if (readBatchSize != null) {
+      _result.readBatchSize = readBatchSize;
+    }
+    if (checkPointAfterMilliseconds != null) {
+      _result.checkPointAfterMilliseconds = checkPointAfterMilliseconds;
+    }
+    if (minCheckPointCount != null) {
+      _result.minCheckPointCount = minCheckPointCount;
+    }
+    if (maxCheckPointCount != null) {
+      _result.maxCheckPointCount = maxCheckPointCount;
+    }
+    if (readBufferCount != null) {
+      _result.readBufferCount = readBufferCount;
+    }
+    if (liveBufferCount != null) {
+      _result.liveBufferCount = liveBufferCount;
+    }
+    if (retryBufferCount != null) {
+      _result.retryBufferCount = retryBufferCount;
+    }
+    if (totalInFlightMessages != null) {
+      _result.totalInFlightMessages = totalInFlightMessages;
+    }
+    if (outstandingMessagesCount != null) {
+      _result.outstandingMessagesCount = outstandingMessagesCount;
+    }
+    if (namedConsumerStrategy != null) {
+      _result.namedConsumerStrategy = namedConsumerStrategy;
+    }
+    if (maxSubscriberCount != null) {
+      _result.maxSubscriberCount = maxSubscriberCount;
+    }
+    if (parkedMessageCount != null) {
+      _result.parkedMessageCount = parkedMessageCount;
+    }
+    return _result;
+  }
+  factory SubscriptionInfo.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory SubscriptionInfo.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  SubscriptionInfo clone() => SubscriptionInfo()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  SubscriptionInfo copyWith(void Function(SubscriptionInfo) updates) =>
+      super.copyWith((message) => updates(message as SubscriptionInfo))
+          as SubscriptionInfo; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static SubscriptionInfo create() => SubscriptionInfo._();
+  SubscriptionInfo createEmptyInstance() => create();
+  static $pb.PbList<SubscriptionInfo> createRepeated() =>
+      $pb.PbList<SubscriptionInfo>();
+  @$core.pragma('dart2js:noInline')
+  static SubscriptionInfo getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<SubscriptionInfo>(create);
+  static SubscriptionInfo? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get eventSource => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set eventSource($core.String v) {
+    $_setString(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasEventSource() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEventSource() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get groupName => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set groupName($core.String v) {
+    $_setString(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasGroupName() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearGroupName() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get status => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set status($core.String v) {
+    $_setString(2, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasStatus() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearStatus() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.List<SubscriptionInfo_ConnectionInfo> get connections => $_getList(3);
+
+  @$pb.TagNumber(5)
+  $core.int get averagePerSecond => $_getIZ(4);
+  @$pb.TagNumber(5)
+  set averagePerSecond($core.int v) {
+    $_setSignedInt32(4, v);
+  }
+
+  @$pb.TagNumber(5)
+  $core.bool hasAveragePerSecond() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearAveragePerSecond() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $fixnum.Int64 get totalItems => $_getI64(5);
+  @$pb.TagNumber(6)
+  set totalItems($fixnum.Int64 v) {
+    $_setInt64(5, v);
+  }
+
+  @$pb.TagNumber(6)
+  $core.bool hasTotalItems() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearTotalItems() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $fixnum.Int64 get countSinceLastMeasurement => $_getI64(6);
+  @$pb.TagNumber(7)
+  set countSinceLastMeasurement($fixnum.Int64 v) {
+    $_setInt64(6, v);
+  }
+
+  @$pb.TagNumber(7)
+  $core.bool hasCountSinceLastMeasurement() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearCountSinceLastMeasurement() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get lastCheckpointedEventPosition => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set lastCheckpointedEventPosition($core.String v) {
+    $_setString(7, v);
+  }
+
+  @$pb.TagNumber(8)
+  $core.bool hasLastCheckpointedEventPosition() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearLastCheckpointedEventPosition() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.String get lastKnownEventPosition => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set lastKnownEventPosition($core.String v) {
+    $_setString(8, v);
+  }
+
+  @$pb.TagNumber(9)
+  $core.bool hasLastKnownEventPosition() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearLastKnownEventPosition() => clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.bool get resolveLinkTos => $_getBF(9);
+  @$pb.TagNumber(10)
+  set resolveLinkTos($core.bool v) {
+    $_setBool(9, v);
+  }
+
+  @$pb.TagNumber(10)
+  $core.bool hasResolveLinkTos() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearResolveLinkTos() => clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.String get startFrom => $_getSZ(10);
+  @$pb.TagNumber(11)
+  set startFrom($core.String v) {
+    $_setString(10, v);
+  }
+
+  @$pb.TagNumber(11)
+  $core.bool hasStartFrom() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearStartFrom() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.int get messageTimeoutMilliseconds => $_getIZ(11);
+  @$pb.TagNumber(12)
+  set messageTimeoutMilliseconds($core.int v) {
+    $_setSignedInt32(11, v);
+  }
+
+  @$pb.TagNumber(12)
+  $core.bool hasMessageTimeoutMilliseconds() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearMessageTimeoutMilliseconds() => clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.bool get extraStatistics => $_getBF(12);
+  @$pb.TagNumber(13)
+  set extraStatistics($core.bool v) {
+    $_setBool(12, v);
+  }
+
+  @$pb.TagNumber(13)
+  $core.bool hasExtraStatistics() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearExtraStatistics() => clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.int get maxRetryCount => $_getIZ(13);
+  @$pb.TagNumber(14)
+  set maxRetryCount($core.int v) {
+    $_setSignedInt32(13, v);
+  }
+
+  @$pb.TagNumber(14)
+  $core.bool hasMaxRetryCount() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearMaxRetryCount() => clearField(14);
+
+  @$pb.TagNumber(15)
+  $core.int get liveBufferSize => $_getIZ(14);
+  @$pb.TagNumber(15)
+  set liveBufferSize($core.int v) {
+    $_setSignedInt32(14, v);
+  }
+
+  @$pb.TagNumber(15)
+  $core.bool hasLiveBufferSize() => $_has(14);
+  @$pb.TagNumber(15)
+  void clearLiveBufferSize() => clearField(15);
+
+  @$pb.TagNumber(16)
+  $core.int get bufferSize => $_getIZ(15);
+  @$pb.TagNumber(16)
+  set bufferSize($core.int v) {
+    $_setSignedInt32(15, v);
+  }
+
+  @$pb.TagNumber(16)
+  $core.bool hasBufferSize() => $_has(15);
+  @$pb.TagNumber(16)
+  void clearBufferSize() => clearField(16);
+
+  @$pb.TagNumber(17)
+  $core.int get readBatchSize => $_getIZ(16);
+  @$pb.TagNumber(17)
+  set readBatchSize($core.int v) {
+    $_setSignedInt32(16, v);
+  }
+
+  @$pb.TagNumber(17)
+  $core.bool hasReadBatchSize() => $_has(16);
+  @$pb.TagNumber(17)
+  void clearReadBatchSize() => clearField(17);
+
+  @$pb.TagNumber(18)
+  $core.int get checkPointAfterMilliseconds => $_getIZ(17);
+  @$pb.TagNumber(18)
+  set checkPointAfterMilliseconds($core.int v) {
+    $_setSignedInt32(17, v);
+  }
+
+  @$pb.TagNumber(18)
+  $core.bool hasCheckPointAfterMilliseconds() => $_has(17);
+  @$pb.TagNumber(18)
+  void clearCheckPointAfterMilliseconds() => clearField(18);
+
+  @$pb.TagNumber(19)
+  $core.int get minCheckPointCount => $_getIZ(18);
+  @$pb.TagNumber(19)
+  set minCheckPointCount($core.int v) {
+    $_setSignedInt32(18, v);
+  }
+
+  @$pb.TagNumber(19)
+  $core.bool hasMinCheckPointCount() => $_has(18);
+  @$pb.TagNumber(19)
+  void clearMinCheckPointCount() => clearField(19);
+
+  @$pb.TagNumber(20)
+  $core.int get maxCheckPointCount => $_getIZ(19);
+  @$pb.TagNumber(20)
+  set maxCheckPointCount($core.int v) {
+    $_setSignedInt32(19, v);
+  }
+
+  @$pb.TagNumber(20)
+  $core.bool hasMaxCheckPointCount() => $_has(19);
+  @$pb.TagNumber(20)
+  void clearMaxCheckPointCount() => clearField(20);
+
+  @$pb.TagNumber(21)
+  $core.int get readBufferCount => $_getIZ(20);
+  @$pb.TagNumber(21)
+  set readBufferCount($core.int v) {
+    $_setSignedInt32(20, v);
+  }
+
+  @$pb.TagNumber(21)
+  $core.bool hasReadBufferCount() => $_has(20);
+  @$pb.TagNumber(21)
+  void clearReadBufferCount() => clearField(21);
+
+  @$pb.TagNumber(22)
+  $fixnum.Int64 get liveBufferCount => $_getI64(21);
+  @$pb.TagNumber(22)
+  set liveBufferCount($fixnum.Int64 v) {
+    $_setInt64(21, v);
+  }
+
+  @$pb.TagNumber(22)
+  $core.bool hasLiveBufferCount() => $_has(21);
+  @$pb.TagNumber(22)
+  void clearLiveBufferCount() => clearField(22);
+
+  @$pb.TagNumber(23)
+  $core.int get retryBufferCount => $_getIZ(22);
+  @$pb.TagNumber(23)
+  set retryBufferCount($core.int v) {
+    $_setSignedInt32(22, v);
+  }
+
+  @$pb.TagNumber(23)
+  $core.bool hasRetryBufferCount() => $_has(22);
+  @$pb.TagNumber(23)
+  void clearRetryBufferCount() => clearField(23);
+
+  @$pb.TagNumber(24)
+  $core.int get totalInFlightMessages => $_getIZ(23);
+  @$pb.TagNumber(24)
+  set totalInFlightMessages($core.int v) {
+    $_setSignedInt32(23, v);
+  }
+
+  @$pb.TagNumber(24)
+  $core.bool hasTotalInFlightMessages() => $_has(23);
+  @$pb.TagNumber(24)
+  void clearTotalInFlightMessages() => clearField(24);
+
+  @$pb.TagNumber(25)
+  $core.int get outstandingMessagesCount => $_getIZ(24);
+  @$pb.TagNumber(25)
+  set outstandingMessagesCount($core.int v) {
+    $_setSignedInt32(24, v);
+  }
+
+  @$pb.TagNumber(25)
+  $core.bool hasOutstandingMessagesCount() => $_has(24);
+  @$pb.TagNumber(25)
+  void clearOutstandingMessagesCount() => clearField(25);
+
+  @$pb.TagNumber(26)
+  $core.String get namedConsumerStrategy => $_getSZ(25);
+  @$pb.TagNumber(26)
+  set namedConsumerStrategy($core.String v) {
+    $_setString(25, v);
+  }
+
+  @$pb.TagNumber(26)
+  $core.bool hasNamedConsumerStrategy() => $_has(25);
+  @$pb.TagNumber(26)
+  void clearNamedConsumerStrategy() => clearField(26);
+
+  @$pb.TagNumber(27)
+  $core.int get maxSubscriberCount => $_getIZ(26);
+  @$pb.TagNumber(27)
+  set maxSubscriberCount($core.int v) {
+    $_setSignedInt32(26, v);
+  }
+
+  @$pb.TagNumber(27)
+  $core.bool hasMaxSubscriberCount() => $_has(26);
+  @$pb.TagNumber(27)
+  void clearMaxSubscriberCount() => clearField(27);
+
+  @$pb.TagNumber(28)
+  $fixnum.Int64 get parkedMessageCount => $_getI64(27);
+  @$pb.TagNumber(28)
+  set parkedMessageCount($fixnum.Int64 v) {
+    $_setInt64(27, v);
+  }
+
+  @$pb.TagNumber(28)
+  $core.bool hasParkedMessageCount() => $_has(27);
+  @$pb.TagNumber(28)
+  void clearParkedMessageCount() => clearField(28);
+}
+
+enum ReplayParkedReq_Options_StreamOption { streamIdentifier, all, notSet }
+
+enum ReplayParkedReq_Options_StopAtOption { stopAt, noLimit, notSet }
+
+class ReplayParkedReq_Options extends $pb.GeneratedMessage {
+  static const $core.Map<$core.int, ReplayParkedReq_Options_StreamOption>
+      _ReplayParkedReq_Options_StreamOptionByTag = {
+    2: ReplayParkedReq_Options_StreamOption.streamIdentifier,
+    3: ReplayParkedReq_Options_StreamOption.all,
+    0: ReplayParkedReq_Options_StreamOption.notSet
+  };
+  static const $core.Map<$core.int, ReplayParkedReq_Options_StopAtOption>
+      _ReplayParkedReq_Options_StopAtOptionByTag = {
+    4: ReplayParkedReq_Options_StopAtOption.stopAt,
+    5: ReplayParkedReq_Options_StopAtOption.noLimit,
+    0: ReplayParkedReq_Options_StopAtOption.notSet
+  };
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ReplayParkedReq.Options',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.persistent_subscriptions'),
+      createEmptyInstance: create)
+    ..oo(0, [2, 3])
+    ..oo(1, [4, 5])
+    ..aOS(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'groupName')
+    ..aOM<$1.StreamIdentifier>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'streamIdentifier',
+        subBuilder: $1.StreamIdentifier.create)
+    ..aOM<$1.Empty>(
+        3,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'all',
+        subBuilder: $1.Empty.create)
+    ..aInt64(
+        4,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'stopAt')
+    ..aOM<$1.Empty>(
+        5,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'noLimit',
+        subBuilder: $1.Empty.create)
+    ..hasRequiredFields = false;
+
+  ReplayParkedReq_Options._() : super();
+  factory ReplayParkedReq_Options({
+    $core.String? groupName,
+    $1.StreamIdentifier? streamIdentifier,
+    $1.Empty? all,
+    $fixnum.Int64? stopAt,
+    $1.Empty? noLimit,
+  }) {
+    final _result = create();
+    if (groupName != null) {
+      _result.groupName = groupName;
+    }
+    if (streamIdentifier != null) {
+      _result.streamIdentifier = streamIdentifier;
+    }
+    if (all != null) {
+      _result.all = all;
+    }
+    if (stopAt != null) {
+      _result.stopAt = stopAt;
+    }
+    if (noLimit != null) {
+      _result.noLimit = noLimit;
+    }
+    return _result;
+  }
+  factory ReplayParkedReq_Options.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ReplayParkedReq_Options.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ReplayParkedReq_Options clone() =>
+      ReplayParkedReq_Options()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ReplayParkedReq_Options copyWith(
+          void Function(ReplayParkedReq_Options) updates) =>
+      super.copyWith((message) => updates(message as ReplayParkedReq_Options))
+          as ReplayParkedReq_Options; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ReplayParkedReq_Options create() => ReplayParkedReq_Options._();
+  ReplayParkedReq_Options createEmptyInstance() => create();
+  static $pb.PbList<ReplayParkedReq_Options> createRepeated() =>
+      $pb.PbList<ReplayParkedReq_Options>();
+  @$core.pragma('dart2js:noInline')
+  static ReplayParkedReq_Options getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ReplayParkedReq_Options>(create);
+  static ReplayParkedReq_Options? _defaultInstance;
+
+  ReplayParkedReq_Options_StreamOption whichStreamOption() =>
+      _ReplayParkedReq_Options_StreamOptionByTag[$_whichOneof(0)]!;
+  void clearStreamOption() => clearField($_whichOneof(0));
+
+  ReplayParkedReq_Options_StopAtOption whichStopAtOption() =>
+      _ReplayParkedReq_Options_StopAtOptionByTag[$_whichOneof(1)]!;
+  void clearStopAtOption() => clearField($_whichOneof(1));
+
+  @$pb.TagNumber(1)
+  $core.String get groupName => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set groupName($core.String v) {
+    $_setString(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasGroupName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearGroupName() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $1.StreamIdentifier get streamIdentifier => $_getN(1);
+  @$pb.TagNumber(2)
+  set streamIdentifier($1.StreamIdentifier v) {
+    setField(2, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasStreamIdentifier() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearStreamIdentifier() => clearField(2);
+  @$pb.TagNumber(2)
+  $1.StreamIdentifier ensureStreamIdentifier() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $1.Empty get all => $_getN(2);
+  @$pb.TagNumber(3)
+  set all($1.Empty v) {
+    setField(3, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasAll() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearAll() => clearField(3);
+  @$pb.TagNumber(3)
+  $1.Empty ensureAll() => $_ensure(2);
+
+  @$pb.TagNumber(4)
+  $fixnum.Int64 get stopAt => $_getI64(3);
+  @$pb.TagNumber(4)
+  set stopAt($fixnum.Int64 v) {
+    $_setInt64(3, v);
+  }
+
+  @$pb.TagNumber(4)
+  $core.bool hasStopAt() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearStopAt() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $1.Empty get noLimit => $_getN(4);
+  @$pb.TagNumber(5)
+  set noLimit($1.Empty v) {
+    setField(5, v);
+  }
+
+  @$pb.TagNumber(5)
+  $core.bool hasNoLimit() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearNoLimit() => clearField(5);
+  @$pb.TagNumber(5)
+  $1.Empty ensureNoLimit() => $_ensure(4);
+}
+
+class ReplayParkedReq extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ReplayParkedReq',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.persistent_subscriptions'),
+      createEmptyInstance: create)
+    ..aOM<ReplayParkedReq_Options>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'options',
+        subBuilder: ReplayParkedReq_Options.create)
+    ..hasRequiredFields = false;
+
+  ReplayParkedReq._() : super();
+  factory ReplayParkedReq({
+    ReplayParkedReq_Options? options,
+  }) {
+    final _result = create();
+    if (options != null) {
+      _result.options = options;
+    }
+    return _result;
+  }
+  factory ReplayParkedReq.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ReplayParkedReq.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ReplayParkedReq clone() => ReplayParkedReq()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ReplayParkedReq copyWith(void Function(ReplayParkedReq) updates) =>
+      super.copyWith((message) => updates(message as ReplayParkedReq))
+          as ReplayParkedReq; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ReplayParkedReq create() => ReplayParkedReq._();
+  ReplayParkedReq createEmptyInstance() => create();
+  static $pb.PbList<ReplayParkedReq> createRepeated() =>
+      $pb.PbList<ReplayParkedReq>();
+  @$core.pragma('dart2js:noInline')
+  static ReplayParkedReq getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ReplayParkedReq>(create);
+  static ReplayParkedReq? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  ReplayParkedReq_Options get options => $_getN(0);
+  @$pb.TagNumber(1)
+  set options(ReplayParkedReq_Options v) {
+    setField(1, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasOptions() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearOptions() => clearField(1);
+  @$pb.TagNumber(1)
+  ReplayParkedReq_Options ensureOptions() => $_ensure(0);
+}
+
+class ReplayParkedResp extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ReplayParkedResp',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.persistent_subscriptions'),
+      createEmptyInstance: create)
+    ..hasRequiredFields = false;
+
+  ReplayParkedResp._() : super();
+  factory ReplayParkedResp() => create();
+  factory ReplayParkedResp.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ReplayParkedResp.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ReplayParkedResp clone() => ReplayParkedResp()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ReplayParkedResp copyWith(void Function(ReplayParkedResp) updates) =>
+      super.copyWith((message) => updates(message as ReplayParkedResp))
+          as ReplayParkedResp; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ReplayParkedResp create() => ReplayParkedResp._();
+  ReplayParkedResp createEmptyInstance() => create();
+  static $pb.PbList<ReplayParkedResp> createRepeated() =>
+      $pb.PbList<ReplayParkedResp>();
+  @$core.pragma('dart2js:noInline')
+  static ReplayParkedResp getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ReplayParkedResp>(create);
+  static ReplayParkedResp? _defaultInstance;
+}
+
+enum ListReq_Options_ListOption { listAllSubscriptions, listForStream, notSet }
+
+class ListReq_Options extends $pb.GeneratedMessage {
+  static const $core.Map<$core.int, ListReq_Options_ListOption>
+      _ListReq_Options_ListOptionByTag = {
+    1: ListReq_Options_ListOption.listAllSubscriptions,
+    2: ListReq_Options_ListOption.listForStream,
+    0: ListReq_Options_ListOption.notSet
+  };
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ListReq.Options',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.persistent_subscriptions'),
+      createEmptyInstance: create)
+    ..oo(0, [1, 2])
+    ..aOM<$1.Empty>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'listAllSubscriptions',
+        subBuilder: $1.Empty.create)
+    ..aOM<ListReq_StreamOption>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'listForStream',
+        subBuilder: ListReq_StreamOption.create)
+    ..hasRequiredFields = false;
+
+  ListReq_Options._() : super();
+  factory ListReq_Options({
+    $1.Empty? listAllSubscriptions,
+    ListReq_StreamOption? listForStream,
+  }) {
+    final _result = create();
+    if (listAllSubscriptions != null) {
+      _result.listAllSubscriptions = listAllSubscriptions;
+    }
+    if (listForStream != null) {
+      _result.listForStream = listForStream;
+    }
+    return _result;
+  }
+  factory ListReq_Options.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ListReq_Options.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ListReq_Options clone() => ListReq_Options()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ListReq_Options copyWith(void Function(ListReq_Options) updates) =>
+      super.copyWith((message) => updates(message as ListReq_Options))
+          as ListReq_Options; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ListReq_Options create() => ListReq_Options._();
+  ListReq_Options createEmptyInstance() => create();
+  static $pb.PbList<ListReq_Options> createRepeated() =>
+      $pb.PbList<ListReq_Options>();
+  @$core.pragma('dart2js:noInline')
+  static ListReq_Options getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ListReq_Options>(create);
+  static ListReq_Options? _defaultInstance;
+
+  ListReq_Options_ListOption whichListOption() =>
+      _ListReq_Options_ListOptionByTag[$_whichOneof(0)]!;
+  void clearListOption() => clearField($_whichOneof(0));
+
+  @$pb.TagNumber(1)
+  $1.Empty get listAllSubscriptions => $_getN(0);
+  @$pb.TagNumber(1)
+  set listAllSubscriptions($1.Empty v) {
+    setField(1, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasListAllSubscriptions() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearListAllSubscriptions() => clearField(1);
+  @$pb.TagNumber(1)
+  $1.Empty ensureListAllSubscriptions() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  ListReq_StreamOption get listForStream => $_getN(1);
+  @$pb.TagNumber(2)
+  set listForStream(ListReq_StreamOption v) {
+    setField(2, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasListForStream() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearListForStream() => clearField(2);
+  @$pb.TagNumber(2)
+  ListReq_StreamOption ensureListForStream() => $_ensure(1);
+}
+
+enum ListReq_StreamOption_StreamOption { stream, all, notSet }
+
+class ListReq_StreamOption extends $pb.GeneratedMessage {
+  static const $core.Map<$core.int, ListReq_StreamOption_StreamOption>
+      _ListReq_StreamOption_StreamOptionByTag = {
+    1: ListReq_StreamOption_StreamOption.stream,
+    2: ListReq_StreamOption_StreamOption.all,
+    0: ListReq_StreamOption_StreamOption.notSet
+  };
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ListReq.StreamOption',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.persistent_subscriptions'),
+      createEmptyInstance: create)
+    ..oo(0, [1, 2])
+    ..aOM<$1.StreamIdentifier>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'stream',
+        subBuilder: $1.StreamIdentifier.create)
+    ..aOM<$1.Empty>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'all',
+        subBuilder: $1.Empty.create)
+    ..hasRequiredFields = false;
+
+  ListReq_StreamOption._() : super();
+  factory ListReq_StreamOption({
+    $1.StreamIdentifier? stream,
+    $1.Empty? all,
+  }) {
+    final _result = create();
+    if (stream != null) {
+      _result.stream = stream;
+    }
+    if (all != null) {
+      _result.all = all;
+    }
+    return _result;
+  }
+  factory ListReq_StreamOption.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ListReq_StreamOption.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ListReq_StreamOption clone() =>
+      ListReq_StreamOption()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ListReq_StreamOption copyWith(void Function(ListReq_StreamOption) updates) =>
+      super.copyWith((message) => updates(message as ListReq_StreamOption))
+          as ListReq_StreamOption; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ListReq_StreamOption create() => ListReq_StreamOption._();
+  ListReq_StreamOption createEmptyInstance() => create();
+  static $pb.PbList<ListReq_StreamOption> createRepeated() =>
+      $pb.PbList<ListReq_StreamOption>();
+  @$core.pragma('dart2js:noInline')
+  static ListReq_StreamOption getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ListReq_StreamOption>(create);
+  static ListReq_StreamOption? _defaultInstance;
+
+  ListReq_StreamOption_StreamOption whichStreamOption() =>
+      _ListReq_StreamOption_StreamOptionByTag[$_whichOneof(0)]!;
+  void clearStreamOption() => clearField($_whichOneof(0));
+
+  @$pb.TagNumber(1)
+  $1.StreamIdentifier get stream => $_getN(0);
+  @$pb.TagNumber(1)
+  set stream($1.StreamIdentifier v) {
+    setField(1, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasStream() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearStream() => clearField(1);
+  @$pb.TagNumber(1)
+  $1.StreamIdentifier ensureStream() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $1.Empty get all => $_getN(1);
+  @$pb.TagNumber(2)
+  set all($1.Empty v) {
+    setField(2, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasAll() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAll() => clearField(2);
+  @$pb.TagNumber(2)
+  $1.Empty ensureAll() => $_ensure(1);
+}
+
+class ListReq extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ListReq',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.persistent_subscriptions'),
+      createEmptyInstance: create)
+    ..aOM<ListReq_Options>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'options',
+        subBuilder: ListReq_Options.create)
+    ..hasRequiredFields = false;
+
+  ListReq._() : super();
+  factory ListReq({
+    ListReq_Options? options,
+  }) {
+    final _result = create();
+    if (options != null) {
+      _result.options = options;
+    }
+    return _result;
+  }
+  factory ListReq.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ListReq.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ListReq clone() => ListReq()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ListReq copyWith(void Function(ListReq) updates) =>
+      super.copyWith((message) => updates(message as ListReq))
+          as ListReq; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ListReq create() => ListReq._();
+  ListReq createEmptyInstance() => create();
+  static $pb.PbList<ListReq> createRepeated() => $pb.PbList<ListReq>();
+  @$core.pragma('dart2js:noInline')
+  static ListReq getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListReq>(create);
+  static ListReq? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  ListReq_Options get options => $_getN(0);
+  @$pb.TagNumber(1)
+  set options(ListReq_Options v) {
+    setField(1, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasOptions() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearOptions() => clearField(1);
+  @$pb.TagNumber(1)
+  ListReq_Options ensureOptions() => $_ensure(0);
+}
+
+class ListResp extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ListResp',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.client.persistent_subscriptions'),
+      createEmptyInstance: create)
+    ..pc<SubscriptionInfo>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'subscriptions',
+        $pb.PbFieldType.PM,
+        subBuilder: SubscriptionInfo.create)
+    ..hasRequiredFields = false;
+
+  ListResp._() : super();
+  factory ListResp({
+    $core.Iterable<SubscriptionInfo>? subscriptions,
+  }) {
+    final _result = create();
+    if (subscriptions != null) {
+      _result.subscriptions.addAll(subscriptions);
+    }
+    return _result;
+  }
+  factory ListResp.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ListResp.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ListResp clone() => ListResp()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ListResp copyWith(void Function(ListResp) updates) =>
+      super.copyWith((message) => updates(message as ListResp))
+          as ListResp; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ListResp create() => ListResp._();
+  ListResp createEmptyInstance() => create();
+  static $pb.PbList<ListResp> createRepeated() => $pb.PbList<ListResp>();
+  @$core.pragma('dart2js:noInline')
+  static ListResp getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListResp>(create);
+  static ListResp? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<SubscriptionInfo> get subscriptions => $_getList(0);
 }

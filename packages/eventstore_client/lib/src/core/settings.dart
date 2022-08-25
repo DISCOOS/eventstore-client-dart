@@ -19,6 +19,7 @@ class EventStoreClientSettings {
     this.useTls = true,
     String? connectionName,
     this.defaultCredentials,
+    this.batchAppendDeadline,
     this.gossipSeeds = const [],
     this.tlsSetup = Defaults.TlsSetup,
     this.apiVersion = ApiVersions.v20_LTS,
@@ -105,6 +106,10 @@ class EventStoreClientSettings {
   /// Only available with version EventStoreDB v21_LTS and above
   final int batchAppendSize;
 
+  /// The batch append operation deadline.
+  /// Only available with version EventStoreDB v21_LTS and above
+  final Duration? batchAppendDeadline;
+
   /// Maximum number of reties before transient errors from
   /// servers throws an error. By default, only status code
   /// only [gRPC status code](https://grpc.github.io/grpc/core/md_doc_statuscodes.html)
@@ -135,6 +140,7 @@ class EventStoreClientSettings {
     Duration? gossipTimeout,
     int? maxDiscoverAttempts,
     List<EndPoint>? gossipSeeds,
+    Duration? batchAppendDeadline,
     $e.NodePreference? nodePreference,
     UserCredentials? defaultCredentials,
     EventStoreClientOperationOptions? operationOptions,
@@ -160,6 +166,7 @@ class EventStoreClientSettings {
         keepAliveInterval: keepAliveInterval ?? this.keepAliveTimeout,
         discoveryInterval: discoveryInterval ?? this.discoveryInterval,
         defaultCredentials: defaultCredentials ?? this.defaultCredentials,
+        batchAppendDeadline: batchAppendDeadline ?? this.batchAppendDeadline,
         maxDiscoverAttempts: maxDiscoverAttempts ?? this.maxDiscoverAttempts,
       );
 
@@ -203,6 +210,7 @@ class EventStoreClientConnectionString {
   static const KeepAliveTimeout = 'keepAliveTimeout';
   static const BatchAppend = 'batchAppend';
   static const BatchAppendSize = 'batchAppendSize';
+  static const BatchAppendDeadline = 'batchAppendDeadline';
 
   /// Parse [connectionString] into [EventStoreClientSettings].
   static EventStoreClientSettings parse(String connectionString) {
@@ -347,6 +355,12 @@ class EventStoreClientConnectionString {
         key: BatchAppendSize,
         defaultValue: Defaults.BatchAppendSize,
         map: (value) => int.parse(value),
+      ),
+      batchAppendDeadline: _getOrDefault<Duration?>(
+        options,
+        key: BatchAppendDeadline,
+        defaultValue: null,
+        map: (value) => Duration(milliseconds: int.parse(value)),
       ),
     );
   }

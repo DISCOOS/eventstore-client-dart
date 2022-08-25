@@ -53,8 +53,8 @@ class EventStoreClientHarness {
         connectionName: connectionName,
       ),
       type,
-      position,
-      revision,
+      position: position,
+      revision: revision,
     );
   }
 

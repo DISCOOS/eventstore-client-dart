@@ -16,7 +16,7 @@ ResolvedEvent convertToResolvedEvent(ReadResp_ReadEvent readEvent) {
 
 EventRecord convertToEventRecord(ReadResp_ReadEvent_RecordedEvent event) {
   return EventRecord(
-    utf8.decode(event.streamIdentifier.streamId),
+    utf8.decode(event.streamIdentifier.streamName),
     UuidValue(event.id.string),
     StreamPosition.fromInt64(event.streamRevision),
     LogPosition.checked(event.commitPosition, event.preparePosition),

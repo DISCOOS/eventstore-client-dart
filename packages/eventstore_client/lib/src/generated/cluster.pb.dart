@@ -3,7 +3,7 @@
 //  source: cluster.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
@@ -2154,4 +2154,1641 @@ class MemberInfo extends $pb.GeneratedMessage {
   $core.bool hasAdvertiseTcpPortToClientAs() => $_has(19);
   @$pb.TagNumber(20)
   void clearAdvertiseTcpPortToClientAs() => clearField(20);
+}
+
+class ReplicaLogWrite extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ReplicaLogWrite',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.cluster'),
+      createEmptyInstance: create)
+    ..aInt64(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'logPosition')
+    ..a<$core.List<$core.int>>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'replicaId',
+        $pb.PbFieldType.OY)
+    ..hasRequiredFields = false;
+
+  ReplicaLogWrite._() : super();
+  factory ReplicaLogWrite({
+    $fixnum.Int64? logPosition,
+    $core.List<$core.int>? replicaId,
+  }) {
+    final _result = create();
+    if (logPosition != null) {
+      _result.logPosition = logPosition;
+    }
+    if (replicaId != null) {
+      _result.replicaId = replicaId;
+    }
+    return _result;
+  }
+  factory ReplicaLogWrite.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ReplicaLogWrite.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ReplicaLogWrite clone() => ReplicaLogWrite()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ReplicaLogWrite copyWith(void Function(ReplicaLogWrite) updates) =>
+      super.copyWith((message) => updates(message as ReplicaLogWrite))
+          as ReplicaLogWrite; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ReplicaLogWrite create() => ReplicaLogWrite._();
+  ReplicaLogWrite createEmptyInstance() => create();
+  static $pb.PbList<ReplicaLogWrite> createRepeated() =>
+      $pb.PbList<ReplicaLogWrite>();
+  @$core.pragma('dart2js:noInline')
+  static ReplicaLogWrite getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ReplicaLogWrite>(create);
+  static ReplicaLogWrite? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get logPosition => $_getI64(0);
+  @$pb.TagNumber(1)
+  set logPosition($fixnum.Int64 v) {
+    $_setInt64(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasLogPosition() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLogPosition() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get replicaId => $_getN(1);
+  @$pb.TagNumber(2)
+  set replicaId($core.List<$core.int> v) {
+    $_setBytes(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasReplicaId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearReplicaId() => clearField(2);
+}
+
+class ReplicatedTo extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ReplicatedTo',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.cluster'),
+      createEmptyInstance: create)
+    ..aInt64(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'logPosition')
+    ..hasRequiredFields = false;
+
+  ReplicatedTo._() : super();
+  factory ReplicatedTo({
+    $fixnum.Int64? logPosition,
+  }) {
+    final _result = create();
+    if (logPosition != null) {
+      _result.logPosition = logPosition;
+    }
+    return _result;
+  }
+  factory ReplicatedTo.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ReplicatedTo.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ReplicatedTo clone() => ReplicatedTo()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ReplicatedTo copyWith(void Function(ReplicatedTo) updates) =>
+      super.copyWith((message) => updates(message as ReplicatedTo))
+          as ReplicatedTo; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ReplicatedTo create() => ReplicatedTo._();
+  ReplicatedTo createEmptyInstance() => create();
+  static $pb.PbList<ReplicatedTo> createRepeated() =>
+      $pb.PbList<ReplicatedTo>();
+  @$core.pragma('dart2js:noInline')
+  static ReplicatedTo getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ReplicatedTo>(create);
+  static ReplicatedTo? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get logPosition => $_getI64(0);
+  @$pb.TagNumber(1)
+  set logPosition($fixnum.Int64 v) {
+    $_setInt64(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasLogPosition() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLogPosition() => clearField(1);
+}
+
+class Epoch extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'Epoch',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.cluster'),
+      createEmptyInstance: create)
+    ..aInt64(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'epochPosition')
+    ..a<$core.int>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'epochNumber',
+        $pb.PbFieldType.O3)
+    ..a<$core.List<$core.int>>(
+        3,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'epochId',
+        $pb.PbFieldType.OY)
+    ..hasRequiredFields = false;
+
+  Epoch._() : super();
+  factory Epoch({
+    $fixnum.Int64? epochPosition,
+    $core.int? epochNumber,
+    $core.List<$core.int>? epochId,
+  }) {
+    final _result = create();
+    if (epochPosition != null) {
+      _result.epochPosition = epochPosition;
+    }
+    if (epochNumber != null) {
+      _result.epochNumber = epochNumber;
+    }
+    if (epochId != null) {
+      _result.epochId = epochId;
+    }
+    return _result;
+  }
+  factory Epoch.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory Epoch.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  Epoch clone() => Epoch()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  Epoch copyWith(void Function(Epoch) updates) =>
+      super.copyWith((message) => updates(message as Epoch))
+          as Epoch; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static Epoch create() => Epoch._();
+  Epoch createEmptyInstance() => create();
+  static $pb.PbList<Epoch> createRepeated() => $pb.PbList<Epoch>();
+  @$core.pragma('dart2js:noInline')
+  static Epoch getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Epoch>(create);
+  static Epoch? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get epochPosition => $_getI64(0);
+  @$pb.TagNumber(1)
+  set epochPosition($fixnum.Int64 v) {
+    $_setInt64(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasEpochPosition() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEpochPosition() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get epochNumber => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set epochNumber($core.int v) {
+    $_setSignedInt32(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasEpochNumber() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearEpochNumber() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.List<$core.int> get epochId => $_getN(2);
+  @$pb.TagNumber(3)
+  set epochId($core.List<$core.int> v) {
+    $_setBytes(2, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasEpochId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearEpochId() => clearField(3);
+}
+
+class SubscribeReplica extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'SubscribeReplica',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.cluster'),
+      createEmptyInstance: create)
+    ..aInt64(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'logPosition')
+    ..a<$core.List<$core.int>>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'chunkId',
+        $pb.PbFieldType.OY)
+    ..pc<Epoch>(
+        3,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'LastEpochs',
+        $pb.PbFieldType.PM,
+        protoName: 'LastEpochs',
+        subBuilder: Epoch.create)
+    ..a<$core.List<$core.int>>(
+        4,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'ip',
+        $pb.PbFieldType.OY)
+    ..a<$core.int>(
+        5,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'port',
+        $pb.PbFieldType.O3)
+    ..a<$core.List<$core.int>>(
+        6,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'leaderId',
+        $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(
+        7,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'subscriptionId',
+        $pb.PbFieldType.OY)
+    ..aOB(
+        8,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'isPromotable')
+    ..a<$core.int>(
+        9,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'version',
+        $pb.PbFieldType.O3)
+    ..hasRequiredFields = false;
+
+  SubscribeReplica._() : super();
+  factory SubscribeReplica({
+    $fixnum.Int64? logPosition,
+    $core.List<$core.int>? chunkId,
+    $core.Iterable<Epoch>? lastEpochs,
+    $core.List<$core.int>? ip,
+    $core.int? port,
+    $core.List<$core.int>? leaderId,
+    $core.List<$core.int>? subscriptionId,
+    $core.bool? isPromotable,
+    $core.int? version,
+  }) {
+    final _result = create();
+    if (logPosition != null) {
+      _result.logPosition = logPosition;
+    }
+    if (chunkId != null) {
+      _result.chunkId = chunkId;
+    }
+    if (lastEpochs != null) {
+      _result.lastEpochs.addAll(lastEpochs);
+    }
+    if (ip != null) {
+      _result.ip = ip;
+    }
+    if (port != null) {
+      _result.port = port;
+    }
+    if (leaderId != null) {
+      _result.leaderId = leaderId;
+    }
+    if (subscriptionId != null) {
+      _result.subscriptionId = subscriptionId;
+    }
+    if (isPromotable != null) {
+      _result.isPromotable = isPromotable;
+    }
+    if (version != null) {
+      _result.version = version;
+    }
+    return _result;
+  }
+  factory SubscribeReplica.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory SubscribeReplica.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  SubscribeReplica clone() => SubscribeReplica()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  SubscribeReplica copyWith(void Function(SubscribeReplica) updates) =>
+      super.copyWith((message) => updates(message as SubscribeReplica))
+          as SubscribeReplica; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static SubscribeReplica create() => SubscribeReplica._();
+  SubscribeReplica createEmptyInstance() => create();
+  static $pb.PbList<SubscribeReplica> createRepeated() =>
+      $pb.PbList<SubscribeReplica>();
+  @$core.pragma('dart2js:noInline')
+  static SubscribeReplica getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<SubscribeReplica>(create);
+  static SubscribeReplica? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get logPosition => $_getI64(0);
+  @$pb.TagNumber(1)
+  set logPosition($fixnum.Int64 v) {
+    $_setInt64(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasLogPosition() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLogPosition() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get chunkId => $_getN(1);
+  @$pb.TagNumber(2)
+  set chunkId($core.List<$core.int> v) {
+    $_setBytes(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasChunkId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearChunkId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.List<Epoch> get lastEpochs => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.int> get ip => $_getN(3);
+  @$pb.TagNumber(4)
+  set ip($core.List<$core.int> v) {
+    $_setBytes(3, v);
+  }
+
+  @$pb.TagNumber(4)
+  $core.bool hasIp() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearIp() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.int get port => $_getIZ(4);
+  @$pb.TagNumber(5)
+  set port($core.int v) {
+    $_setSignedInt32(4, v);
+  }
+
+  @$pb.TagNumber(5)
+  $core.bool hasPort() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearPort() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.List<$core.int> get leaderId => $_getN(5);
+  @$pb.TagNumber(6)
+  set leaderId($core.List<$core.int> v) {
+    $_setBytes(5, v);
+  }
+
+  @$pb.TagNumber(6)
+  $core.bool hasLeaderId() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearLeaderId() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.List<$core.int> get subscriptionId => $_getN(6);
+  @$pb.TagNumber(7)
+  set subscriptionId($core.List<$core.int> v) {
+    $_setBytes(6, v);
+  }
+
+  @$pb.TagNumber(7)
+  $core.bool hasSubscriptionId() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearSubscriptionId() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.bool get isPromotable => $_getBF(7);
+  @$pb.TagNumber(8)
+  set isPromotable($core.bool v) {
+    $_setBool(7, v);
+  }
+
+  @$pb.TagNumber(8)
+  $core.bool hasIsPromotable() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearIsPromotable() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.int get version => $_getIZ(8);
+  @$pb.TagNumber(9)
+  set version($core.int v) {
+    $_setSignedInt32(8, v);
+  }
+
+  @$pb.TagNumber(9)
+  $core.bool hasVersion() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearVersion() => clearField(9);
+}
+
+class ReplicaSubscriptionRetry extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ReplicaSubscriptionRetry',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.cluster'),
+      createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'leaderId',
+        $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'subscriptionId',
+        $pb.PbFieldType.OY)
+    ..hasRequiredFields = false;
+
+  ReplicaSubscriptionRetry._() : super();
+  factory ReplicaSubscriptionRetry({
+    $core.List<$core.int>? leaderId,
+    $core.List<$core.int>? subscriptionId,
+  }) {
+    final _result = create();
+    if (leaderId != null) {
+      _result.leaderId = leaderId;
+    }
+    if (subscriptionId != null) {
+      _result.subscriptionId = subscriptionId;
+    }
+    return _result;
+  }
+  factory ReplicaSubscriptionRetry.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ReplicaSubscriptionRetry.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ReplicaSubscriptionRetry clone() =>
+      ReplicaSubscriptionRetry()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ReplicaSubscriptionRetry copyWith(
+          void Function(ReplicaSubscriptionRetry) updates) =>
+      super.copyWith((message) => updates(message as ReplicaSubscriptionRetry))
+          as ReplicaSubscriptionRetry; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ReplicaSubscriptionRetry create() => ReplicaSubscriptionRetry._();
+  ReplicaSubscriptionRetry createEmptyInstance() => create();
+  static $pb.PbList<ReplicaSubscriptionRetry> createRepeated() =>
+      $pb.PbList<ReplicaSubscriptionRetry>();
+  @$core.pragma('dart2js:noInline')
+  static ReplicaSubscriptionRetry getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ReplicaSubscriptionRetry>(create);
+  static ReplicaSubscriptionRetry? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.int> get leaderId => $_getN(0);
+  @$pb.TagNumber(1)
+  set leaderId($core.List<$core.int> v) {
+    $_setBytes(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasLeaderId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLeaderId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get subscriptionId => $_getN(1);
+  @$pb.TagNumber(2)
+  set subscriptionId($core.List<$core.int> v) {
+    $_setBytes(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasSubscriptionId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSubscriptionId() => clearField(2);
+}
+
+class ReplicaSubscribed extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ReplicaSubscribed',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.cluster'),
+      createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'leaderId',
+        $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'subscriptionId',
+        $pb.PbFieldType.OY)
+    ..aInt64(
+        3,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'subscriptionPosition')
+    ..hasRequiredFields = false;
+
+  ReplicaSubscribed._() : super();
+  factory ReplicaSubscribed({
+    $core.List<$core.int>? leaderId,
+    $core.List<$core.int>? subscriptionId,
+    $fixnum.Int64? subscriptionPosition,
+  }) {
+    final _result = create();
+    if (leaderId != null) {
+      _result.leaderId = leaderId;
+    }
+    if (subscriptionId != null) {
+      _result.subscriptionId = subscriptionId;
+    }
+    if (subscriptionPosition != null) {
+      _result.subscriptionPosition = subscriptionPosition;
+    }
+    return _result;
+  }
+  factory ReplicaSubscribed.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ReplicaSubscribed.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ReplicaSubscribed clone() => ReplicaSubscribed()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ReplicaSubscribed copyWith(void Function(ReplicaSubscribed) updates) =>
+      super.copyWith((message) => updates(message as ReplicaSubscribed))
+          as ReplicaSubscribed; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ReplicaSubscribed create() => ReplicaSubscribed._();
+  ReplicaSubscribed createEmptyInstance() => create();
+  static $pb.PbList<ReplicaSubscribed> createRepeated() =>
+      $pb.PbList<ReplicaSubscribed>();
+  @$core.pragma('dart2js:noInline')
+  static ReplicaSubscribed getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ReplicaSubscribed>(create);
+  static ReplicaSubscribed? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.int> get leaderId => $_getN(0);
+  @$pb.TagNumber(1)
+  set leaderId($core.List<$core.int> v) {
+    $_setBytes(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasLeaderId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLeaderId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get subscriptionId => $_getN(1);
+  @$pb.TagNumber(2)
+  set subscriptionId($core.List<$core.int> v) {
+    $_setBytes(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasSubscriptionId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSubscriptionId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get subscriptionPosition => $_getI64(2);
+  @$pb.TagNumber(3)
+  set subscriptionPosition($fixnum.Int64 v) {
+    $_setInt64(2, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasSubscriptionPosition() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearSubscriptionPosition() => clearField(3);
+}
+
+class ReplicaLogPositionAck extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ReplicaLogPositionAck',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.cluster'),
+      createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'subscriptionId',
+        $pb.PbFieldType.OY)
+    ..aInt64(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'replicationLogPosition')
+    ..aInt64(
+        3,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'writerLogPosition')
+    ..hasRequiredFields = false;
+
+  ReplicaLogPositionAck._() : super();
+  factory ReplicaLogPositionAck({
+    $core.List<$core.int>? subscriptionId,
+    $fixnum.Int64? replicationLogPosition,
+    $fixnum.Int64? writerLogPosition,
+  }) {
+    final _result = create();
+    if (subscriptionId != null) {
+      _result.subscriptionId = subscriptionId;
+    }
+    if (replicationLogPosition != null) {
+      _result.replicationLogPosition = replicationLogPosition;
+    }
+    if (writerLogPosition != null) {
+      _result.writerLogPosition = writerLogPosition;
+    }
+    return _result;
+  }
+  factory ReplicaLogPositionAck.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ReplicaLogPositionAck.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ReplicaLogPositionAck clone() =>
+      ReplicaLogPositionAck()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ReplicaLogPositionAck copyWith(
+          void Function(ReplicaLogPositionAck) updates) =>
+      super.copyWith((message) => updates(message as ReplicaLogPositionAck))
+          as ReplicaLogPositionAck; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ReplicaLogPositionAck create() => ReplicaLogPositionAck._();
+  ReplicaLogPositionAck createEmptyInstance() => create();
+  static $pb.PbList<ReplicaLogPositionAck> createRepeated() =>
+      $pb.PbList<ReplicaLogPositionAck>();
+  @$core.pragma('dart2js:noInline')
+  static ReplicaLogPositionAck getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ReplicaLogPositionAck>(create);
+  static ReplicaLogPositionAck? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.int> get subscriptionId => $_getN(0);
+  @$pb.TagNumber(1)
+  set subscriptionId($core.List<$core.int> v) {
+    $_setBytes(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasSubscriptionId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSubscriptionId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $fixnum.Int64 get replicationLogPosition => $_getI64(1);
+  @$pb.TagNumber(2)
+  set replicationLogPosition($fixnum.Int64 v) {
+    $_setInt64(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasReplicationLogPosition() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearReplicationLogPosition() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get writerLogPosition => $_getI64(2);
+  @$pb.TagNumber(3)
+  set writerLogPosition($fixnum.Int64 v) {
+    $_setInt64(2, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasWriterLogPosition() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearWriterLogPosition() => clearField(3);
+}
+
+class CreateChunk extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'CreateChunk',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.cluster'),
+      createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'leaderId',
+        $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'subscriptionId',
+        $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(
+        3,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'chunkHeaderBytes',
+        $pb.PbFieldType.OY)
+    ..a<$core.int>(
+        4,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'fileSize',
+        $pb.PbFieldType.O3)
+    ..aOB(
+        5,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'isCompletedChunk')
+    ..hasRequiredFields = false;
+
+  CreateChunk._() : super();
+  factory CreateChunk({
+    $core.List<$core.int>? leaderId,
+    $core.List<$core.int>? subscriptionId,
+    $core.List<$core.int>? chunkHeaderBytes,
+    $core.int? fileSize,
+    $core.bool? isCompletedChunk,
+  }) {
+    final _result = create();
+    if (leaderId != null) {
+      _result.leaderId = leaderId;
+    }
+    if (subscriptionId != null) {
+      _result.subscriptionId = subscriptionId;
+    }
+    if (chunkHeaderBytes != null) {
+      _result.chunkHeaderBytes = chunkHeaderBytes;
+    }
+    if (fileSize != null) {
+      _result.fileSize = fileSize;
+    }
+    if (isCompletedChunk != null) {
+      _result.isCompletedChunk = isCompletedChunk;
+    }
+    return _result;
+  }
+  factory CreateChunk.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory CreateChunk.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  CreateChunk clone() => CreateChunk()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  CreateChunk copyWith(void Function(CreateChunk) updates) =>
+      super.copyWith((message) => updates(message as CreateChunk))
+          as CreateChunk; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateChunk create() => CreateChunk._();
+  CreateChunk createEmptyInstance() => create();
+  static $pb.PbList<CreateChunk> createRepeated() => $pb.PbList<CreateChunk>();
+  @$core.pragma('dart2js:noInline')
+  static CreateChunk getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<CreateChunk>(create);
+  static CreateChunk? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.int> get leaderId => $_getN(0);
+  @$pb.TagNumber(1)
+  set leaderId($core.List<$core.int> v) {
+    $_setBytes(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasLeaderId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLeaderId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get subscriptionId => $_getN(1);
+  @$pb.TagNumber(2)
+  set subscriptionId($core.List<$core.int> v) {
+    $_setBytes(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasSubscriptionId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSubscriptionId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.List<$core.int> get chunkHeaderBytes => $_getN(2);
+  @$pb.TagNumber(3)
+  set chunkHeaderBytes($core.List<$core.int> v) {
+    $_setBytes(2, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasChunkHeaderBytes() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearChunkHeaderBytes() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.int get fileSize => $_getIZ(3);
+  @$pb.TagNumber(4)
+  set fileSize($core.int v) {
+    $_setSignedInt32(3, v);
+  }
+
+  @$pb.TagNumber(4)
+  $core.bool hasFileSize() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearFileSize() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.bool get isCompletedChunk => $_getBF(4);
+  @$pb.TagNumber(5)
+  set isCompletedChunk($core.bool v) {
+    $_setBool(4, v);
+  }
+
+  @$pb.TagNumber(5)
+  $core.bool hasIsCompletedChunk() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearIsCompletedChunk() => clearField(5);
+}
+
+class RawChunkBulk extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'RawChunkBulk',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.cluster'),
+      createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'leaderId',
+        $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'subscriptionId',
+        $pb.PbFieldType.OY)
+    ..a<$core.int>(
+        3,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'chunkStartNumber',
+        $pb.PbFieldType.O3)
+    ..a<$core.int>(
+        4,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'chunkEndNumber',
+        $pb.PbFieldType.O3)
+    ..a<$core.int>(
+        5,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'rawPosition',
+        $pb.PbFieldType.O3)
+    ..a<$core.List<$core.int>>(
+        6,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'rawBytes',
+        $pb.PbFieldType.OY)
+    ..aOB(
+        7,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'completeChunk')
+    ..hasRequiredFields = false;
+
+  RawChunkBulk._() : super();
+  factory RawChunkBulk({
+    $core.List<$core.int>? leaderId,
+    $core.List<$core.int>? subscriptionId,
+    $core.int? chunkStartNumber,
+    $core.int? chunkEndNumber,
+    $core.int? rawPosition,
+    $core.List<$core.int>? rawBytes,
+    $core.bool? completeChunk,
+  }) {
+    final _result = create();
+    if (leaderId != null) {
+      _result.leaderId = leaderId;
+    }
+    if (subscriptionId != null) {
+      _result.subscriptionId = subscriptionId;
+    }
+    if (chunkStartNumber != null) {
+      _result.chunkStartNumber = chunkStartNumber;
+    }
+    if (chunkEndNumber != null) {
+      _result.chunkEndNumber = chunkEndNumber;
+    }
+    if (rawPosition != null) {
+      _result.rawPosition = rawPosition;
+    }
+    if (rawBytes != null) {
+      _result.rawBytes = rawBytes;
+    }
+    if (completeChunk != null) {
+      _result.completeChunk = completeChunk;
+    }
+    return _result;
+  }
+  factory RawChunkBulk.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory RawChunkBulk.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  RawChunkBulk clone() => RawChunkBulk()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  RawChunkBulk copyWith(void Function(RawChunkBulk) updates) =>
+      super.copyWith((message) => updates(message as RawChunkBulk))
+          as RawChunkBulk; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static RawChunkBulk create() => RawChunkBulk._();
+  RawChunkBulk createEmptyInstance() => create();
+  static $pb.PbList<RawChunkBulk> createRepeated() =>
+      $pb.PbList<RawChunkBulk>();
+  @$core.pragma('dart2js:noInline')
+  static RawChunkBulk getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<RawChunkBulk>(create);
+  static RawChunkBulk? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.int> get leaderId => $_getN(0);
+  @$pb.TagNumber(1)
+  set leaderId($core.List<$core.int> v) {
+    $_setBytes(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasLeaderId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLeaderId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get subscriptionId => $_getN(1);
+  @$pb.TagNumber(2)
+  set subscriptionId($core.List<$core.int> v) {
+    $_setBytes(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasSubscriptionId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSubscriptionId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get chunkStartNumber => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set chunkStartNumber($core.int v) {
+    $_setSignedInt32(2, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasChunkStartNumber() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearChunkStartNumber() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.int get chunkEndNumber => $_getIZ(3);
+  @$pb.TagNumber(4)
+  set chunkEndNumber($core.int v) {
+    $_setSignedInt32(3, v);
+  }
+
+  @$pb.TagNumber(4)
+  $core.bool hasChunkEndNumber() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearChunkEndNumber() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.int get rawPosition => $_getIZ(4);
+  @$pb.TagNumber(5)
+  set rawPosition($core.int v) {
+    $_setSignedInt32(4, v);
+  }
+
+  @$pb.TagNumber(5)
+  $core.bool hasRawPosition() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearRawPosition() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.List<$core.int> get rawBytes => $_getN(5);
+  @$pb.TagNumber(6)
+  set rawBytes($core.List<$core.int> v) {
+    $_setBytes(5, v);
+  }
+
+  @$pb.TagNumber(6)
+  $core.bool hasRawBytes() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearRawBytes() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.bool get completeChunk => $_getBF(6);
+  @$pb.TagNumber(7)
+  set completeChunk($core.bool v) {
+    $_setBool(6, v);
+  }
+
+  @$pb.TagNumber(7)
+  $core.bool hasCompleteChunk() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearCompleteChunk() => clearField(7);
+}
+
+class DataChunkBulk extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'DataChunkBulk',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.cluster'),
+      createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'leaderId',
+        $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'subscriptionId',
+        $pb.PbFieldType.OY)
+    ..a<$core.int>(
+        3,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'chunkStartNumber',
+        $pb.PbFieldType.O3)
+    ..a<$core.int>(
+        4,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'chunkEndNumber',
+        $pb.PbFieldType.O3)
+    ..aInt64(
+        5,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'subscriptionPosition')
+    ..a<$core.List<$core.int>>(
+        6,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'dataBytes',
+        $pb.PbFieldType.OY)
+    ..aOB(
+        7,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'completeChunk')
+    ..hasRequiredFields = false;
+
+  DataChunkBulk._() : super();
+  factory DataChunkBulk({
+    $core.List<$core.int>? leaderId,
+    $core.List<$core.int>? subscriptionId,
+    $core.int? chunkStartNumber,
+    $core.int? chunkEndNumber,
+    $fixnum.Int64? subscriptionPosition,
+    $core.List<$core.int>? dataBytes,
+    $core.bool? completeChunk,
+  }) {
+    final _result = create();
+    if (leaderId != null) {
+      _result.leaderId = leaderId;
+    }
+    if (subscriptionId != null) {
+      _result.subscriptionId = subscriptionId;
+    }
+    if (chunkStartNumber != null) {
+      _result.chunkStartNumber = chunkStartNumber;
+    }
+    if (chunkEndNumber != null) {
+      _result.chunkEndNumber = chunkEndNumber;
+    }
+    if (subscriptionPosition != null) {
+      _result.subscriptionPosition = subscriptionPosition;
+    }
+    if (dataBytes != null) {
+      _result.dataBytes = dataBytes;
+    }
+    if (completeChunk != null) {
+      _result.completeChunk = completeChunk;
+    }
+    return _result;
+  }
+  factory DataChunkBulk.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory DataChunkBulk.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  DataChunkBulk clone() => DataChunkBulk()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  DataChunkBulk copyWith(void Function(DataChunkBulk) updates) =>
+      super.copyWith((message) => updates(message as DataChunkBulk))
+          as DataChunkBulk; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static DataChunkBulk create() => DataChunkBulk._();
+  DataChunkBulk createEmptyInstance() => create();
+  static $pb.PbList<DataChunkBulk> createRepeated() =>
+      $pb.PbList<DataChunkBulk>();
+  @$core.pragma('dart2js:noInline')
+  static DataChunkBulk getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<DataChunkBulk>(create);
+  static DataChunkBulk? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.int> get leaderId => $_getN(0);
+  @$pb.TagNumber(1)
+  set leaderId($core.List<$core.int> v) {
+    $_setBytes(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasLeaderId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLeaderId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get subscriptionId => $_getN(1);
+  @$pb.TagNumber(2)
+  set subscriptionId($core.List<$core.int> v) {
+    $_setBytes(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasSubscriptionId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSubscriptionId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get chunkStartNumber => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set chunkStartNumber($core.int v) {
+    $_setSignedInt32(2, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasChunkStartNumber() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearChunkStartNumber() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.int get chunkEndNumber => $_getIZ(3);
+  @$pb.TagNumber(4)
+  set chunkEndNumber($core.int v) {
+    $_setSignedInt32(3, v);
+  }
+
+  @$pb.TagNumber(4)
+  $core.bool hasChunkEndNumber() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearChunkEndNumber() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $fixnum.Int64 get subscriptionPosition => $_getI64(4);
+  @$pb.TagNumber(5)
+  set subscriptionPosition($fixnum.Int64 v) {
+    $_setInt64(4, v);
+  }
+
+  @$pb.TagNumber(5)
+  $core.bool hasSubscriptionPosition() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearSubscriptionPosition() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.List<$core.int> get dataBytes => $_getN(5);
+  @$pb.TagNumber(6)
+  set dataBytes($core.List<$core.int> v) {
+    $_setBytes(5, v);
+  }
+
+  @$pb.TagNumber(6)
+  $core.bool hasDataBytes() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearDataBytes() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.bool get completeChunk => $_getBF(6);
+  @$pb.TagNumber(7)
+  set completeChunk($core.bool v) {
+    $_setBool(6, v);
+  }
+
+  @$pb.TagNumber(7)
+  $core.bool hasCompleteChunk() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearCompleteChunk() => clearField(7);
+}
+
+class FollowerAssignment extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'FollowerAssignment',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.cluster'),
+      createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'leaderId',
+        $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'subscriptionId',
+        $pb.PbFieldType.OY)
+    ..hasRequiredFields = false;
+
+  FollowerAssignment._() : super();
+  factory FollowerAssignment({
+    $core.List<$core.int>? leaderId,
+    $core.List<$core.int>? subscriptionId,
+  }) {
+    final _result = create();
+    if (leaderId != null) {
+      _result.leaderId = leaderId;
+    }
+    if (subscriptionId != null) {
+      _result.subscriptionId = subscriptionId;
+    }
+    return _result;
+  }
+  factory FollowerAssignment.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory FollowerAssignment.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  FollowerAssignment clone() => FollowerAssignment()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  FollowerAssignment copyWith(void Function(FollowerAssignment) updates) =>
+      super.copyWith((message) => updates(message as FollowerAssignment))
+          as FollowerAssignment; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FollowerAssignment create() => FollowerAssignment._();
+  FollowerAssignment createEmptyInstance() => create();
+  static $pb.PbList<FollowerAssignment> createRepeated() =>
+      $pb.PbList<FollowerAssignment>();
+  @$core.pragma('dart2js:noInline')
+  static FollowerAssignment getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<FollowerAssignment>(create);
+  static FollowerAssignment? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.int> get leaderId => $_getN(0);
+  @$pb.TagNumber(1)
+  set leaderId($core.List<$core.int> v) {
+    $_setBytes(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasLeaderId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLeaderId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get subscriptionId => $_getN(1);
+  @$pb.TagNumber(2)
+  set subscriptionId($core.List<$core.int> v) {
+    $_setBytes(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasSubscriptionId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSubscriptionId() => clearField(2);
+}
+
+class CloneAssignment extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'CloneAssignment',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.cluster'),
+      createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'leaderId',
+        $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'subscriptionId',
+        $pb.PbFieldType.OY)
+    ..hasRequiredFields = false;
+
+  CloneAssignment._() : super();
+  factory CloneAssignment({
+    $core.List<$core.int>? leaderId,
+    $core.List<$core.int>? subscriptionId,
+  }) {
+    final _result = create();
+    if (leaderId != null) {
+      _result.leaderId = leaderId;
+    }
+    if (subscriptionId != null) {
+      _result.subscriptionId = subscriptionId;
+    }
+    return _result;
+  }
+  factory CloneAssignment.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory CloneAssignment.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  CloneAssignment clone() => CloneAssignment()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  CloneAssignment copyWith(void Function(CloneAssignment) updates) =>
+      super.copyWith((message) => updates(message as CloneAssignment))
+          as CloneAssignment; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CloneAssignment create() => CloneAssignment._();
+  CloneAssignment createEmptyInstance() => create();
+  static $pb.PbList<CloneAssignment> createRepeated() =>
+      $pb.PbList<CloneAssignment>();
+  @$core.pragma('dart2js:noInline')
+  static CloneAssignment getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<CloneAssignment>(create);
+  static CloneAssignment? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.int> get leaderId => $_getN(0);
+  @$pb.TagNumber(1)
+  set leaderId($core.List<$core.int> v) {
+    $_setBytes(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasLeaderId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLeaderId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get subscriptionId => $_getN(1);
+  @$pb.TagNumber(2)
+  set subscriptionId($core.List<$core.int> v) {
+    $_setBytes(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasSubscriptionId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSubscriptionId() => clearField(2);
+}
+
+class DropSubscription extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'DropSubscription',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'event_store.cluster'),
+      createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'leaderId',
+        $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'subscriptionId',
+        $pb.PbFieldType.OY)
+    ..hasRequiredFields = false;
+
+  DropSubscription._() : super();
+  factory DropSubscription({
+    $core.List<$core.int>? leaderId,
+    $core.List<$core.int>? subscriptionId,
+  }) {
+    final _result = create();
+    if (leaderId != null) {
+      _result.leaderId = leaderId;
+    }
+    if (subscriptionId != null) {
+      _result.subscriptionId = subscriptionId;
+    }
+    return _result;
+  }
+  factory DropSubscription.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory DropSubscription.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  DropSubscription clone() => DropSubscription()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  DropSubscription copyWith(void Function(DropSubscription) updates) =>
+      super.copyWith((message) => updates(message as DropSubscription))
+          as DropSubscription; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static DropSubscription create() => DropSubscription._();
+  DropSubscription createEmptyInstance() => create();
+  static $pb.PbList<DropSubscription> createRepeated() =>
+      $pb.PbList<DropSubscription>();
+  @$core.pragma('dart2js:noInline')
+  static DropSubscription getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<DropSubscription>(create);
+  static DropSubscription? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.int> get leaderId => $_getN(0);
+  @$pb.TagNumber(1)
+  set leaderId($core.List<$core.int> v) {
+    $_setBytes(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasLeaderId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLeaderId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get subscriptionId => $_getN(1);
+  @$pb.TagNumber(2)
+  set subscriptionId($core.List<$core.int> v) {
+    $_setBytes(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasSubscriptionId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSubscriptionId() => clearField(2);
 }
