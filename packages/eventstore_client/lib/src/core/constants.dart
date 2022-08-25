@@ -44,7 +44,7 @@ class ApiVersions {
   static const v22 = '22.6.0';
   static const v20_LTS = '20.10.5';
   static const v21_LTS = '21.10.7';
-  static const LATEST = v22;
+  static const LATEST = '22.6.0';
 
   static String toImageTag(String version) => '$version-buster-slim';
 }

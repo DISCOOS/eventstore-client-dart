@@ -23,10 +23,10 @@ LATEST := $(shell curl -u $USER:$GITHUB_TOKEN -s https://api.github.com/repos/ev
 		| cut -d '/' -f 1 \
 		| cut -d 'v' -f 2 | xargs)
 
-CURRENT := $(shell cat test/Harness.dart | grep 'String imageTag =' \
+CURRENT := $(shell cat lib/src/core/constants.dart | grep  -m 1 'static const LATEST =' \
 		| cut -d '=' -f 2 \
 		| xargs \
-		| cut -d '-' -f 1  | xargs)
+		| cut -d ';' -f 1  | xargs)
 
 .PHONY: \
 	status certs protos models test doc release
@@ -35,13 +35,12 @@ CURRENT := $(shell cat test/Harness.dart | grep 'String imageTag =' \
 	status certs protos models test doc release
 
 status:
-	echo "Check EventStoreDB OSS version..."
+ifeq ($(LATEST), $(CURRENT))
+	echo "Check EventStoreDB OSS version >> OK."
+else
+	echo "Check EventStoreDB OSS version >> Update ApiVersions.LATEST = '${CURRENT}' in 'lib/src/core/constants.dart' to '${LATEST}'"
 	echo "LATEST: '${LATEST}'"
 	echo "CURRENT: '${CURRENT}'"
-ifeq ($(LATEST), $(CURRENT))
-	echo ">> OK."
-else
-	$(error ">> Update imageTag in 'test/Harness.dart' to '${LATEST}-buster-slim'")
 endif
 
 certs:
