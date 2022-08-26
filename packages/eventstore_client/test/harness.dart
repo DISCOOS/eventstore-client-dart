@@ -108,23 +108,22 @@ class EventStoreClientHarness {
     );
   }
 
-  void install({
+  void install(
+    EventStoreImage image, {
     bool secure = false,
     bool restart = false,
     int grpcPort = PORT_2113,
     int gossipPort = PORT_2114,
     bool enableGossip = true,
     bool withTestData = false,
-    bool Function(String)? isReady,
-    String imageTag = ImageTags.v20_LTS,
     bool? startSystemProjections,
     String runProjections = 'none',
     Duration? timeoutAfter = const Duration(seconds: 5),
   }) {
     Timer? timeout;
     final server = EventStoreServerSingleNode(
+      image,
       secure: secure,
-      imageTag: imageTag,
       grpcPort: grpcPort,
       gossipPort: gossipPort,
       withTestData: withTestData,
@@ -141,7 +140,6 @@ class EventStoreClientHarness {
 
       if (!restart) {
         await server.start(
-          isReady: isReady,
           enableGossip: enableGossip,
           runProjections: runProjections,
           startSystemProjections: startSystemProjections,
@@ -158,7 +156,6 @@ class EventStoreClientHarness {
     setUp(() async {
       if (restart) {
         await server.start(
-          isReady: isReady,
           enableGossip: enableGossip,
           runProjections: runProjections,
           startSystemProjections: startSystemProjections,

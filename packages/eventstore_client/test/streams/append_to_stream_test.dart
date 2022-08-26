@@ -1,4 +1,5 @@
 import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client_test/eventstore_client_test.dart';
 import 'package:test/test.dart';
 
 import '../harness.dart';
@@ -8,7 +9,9 @@ void main() {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
-      ..install();
+      ..install(
+        EventStoreImage.v20_LTS,
+      );
 
     // ---------------------------------------
     // Test append operations
@@ -128,7 +131,9 @@ void main() {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
-      ..install();
+      ..install(
+        EventStoreImage.v20_LTS,
+      );
 
     late StreamState state;
     late Iterable<EventData> exists;
@@ -187,10 +192,7 @@ void main() {
         settings: EventStoreClientSettings.v21,
       )
       ..install(
-        imageTag: ImageTags.v21_LTS,
-        isReady: (line) {
-          return line.contains('Became Leader so now handling subscriptions');
-        },
+        EventStoreImage.v21_LTS,
       );
 
     // ----------------------------------

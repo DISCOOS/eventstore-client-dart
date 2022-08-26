@@ -1,4 +1,5 @@
 import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client_test/eventstore_client_test.dart';
 import 'package:test/test.dart';
 
 import '../harness.dart';
@@ -14,9 +15,11 @@ void main() {
       ..withLogger()
       ..withClient(
         secure: true,
+        settings: EventStoreClientSettings.v20_LTS,
         defaultCredentials: EventStoreClientHarness.DefaultCredentials,
       )
       ..install(
+        EventStoreImage.v21_LTS,
         secure: true,
         timeoutAfter: null,
         enableGossip: true,
@@ -37,6 +40,8 @@ void main() {
       final gossipClient = EventStoreGossipClient(
         client.settings,
       );
+      expect(client.api.server?.version, isNull);
+      expect(client.settings.apiVersion, ApiVersions.v20_LTS);
 
       // Act
       final result = await gossipClient.read(
@@ -49,8 +54,14 @@ void main() {
       expect(result.members.first.isAlive, isTrue);
       expect(result.members.first.features, isNotEmpty);
       expect(result.members.first.endPoint, GossipSeed);
-      expect(result.members.first.apiVersion, isNotEmpty);
       expect(result.members.first.state, VNodeState.leader);
+      expect(result.members.first.apiVersion, ApiVersions.v21_LTS);
+
+      expect(
+        client.api.server?.version,
+        isNull,
+        reason: 'read should not update version',
+      );
     });
 
     test('discovers leader', () async {

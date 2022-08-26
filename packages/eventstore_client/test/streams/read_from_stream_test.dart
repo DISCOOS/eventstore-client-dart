@@ -1,4 +1,5 @@
 import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client_test/eventstore_client_test.dart';
 import 'package:grpc/grpc.dart';
 import 'package:test/test.dart';
 
@@ -11,7 +12,9 @@ void main() {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
-      ..install();
+      ..install(
+        EventStoreImage.v20_LTS,
+      );
 
     // ---------------------------------------
     // Test read operations
@@ -41,7 +44,9 @@ void main() {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
-      ..install();
+      ..install(
+        EventStoreImage.v20_LTS,
+      );
 
     late StreamState state;
     late Iterable<EventData> exists;

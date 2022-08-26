@@ -1,4 +1,5 @@
 import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client_test/eventstore_client_test.dart';
 import 'package:test/test.dart';
 
 import '../harness.dart';
@@ -10,6 +11,7 @@ void main() {
       ..withLogger()
       ..withClient()
       ..install(
+        EventStoreImage.v20_LTS,
         timeoutAfter: null,
         runProjections: 'all',
       );

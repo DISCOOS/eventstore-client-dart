@@ -23,8 +23,8 @@ class StopEventStoreDBCommand extends Command<void> {
   @override
   FutureOr<void> run() async {
     stdout.writeln("Running esdbtcli $name...");
-    final server = EventStoreServerSingleNode();
-    server.stop(name: argResults!['name']);
+    final server = EventStoreServerSingleNode(EventStoreImage.LTS);
+    server.stop(name: argResults!['name'] as String);
     stdout.writeln(
       "EventStoreDB in docker container '${argResults!['name']}' is stopped",
     );

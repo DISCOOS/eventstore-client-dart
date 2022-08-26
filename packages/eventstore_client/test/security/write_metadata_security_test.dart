@@ -1,4 +1,5 @@
 import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client_test/eventstore_client_test.dart';
 import 'package:test/test.dart';
 
 import '../harness.dart';
@@ -21,7 +22,7 @@ void main() {
         defaultCredentials: EventStoreClientHarness.DefaultCredentials,
       )
       ..withClient(secure: true)
-      ..install(secure: true);
+      ..install(EventStoreImage.v20_LTS, secure: true);
 
     test('throws NotAuthenticatedException on bad user', () async {
       // Arrange

@@ -35,6 +35,10 @@ doc:
 	echo "Starting server at http://localhost:8080"
 	dhttpd --path doc/api
 
+verify:
+	echo 'Verify release to pub.dev...'
+	dart pub publish --dry-run
+
 release:
 	echo 'Release to pub.dev...'
-	pub_release --no-test
+	pub_release --no-multi --no-test

@@ -8,7 +8,7 @@ void main() {
   late EventStoreServerSingleNode server;
 
   setUpAll(() {
-    server = EventStoreServerSingleNode();
+    server = EventStoreServerSingleNode(EventStoreImage.LTS);
     client = EventStoreStreamsClient(
       EventStoreClientSettings.parse('esdb://127.0.0.1:2113'),
     );

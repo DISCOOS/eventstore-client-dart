@@ -7,17 +7,17 @@ import '../process/docker_process.dart';
 import 'eventstore_server.dart';
 
 class EventStoreServerSingleNode extends EventStoreServer {
-  EventStoreServerSingleNode({
+  EventStoreServerSingleNode(
+    EventStoreImage image, {
     bool secure = false,
     bool withTestData = false,
-    String imageTag = ImageTags.LTS,
     int grpcPort = Defaults.GrpcPort,
     int gossipPort = Defaults.GossipPort,
     String hostCertificatePath = 'certs',
   }) : super(
+          image: image,
           secure: secure,
           grpcPort: grpcPort,
-          imageTag: imageTag,
           gossipPort: gossipPort,
           withTestData: withTestData,
           hostCertificatePath: hostCertificatePath,
@@ -32,7 +32,6 @@ class EventStoreServerSingleNode extends EventStoreServer {
     bool enableGossip = false,
     bool? startSystemProjections,
     String name = 'eventstore-db',
-    bool Function(String)? isReady,
     String runProjections = 'none',
   }) async {
     verifyCertificatesExist();
@@ -42,8 +41,8 @@ class EventStoreServerSingleNode extends EventStoreServer {
       name: name,
       image: withTestData
           ? 'ghcr.io/eventstore/'
-              'eventstore-client-grpc-testdata:$imageTag'
-          : 'ghcr.io/eventstore/eventstore:$imageTag',
+              'eventstore-client-grpc-testdata:${image.tag}'
+          : 'ghcr.io/eventstore/eventstore:${image.tag}',
       ports: [
         '1113:1113/tcp',
         '1114:1114/tcp',
@@ -77,7 +76,8 @@ class EventStoreServerSingleNode extends EventStoreServer {
       dockerArgs: secure
           ? [
               '--mount',
-              'type=bind,source=${File(hostCertificatePath).absolute.path},target=/etc/eventstore/certs',
+              'type=bind,source=${File(hostCertificatePath).absolute.path},'
+                  'target=/etc/eventstore/certs',
             ]
           : [],
       cleanup: true,
@@ -86,9 +86,7 @@ class EventStoreServerSingleNode extends EventStoreServer {
         if (line.contains('Error response from daemon')) {
           failures.add(line);
         }
-        return failures.isNotEmpty || isReady == null
-            ? line.contains('All components started for Instance')
-            : isReady(line);
+        return failures.isNotEmpty || image.isReady(line);
       },
     );
     if (failures.isNotEmpty) {

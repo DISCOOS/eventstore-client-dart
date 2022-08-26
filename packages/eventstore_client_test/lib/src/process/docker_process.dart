@@ -113,14 +113,14 @@ class DockerProcess {
     if (readySignal != null) {
       final process = await Process.start(command, args);
 
-      final c = Completer();
+      final c = Completer<void>();
       final timer = Timer(timeout ?? const Duration(minutes: 1), () {
         if (c.isCompleted) return;
         c.completeError('timeout');
       });
-      StreamSubscription? subs1;
-      StreamSubscription? subs2;
-      StreamSubscription subs(Stream<List<int>> stream) {
+      StreamSubscription<void>? subs1;
+      StreamSubscription<void>? subs2;
+      StreamSubscription<void> subs(Stream<List<int>> stream) {
         return stream
             .transform(utf8.decoder)
             .transform(LineSplitter())
@@ -175,7 +175,7 @@ class DockerProcess {
   }
 
   /// Kill the docker container.
-  Future kill({
+  Future<void> kill({
     String? name,
     ProcessSignal signal = ProcessSignal.sigkill,
   }) async {
@@ -195,7 +195,7 @@ class DockerProcess {
   }
 
   /// Stop the docker container.
-  Future stop({String? name}) async {
+  Future<void> stop({String? name}) async {
     try {
       _logger.info({
         'stopping': {'name': name ?? _name}

@@ -271,7 +271,7 @@ class StreamState {
     final options = BatchAppendReq_Options()
       ..streamIdentifier = toStreamIdentifier(meta: false);
 
-    if(client.settings.batchAppendDeadline!=null) {
+    if (client.settings.batchAppendDeadline != null) {
       final deadline = $g.Duration()
         ..seconds = Int64(client.settings.batchAppendDeadline!.inSeconds)
         ..nanos = 0;

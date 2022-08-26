@@ -5,7 +5,7 @@ import 'package:eventstore_client_test/eventstore_client_test.dart';
 import 'package:logging/logging.dart';
 
 void main(List<String> args) async {
-  final runner = CommandRunner(
+  final runner = CommandRunner<dynamic>(
       'esdbtcli', 'A command-line tool for testing EventStoreDB locally')
     ..argParser.addFlag('verbose', abbr: 'v', help: 'Prints more output.')
     ..addCommand(GenerateCertificatesCommand())
@@ -13,10 +13,10 @@ void main(List<String> args) async {
     ..addCommand(StopEventStoreDBCommand());
 
   final results = runner.parse(args);
-  if (results['verbose']) {
+  if (results['verbose'] as bool) {
     Logger.root.onRecord.listen((e) {
       stdout.writeln('$e');
-    }, onError: (error) {
+    }, onError: (dynamic error) {
       stderr.writeln('[ERROR]: $error');
     });
   }

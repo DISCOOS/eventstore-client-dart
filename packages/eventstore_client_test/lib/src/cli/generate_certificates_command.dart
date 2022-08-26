@@ -31,7 +31,7 @@ class GenerateCertificatesCommand extends Command<void> {
   FutureOr<void> run() async {
     stdout.writeln("Running esdbtcli $name...");
     final root = Directory(
-      argResults!['out'] ?? Directory.current,
+      argResults!['out'] as String,
     ).absolute.path;
     final certs = Directory('$root/certs');
     final shell = Shell(workingDirectory: root, runInShell: true);
@@ -55,7 +55,7 @@ class GenerateCertificatesCommand extends Command<void> {
     stdout.writeln("Created Node certificate at ${certs.path}/node");
     await ls(shell, Directory(p.join(certs.path, 'node')));
 
-    if (argResults!['secure']) {
+    if (argResults!['secure'] as bool) {
       stdout.writeln(
         "Limit access to read and write for ${shell.username} only with chmod 0600",
       );
@@ -145,6 +145,6 @@ class GenerateCertificatesCommand extends Command<void> {
       '${certs.path}/ca/ca.crt',
     ]);
     await cat.stdout.writeToFile(fs.file("${certs.path}/ca/ca.pem"));
-    await cat.stderr.drain();
+    await cat.stderr.drain<void>();
   }
 }

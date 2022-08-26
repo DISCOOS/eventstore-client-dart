@@ -11,6 +11,20 @@ import 'call_options.dart';
 import 'helpers.dart';
 import 'interceptors/interceptors.dart';
 
+class Versions {
+  Versions._({
+    required this.client,
+    this.server,
+  });
+  final Api client;
+  final Api? server;
+}
+
+class Api {
+  Api._(this.version);
+  final String version;
+}
+
 abstract class EventStoreClientBase {
   final List<ClientInterceptor> _interceptors;
 
@@ -19,6 +33,9 @@ abstract class EventStoreClientBase {
     List<ClientInterceptor> interceptors = const [],
     Map<String, GrpcErrorCallback> exceptionMap = const {},
   })  : _interceptors = interceptors,
+        _api = Versions._(
+          client: Api._(settings.apiVersion),
+        ),
         _options = _mergedCallOptionsWith(settings),
         _exceptionMap = {
           Exceptions.NotLeader: (error) => NotLeaderException.fromCause(error),
@@ -42,12 +59,11 @@ abstract class EventStoreClientBase {
   /// Connection name supplied as metadata to server
   final EventStoreClientSettings settings;
 
-  /// Get Node api version. If [verify] is not invoked,
-  /// [EventStoreClientSettings.apiVersion] is returned.
-  String get apiVersion {
-    return _apiVersion ?? settings.apiVersion;
-  }
-  String? _apiVersion;
+  /// Get api versions. If [verify] is not invoked,
+  /// [Versions.server] is null.
+  Versions get api => _api;
+  Versions _api;
+  String get _version => (api.server ?? api.client).version;
 
   /// Converts [GrpcError]s to typed [Exception]s
   final Map<String, GrpcErrorCallback> _exceptionMap;
@@ -86,16 +102,20 @@ abstract class EventStoreClientBase {
   /// requested [EventStoreClientSettings.apiVersion].
   Future<void> verify() async {
     if (_shouldVerify) {
-      _apiVersion = await _getApiVersion();
+      final version = await _getServerApiVersion();
+      _api = Versions._(
+        client: Api._(settings.apiVersion),
+        server: Api._(version),
+      );
       final constraint = VersionConstraint.parse(
-        '<=$_apiVersion',
+        '<=${_api.server!.version}',
       );
       final isSupported = constraint.allows(Version.parse(
         settings.apiVersion,
       ));
       if (!isSupported) {
         throw UnsupportedApiVersionException(
-          'Server version $_apiVersion is not supported '
+          'Server version ${_api.server!.version} is not supported '
           'for node $leader. Requested version is ${settings.apiVersion}.',
         );
       }
@@ -103,7 +123,7 @@ abstract class EventStoreClientBase {
     }
   }
 
-  Future<String> _getApiVersion() async {
+  Future<String> _getServerApiVersion() async {
     await discover();
     final node = await getNodeInfo(
       leader,
@@ -125,16 +145,16 @@ abstract class EventStoreClientBase {
     _credentials.clear();
   }
 
-  /// Check if given [feature] is supported by [apiVersion]
+  /// Check if given [feature] is supported by [api].
   bool isFeatureSupported(ApiFeature feature) {
-    return feature.allows(apiVersion);
+    return feature.allows(_version);
   }
 
   /// @nodoc
   @visibleForOverriding
   void $verifyFeatureAllowed(ApiFeature feature) {
     if (!isFeatureSupported(feature)) {
-      throw FeatureNotSupportedException(feature, apiVersion);
+      throw FeatureNotSupportedException(feature, _version);
     }
   }
 

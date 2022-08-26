@@ -40,7 +40,9 @@ class EventStoreClientSettings {
   static final EventStoreClientSettings v20 = EventStoreClientSettings();
 
   /// Get default settings for EventStoreDB v20.x LTS version
-  static final EventStoreClientSettings v20_LTS = v20;
+  static final EventStoreClientSettings v20_LTS = v20.copyWith(
+    apiVersion: ApiVersions.v20_LTS,
+  );
 
   /// Get default settings for EventStoreDB v21.x
   static final EventStoreClientSettings v21 = v20.copyWith(
@@ -49,7 +51,10 @@ class EventStoreClientSettings {
   );
 
   /// Get default settings for EventStoreDB v21.x LTS version
-  static final EventStoreClientSettings v21_LTS = v21;
+  static final EventStoreClientSettings v21_LTS = v21.copyWith(
+    batchAppend: true,
+    apiVersion: ApiVersions.v21_LTS,
+  );
 
   /// Settings are compatible with given EventStoreDB [apiVersion]
   final String apiVersion;
@@ -416,7 +421,7 @@ class EventStoreClientConnectionString {
     return map == null
         ? (value ?? defaultValue) as T
         : value == null
-            ? defaultValue!
+            ? defaultValue
             : map(value);
   }
 }

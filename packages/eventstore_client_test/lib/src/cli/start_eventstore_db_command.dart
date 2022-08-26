@@ -35,10 +35,11 @@ class StartEventStoreDBCommand extends Command<void> {
   FutureOr<void> run() async {
     stdout.writeln("Running esdbtcli $name...");
     final server = EventStoreServerSingleNode(
-      secure: argResults!['secure'],
-      hostCertificatePath: argResults!['certs'],
+      EventStoreImage.LTS,
+      secure: argResults!['secure'] as bool,
+      hostCertificatePath: argResults!['certs'] as String,
     );
-    await server.start(name: argResults!['name']);
+    await server.start(name: argResults!['name'] as String);
     stdout.writeln(
       "EventStoreDB in docker container '${argResults!['name']}' is running",
     );

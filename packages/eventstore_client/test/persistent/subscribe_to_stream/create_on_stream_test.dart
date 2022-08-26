@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client_test/eventstore_client_test.dart';
 import 'package:test/test.dart';
 
 import '../../harness.dart';
@@ -15,7 +16,10 @@ void main() {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
-      ..install(timeoutAfter: null);
+      ..install(
+        EventStoreImage.v20_LTS,
+        timeoutAfter: null,
+      );
 
     late Iterable<EventData> exists;
     late final EventStoreStreamsClient streamsClient;

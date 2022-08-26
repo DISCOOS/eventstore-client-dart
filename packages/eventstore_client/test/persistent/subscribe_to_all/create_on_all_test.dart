@@ -1,4 +1,5 @@
 import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client_test/eventstore_client_test.dart';
 import 'package:test/test.dart';
 
 import '../../fixtures/filters.dart';
@@ -12,9 +13,9 @@ void main() {
       ..withLogger()
       ..withClient()
       ..install(
+        EventStoreImage.v20_LTS,
         timeoutAfter: null,
         runProjections: 'all',
-        imageTag: ImageTags.v20_LTS,
       );
 
     late final EventStoreStreamsClient streamsClient;
@@ -51,11 +52,8 @@ void main() {
         settings: EventStoreClientSettings.v21,
       )
       ..install(
+        EventStoreImage.v21_LTS,
         timeoutAfter: null,
-        imageTag: ImageTags.v21_LTS,
-        isReady: (line) {
-          return line.contains('Became Leader so now handling subscriptions');
-        },
       );
 
     late final EventStoreStreamsClient streamsClient;
