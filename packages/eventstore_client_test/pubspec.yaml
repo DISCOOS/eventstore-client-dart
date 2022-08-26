@@ -12,7 +12,7 @@ dependencies:
   shell: ^2.0.0
   logging: ^1.0.2
   universal_io: ^2.0.4
-  eventstore_client: ^0.3.0
+  eventstore_client: ^0.4.0
 dev_dependencies: 
   lints: ^2.0.0
   test: ^1.16.0

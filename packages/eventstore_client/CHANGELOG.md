@@ -1,3 +1,13 @@
+# 0.4.0
+- Refactored version handling
+- Updated models version 22.6.0
+- Upgraded LTS versions
+- Fixed bug in coverage script
+- Fix bug in toHttpClient: allow bad certs when not verify
+- Run test without cert validation as default
+- Fixed mono_repo script
+- Fixed coverage activation
+
 # 0.3.0
 - Added support for TLS setup with configurable certification verification
 - Use implemented LTS version until tests are upgraded
