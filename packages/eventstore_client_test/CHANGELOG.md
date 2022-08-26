@@ -1,3 +1,6 @@
+# 0.4.0
+- Added EventStoreImage for better version handling
+
 # 0.3.0
 - Bumped version in lockstep with eventstore_client.
 
