@@ -95,6 +95,5 @@ void main() {
         throwsA(isA<ArgumentOutOfRangeException>()),
       );
     });
-
   });
 }

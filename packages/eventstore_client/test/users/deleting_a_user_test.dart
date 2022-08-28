@@ -92,6 +92,5 @@ void main() {
         throwsA(isA<UserNotFoundException>()),
       );
     });
-
   });
 }

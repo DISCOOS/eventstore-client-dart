@@ -9,8 +9,7 @@ mixin EventStoreUsersDeleteMixin on EventStoreUsersMixin {
   }) {
     return $runRequest<void>(() async {
       final request = $a.DeleteReq()
-        ..options = (DeleteReq_Options()
-          ..loginName = loginName);
+        ..options = (DeleteReq_Options()..loginName = loginName);
 
       final client = await $getClient();
       await client.delete(

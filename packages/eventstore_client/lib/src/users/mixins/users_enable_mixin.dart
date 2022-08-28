@@ -12,8 +12,7 @@ mixin EventStoreUsersEnableMixin on EventStoreUsersMixin {
     }
     return $runRequest<void>(() async {
       final request = $a.EnableReq()
-        ..options = (EnableReq_Options()
-          ..loginName = loginName);
+        ..options = (EnableReq_Options()..loginName = loginName);
 
       final client = await $getClient();
       await client.enable(

@@ -29,11 +29,8 @@ class EventStoreUsersClient extends EventStoreClientBase
 
   /// Converts [GrpcError]s to typed [Exception]s
   static Map<String, GrpcErrorCallback> ExceptionMap =
-  <String, GrpcErrorCallback>{
-    Exceptions.UserNotFound: (e) =>
-        UserNotFoundException.fromError(e),
-    Exceptions.UserConflict: (e) =>
-        UserConflictException.fromError(e),
+      <String, GrpcErrorCallback>{
+    Exceptions.UserNotFound: (e) => UserNotFoundException.fromError(e),
+    Exceptions.UserConflict: (e) => UserConflictException.fromError(e),
   };
-
 }

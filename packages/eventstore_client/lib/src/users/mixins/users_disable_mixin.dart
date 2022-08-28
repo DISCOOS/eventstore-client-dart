@@ -12,8 +12,7 @@ mixin EventStoreUsersDisableMixin on EventStoreUsersMixin {
     }
     return $runRequest<void>(() async {
       final request = $a.DisableReq()
-        ..options = (DisableReq_Options()
-          ..loginName = loginName);
+        ..options = (DisableReq_Options()..loginName = loginName);
 
       final client = await $getClient();
       await client.disable(

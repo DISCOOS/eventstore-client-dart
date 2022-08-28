@@ -58,25 +58,30 @@ void main() {
       );
 
       // Assert
-      expect(() => usersClient.create(
-        loginName: '',
-        password: '123ABC',
-        fullName: 'Tester',
-        groups: ['foo', 'bar'],
-      ), throwsA(isA<ArgumentOutOfRangeException>()));
-      expect(() => usersClient.create(
-        loginName: 'test',
-        password: '',
-        fullName: 'Tester',
-        groups: ['foo', 'bar'],
-      ), throwsA(isA<ArgumentOutOfRangeException>()));
-      expect(() => usersClient.create(
-        loginName: 'test',
-        password: '123ABC',
-        fullName: '',
-        groups: ['foo', 'bar'],
-      ), throwsA(isA<ArgumentOutOfRangeException>()));
-
+      expect(
+          () => usersClient.create(
+                loginName: '',
+                password: '123ABC',
+                fullName: 'Tester',
+                groups: ['foo', 'bar'],
+              ),
+          throwsA(isA<ArgumentOutOfRangeException>()));
+      expect(
+          () => usersClient.create(
+                loginName: 'test',
+                password: '',
+                fullName: 'Tester',
+                groups: ['foo', 'bar'],
+              ),
+          throwsA(isA<ArgumentOutOfRangeException>()));
+      expect(
+          () => usersClient.create(
+                loginName: 'test',
+                password: '123ABC',
+                fullName: '',
+                groups: ['foo', 'bar'],
+              ),
+          throwsA(isA<ArgumentOutOfRangeException>()));
     });
 
     test('throws on create when loginName already exists', () async {
@@ -104,13 +109,12 @@ void main() {
         ),
         throwsA(
           isA<UserConflictException>().having(
-                (error) => error.message,
+            (error) => error.message,
             "correct message",
             equals("Conflict."),
           ),
         ),
       );
     });
-
   });
 }
