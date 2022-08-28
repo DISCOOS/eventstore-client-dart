@@ -30,3 +30,6 @@ export 'src/security/system_groups.dart';
 export 'src/security/tls_setup.dart';
 export 'src/security/user_credentials.dart';
 export 'src/streams/streams.dart';
+export 'src/users/users_client.dart';
+export 'src/users/user_details.dart';
+export 'src/version/version.g.dart';

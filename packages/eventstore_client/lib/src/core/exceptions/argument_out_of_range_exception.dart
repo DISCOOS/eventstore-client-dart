@@ -1,6 +1,5 @@
 import 'package:grpc/grpc.dart';
 
-/// Exception thrown when a user is not authorised to carry out an operation.
 class ArgumentOutOfRangeException implements Exception {
   /// Constructs a new instance of [ArgumentOutOfRangeException] from given [cause]
   ArgumentOutOfRangeException(this.message, {this.cause});

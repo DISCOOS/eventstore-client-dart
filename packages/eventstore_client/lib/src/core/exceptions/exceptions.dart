@@ -13,3 +13,5 @@ export 'no_scheme_exception.dart';
 export 'not_authenticated_exception.dart';
 export 'not_leader_exception.dart';
 export 'unsupported_api_version_exception.dart';
+export 'user_conflict_exception.dart';
+export 'user_not_found_exception.dart';

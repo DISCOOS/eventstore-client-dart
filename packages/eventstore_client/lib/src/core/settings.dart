@@ -380,7 +380,7 @@ class EventStoreClientConnectionString {
   static Map<String, String> _parseUserInfo(String userInfo) {
     final parts = userInfo.split(_Colon);
     if (parts.length != 2) {
-      throw InvalidUserCredentialsException(userInfo);
+      throw InvalidUserCredentialsParseException(userInfo);
     }
     return {
       _Username: parts[0],

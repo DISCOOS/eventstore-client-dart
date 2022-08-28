@@ -118,7 +118,7 @@ class EventStoreClientHarness {
     bool withTestData = false,
     bool? startSystemProjections,
     String runProjections = 'none',
-    Duration? timeoutAfter = const Duration(seconds: 5),
+    Duration? timeoutAfter = const Duration(seconds: 10),
   }) {
     Timer? timeout;
     final server = EventStoreServerSingleNode(

@@ -6,17 +6,17 @@ class UserCredentials {
   static const Empty = UserCredentials('', '');
 
   /// Get credential username
-  final String? username;
+  final String username;
 
   /// Get credential password
-  final String? password;
+  final String password;
 
   /// Check if credentials is empty
   bool get isEmpty => !isBasicAuth;
 
   /// Check if basic authentication should be used
   bool get isBasicAuth =>
-      username?.isNotEmpty == true && password?.isNotEmpty == true;
+      username.isNotEmpty == true && password.isNotEmpty == true;
 
   @override
   String toString() {

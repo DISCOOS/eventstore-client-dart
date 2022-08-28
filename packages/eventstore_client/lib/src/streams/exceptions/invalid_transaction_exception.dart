@@ -7,7 +7,7 @@ class InvalidTransactionException implements Exception {
   InvalidTransactionException(this.message, {this.cause});
 
   /// The message received from server
-  String message;
+  final String message;
 
   /// If available, the [cause] of this exception.
   final Object? cause;
