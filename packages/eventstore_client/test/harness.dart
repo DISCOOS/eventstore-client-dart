@@ -118,6 +118,7 @@ class EventStoreClientHarness {
     bool withTestData = false,
     bool? startSystemProjections,
     String runProjections = 'none',
+    Duration waitFor = Duration.zero,
     Map<String, String> environment = const {},
     Duration? timeoutAfter = const Duration(seconds: 10),
   }) {
@@ -151,6 +152,10 @@ class EventStoreClientHarness {
       _creators.forEach((name, creator) {
         _open(name, creator);
       });
+
+      // Use to delay setup
+      await Future<void>.delayed(waitFor);
+
       _logger?.info('---setUpAll--->ok');
       return Future<void>.value();
     });

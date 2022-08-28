@@ -1,3 +1,7 @@
+# 0.5.0
+- Added support for monitoring api.
+- Added support for user management.
+
 # 0.4.0
 - Refactored version handling
 - Updated models version 22.6.0

@@ -20,6 +20,7 @@ void main() {
       )
       ..install(
         EventStoreImage.V20_LTS,
+        waitFor: Duration(seconds: 1),
       );
 
     // ---------------------------------------
