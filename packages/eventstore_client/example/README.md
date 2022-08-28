@@ -31,10 +31,12 @@ EventStoreClientSettings.parse("esdb://host1,host2,host3?tlsVerifyCert=false"); 
 ```
 
 The following clients are available
-* [EventStoreStreamsClient](https://pub.dev/documentation/eventstore_client/latest/eventstore_client/EventStoreStreamsClient-class.html)
-* [EventStoreProjectionsClient](https://pub.dev/documentation/eventstore_client/latest/eventstore_client/EventStoreProjectionsClient-class.html)
-* [EventStorePersistentSubscriptionsClient](https://pub.dev/documentation/eventstore_client/latest/eventstore_client/EventStorePersistentSubscriptionsClient-class.html)
-* [EventStoreGossipClient](https://pub.dev/documentation/eventstore_client/latest/eventstore_client/EventStoreGossipClient-class.html)
+* [EventStoreStreamsClient](https://pub.dev/documentation/eventstore_client/latest/eventstore_client/EventStoreStreamsClient-class.html) - for working with streams
+* [EventStoreProjectionsClient](https://pub.dev/documentation/eventstore_client/latest/eventstore_client/EventStoreProjectionsClient-class.html) - for working with projections
+* [EventStorePersistentSubscriptionsClient](https://pub.dev/documentation/eventstore_client/latest/eventstore_client/EventStorePersistentSubscriptionsClient-class.html) - for working with persistent subscriptions
+* [EventStoreGossipClient](https://pub.dev/documentation/eventstore_client/latest/eventstore_client/EventStoreGossipClient-class.html) - for inspecting server nodes using the gossip protocol
+* [EventStoreUsersClient](https://pub.dev/documentation/eventstore_client/latest/eventstore_client/EventStoreUsersClient-class.html) - for working with internal users
+* [EventStoreMonitoringClient](https://pub.dev/documentation/eventstore_client/latest/eventstore_client/EventStoreMonitoringClient-class.html) - for fetching statistics from nodes 
 
 
 See official documentation for more information about 
