@@ -57,18 +57,18 @@ on [eventstore.com](https://developers.eventstore.com).
 This package is in active development and breaking changes should still be expected. It currently
 supports the following EventStoreDB client APIs:
 
-* :white_check_mark:  Streams API
-* :white_check_mark:  Projections Management API
-* :white_check_mark:  Persistent Subscriptions Management API
-* :white_check_mark:  Gossip API (open source version of EventstoreDB)
+* &#2705;  Streams API
+* &#2705;  Projections Management API
+* &#2705;  Persistent Subscriptions Management API
+* &#2705;  Gossip API (open source version of EventstoreDB)
+* &#2705;  User Management API
 
 We are working on the following APIs:
-* :stopwatch:  User Management API
+* &#23F0;  Monitoring API
 
 The following APIs are planned for implementation in prioritized order:
-* :one:  Operations API
-* :two:  Monitoring API
-* :three:  Cluster Management API (commercial version of EventstoreDB)
+* &#0031;&#FE0F;&#20E3;  Operations API
+* &#0032;&#FE0F;&#20E3;  Cluster Management API (commercial version of EventstoreDB)
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 
