@@ -60,15 +60,15 @@ supports the following EventStoreDB client APIs:
 * ✅   Streams API
 * ✅   Projections Management API
 * ✅   Persistent Subscriptions Management API
-* ✅  Gossip API (open source version of EventstoreDB)
-* ✅  User Management API
+* ✅   Gossip API (open source version of EventstoreDB)
+* ✅   User Management API
+* ✅   Monitoring API (statistics only from v21.x)
 
 We are working on the following APIs:
-* ⏱  Monitoring API
+* ⏱   Operations API
 
 The following APIs are planned for implementation in prioritized order:
-* 1️⃣  Operations API
-* 2️⃣  Cluster Management API (commercial version of EventstoreDB)
+* 1️⃣   Elections API 
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 

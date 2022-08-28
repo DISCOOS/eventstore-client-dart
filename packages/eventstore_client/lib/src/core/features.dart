@@ -13,6 +13,7 @@ class ApiFeature {
     BatchAppend,
     BatchAppendDeadline,
     PersistentSubscriptionOnAllStream,
+    Monitoring,
   ];
 
   static const BatchAppend = ApiFeature(
@@ -27,6 +28,11 @@ class ApiFeature {
 
   static const PersistentSubscriptionOnAllStream = ApiFeature(
     'PersistentSubscriptionOnAllStream',
+    '>=${ApiVersions.V21}',
+  );
+
+  static const Monitoring = ApiFeature(
+    'Monitoring',
     '>=${ApiVersions.V21}',
   );
 

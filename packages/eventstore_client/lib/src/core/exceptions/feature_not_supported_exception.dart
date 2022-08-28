@@ -6,8 +6,9 @@ import 'package:grpc/grpc.dart';
 class FeatureNotSupportedException implements Exception {
   /// Constructs a new instance of [AccessDeniedException] from given [cause]
   FeatureNotSupportedException(this.feature, this.apiVersion, {this.cause})
-      : message = 'Feature ${feature.name} not supported. '
-            'Version $apiVersion does not match constraint ${feature.constraint}';
+      : message = "Feature '${feature.name}' not supported. "
+            "Version '$apiVersion' does not match "
+            "constraint ${feature.constraint}";
 
   final String message;
   final String apiVersion;
