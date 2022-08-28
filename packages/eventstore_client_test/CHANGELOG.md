@@ -1,3 +1,6 @@
+# 0.5.0
+- Added support for providing enviroment variables to EventStore.
+
 # 0.4.0
 - Added EventStoreImage for better version handling
 
