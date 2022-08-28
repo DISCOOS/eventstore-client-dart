@@ -16,7 +16,7 @@ void main() {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient()
-      ..install(EventStoreImage.v20_LTS, timeoutAfter: null);
+      ..install(EventStoreImage.V20_LTS, timeoutAfter: null);
 
     late Iterable<EventData> exists;
     late final EventStoreStreamsClient streamsClient;

@@ -24,6 +24,7 @@ export 'src/core/typedefs.dart';
 export 'src/core/uuid.dart';
 export 'src/gossip/endpoint_discoverer.dart';
 export 'src/gossip/gossip_client.dart';
+export 'src/monitoring/monitoring_client.dart';
 export 'src/persistent/persistent_subscriptions.dart';
 export 'src/projections/projections.dart';
 export 'src/security/system_groups.dart';

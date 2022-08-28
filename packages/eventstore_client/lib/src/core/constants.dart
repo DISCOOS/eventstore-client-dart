@@ -40,12 +40,12 @@ class Defaults {
 }
 
 class ApiVersions {
-  static const v20 = '20.10.0';
-  static const v21 = '21.6.0';
-  static const v21_10_0 = '21.10.0';
-  static const v22 = '22.6.0';
-  static const v20_LTS = '20.10.5';
-  static const v21_LTS = '21.10.7';
+  static const V20 = '20.10.0';
+  static const V21 = '21.6.0';
+  static const V21_10_0 = '21.10.0';
+  static const V22 = '22.6.0';
+  static const V20_LTS = '20.10.5';
+  static const V21_LTS = '21.10.7';
   static const LATEST = '22.6.0';
 
   static String toImageTag(String version) => '$version-buster-slim';
@@ -54,12 +54,12 @@ class ApiVersions {
 class ImageTags {
   static const MASTER = 'ci';
   static const LATEST = '22.6.0-buster-slim';
-  static const v20 = '${ApiVersions.v20}-buster-slim';
-  static const v21 = '${ApiVersions.v21}-buster-slim';
+  static const V20 = '${ApiVersions.V20}-buster-slim';
+  static const V21 = '${ApiVersions.V21}-buster-slim';
 
-  static const LTS = v20_LTS;
-  static const v20_LTS = '${ApiVersions.v20_LTS}-buster-slim';
-  static const v21_LTS = '${ApiVersions.v21_LTS}-buster-slim';
+  static const LTS = V20_LTS;
+  static const V20_LTS = '${ApiVersions.V20_LTS}-buster-slim';
+  static const V21_LTS = '${ApiVersions.V21_LTS}-buster-slim';
 }
 
 class Exceptions {

@@ -15,11 +15,11 @@ void main() {
       ..withLogger()
       ..withClient(
         secure: true,
-        settings: EventStoreClientSettings.v20_LTS,
+        settings: EventStoreClientSettings.V20_LTS,
         defaultCredentials: EventStoreClientHarness.DefaultCredentials,
       )
       ..install(
-        EventStoreImage.v21_LTS,
+        EventStoreImage.V21_LTS,
         secure: true,
         timeoutAfter: null,
         enableGossip: true,
@@ -41,7 +41,7 @@ void main() {
         client.settings,
       );
       expect(client.api.server?.version, isNull);
-      expect(client.settings.apiVersion, ApiVersions.v20_LTS);
+      expect(client.settings.apiVersion, ApiVersions.V20_LTS);
 
       // Act
       final result = await gossipClient.read(
@@ -55,7 +55,7 @@ void main() {
       expect(result.members.first.features, isNotEmpty);
       expect(result.members.first.endPoint, GossipSeed);
       expect(result.members.first.state, VNodeState.leader);
-      expect(result.members.first.apiVersion, ApiVersions.v21_LTS);
+      expect(result.members.first.apiVersion, ApiVersions.V21_LTS);
 
       expect(
         client.api.server?.version,

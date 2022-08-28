@@ -13,7 +13,7 @@ void main() {
       ..withLogger()
       ..withClient()
       ..install(
-        EventStoreImage.v20_LTS,
+        EventStoreImage.V20_LTS,
       );
 
     // ---------------------------------------
@@ -45,7 +45,7 @@ void main() {
       ..withLogger()
       ..withClient()
       ..install(
-        EventStoreImage.v20_LTS,
+        EventStoreImage.V20_LTS,
       );
 
     late StreamState state;

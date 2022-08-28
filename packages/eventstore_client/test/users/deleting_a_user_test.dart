@@ -10,11 +10,11 @@ void main() {
       ..withLogger()
       ..withClient(
         secure: true,
-        settings: EventStoreClientSettings.v20_LTS,
+        settings: EventStoreClientSettings.V20_LTS,
         defaultCredentials: EventStoreClientHarness.DefaultCredentials,
       )
       ..install(
-        EventStoreImage.v20_LTS,
+        EventStoreImage.V20_LTS,
         secure: true,
       );
 

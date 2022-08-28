@@ -22,7 +22,7 @@ void main() {
         defaultCredentials: EventStoreClientHarness.DefaultCredentials,
       )
       ..withClient(secure: true)
-      ..install(EventStoreImage.v20_LTS, secure: true);
+      ..install(EventStoreImage.V20_LTS, secure: true);
 
     test('throws NotAuthenticatedException on bad user', () async {
       // Arrange

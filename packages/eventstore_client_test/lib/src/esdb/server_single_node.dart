@@ -33,6 +33,7 @@ class EventStoreServerSingleNode extends EventStoreServer {
     bool? startSystemProjections,
     String name = 'eventstore-db',
     String runProjections = 'none',
+    Map<String, String> environment = const {},
   }) async {
     verifyCertificatesExist();
     final failures = <String>[];
@@ -72,7 +73,10 @@ class EventStoreServerSingleNode extends EventStoreServer {
         if (startSystemProjections != null)
           'EVENTSTORE_START_SYSTEM_PROJECTIONS':
               startSystemProjections ? 'True' : 'False',
-      },
+      }..addAll(
+          // Override with keys in given environment
+          environment,
+        ),
       dockerArgs: secure
           ? [
               '--mount',

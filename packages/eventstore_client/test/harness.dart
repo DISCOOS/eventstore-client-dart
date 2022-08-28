@@ -76,7 +76,7 @@ class EventStoreClientHarness {
     NodePreference nodePreference = NodePreference.leader,
   }) {
     final name = connectionName ?? '$EventStoreStreamsClient';
-    final config = (settings ?? EventStoreClientSettings.v20_LTS);
+    final config = (settings ?? EventStoreClientSettings.V20_LTS);
     _register(
       name,
       () {
@@ -118,6 +118,7 @@ class EventStoreClientHarness {
     bool withTestData = false,
     bool? startSystemProjections,
     String runProjections = 'none',
+    Map<String, String> environment = const {},
     Duration? timeoutAfter = const Duration(seconds: 10),
   }) {
     Timer? timeout;
@@ -140,6 +141,7 @@ class EventStoreClientHarness {
 
       if (!restart) {
         await server.start(
+          environment: environment,
           enableGossip: enableGossip,
           runProjections: runProjections,
           startSystemProjections: startSystemProjections,
@@ -156,6 +158,7 @@ class EventStoreClientHarness {
     setUp(() async {
       if (restart) {
         await server.start(
+          environment: environment,
           enableGossip: enableGossip,
           runProjections: runProjections,
           startSystemProjections: startSystemProjections,

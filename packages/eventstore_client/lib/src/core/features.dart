@@ -17,17 +17,17 @@ class ApiFeature {
 
   static const BatchAppend = ApiFeature(
     'BatchAppend',
-    '>=${ApiVersions.v21}',
+    '>=${ApiVersions.V21}',
   );
 
   static const BatchAppendDeadline = ApiFeature(
     'BatchAppend_Deadline',
-    '>=${ApiVersions.v21_10_0}',
+    '>=${ApiVersions.V21_10_0}',
   );
 
   static const PersistentSubscriptionOnAllStream = ApiFeature(
     'PersistentSubscriptionOnAllStream',
-    '>=${ApiVersions.v21}',
+    '>=${ApiVersions.V21}',
   );
 
   /// Name of feature

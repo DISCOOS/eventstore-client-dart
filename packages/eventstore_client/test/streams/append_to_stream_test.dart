@@ -10,7 +10,7 @@ void main() {
       ..withLogger()
       ..withClient()
       ..install(
-        EventStoreImage.v20_LTS,
+        EventStoreImage.V20_LTS,
       );
 
     // ---------------------------------------
@@ -132,7 +132,7 @@ void main() {
       ..withLogger()
       ..withClient()
       ..install(
-        EventStoreImage.v20_LTS,
+        EventStoreImage.V20_LTS,
       );
 
     late StreamState state;
@@ -189,10 +189,10 @@ void main() {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient(
-        settings: EventStoreClientSettings.v21,
+        settings: EventStoreClientSettings.V21,
       )
       ..install(
-        EventStoreImage.v21_LTS,
+        EventStoreImage.V21_LTS,
       );
 
     // ----------------------------------

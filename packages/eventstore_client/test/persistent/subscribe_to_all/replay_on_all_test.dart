@@ -15,10 +15,10 @@ void main() {
     final harness = EventStoreClientHarness()
       ..withLogger()
       ..withClient(
-        settings: EventStoreClientSettings.v21,
+        settings: EventStoreClientSettings.V21,
       )
       ..install(
-        EventStoreImage.v21_LTS,
+        EventStoreImage.V21_LTS,
         timeoutAfter: null,
       );
 

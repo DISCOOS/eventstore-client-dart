@@ -12,14 +12,14 @@ void main() {
       ..withLogger()
       ..withClient(
         connectionName: Supported,
-        settings: EventStoreClientSettings.v20_LTS,
+        settings: EventStoreClientSettings.V20_LTS,
       )
       ..withClient(
         connectionName: Unsupported,
-        settings: EventStoreClientSettings.v21_LTS,
+        settings: EventStoreClientSettings.V21_LTS,
       )
       ..install(
-        EventStoreImage.v20_LTS,
+        EventStoreImage.V20_LTS,
       );
 
     // ---------------------------------------
@@ -32,13 +32,13 @@ void main() {
         connectionName: Supported,
       );
       expect(client.api.server?.version, isNull);
-      expect(client.settings.apiVersion, ApiVersions.v20_LTS);
+      expect(client.settings.apiVersion, ApiVersions.V20_LTS);
 
       // Act
       await client.verify();
 
       // Assert
-      expect(client.api.server?.version, ApiVersions.v20_LTS);
+      expect(client.api.server?.version, ApiVersions.V20_LTS);
     });
 
     test('updates server version on verify failure', () async {
@@ -47,7 +47,7 @@ void main() {
         connectionName: Unsupported,
       );
       expect(client.api.server?.version, isNull);
-      expect(client.settings.apiVersion, ApiVersions.v21_LTS);
+      expect(client.settings.apiVersion, ApiVersions.V21_LTS);
 
       // Act
       await expectLater(
@@ -56,7 +56,7 @@ void main() {
       );
 
       // Assert
-      expect(client.api.server?.version, ApiVersions.v20_LTS);
+      expect(client.api.server?.version, ApiVersions.V20_LTS);
     });
   });
 }

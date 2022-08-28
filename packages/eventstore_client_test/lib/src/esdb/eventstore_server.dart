@@ -8,23 +8,35 @@ class EventStoreImage {
     this.isReady,
   );
 
-  static final EventStoreImage LTS = v20_LTS;
-  static final EventStoreImage v20_LTS = EventStoreImage(
-    ImageTags.v20_LTS,
-    _v20_LTS_IsReady,
+  static final EventStoreImage LTS = V20_LTS;
+  static final EventStoreImage V20_LTS = EventStoreImage(
+    ImageTags.V20_LTS,
+    _v20_IsReady,
   );
-  static final EventStoreImage v21_LTS = EventStoreImage(
-    ImageTags.v21_LTS,
-    _v21_LTS_IsReady,
+  static final EventStoreImage V21_LTS = EventStoreImage(
+    ImageTags.V21_LTS,
+    _v21_IsReady,
   );
 
+  static final EventStoreImage V22 = EventStoreImage(
+    '${ApiVersions.V22}-buster-slim',
+    _v22_IsReady,
+  );
+
+  static final EventStoreImage LATEST = V22;
+
   // ignore: prefer_function_declarations_over_variables
-  static final bool Function(String) _v20_LTS_IsReady = (String line) {
+  static final bool Function(String) _v20_IsReady = (String line) {
     return line.contains('All components started for Instance');
   };
 
   // ignore: prefer_function_declarations_over_variables
-  static final bool Function(String) _v21_LTS_IsReady = (String line) {
+  static final bool Function(String) _v21_IsReady = (String line) {
+    return line.contains('Became Leader so now handling subscriptions');
+  };
+
+  // ignore: prefer_function_declarations_over_variables
+  static final bool Function(String) _v22_IsReady = (String line) {
     return line.contains('Became Leader so now handling subscriptions');
   };
 

@@ -22,7 +22,7 @@ class EventStoreClientSettings {
     this.batchAppendDeadline,
     this.gossipSeeds = const [],
     this.tlsSetup = Defaults.TlsSetup,
-    this.apiVersion = ApiVersions.v20_LTS,
+    this.apiVersion = ApiVersions.V20_LTS,
     this.maxRetries = Defaults.MaxRetries,
     this.batchAppend = Defaults.BatchAppend,
     this.gossipTimeout = Defaults.GossipTimeout,
@@ -37,23 +37,23 @@ class EventStoreClientSettings {
   }) : connectionName = connectionName ?? 'ES-${UuidV4.newUuid().value.uuid}';
 
   /// Get default settings for EventStoreDB v20.x
-  static final EventStoreClientSettings v20 = EventStoreClientSettings();
+  static final EventStoreClientSettings V20 = EventStoreClientSettings();
 
   /// Get default settings for EventStoreDB v20.x LTS version
-  static final EventStoreClientSettings v20_LTS = v20.copyWith(
-    apiVersion: ApiVersions.v20_LTS,
+  static final EventStoreClientSettings V20_LTS = V20.copyWith(
+    apiVersion: ApiVersions.V20_LTS,
   );
 
   /// Get default settings for EventStoreDB v21.x
-  static final EventStoreClientSettings v21 = v20.copyWith(
+  static final EventStoreClientSettings V21 = V20.copyWith(
     batchAppend: true,
-    apiVersion: ApiVersions.v21,
+    apiVersion: ApiVersions.V21,
   );
 
   /// Get default settings for EventStoreDB v21.x LTS version
-  static final EventStoreClientSettings v21_LTS = v21.copyWith(
+  static final EventStoreClientSettings V21_LTS = V21.copyWith(
     batchAppend: true,
-    apiVersion: ApiVersions.v21_LTS,
+    apiVersion: ApiVersions.V21_LTS,
   );
 
   /// Settings are compatible with given EventStoreDB [apiVersion]

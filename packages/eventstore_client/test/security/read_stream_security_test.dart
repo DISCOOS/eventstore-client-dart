@@ -37,7 +37,7 @@ void main() {
         connectionName: DefaultCredentials,
         defaultCredentials: EventStoreClientHarness.DefaultCredentials,
       )
-      ..install(EventStoreImage.v20_LTS, secure: true);
+      ..install(EventStoreImage.V20_LTS, secure: true);
 
     late Iterable<EventData> exists;
 
