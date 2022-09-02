@@ -1,4 +1,4 @@
-import 'package:eventstore_client/src/generated/Operations.pbgrpc.dart';
+import 'package:eventstore_client/src/generated/operations.pbgrpc.dart';
 
 class ScavengeResult {
   ScavengeResult._(
