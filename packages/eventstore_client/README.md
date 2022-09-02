@@ -61,14 +61,13 @@ supports the following EventStoreDB client APIs:
 * ✅   Projections Management API
 * ✅   Persistent Subscriptions Management API
 * ✅   Gossip API (open source version of EventstoreDB)
-* ✅   User Management API
-* ✅   Monitoring API (statistics only from v21.x)
+* ✅ User Management API
+* ✅ Operations API
+* ✅ Monitoring API (statistics only from v21.x)
 
 We are working on the following APIs:
-* ⏱   Operations API
 
-The following APIs are planned for implementation in prioritized order:
-* 1️⃣   Elections API 
+* ⏱ Elections API
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 

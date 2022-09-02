@@ -43,7 +43,7 @@ void main() {
 
     setUpAll(() async {
       exists = harness.createTestEvents(count: ExistingCount);
-      Future<void> _writeTo(
+      Future<void> writeTo(
         String streamId,
         Iterable<EventData> exists,
       ) async {
@@ -56,8 +56,8 @@ void main() {
         expect(result.actualType, equals(StreamStateType.stream_exists));
       }
 
-      await _writeTo(StreamsSecurityFixture.NoAclStream, exists);
-      await _writeTo(StreamsSecurityFixture.ReadStream, exists);
+      await writeTo(StreamsSecurityFixture.NoAclStream, exists);
+      await writeTo(StreamsSecurityFixture.ReadStream, exists);
     });
 
     test('fails to connect with default trust store', () async {
