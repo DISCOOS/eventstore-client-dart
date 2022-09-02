@@ -1,3 +1,7 @@
+# 0.6.0
+- Added support for operations api
+- Updated example readme
+
 # 0.5.0
 - Added support for monitoring api.
 - Added support for user management.
