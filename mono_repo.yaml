@@ -10,12 +10,8 @@ github:
           uses: actions/cache@v2.1.6
           with:
             path: "~/.pub-cache/hosted"
-            key: "os:ubuntu-latest;pub-cache-hosted;dart:stable;packages:packages/eventuous;commands:test"
-            restore-keys: |
-              os:ubuntu-latest;pub-cache-hosted;dart:stable;packages:packages/eventuous
-              os:ubuntu-latest;pub-cache-hosted;dart:stable
-              os:ubuntu-latest;pub-cache-hosted
-              os:ubuntu-latest
+            key: "eventstore_client"
+            restore-keys: eventstore_client
         - uses: dart-lang/setup-dart@v1.3
           with:
             sdk: stable
