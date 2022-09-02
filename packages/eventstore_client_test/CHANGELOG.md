@@ -1,3 +1,6 @@
+# 0.6.0
+- Bumped version in lockstep with eventstore_client.
+
 # 0.5.0
 - Added support for providing enviroment variables to EventStore.
 
