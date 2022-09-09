@@ -1,11 +1,10 @@
 import 'dart:async';
 
+import 'package:eventstore_client/eventstore_client.dart';
 import 'package:eventstore_client/src/generated/code.pb.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 import 'package:protobuf/protobuf.dart';
 import 'package:tuple/tuple.dart';
-
-import 'package:eventstore_client/eventstore_client.dart';
 
 import '../generated/streams.pb.dart';
 

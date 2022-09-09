@@ -2,7 +2,7 @@ import 'dart:core';
 
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:fixnum/fixnum.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// A class referring to a potential logical
 /// record position in the Event Store transaction file.

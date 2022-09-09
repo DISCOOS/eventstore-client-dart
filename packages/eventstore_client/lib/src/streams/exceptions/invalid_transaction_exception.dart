@@ -1,4 +1,4 @@
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// Exception thrown if there is an attempt to operate inside a
 /// transaction which does not exist.

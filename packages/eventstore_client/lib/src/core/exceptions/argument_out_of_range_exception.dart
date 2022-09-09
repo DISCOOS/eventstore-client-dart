@@ -1,4 +1,4 @@
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 class ArgumentOutOfRangeException implements Exception {
   /// Constructs a new instance of [ArgumentOutOfRangeException] from given [cause]

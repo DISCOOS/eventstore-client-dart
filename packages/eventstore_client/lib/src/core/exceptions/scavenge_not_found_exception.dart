@@ -1,4 +1,4 @@
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// Exception thrown if scavenge with given scavengeId was not found.
 class ScavengeNotFoundException implements Exception {

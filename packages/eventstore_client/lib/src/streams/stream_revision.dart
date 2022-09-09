@@ -1,6 +1,6 @@
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:fixnum/fixnum.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// A class referring to the expected stream revision when writing to a stream.
 class StreamRevision implements Comparable<StreamRevision> {

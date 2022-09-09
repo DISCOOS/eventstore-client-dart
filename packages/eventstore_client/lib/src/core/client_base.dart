@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'package:eventstore_client/src/generated/code.pb.dart';
-import 'package:grpc/grpc_or_grpcweb.dart';
-import 'package:meta/meta.dart';
-import 'package:grpc/grpc.dart';
 
 import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/generated/code.pb.dart';
+import 'package:grpc/grpc.dart' show ChannelCredentials, ChannelOptions;
+import 'package:grpc/grpc_or_grpcweb.dart';
+import 'package:grpc/service_api.dart';
+import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'call_options.dart';
@@ -50,8 +51,8 @@ abstract class EventStoreClientBase {
   /// [leader] is lazily fetched or created on next get
   late EndPoint? _leader;
 
-  /// List of lazily created [ClientChannel]
-  final Map<EndPoint, ClientChannel> _channels = {};
+  /// List of lazily created [GrpcOrGrpcWebClientChannel]
+  final Map<EndPoint, GrpcOrGrpcWebClientChannel> _channels = {};
 
   /// List of lazily created [ChannelCredentials]
   final Map<EndPoint, ChannelCredentials> _credentials = {};
@@ -176,7 +177,7 @@ abstract class EventStoreClientBase {
 
   /// @nodoc
   @visibleForOverriding
-  Future<ClientChannel> $getCurrentChannel() async {
+  Future<GrpcOrGrpcWebClientChannel> $getCurrentChannel() async {
     await discover();
     return $getOrAddChannel(_leader!);
   }
@@ -215,7 +216,7 @@ abstract class EventStoreClientBase {
 
   /// @nodoc
   @visibleForOverriding
-  ClientChannel $getOrAddChannel(EndPoint endPoint) {
+  GrpcOrGrpcWebClientChannel $getOrAddChannel(EndPoint endPoint) {
     return _channels.update(
       endPoint,
       (_) => _,
@@ -223,7 +224,7 @@ abstract class EventStoreClientBase {
     );
   }
 
-  ClientChannel _createChannel(EndPoint endPoint) {
+  GrpcOrGrpcWebClientChannel _createChannel(EndPoint endPoint) {
     return GrpcOrGrpcWebClientChannel.grpc(
       endPoint.address,
       port: endPoint.port,

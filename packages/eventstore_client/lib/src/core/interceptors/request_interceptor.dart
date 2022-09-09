@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:eventstore_client/src/core/helpers.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/service_api.dart';
 
 class ClientRequestInterceptor extends ClientInterceptor {
   ClientRequestInterceptor();

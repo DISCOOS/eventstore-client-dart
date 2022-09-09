@@ -1,5 +1,5 @@
 import 'package:eventstore_client/src/core/constants.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/service_api.dart';
 
 class ConnectionNameInterceptor extends ClientInterceptor {
   ConnectionNameInterceptor(this.name);

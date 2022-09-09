@@ -1,11 +1,10 @@
 import 'dart:async';
 
-import 'package:eventstore_client/src/generated/status.pb.dart';
-import 'package:grpc/grpc.dart';
-import 'package:meta/meta.dart';
-
-import 'package:eventstore_client/src/generated/streams.pb.dart';
 import 'package:eventstore_client/eventstore_client.dart';
+import 'package:eventstore_client/src/generated/status.pb.dart';
+import 'package:eventstore_client/src/generated/streams.pb.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
+import 'package:meta/meta.dart';
 
 /// An interface representing the result of a write operation.
 abstract class WriteResult {

@@ -1,6 +1,6 @@
 import 'package:eventstore_client/src/core/constants.dart';
 import 'package:eventstore_client/src/generated/cluster.pb.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 import 'package:universal_io/io.dart';
 
 /// This exception is thrown when an operation requiring a leader node is made on a follower node.

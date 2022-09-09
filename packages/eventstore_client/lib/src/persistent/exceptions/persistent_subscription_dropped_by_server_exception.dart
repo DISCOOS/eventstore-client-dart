@@ -1,5 +1,5 @@
 import 'package:eventstore_client/src/core/constants.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// The exception that is thrown when the EventStoreDB drops a
 /// persistent subscription.

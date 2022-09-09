@@ -1,6 +1,6 @@
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:eventstore_client/src/core/helpers.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// A helper class for creating [CallOptions].
 ///

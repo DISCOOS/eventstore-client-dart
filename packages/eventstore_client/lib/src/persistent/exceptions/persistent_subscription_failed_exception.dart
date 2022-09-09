@@ -1,5 +1,5 @@
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// The exception that is thrown when a persistent subscription fails.
 class PersistentSubscriptionFailedException implements Exception {

@@ -1,6 +1,6 @@
 import 'package:eventstore_client/src/core/constants.dart';
 import 'package:eventstore_client/src/core/resolved_event.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// Exception thrown if an operation is attempted on a stream which
 /// has been deleted.

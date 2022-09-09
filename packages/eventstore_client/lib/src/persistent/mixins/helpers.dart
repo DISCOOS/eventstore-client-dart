@@ -5,7 +5,7 @@ import 'package:eventstore_client/src/core/helpers.dart';
 import 'package:eventstore_client/src/generated/persistent.pb.dart';
 import 'package:eventstore_client/src/generated/shared.pb.dart';
 import 'package:fixnum/fixnum.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc.dart' show ChannelCredentials;
 import 'package:universal_io/io.dart';
 import 'package:uuid/uuid.dart';
 

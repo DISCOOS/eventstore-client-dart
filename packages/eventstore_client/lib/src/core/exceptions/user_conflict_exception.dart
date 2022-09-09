@@ -1,4 +1,4 @@
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// Exception thrown if user with given loginName already exists.
 class UserConflictException implements Exception {

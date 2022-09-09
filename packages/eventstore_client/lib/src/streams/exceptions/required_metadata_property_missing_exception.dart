@@ -1,5 +1,5 @@
 import 'package:eventstore_client/src/core/constants.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// Exception thrown when a required metadata property is missing.
 class RequiredMetadataPropertyMissingException implements Exception {

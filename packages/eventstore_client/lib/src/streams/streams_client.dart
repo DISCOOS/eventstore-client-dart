@@ -7,7 +7,7 @@ import 'package:eventstore_client/src/core/read_enumerator.dart';
 import 'package:eventstore_client/src/generated/shared.pb.dart';
 import 'package:eventstore_client/src/generated/streams.pbgrpc.dart';
 import 'package:fixnum/fixnum.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 import 'package:meta/meta.dart';
 import 'package:tuple/tuple.dart';
 

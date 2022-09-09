@@ -1,4 +1,4 @@
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// The exception that is thrown when a user is not authenticated.
 class NotAuthenticatedException implements Exception {

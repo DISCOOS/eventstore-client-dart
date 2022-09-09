@@ -1,5 +1,5 @@
 import 'package:eventstore_client/src/core/features.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// Exception thrown when a feature is invoked on a [ApiVersion] it
 /// does not support.

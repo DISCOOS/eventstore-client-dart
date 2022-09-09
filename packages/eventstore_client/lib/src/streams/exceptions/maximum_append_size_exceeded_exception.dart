@@ -1,5 +1,5 @@
 import 'package:eventstore_client/src/core/constants.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// Exception thrown when an append exceeds the maximum size set by the server.
 class MaximumAppendSizeExceededException implements Exception {

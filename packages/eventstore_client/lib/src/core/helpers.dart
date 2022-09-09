@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
+
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc.dart' show ChannelCredentials;
 import 'package:universal_io/io.dart';
 
 /// Get enum value name

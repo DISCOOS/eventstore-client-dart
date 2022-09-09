@@ -2,7 +2,7 @@ import 'package:eventstore_client/eventstore_client.dart';
 import 'package:eventstore_client/src/core/read_enumerator.dart';
 import 'package:eventstore_client/src/generated/streams.pb.dart';
 import 'package:eventstore_client/src/streams/helpers.dart';
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 import 'package:test/test.dart';
 
 import '../fixtures/read_enumerator_mock.dart';

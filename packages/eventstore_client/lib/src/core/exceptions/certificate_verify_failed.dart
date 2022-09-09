@@ -1,4 +1,4 @@
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// Exception thrown when TLS certificate verification failed
 class CertificateVerifyFailed implements Exception {

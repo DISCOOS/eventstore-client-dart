@@ -1,4 +1,4 @@
-import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 /// Exception thrown when a user is not authorised to carry out an operation.
 class AccessDeniedException implements Exception {
