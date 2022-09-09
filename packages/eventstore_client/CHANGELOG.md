@@ -1,3 +1,7 @@
+# 0.6.1
+- Refactored grpc imports to hide http2-imports
+- Added funding to pubspec.yaml
+
 # 0.6.0
 - Added support for operations api
 - Updated example readme
