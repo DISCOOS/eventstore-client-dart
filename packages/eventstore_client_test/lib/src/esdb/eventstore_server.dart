@@ -8,6 +8,14 @@ class EventStoreImage {
     this.isReady,
   );
 
+  static final List<EventStoreImage> images = [
+    EventStoreImage.LTS,
+    EventStoreImage.V20_LTS,
+    EventStoreImage.V21_LTS,
+    EventStoreImage.V22,
+    EventStoreImage.LATEST,
+  ];
+
   static final EventStoreImage LTS = V20_LTS;
   static final EventStoreImage V20_LTS = EventStoreImage(
     ImageTags.V20_LTS,
