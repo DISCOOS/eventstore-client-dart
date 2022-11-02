@@ -7,7 +7,7 @@ import 'package:eventstore_client/eventstore_client.dart';
 /// For more information about defining queries, see the
 /// {@macro user_defined_projections_api}. See also {@macro server_projections}.
 ///
-class EventStoreProjectionsClient extends EventStoreClientBase
+class EventStoreProjectionsClient extends EventStoreClient
     with
         EventStoreProjectionsMixin,
         EventStoreProjectionsState,

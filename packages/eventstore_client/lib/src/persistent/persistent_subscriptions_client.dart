@@ -17,7 +17,7 @@ import 'package:grpc/grpc_or_grpcweb.dart';
 /// {@template persistent_subs_api}
 /// [Persistent Subscriptions API](https://developers.eventstore.com/clients/grpc/subscribing-to-streams/persistent-subscriptions)
 /// {@endtemplate}
-class EventStorePersistentSubscriptionsClient extends EventStoreClientBase
+class EventStorePersistentSubscriptionsClient extends EventStoreClient
     with
         EventStorePersistentSubscriptionsMixin,
         EventStorePersistentSubscriptionsRead,

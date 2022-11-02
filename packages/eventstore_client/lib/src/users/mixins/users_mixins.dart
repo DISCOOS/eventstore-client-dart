@@ -1,6 +1,6 @@
 part of '../users_client.dart';
 
-mixin EventStoreUsersMixin on EventStoreClientBase {
+mixin EventStoreUsersMixin on EventStoreClient {
   @visibleForOverriding
   Future<UsersClient> $getClient() async {
     return UsersClient(

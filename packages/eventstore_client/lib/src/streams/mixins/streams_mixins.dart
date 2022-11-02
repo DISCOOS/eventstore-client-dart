@@ -1,6 +1,6 @@
 part of '../streams_client.dart';
 
-mixin EventStoreStreamsMixin on EventStoreClientBase {
+mixin EventStoreStreamsMixin on EventStoreClient {
   @visibleForOverriding
   Future<StreamsClient> $getClient() async {
     return StreamsClient(

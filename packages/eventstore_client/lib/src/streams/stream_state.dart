@@ -267,7 +267,7 @@ class StreamState {
     return AppendReq()..options = options;
   }
 
-  BatchAppendReq_Options toBatchAppendReqOptions(EventStoreClientBase client) {
+  BatchAppendReq_Options toBatchAppendReqOptions(EventStoreClient client) {
     final options = BatchAppendReq_Options()
       ..streamIdentifier = toStreamIdentifier(meta: false);
 

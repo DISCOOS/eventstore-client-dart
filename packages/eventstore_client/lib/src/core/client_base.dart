@@ -194,25 +194,11 @@ abstract class EventStoreClientBase {
   ChannelCredentials $getOrAddCredentials(EndPoint endPoint) {
     return _credentials.putIfAbsent(
       endPoint,
-      () => settings.useTls
-          ? ChannelCredentials.secure(
-              // If not provided, the default trust store is used.
-              certificates: readHostCertificate(settings),
-              onBadCertificate: (cert, host) {
-                return settings.tlsSetup.onBadCertificate != null
-                    // Use supplied bad cert callback if provided
-                    ? settings.tlsSetup.onBadCertificate!(
-                        cert,
-                        host,
-                        endPoint.port,
-                      )
-                    // else if verifyCert is true, bad certs are not allowed
-                    : !settings.tlsSetup.verifyCert;
-              },
-            )
-          : ChannelCredentials.insecure(),
+      () => $createChannelCredentials(endPoint),
     );
   }
+
+  ChannelCredentials $createChannelCredentials(EndPoint endPoint);
 
   /// @nodoc
   @visibleForOverriding
@@ -220,11 +206,11 @@ abstract class EventStoreClientBase {
     return _channels.update(
       endPoint,
       (_) => _,
-      ifAbsent: () => _createChannel(endPoint),
+      ifAbsent: () => $createChannel(endPoint),
     );
   }
 
-  GrpcOrGrpcWebClientChannel _createChannel(EndPoint endPoint) {
+  GrpcOrGrpcWebClientChannel $createChannel(EndPoint endPoint) {
     return GrpcOrGrpcWebClientChannel.grpc(
       endPoint.address,
       port: endPoint.port,

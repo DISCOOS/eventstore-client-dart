@@ -5,6 +5,7 @@ export 'src/cluster/cluster_info.dart';
 export 'src/cluster/enums.dart';
 export 'src/cluster/exceptions/exceptions.dart';
 export 'src/cluster/member_info.dart';
+export 'src/core/client.dart';
 export 'src/core/client_base.dart';
 export 'src/core/constants.dart';
 export 'src/core/endpoint.dart';

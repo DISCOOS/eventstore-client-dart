@@ -11,7 +11,7 @@ part 'projections_statistics_mixin.dart';
 
 part 'projections_control_mixin.dart';
 
-mixin EventStoreProjectionsMixin on EventStoreClientBase {
+mixin EventStoreProjectionsMixin on EventStoreClient {
   @visibleForOverriding
   Future<ProjectionsClient> $getClient() async {
     return ProjectionsClient(

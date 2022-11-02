@@ -3,7 +3,7 @@ import 'package:eventstore_client/src/core/helpers.dart';
 import 'package:eventstore_client/src/generated/gossip.pbgrpc.dart' as $a;
 import 'package:eventstore_client/src/generated/shared.pb.dart';
 
-class EventStoreGossipClient extends EventStoreClientBase {
+class EventStoreGossipClient extends EventStoreClient {
   EventStoreGossipClient(
     EventStoreClientSettings settings,
   ) : super(settings: settings);

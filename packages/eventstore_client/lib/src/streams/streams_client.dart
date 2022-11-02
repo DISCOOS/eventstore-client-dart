@@ -23,7 +23,7 @@ part 'read_results.dart';
 part 'stream_metadata_result.dart';
 part 'subscription.dart';
 
-class EventStoreStreamsClient extends EventStoreClientBase
+class EventStoreStreamsClient extends EventStoreClient
     with
         EventStoreStreamsMixin,
         EventStoreStreamsReadMixin,

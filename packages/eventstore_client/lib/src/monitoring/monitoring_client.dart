@@ -6,7 +6,7 @@ import 'package:eventstore_client/src/generated/monitoring.pbgrpc.dart' as $a;
 import 'package:fixnum/fixnum.dart';
 import 'package:meta/meta.dart';
 
-class EventStoreMonitoringClient extends EventStoreClientBase {
+class EventStoreMonitoringClient extends EventStoreClient {
   EventStoreMonitoringClient(
     EventStoreClientSettings settings,
   ) : super(settings: settings);

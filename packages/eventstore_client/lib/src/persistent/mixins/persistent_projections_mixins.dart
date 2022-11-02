@@ -19,7 +19,7 @@ part 'persistent_projections_replay_mixin.dart';
 
 part 'persistent_projections_update_mixin.dart';
 
-mixin EventStorePersistentSubscriptionsMixin on EventStoreClientBase {
+mixin EventStorePersistentSubscriptionsMixin on EventStoreClient {
   @visibleForOverriding
   Future<PersistentSubscriptionsClient> $getClient() async {
     return PersistentSubscriptionsClient(

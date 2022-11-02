@@ -13,7 +13,7 @@ part 'mixins/users_disable_mixin.dart';
 part 'mixins/users_details_mixin.dart';
 part 'mixins/users_password_mixin.dart';
 
-class EventStoreUsersClient extends EventStoreClientBase
+class EventStoreUsersClient extends EventStoreClient
     with
         EventStoreUsersMixin,
         EventStoreUsersCreateMixin,
