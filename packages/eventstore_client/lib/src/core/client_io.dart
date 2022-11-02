@@ -4,6 +4,7 @@ import 'package:grpc/grpc_or_grpcweb.dart';
 import 'package:grpc/service_api.dart';
 
 import 'helpers.dart';
+import 'helpers_io.dart';
 
 // Implements gRCP-web support on web platform
 abstract class EventStoreClientImpl extends EventStoreClientBase {

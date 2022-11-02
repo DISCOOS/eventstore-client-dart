@@ -1,12 +1,11 @@
 import 'dart:convert';
 
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/core/helpers.dart';
+import 'package:eventstore_client/src/core/helpers_io.dart';
 import 'package:eventstore_client/src/generated/persistent.pb.dart';
 import 'package:eventstore_client/src/generated/shared.pb.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart' show ChannelCredentials;
-import 'package:universal_io/io.dart';
 import 'package:uuid/uuid.dart';
 
 PersistentSubscriptionResolvedEvent convertToResolvedEvent(
@@ -44,9 +43,10 @@ Future<void> replayParked(
   required EventStoreClientSettings settings,
   required ChannelCredentials channelCredentials,
 }) async {
-  final client = settings.useTls
-      ? HttpClient(context: toSecurityContext(settings))
-      : HttpClient();
+  final client = toHttpClient(
+    settings,
+    channelCredentials,
+  );
   final path = '${endPoint.toUri(settings.useTls)}'
       '/subscriptions/$streamId/$groupName/replayParked'
       '${stopAt != null ? '?stopAt=$stopAt' : ''}';

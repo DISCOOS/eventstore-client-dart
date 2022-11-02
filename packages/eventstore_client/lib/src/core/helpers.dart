@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:grpc/grpc.dart' show ChannelCredentials;
-import 'package:universal_io/io.dart';
+import 'helpers_io.dart' if (dart.library.html) 'helpers_io.dart';
 
 /// Get enum value name
 String enumName(Object o) => o.toString().split('.').last;
@@ -50,29 +50,6 @@ int toNextTimeout(int reconnects, Duration maxBackoffTime, {int exponent = 2}) {
   return wait;
 }
 
-/// Create TLS certificates from [TlsSetup.publicKeyPath]
-/// and [TlsSetup.certificates]. Return [null] if none of
-/// these are provided.
-List<int>? readHostCertificate(EventStoreClientSettings settings) {
-  final certificates = <int>[];
-
-  // Add certs from local file?
-  if (settings.tlsSetup.publicKeyPath?.isNotEmpty == true) {
-    final file = File(settings.tlsSetup.publicKeyPath!);
-    if (!file.existsSync()) {
-      throw HostCertificateNotFound(file.absolute.path);
-    }
-    certificates.addAll(file.readAsBytesSync().toList());
-  }
-
-  // Add certs from settings as list of ints?
-  if (settings.tlsSetup.certificates?.isNotEmpty == true) {
-    certificates.addAll(settings.tlsSetup.certificates!);
-  }
-
-  return certificates.isNotEmpty ? certificates : null;
-}
-
 Future<MemberInfo> getNodeInfo(
   EndPoint endPoint, {
   UserCredentials? userCredentials,
@@ -117,44 +94,6 @@ Future<MemberInfo> getNodeInfo(
         .toList(),
     apiVersion: apiVersion,
   );
-}
-
-HttpClient toHttpClient(
-  EventStoreClientSettings settings,
-  ChannelCredentials channelCredentials,
-) {
-  final client = settings.useTls
-      ? HttpClient(context: toSecurityContext(settings))
-      : HttpClient();
-
-  if (settings.tlsSetup.verifyCert) {
-    if (channelCredentials.onBadCertificate != null) {
-      client.badCertificateCallback = (X509Certificate cert, String host, _) {
-        return channelCredentials.onBadCertificate!(cert, host);
-      };
-    } else if (settings.tlsSetup.onBadCertificate != null) {
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, port) {
-        return settings.tlsSetup.onBadCertificate!(cert, host, port);
-      };
-    }
-  } else {
-    client.badCertificateCallback = TlsSetup.allowBadCertificate(
-      true,
-    ).onBadCertificate;
-  }
-  return client;
-}
-
-SecurityContext toSecurityContext(EventStoreClientSettings settings) {
-  final certs = readHostCertificate(settings);
-  if (certs?.isEmpty == true) {
-    return SecurityContext.defaultContext;
-  }
-  return SecurityContext(withTrustedRoots: false)
-    ..setTrustedCertificatesBytes(
-      certs!,
-    );
 }
 
 String _toVersion(
