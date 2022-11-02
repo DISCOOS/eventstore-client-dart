@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:grpc/grpc.dart' show ChannelCredentials;
-import 'helpers_io.dart' if (dart.library.html) 'helpers_io.dart';
+import 'helpers_io.dart' if (dart.library.html) 'helpers_web.dart';
 
 /// Get enum value name
 String enumName(Object o) => o.toString().split('.').last;

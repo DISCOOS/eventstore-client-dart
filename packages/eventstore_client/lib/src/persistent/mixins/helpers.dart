@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:eventstore_client/eventstore_client.dart';
-import 'package:eventstore_client/src/core/helpers_io.dart';
+import 'package:eventstore_client/src/core/helpers_io.dart'
+    if (dart.library.html) 'package:eventstore_client/src/core/helpers_web.dart';
 import 'package:eventstore_client/src/generated/persistent.pb.dart';
 import 'package:eventstore_client/src/generated/shared.pb.dart';
 import 'package:fixnum/fixnum.dart';
