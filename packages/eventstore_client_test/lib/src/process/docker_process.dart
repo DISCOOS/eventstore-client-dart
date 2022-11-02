@@ -42,7 +42,10 @@ class DockerProcess {
 
   DockerProcess._(this._dockerExecutable, this._name);
 
-  factory DockerProcess.fromName(String name, {String? dockerExecutable}) =>
+  factory DockerProcess.fromName(
+    String name, {
+    String? dockerExecutable,
+  }) =>
       DockerProcess._(dockerExecutable ??= 'docker', name);
 
   /// Starts a docker container.
@@ -58,6 +61,7 @@ class DockerProcess {
     List<String>? ports,
     List<String>? imageArgs,
     bool sudo = false,
+    bool verbose = false,
     bool? cleanup,
     FutureOr<bool> Function(String line)? readySignal,
     Duration? timeout,
@@ -66,6 +70,7 @@ class DockerProcess {
     cleanup ??= false;
     var command = dockerExecutable;
     final args = <String>[];
+    final lines = <String>[];
 
     if (sudo) {
       args.add(command);
@@ -116,6 +121,7 @@ class DockerProcess {
       final c = Completer<void>();
       final timer = Timer(timeout ?? const Duration(minutes: 1), () {
         if (c.isCompleted) return;
+        stderr.writeAll(lines, '\n');
         c.completeError('timeout');
       });
       StreamSubscription<void>? subs1;
@@ -125,6 +131,10 @@ class DockerProcess {
             .transform(utf8.decoder)
             .transform(LineSplitter())
             .listen((String line) async {
+          if (verbose) {
+            stdout.writeln(line);
+          }
+          lines.add(line);
           if (await readySignal(line)) {
             await subs1?.cancel();
             subs1 = null;
@@ -153,8 +163,12 @@ class DockerProcess {
     } else {
       final pr = await Process.run(command, args);
       if (pr.exitCode != 0) {
+        stderr.writeAll(lines, '\n');
         throw Exception(
-            'exitCode: ${pr.exitCode}\n\nstdout: ${pr.stdout}\n\nstderr: ${pr.stderr}');
+          'exitCode: ${pr.exitCode}\n\n'
+          'stdout: ${pr.stdout}\n\n'
+          'stderr: ${pr.stderr}',
+        );
       }
       return DockerProcess._(dockerExecutable, name);
     }

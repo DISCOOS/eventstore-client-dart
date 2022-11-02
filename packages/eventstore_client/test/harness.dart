@@ -112,6 +112,7 @@ class EventStoreClientHarness {
     EventStoreImage image, {
     bool secure = false,
     bool restart = false,
+    bool verbose = false,
     int grpcPort = PORT_2113,
     int gossipPort = PORT_2114,
     bool enableGossip = true,
@@ -142,6 +143,7 @@ class EventStoreClientHarness {
 
       if (!restart) {
         await server.start(
+          verbose: verbose,
           environment: environment,
           enableGossip: enableGossip,
           runProjections: runProjections,

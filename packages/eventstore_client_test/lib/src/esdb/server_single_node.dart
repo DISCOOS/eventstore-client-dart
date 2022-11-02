@@ -29,6 +29,7 @@ class EventStoreServerSingleNode extends EventStoreServer {
 
   @override
   Future<void> start({
+    bool verbose = false,
     bool enableGossip = false,
     bool? startSystemProjections,
     String name = 'eventstore-db',
@@ -85,6 +86,7 @@ class EventStoreServerSingleNode extends EventStoreServer {
             ]
           : [],
       cleanup: true,
+      verbose: verbose,
       readySignal: (line) {
         logger.info(line);
         if (line.contains('Error response from daemon')) {
