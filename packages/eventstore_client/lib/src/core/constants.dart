@@ -4,7 +4,7 @@ import 'package:eventstore_client/eventstore_client.dart' as $a;
 const End = -1;
 
 /// Use the largest 64-bit signed integer as maximum value
-const Max = 9223372036854775807;
+final Max = BigInt.from(9223372036854775807);
 
 class Defaults {
   static const GrpcPort = 2113;
@@ -27,7 +27,7 @@ class Defaults {
   static const $a.NodePreference NodePreference = $a.NodePreference.leader;
 
   static const Duration NoneDuration = Duration(milliseconds: -1);
-  static const Duration InfiniteDuration = Duration(microseconds: Max);
+  static final Duration InfiniteDuration = Duration(microseconds: Max.toInt());
 
   // From grpc-dart/options.dart file
   static const Duration GrpcIdleTimeout = Duration(minutes: 5);

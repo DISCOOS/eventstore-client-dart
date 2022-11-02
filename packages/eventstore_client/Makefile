@@ -84,7 +84,7 @@ models:
 
 test:
 	if [ ! -d test/certs ]; then esdbtcli certs --out test; fi
-	if command -v <the_command> &> /dev/null; then colima start; fi
+	if command -v colima &> /dev/null; then colima start; fi
 	dart test -j 1
 
 doc:

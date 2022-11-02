@@ -9,7 +9,7 @@ class StreamDeletedEvent extends ResolvedEvent {
     Int64? commitPosition,
   ) : super(event, link, commitPosition);
 
-  static final Position = StreamPosition.checked(Max);
+  static final Position = StreamPosition.checked(Max.toInt());
 
   factory StreamDeletedEvent.from(ResolvedEvent event) {
     _verifyType(event, SystemEvents.StreamDeleted);

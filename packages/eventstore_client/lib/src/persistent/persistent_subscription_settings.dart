@@ -21,7 +21,8 @@ class PersistentSubscriptionSettings {
     this.messageTimeout = const Duration(seconds: 30),
     this.consumerStrategy = SystemConsumerStrategies.roundRobin,
   }) {
-    if (messageTimeout < Duration.zero || messageTimeout.inMilliseconds > Max) {
+    if (messageTimeout < Duration.zero ||
+        messageTimeout.inMilliseconds > Max.toInt()) {
       throw ArgumentError.value(
         messageTimeout,
         'messageTimeout',
@@ -30,7 +31,7 @@ class PersistentSubscriptionSettings {
     }
 
     if (checkPointAfter < Duration.zero ||
-        checkPointAfter.inMilliseconds > Max) {
+        checkPointAfter.inMilliseconds > Max.toInt()) {
       throw ArgumentError.value(
         checkPointAfter,
         'checkPointAfter',
