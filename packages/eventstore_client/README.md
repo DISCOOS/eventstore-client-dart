@@ -49,8 +49,55 @@ void main() async {
 ## Usage and documentation
 This client is not yet properly documented, but we have made [some example usages](example/README.md),
 and publish the [API reference](https://pub.dev/documentation/eventstore_client/latest).
-For additional documentation about general usage, see the [official documentation for gRPC clients](https://developers.eventstore.com/clients/grpc/getting-started)
+For additional documentation about general usage, see the 
+[official documentation for gRPC clients](https://developers.eventstore.com/clients/grpc/getting-started)
 on [eventstore.com](https://developers.eventstore.com).
+
+### Note on gRPC-web support
+[EventStoreDB](https://github.com/EventStore/EventStore) does not support the 
+[gRPC-web protocol](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md) 
+directly ([in-process proxy](https://github.com/grpc/grpc-web/blob/master/doc/in-process-proxy.md)). 
+The EventStore team could add in-process proxy support using [Grpc.AspNetCore.Web](https://www.nuget.org/packages/Grpc.AspNetCore.Web), 
+but I doubt they will prioritize this because gRCP-web have limited streaming support (details below). 
+If you plan to connect directly to EventStoreDB from a browser, you need to configure a gRCP-web proxy in 
+front of EventStoreDB, that translates between [native gRPC](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md) 
+and gRPC-web protocols automatically (see official[Google implementation of grpc-web](https://github.com/grpc/grpc-web)).
+
+#### IMPORTANT! 
+gRPC-web have [limited streaming support](https://github.com/grpc/grpc-web#streaming-support). 
+Especially bidirectional streams (both RPC requests and responses are sent and received using streams) which 
+EventStoreDB use for Append-operations, are not supported by the gRPC-web protocol. When browser-support 
+for [Streams](https://streams.spec.whatwg.org/) is high enough ([see global coverage](https://caniuse.com/streams)), 
+the gRCP-web protocol will become optional and web clients will also be able to use the native gRPC protocol.
+
+#### Choices if you need web-support
+You have three technical different options to choose from when connecting to EventStoreDB from a browser with 
+EventStore client.
+
+If you only need to read events, then one of these options is sufficient
+1. use Envoy as reverse proxy (official solution, Front + Sidecar Proxy, 
+  see [conceptual example using AWS](https://aws.amazon.com/blogs/compute/setting-up-an-envoy-front-proxy-on-amazon-ecs/))
+2. use another reverse proxy from the community, 
+  see [proxying gRPC-web](https://microsoft.github.io/reverse-proxy/articles/grpc.html#grpc-web) 
+  with [YARP](https://microsoft.github.io/reverse-proxy/) from Microsoft (open source)
+3. implement an [in-process proxy](https://github.com/grpc/grpc-web/blob/master/doc/in-process-proxy.md)
+  in EventStoreDB yourself
+
+If you also need to support appending events from the browser, then you need to make a custom gRPC server between 
+the gRCP-web proxy (Envoy or in-process) and EventStoreDB. This custom gRPC server must translate the bi-directional 
+`Append` command exposed by EventStoreDB to a command exposed by the custom gRCP server that is supported by the 
+gRPC-web protocol. You could do this by implementing an `Append` command with an unary request (all events in one 
+request) that returns a stream of responses (same as the `Append` command exposed by EventStoreDB does). 
+This command _is_ supported by gRCP-web and _should work_ (in theory, I have not tested it myself). You would need 
+to repeat this for all EventStore gRPC service commands that are bidirectional, which is a big undertaking.
+
+**My advice**
+If you need Append-support from the browser, I think the better solution is to wait for the official support 
+of [native gRPC](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md) that
+use [Streams](https://streams.spec.whatwg.org/). I don't know when this will happen, but 
+the ([global coverage](https://caniuse.com/streams)) is ~94% now. See the
+[roadmap for full streaming support](https://github.com/grpc/grpc-web/blob/master/doc/streaming-roadmap.md) 
+for official information about web-support.
 
 ## Features and bugs
 
