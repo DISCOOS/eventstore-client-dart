@@ -92,6 +92,7 @@ This command _is_ supported by gRCP-web and _should work_ (in theory, I have not
 to repeat this for all EventStore gRPC service commands that are bidirectional, which is a big undertaking.
 
 **My advice**
+
 If you need Append-support from the browser, I think the better solution is to wait for the official support 
 of [native gRPC](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md) that
 use [Streams](https://streams.spec.whatwg.org/). I don't know when this will happen, but 
