@@ -10,21 +10,31 @@ class StartEventStoreDBCommand extends Command<void> {
     argParser
       ..addOption(
         'name',
+        abbr: 'n',
         defaultsTo: 'eventstore-db',
         help: 'Name of docker container instance',
       )
       ..addFlag(
         'secure',
+        abbr: 's',
         defaultsTo: false,
         help: 'Starts EventStoreDB with TLS (requires certs)',
       )
+      ..addFlag(
+        'verbose',
+        abbr: 'v',
+        defaultsTo: false,
+        help: 'Outputs logging information',
+      )
       ..addOption(
         'tag',
+        abbr: 't',
         defaultsTo: ImageTags.LTS,
         help: 'EventStore Image tag',
       )
       ..addOption(
         'certs',
+        abbr: 'c',
         defaultsTo: 'certs',
         help:
             'Path to certificate root directory relative to working directory',
@@ -50,7 +60,10 @@ class StartEventStoreDBCommand extends Command<void> {
       secure: argResults!['secure'] as bool,
       hostCertificatePath: argResults!['certs'] as String,
     );
-    await server.start(name: argResults!['name'] as String);
+    await server.start(
+      verbose: true,
+      name: argResults!['name'] as String,
+    );
     stdout.writeln(
       "EventStoreDB in docker container '${argResults!['name']}' is running",
     );
