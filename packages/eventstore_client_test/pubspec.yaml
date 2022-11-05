@@ -1,5 +1,5 @@
 name: eventstore_client_test
-version: 0.6.1
+version: 0.7.0
 homepage: https://github.com/DISCOOS/eventstore-client-dart
 description: A testing library for applications using EventStore Client with a local EventStoreDB instance.
 repository: https://github.com/DISCOOS/eventstore-client-dart

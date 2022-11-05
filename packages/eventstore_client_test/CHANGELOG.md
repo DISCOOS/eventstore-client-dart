@@ -1,3 +1,8 @@
+# 0.7.0
+- Added verbose option to esdbtcli start command
+- Added EventStoreImage tag option to esdbtcli
+- Added verbose docker logging to stdout
+
 # 0.6.1
 - Bumped version in lockstep with eventstore_client.
 
