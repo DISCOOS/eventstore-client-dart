@@ -1,8 +1,11 @@
+import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:universal_io/io.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import 'package:eventstore_client/eventstore_client.dart';
 import 'package:flutter/material.dart';
@@ -41,9 +44,17 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _input = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
-  final List<Echo> _messages = [];
+  // Use Set to prevent duplicates!
+  // ignore: prefer_collection_literals
+  final Set<Echo> _messages = LinkedHashSet();
+  final _echoController = StreamController();
 
+  late Timer _periodicTimer;
   late EventStoreStreamsClient _client;
+
+  EventStreamSubscription? _subscription;
+  LogPosition? _logPosition = LogPosition.start;
+
 
   @override
   void initState() {
@@ -56,13 +67,14 @@ class _MyHomePageState extends State<MyHomePage> {
         '?tls=false&operationTimeout=5000',
       ).copyWith(apiVersion: ApiVersions.V21),
     );
-  }
-
-  @override
-  void dispose() {
-    _input.dispose();
-    _focus.dispose();
-    super.dispose();
+    _subscribe();
+    _periodicTimer = Timer.periodic(
+      const Duration(seconds: 5), (timer) {
+        if(mounted) {
+          _echoController.add('tick');
+        }
+      },
+    );
   }
 
   @override
@@ -104,13 +116,18 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.only(bottom: 32),
-              itemCount: _messages.length,
-              itemBuilder: (context, i) {
-                return _buildMessageTile(i);
-              },
-              controller: _scrollController,
+            child: StreamBuilder(
+              stream: _echoController.stream,
+              builder: (context, _) {
+                return ListView.builder(
+                  padding: const EdgeInsets.only(bottom: 32),
+                  itemCount: _messages.length,
+                  itemBuilder: (context, i) {
+                    return _buildMessageTile(i);
+                  },
+                  controller: _scrollController,
+                );
+              }
             ),
           ),
           const SizedBox(height: 58),
@@ -125,23 +142,35 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildMessageTile(int i) {
+    final echo = _messages.elementAt(i);
     return Container(
       padding: const EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 0),
       child: Align(
-        alignment:
-            (_messages[i].response ? Alignment.topLeft : Alignment.topRight),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: (_messages[i].response
-                ? Colors.grey.shade200
-                : Colors.blue[200]),
-          ),
-          padding: const EdgeInsets.all(16),
-          child: SelectableText(
-            _messages[i].message,
-            style: const TextStyle(fontSize: 14),
-          ),
+        alignment: echo.response ? Alignment.topLeft : Alignment.topRight,
+        child: Column(
+          crossAxisAlignment: echo.response
+              ? CrossAxisAlignment.center
+              : CrossAxisAlignment.center,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color:
+                    (echo.response ? Colors.grey.shade200 : Colors.blue[200]),
+              ),
+              padding: const EdgeInsets.all(14),
+              child: SelectableText(
+                echo.message,
+                style: const TextStyle(fontSize: 14),
+              ),
+            ),
+            SelectableText(
+              timeago.format(DateTime.fromMillisecondsSinceEpoch(
+                echo.timestamp,
+              )),
+              style: const TextStyle(fontSize: 8),
+            ),
+          ],
         ),
       ),
     );
@@ -154,14 +183,23 @@ class _MyHomePageState extends State<MyHomePage> {
       await for (var event in response.stream) {
         if (!SystemStreams.isSystemStream(event.originalStreamId)) {
           final json = jsonDecode(utf8.decode(event.originalEvent.data));
-          _add(json['message'], false);
-          _add(json['message'], true);
+          _sent(
+            event.originalEventId.uuid,
+            json['message'],
+            json['timestamp'],
+          );
+          _received(
+            event.originalEventId.uuid,
+            json['message'],
+            json['timestamp'],
+          );
+          _echoController.add(event);
         }
       }
-      _scrollDown();
       setState(() {
         _focus.requestFocus();
       });
+      _scrollDown();
     } on Exception catch (e) {
       if (kDebugMode) {
         print(e);
@@ -169,10 +207,69 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void _add(String message, bool response) {
-    _messages.add(
-      Echo(_messages.length, response, message),
+  Future<void> _subscribe([LogPosition? position]) async {
+    await _refresh();
+    final subscription = await _client.subscribeToAll(
+      position: position,
+      filterOptions: SubscriptionFilterOptions(
+        StreamFilter.fromPrefix('chat'),
+      ),
+      onSubscriptionDropped: (
+        EventStreamSubscription _,
+        SubscriptionDroppedEvent event,
+      ) async {
+        if (event.reason != SubscriptionDroppedReason.disposed) {
+          await _subscription!.dispose();
+          await _subscribe(_logPosition);
+        }
+      },
     );
+    _listen(subscription);
+  }
+
+  void _listen(EventStreamSubscription subscription) async {
+    if (subscription.isOK) {
+      _subscription = subscription;
+      try {
+        await for (var event in subscription.stream) {
+          _logPosition = event.originalPosition;
+          final json = jsonDecode(utf8.decode(
+            event.originalEvent.data,
+          ));
+          _messages.add(Echo.sent(
+            event.originalEventId.uuid,
+            json['message'],
+            json['timestamp'],
+          ));
+          _messages.add(Echo.received(
+            event.originalEventId.uuid,
+            json['message'],
+            json['timestamp'],
+          ));
+          setState(() {
+            _scrollDown();
+          });
+        }
+      } on Exception catch (e) {
+        _failure(e.toString());
+      }
+    }
+  }
+
+  void _sent(String uuid, String message, [int? timestamp]) {
+    _messages.add(Echo.sent(
+      uuid,
+      message,
+      timestamp,
+    ));
+  }
+
+  void _received(String uuid, String message, int timestamp) {
+    _messages.add(Echo.received(
+      uuid,
+      message,
+      timestamp,
+    ));
   }
 
   void _onPressed() {
@@ -182,24 +279,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _echo(String message) async {
+    final event = _toEventData(message);
+    _sent(event.uuid.uuid, message);
     setState(() {
-      _add(message, false);
       _input.clear();
       _focus.requestFocus();
+      _scrollDown();
     });
     try {
       final result = await _client.append(
         StreamState.any('chat'),
-        Stream.fromIterable([
-          EventData(
-              uuid: UuidV4.newUuid().value.uuid,
-              type: 'Echo',
-              data: utf8.encode(
-                jsonEncode({
-                  'message': message,
-                }),
-              ))
-        ]),
+        Stream.fromIterable([event]),
       );
       if (result.isError) {
         _failure(result);
@@ -209,12 +299,27 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  EventData _toEventData(String message) => EventData(
+      uuid: UuidV4.newUuid().value.uuid,
+      type: 'Echo',
+      data: utf8.encode(
+        jsonEncode({
+          'message': message,
+          'timestamp': toTimestamp(),
+        }),
+      ));
+
+  int toTimestamp() => DateTime.now().millisecondsSinceEpoch;
+
   void _failure(Object error) {
-    _add(error.toString(), true);
+    _received(
+      UuidV4.newUuid().value.uuid,
+      error.toString(),
+      toTimestamp(),
+    );
     _scrollDown();
   }
 
-  // This is what you're looking for!
   void _scrollDown() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       _scrollController.animateTo(
@@ -224,11 +329,49 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     });
   }
+
+  @override
+  void dispose() {
+    _input.dispose();
+    _focus.dispose();
+    _periodicTimer.cancel();
+    _echoController.close();
+    _subscription?.dispose();
+    super.dispose();
+  }
+
 }
 
 class Echo {
-  Echo(this.index, this.response, this.message);
-  final int index;
+  Echo(this.uuid, this.message, this.timestamp, this.response);
+
+  factory Echo.sent(String uuid, String message, [int? timestamp]) => Echo(
+      uuid, message, timestamp ?? DateTime.now().millisecondsSinceEpoch, false);
+
+  factory Echo.received(String uuid, String message, int timestamp) =>
+      Echo(uuid, message, timestamp, true);
+
+  final String uuid;
+  final int timestamp;
   final bool response;
   final String message;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Echo &&
+          runtimeType == other.runtimeType &&
+          uuid == other.uuid &&
+          response == other.response;
+
+  @override
+  int get hashCode => uuid.hashCode ^ response.hashCode;
+
+  @override
+  String toString() {
+    return 'Echo{uuid: $uuid, '
+        'message: $message, '
+        'response: $response, '
+        'timestamp: $timestamp}';
+  }
 }

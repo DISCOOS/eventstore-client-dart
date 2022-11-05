@@ -17,6 +17,7 @@ dependencies:
   eventstore_client:
     path: ../../
 
+  timeago: ^3.3.0
   universal_io: ^2.0.4
 
   # The following adds the Cupertino Icons font to your application.
