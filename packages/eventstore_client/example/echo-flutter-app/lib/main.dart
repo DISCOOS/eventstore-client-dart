@@ -55,7 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
   EventStreamSubscription? _subscription;
   LogPosition? _logPosition = LogPosition.start;
 
-
   @override
   void initState() {
     super.initState();
@@ -69,8 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     _subscribe();
     _periodicTimer = Timer.periodic(
-      const Duration(seconds: 5), (timer) {
-        if(mounted) {
+      const Duration(seconds: 5),
+      (timer) {
+        if (mounted) {
           _echoController.add('tick');
         }
       },
@@ -117,18 +117,17 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Expanded(
             child: StreamBuilder(
-              stream: _echoController.stream,
-              builder: (context, _) {
-                return ListView.builder(
-                  padding: const EdgeInsets.only(bottom: 32),
-                  itemCount: _messages.length,
-                  itemBuilder: (context, i) {
-                    return _buildMessageTile(i);
-                  },
-                  controller: _scrollController,
-                );
-              }
-            ),
+                stream: _echoController.stream,
+                builder: (context, _) {
+                  return ListView.builder(
+                    padding: const EdgeInsets.only(bottom: 32),
+                    itemCount: _messages.length,
+                    itemBuilder: (context, i) {
+                      return _buildMessageTile(i);
+                    },
+                    controller: _scrollController,
+                  );
+                }),
           ),
           const SizedBox(height: 58),
         ],
@@ -339,7 +338,6 @@ class _MyHomePageState extends State<MyHomePage> {
     _subscription?.dispose();
     super.dispose();
   }
-
 }
 
 class Echo {
