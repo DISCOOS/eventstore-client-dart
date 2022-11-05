@@ -1,12 +1,10 @@
 import 'package:eventstore_client/eventstore_client.dart' as $a;
 
+import 'constants_io.dart' if (dart.library.html) 'constants_web.dart';
+export 'constants_io.dart' if (dart.library.html) 'constants_web.dart';
+
 /// Constant value for [LogPosition.end]
 const End = -1;
-
-/// Use the Number.MAX_SAFE_INTEGER constant (2^53 – 1),
-/// that represents the maximum safe integer in JavaScript.
-/// This safely transcode to javascript (web platform)
-const Max = 9007199254740991;
 
 class Defaults {
   static const GrpcPort = 2113;
