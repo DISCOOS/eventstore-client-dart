@@ -4,6 +4,7 @@ export 'certificate_verify_failed.dart';
 export 'connection_string_parse_exception.dart';
 export 'duplicate_key_exception.dart';
 export 'feature_not_supported_exception.dart';
+export 'grpc_operation_unsupported_exception.dart';
 export 'host_certificate_not_found_exception.dart';
 export 'invalid_host_exception.dart';
 export 'invalid_key_value_pair_exception.dart';

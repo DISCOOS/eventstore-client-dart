@@ -30,6 +30,11 @@ mixin EventStorePersistentSubscriptionsRead
       );
     }
     return $runRequest<PersistentSubscription>(() async {
+      if (!supportsClientStreamingRpc) {
+        throw GrpcOperationUnsupportedException(
+          'grpc-web does not support client streaming',
+        );
+      }
       final options = ReadReq_Options()
         ..bufferSize = bufferSize
         ..groupName = groupName

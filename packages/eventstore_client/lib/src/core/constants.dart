@@ -3,8 +3,10 @@ import 'package:eventstore_client/eventstore_client.dart' as $a;
 /// Constant value for [LogPosition.end]
 const End = -1;
 
-/// Use the largest 64-bit signed integer as maximum value
-final Max = BigInt.parse('9223372036854775807');
+/// Use the Number.MAX_SAFE_INTEGER constant (2^53 – 1),
+/// that represents the maximum safe integer in JavaScript.
+/// This safely transcode to javascript (web platform)
+const Max = 9007199254740991;
 
 class Defaults {
   static const GrpcPort = 2113;
@@ -27,7 +29,7 @@ class Defaults {
   static const $a.NodePreference NodePreference = $a.NodePreference.leader;
 
   static const Duration NoneDuration = Duration(milliseconds: -1);
-  static final Duration InfiniteDuration = Duration(microseconds: Max.toInt());
+  static final Duration InfiniteDuration = Duration(microseconds: Max);
 
   // From grpc-dart/options.dart file
   static const Duration GrpcIdleTimeout = Duration(minutes: 5);

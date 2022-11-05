@@ -348,7 +348,7 @@ void main() {
         state,
         ExistingCount,
       );
-      final expected = StreamPosition.checked(Max.toInt());
+      final expected = StreamPosition.checked(Max);
       final result = await client.subscribe(
         state.streamId,
         position: StreamPosition.end,

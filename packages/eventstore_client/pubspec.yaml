@@ -22,9 +22,9 @@ dev_dependencies:
   lints: ^2.0.0
   test: ^1.16.0
   mockito: ^5.0.15
-  eventstore_client_test: 
+  eventstore_client_test:
     path: ../eventstore_client_test
-funding: 
+funding:
   - https://www.buymeacoffee.com/kengu
-false_secrets: 
+false_secrets:
   - /test/certs/*

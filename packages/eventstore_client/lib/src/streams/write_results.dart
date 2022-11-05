@@ -31,7 +31,7 @@ abstract class WriteResult {
       this is WriteSuccessResult || this is BatchWriteSuccessResult;
 
   /// Check if write failed
-  bool get isError => isWrongExpectedVersion || this is BatchWriteErrorResult;
+  bool get isError => !isOK;
 
   /// Check if write failed because expected stream state failed
   bool get isWrongExpectedVersion => this is WrongExpectedVersionResult;
@@ -214,4 +214,20 @@ class WrongExpectedVersionResult extends WriteResult {
 
   /// The [StreamState] before the operation.
   final StreamState expected;
+}
+
+@sealed
+@immutable
+class WriteNotSupportedResult extends WriteResult {
+  WriteNotSupportedResult(
+    StreamState expected,
+    this.reason,
+  ) : super(expected);
+
+  final Object reason;
+
+  @override
+  String toString() {
+    return 'WriteNotSupportedResult{reason: $reason, state: $actualState}';
+  }
 }

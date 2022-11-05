@@ -13,9 +13,11 @@ abstract class EventStoreClientImpl extends EventStoreClientBase {
     List<ClientInterceptor> interceptors = const [],
     Map<String, GrpcErrorCallback> exceptionMap = const {},
   }) : super(
+          isGrpcWeb: false,
           settings: settings,
           interceptors: interceptors,
           exceptionMap: exceptionMap,
+          options: $mergedCallOptionsWith(settings),
         );
 
   /// @nodoc

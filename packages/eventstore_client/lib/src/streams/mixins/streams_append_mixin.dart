@@ -47,6 +47,12 @@ mixin EventStoreStreamsAppendMixin on EventStoreStreamsMixin {
     EventStoreClientOperationOptions? operationOptions,
   }) {
     return $runRequest<WriteResult>(() async {
+      if (!supportsClientStreamingRpc) {
+        return WriteNotSupportedResult(
+          state,
+          'grpc-web does not support client streaming',
+        );
+      }
       final requests = Stream<AppendReq>.fromIterable([
         state.toAppendMetaReq(),
         _toAppendReq(EventData(
@@ -79,6 +85,12 @@ mixin EventStoreStreamsAppendMixin on EventStoreStreamsMixin {
     UserCredentials? userCredentials,
     EventStoreClientOperationOptions? operationOptions,
   ) async {
+    if (!supportsClientStreamingRpc) {
+      return WriteNotSupportedResult(
+        state,
+        'grpc-web does not support client streaming',
+      );
+    }
     final requests = StreamGroup.mergeBroadcast([
       Stream.value(state.toAppendReq()),
       events.map(_toAppendReq),
@@ -100,6 +112,14 @@ mixin EventStoreStreamsAppendMixin on EventStoreStreamsMixin {
     UserCredentials? userCredentials,
     EventStoreClientOperationOptions? operationOptions,
   ) async {
+    if (!supportsClientStreamingRpc) {
+      return WriteNotSupportedResult(
+        state,
+        GrpcOperationUnsupportedException(
+          'grpc-web does not support client streaming',
+        ),
+      );
+    }
     final requests = _toBatchAppendReqStream(
       state,
       events,

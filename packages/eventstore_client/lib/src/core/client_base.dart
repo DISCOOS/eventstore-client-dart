@@ -27,17 +27,16 @@ class Api {
 }
 
 abstract class EventStoreClientBase {
-  final List<ClientInterceptor> _interceptors;
-
   EventStoreClientBase({
+    required this.options,
     required this.settings,
+    required this.isGrpcWeb,
     List<ClientInterceptor> interceptors = const [],
     Map<String, GrpcErrorCallback> exceptionMap = const {},
   })  : _interceptors = interceptors,
         _api = Versions._(
           client: Api._(settings.apiVersion),
         ),
-        _options = _mergedCallOptionsWith(settings),
         _exceptionMap = {
           Exceptions.NotLeader: (error) => NotLeaderException.fromCause(error),
           Exceptions.AccessDenied: (error) =>
@@ -45,11 +44,17 @@ abstract class EventStoreClientBase {
           ...exceptionMap,
         };
 
-  /// GRPC [CallOptions] instance
-  final CallOptions? _options;
+  /// True if this client is using grpc-web protocol
+  final bool isGrpcWeb;
 
   /// [leader] is lazily fetched or created on next get
   late EndPoint? _leader;
+
+  /// GRPC [CallOptions] instance
+  final CallOptions? options;
+
+  /// Interceptors for request manipulations and error handling
+  final List<ClientInterceptor> _interceptors;
 
   /// List of lazily created [GrpcOrGrpcWebClientChannel]
   final Map<EndPoint, GrpcOrGrpcWebClientChannel> _channels = {};
@@ -159,6 +164,10 @@ abstract class EventStoreClientBase {
     }
   }
 
+  /// Check if grpc protocol supports client streaming
+  /// See https://github.com/grpc/grpc-web/blob/master/doc/interop-test-descriptions.md
+  bool get supportsClientStreamingRpc => !isGrpcWeb;
+
   /// @nodoc
   @visibleForOverriding
   CallOptions $getOptions({
@@ -166,9 +175,9 @@ abstract class EventStoreClientBase {
     UserCredentials? userCredentials,
     EventStoreClientOperationOptions? operationOptions,
   }) {
-    return _mergedCallOptionsWith(
+    return $mergedCallOptionsWith(
       settings,
-      options: _options,
+      options: options,
       timeoutAfter: timeoutAfter,
       userCredentials: userCredentials,
       operationOptions: operationOptions,
@@ -386,19 +395,19 @@ abstract class EventStoreClientBase {
     }
     return ex;
   }
+}
 
-  static CallOptions _mergedCallOptionsWith(
-    EventStoreClientSettings settings, {
-    CallOptions? options,
-    Duration? timeoutAfter,
-    UserCredentials? userCredentials,
-    EventStoreClientOperationOptions? operationOptions,
-  }) {
-    return EventStoreCallOptions.create(
-      settings,
-      timeoutAfter: timeoutAfter,
-      userCredentials: userCredentials,
-      operationOptions: operationOptions,
-    )..mergedWith(options);
-  }
+CallOptions $mergedCallOptionsWith(
+  EventStoreClientSettings settings, {
+  CallOptions? options,
+  Duration? timeoutAfter,
+  UserCredentials? userCredentials,
+  EventStoreClientOperationOptions? operationOptions,
+}) {
+  return EventStoreCallOptions.create(
+    settings,
+    timeoutAfter: timeoutAfter,
+    userCredentials: userCredentials,
+    operationOptions: operationOptions,
+  )..mergedWith(options);
 }
