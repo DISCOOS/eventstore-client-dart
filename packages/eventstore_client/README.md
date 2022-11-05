@@ -61,25 +61,41 @@ The EventStore team could add in-process proxy support using [Grpc.AspNetCore.We
 but I doubt they will prioritize this because gRCP-web have limited streaming support (details below). 
 If you plan to connect directly to EventStoreDB from a browser, you need to configure a gRCP-web proxy in 
 front of EventStoreDB, that translates between [native gRPC](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md) 
-and gRPC-web protocols automatically (see official[Google implementation of grpc-web](https://github.com/grpc/grpc-web)).
+and gRPC-web protocols automatically (see official [Google implementation of grpc-web](https://github.com/grpc/grpc-web)).
 
 #### IMPORTANT! 
 gRPC-web have [limited streaming support](https://github.com/grpc/grpc-web#streaming-support). 
 Especially bidirectional streams (both RPC requests and responses are sent and received using streams) which 
-EventStoreDB use for Append-operations, are not supported by the gRPC-web protocol. When browser-support 
+EventStoreDB use for `Append`-operations, are not supported by the gRPC-web protocol. When browser-support 
 for [Streams](https://streams.spec.whatwg.org/) is high enough ([see global coverage](https://caniuse.com/streams)), 
 the gRCP-web protocol will become optional and web clients will also be able to use the native gRPC protocol.
 
+The following EventStore commands are not supported in the browser as
+a consequence of these limitations:
+
+```protobuf
+// persistent.proto
+service PersistentSubscriptions {
+  // Client streaming of requests is not supported by grpc-web
+  rpc Read (stream ReadReq) returns (stream ReadResp);
+}
+
+// streams.proto
+service Streams {
+  // Client streaming of requests is not supported by grpc-web
+  rpc Append (stream AppendReq) returns (AppendResp);
+  // Client streaming of requests is not supported by grpc-web
+  rpc BatchAppend (stream BatchAppendReq) returns (stream BatchAppendResp);
+}
+```
+
+
 #### Choices if you need web-support
-You have three technical different options to choose from when connecting to EventStoreDB from a browser with 
+You have two principally different options to choose from when connecting to EventStoreDB from a browser with 
 EventStore client.
 
 If you only need to read events, then one of these options is sufficient
-1. use Envoy as reverse proxy (official solution, Front + Sidecar Proxy, 
-  see [conceptual example using AWS](https://aws.amazon.com/blogs/compute/setting-up-an-envoy-front-proxy-on-amazon-ecs/))
-2. use another reverse proxy from the community, 
-  see [proxying gRPC-web](https://microsoft.github.io/reverse-proxy/articles/grpc.html#grpc-web) 
-  with [YARP](https://microsoft.github.io/reverse-proxy/) from Microsoft (open source)
+1. use Envoy as [bridge](tool/grpc/bridge/README.md) between gprc-web and native grpc protocols (official Google solution)
 3. implement an [in-process proxy](https://github.com/grpc/grpc-web/blob/master/doc/in-process-proxy.md)
   in EventStoreDB yourself
 
@@ -93,12 +109,46 @@ to repeat this for all EventStore gRPC service commands that are bidirectional, 
 
 **My advice**
 
-If you need Append-support from the browser, I think the better solution is to wait for the official support 
+If you need `Append`-support from the browser, I think the better solution is to wait for the official support 
 of [native gRPC](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md) that
 use [Streams](https://streams.spec.whatwg.org/). I don't know when this will happen, but 
 the ([global coverage](https://caniuse.com/streams)) is ~94% now. See the
 [roadmap for full streaming support](https://github.com/grpc/grpc-web/blob/master/doc/streaming-roadmap.md) 
 for official information about web-support.
+
+### Multi-platform coding tips
+When working with Dart code that only runs on specific platforms, you need organize the 
+code such that it only loads on these platforms. You can do this by organizing platform 
+specific code in files that are conditionally imported and exported. 
+See [constants.dart](lib/src/core/constants.dart) for a simple example and 
+[client.dart](lib/src/core/client.dart) for a more complicated one. Both operate using 
+the following principle:
+```dart
+// my_library.dart
+
+// Conditional usage based on dart:html support
+// NOTE: Conditional could be any other core dart feature
+// IMPORTANT! The actual code in each library must have the 
+// same contract for this to work. E.g same constant, field, 
+// function, class or mixin name that this file uses. 
+import 'dep_io.dart' if(dart.library.html) 'dep_web.dart';
+
+// Conditional export of elements in dep_io.dart and dep_web.dart
+// NOTE: This is only needed if consumers of my_library need to 
+// use any elements in dep_io.dart and dep_web.dart 
+// (invoke, create instance, subclass or override).
+export 'dep_io.dart' if(dart.library.html) 'dep_web.dart';
+
+// Some code that depends on 'Dep' class with same public 
+// interface in both dep_io.dart and dep_web.dart
+class MyLibrary extends Dep{}
+
+```
+
+We have used this method to conditionally set 
+* the `MAX` constant to safe maximum values (2^53-1 for js, 2^64-1 for all others)
+* set [EventStoreClientBase.isGrpcWeb](lib/src/core/client_base.dart) - used to gracefully fail unsupported operations
+* add guards that prevents use of EventStore commands that is unsupported on web
 
 ## Features and bugs
 

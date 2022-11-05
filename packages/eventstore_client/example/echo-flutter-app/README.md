@@ -21,6 +21,3 @@ service Streams {
   rpc BatchAppend (stream BatchAppendReq) returns (stream BatchAppendResp);
 }
 ```
-
-As shown above, this essentially mean that only Stream read-operations are 
-possible in the browser.
