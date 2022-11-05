@@ -1,3 +1,6 @@
+# 0.7.1
+- Bumped version in lockstep with eventstore_client.
+
 # 0.7.0
 - Added verbose option to esdbtcli start command
 - Added EventStoreImage tag option to esdbtcli
