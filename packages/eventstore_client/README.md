@@ -48,7 +48,7 @@ void main() async {
 
 ## Usage and documentation
 This client is not yet properly documented, but we have made [some example usages](example/README.md),
-and publish the [API reference](https://pub.dev/documentation/eventstore_client/latest).
+and published the [API reference](https://pub.dev/documentation/eventstore_client/latest).
 For additional documentation about general usage, see the 
 [official documentation for gRPC clients](https://developers.eventstore.com/clients/grpc/getting-started)
 on [eventstore.com](https://developers.eventstore.com).
@@ -104,15 +104,14 @@ the gRCP-web proxy (Envoy or in-process) and EventStoreDB. This custom gRPC serv
 `Append` command exposed by EventStoreDB to a command exposed by the custom gRCP server that is supported by the 
 gRPC-web protocol. You could do this by implementing an `Append` command with an unary request (all events in one 
 request) that returns a stream of responses (same as the `Append` command exposed by EventStoreDB does). 
-This command _is_ supported by gRCP-web and _should work_ (in theory, I have not tested it myself). You would need 
-to repeat this for all EventStore gRPC service commands that are bidirectional, which is a big undertaking.
+This command _is_ supported by gRCP-web and _should work_ (in theory, I have not tested it myself). 
 
 **My advice**
 
 If you need `Append`-support from the browser, I think the better solution is to wait for the official support 
 of [native gRPC](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md) that
 use [Streams](https://streams.spec.whatwg.org/). I don't know when this will happen, but 
-the ([global coverage](https://caniuse.com/streams)) is ~94% now. See the
+the [global coverage](https://caniuse.com/streams) is already high. See the
 [roadmap for full streaming support](https://github.com/grpc/grpc-web/blob/master/doc/streaming-roadmap.md) 
 for official information about web-support.
 
@@ -173,9 +172,9 @@ Please file feature requests and bugs at the [issue tracker][tracker].
 
 ## Community
 There is a community discussion space at [Event Store Discuss](https://discuss.eventstore.com).
-If you prefer slack, there is also an #eventstore channel in the [DDD-CQRS-ES](https://j.mp/ddd-es-cqrs)
-slack community. The maintainers of this community developed client will do their
-best to answer any questions in both these channels.
+If you prefer Discord, there is also an [#event-store-db](https://discord.com/channels/514783899440775168/762672037113757746) 
+channel. [Click to join](https://discord.gg/7TfNjdckcY) the community and start asking questions. The maintainers of this community 
+developed client will do their best to answer any questions in both these channels.
 
 ## Contributing
 Development is done on the `master` branch. As for the official clients, we also
