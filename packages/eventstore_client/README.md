@@ -66,12 +66,8 @@ and gRPC-web protocols automatically (see official [Google implementation of grp
 #### IMPORTANT! 
 gRPC-web have [limited streaming support](https://github.com/grpc/grpc-web#streaming-support). 
 Especially bidirectional streams (both RPC requests and responses are sent and received using streams) which 
-EventStoreDB use for `Append`-operations, are not supported by the gRPC-web protocol. When browser-support 
-for [Streams](https://streams.spec.whatwg.org/) is high enough ([see global coverage](https://caniuse.com/streams)), 
-the gRCP-web protocol will become optional and web clients will also be able to use the native gRPC protocol.
-
-The following EventStore commands are not supported in the browser as
-a consequence of these limitations:
+EventStoreDB use for `Append`-operations, are not supported by the gRPC-web protocol. The following 
+EventStore commands are not supported in the browser as a consequence of these limitations:
 
 ```protobuf
 // persistent.proto
@@ -89,6 +85,9 @@ service Streams {
 }
 ```
 
+When browser-support
+for [Streams](https://streams.spec.whatwg.org/) is high enough ([see global coverage](https://caniuse.com/streams)),
+the gRCP-web protocol will become optional and web clients will also be able to use the native gRPC protocol.
 
 #### Choices if you need web-support
 You have two principally different options to choose from when connecting to EventStoreDB from a browser with 
