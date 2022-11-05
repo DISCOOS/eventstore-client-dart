@@ -7,6 +7,7 @@ include: package:lints/recommended.yaml
 analyzer:
   exclude:
     - lib/src/generated/**
+    - example/echo-flutter-app
   language:
     strict-raw-types: true
   strong-mode:

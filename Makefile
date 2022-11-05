@@ -11,6 +11,7 @@ configure:
 	dart pub global activate dartdoc
 	dart pub global activate dhttpd
 	dart pub global activate mono_repo
+	dart pub global activate pana
 	dart pub global activate protoc_plugin
 	dart pub global activate eventstore_client_test
 	brew install act
