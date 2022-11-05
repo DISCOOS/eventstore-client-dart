@@ -1,5 +1,5 @@
 name: eventstore_client
-version: 0.7.0
+version: 0.7.1
 homepage: https://github.com/DISCOOS/eventstore-client-dart
 description: A community developed gRPC client library for EventStoreDB. EventStoreDB is an open-source, functional database with Complex Event Processing capabilities.
 repository: https://github.com/DISCOOS/eventstore-client-dart

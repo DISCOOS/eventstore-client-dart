@@ -1,3 +1,9 @@
+# 0.7.1
+- Added web platform support
+- Added flutter example app
+- Upgraded to grpc 3.1.0
+- Improved documentation
+
 # 0.6.1
 - Refactored grpc imports to hide http2-imports
 - Added funding to pubspec.yaml
